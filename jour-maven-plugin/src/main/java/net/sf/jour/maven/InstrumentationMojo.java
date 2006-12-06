@@ -13,7 +13,9 @@ import org.apache.maven.plugin.logging.Log;
  * @author vlads
  *
  * @goal instrument
- *
+ * 
+ * @pahse process-classes
+ * 
  * @description Instrument
  */
 public class InstrumentationMojo extends AbstractMojo {

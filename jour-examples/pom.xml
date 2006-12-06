@@ -41,9 +41,17 @@
                 <groupId>net.sf.jour</groupId>
                 <artifactId>jour-maven-plugin</artifactId>
                 <version>${version}</version>
-                <configuration>
-
-                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>instrument</goal>
+                        </goals>
+                        <configuration>
+                            <jourConfig>${basedir}/process-classes.jour.xml</jourConfig>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
