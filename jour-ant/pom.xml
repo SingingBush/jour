@@ -13,44 +13,21 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>jour-instrument</artifactId>
-    <name>jour-instrument</name>
-    <description>jour-instrument</description>
+    <artifactId>jour-ant</artifactId>
+    <name>jour-ant</name>
+    <description>jour ant task</description>
 
     <dependencies>
+
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>javassist</artifactId>
+            <groupId>net.sf.jour</groupId>
+            <artifactId>jour-instrument</artifactId>
+            <version>${version}</version>
         </dependency>
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-adapters</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.castor</groupId>
-            <artifactId>castor</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>regexp</groupId>
-            <artifactId>regexp</artifactId>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
         </dependency>
 
         <dependency>

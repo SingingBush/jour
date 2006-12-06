@@ -1,0 +1,66 @@
+~~ @version $Revision$ ($Author$) $Date$
+~~ See this file format http://maven.apache.org/guides/mini/guide-apt-format.html
+
+                                    ------------------
+                                    Bytecode Instrumentation
+
+Bytecode Instrumentation
+
+* Preprocessing
+
+    Bytecode Instrumentation is done using preprocessing. Original classes are not changed.
+
+    * jour.xml
+
+        This file is used to define what kind of instrumentation would be applied and to which classes and methods.
+
+---
+<jour>
+    <aspect type="net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor">
+        <typedef>com.solect.*</typedef>
+        <pointcut expr="* debug*(..)"/>
+    </aspect>
+</jour>
+---
+
+    This will instrument all classes that have functions like debug.
+
+    Consider original code.
+
+---
+public class ClassWithDebug {
+
+	public ClassWithDebug(String param) {
+		debug("ClassWithDebug created", param);
+	}
+
+	public void debug(String message, String v) {
+		System.out.println(message + " " + v);
+	}
+}
+---
+
+    This is how the code will look after instrumentation and decompilation
+
+---
+public class ClassWithDebug {
+
+	public ClassWithDebug(String param) {
+		debug("ClassWithDebug created", param);
+	}
+
+	public void debug(String message, String v) {
+	}
+}
+---
+
+    This is how the code will look after instrumentation processing by ProGuard and decompilation
+
+---
+public class ClassWithDebug {
+
+	public ClassWithDebug(String param) {
+	}
+
+}
+---

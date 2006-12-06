@@ -1,0 +1,26 @@
+~~ @version $Revision$ ($Author$) $Date$
+~~ See this file format http://maven.apache.org/guides/mini/guide-apt-format.html
+
+                                    ------------------
+                                    Maven
+
+Building project using maven
+
+* Releases
+
+    We are woking on publishing in http://www.ibiblio.org ...
+
+    Now the releases available from the {{{http://jour.sourceforge.net/maven2}http://jour.sourceforge.net/maven2}} jour maven 2 repository.
+    You need to add this repository to your $home/.m2/settings.xml
+
+---
+        <repository>
+            <id>jour-web</id>
+            <url>http://jour.sourceforge.net/maven</url>
+        </repository>
+---
+
+* Development snapshot
+
+    The latest snapshot builds can be downloaded directly from the {{{http://www.pyx4j.com/maven2/}http://www.pyx4j.com/maven2}} pyx4j.com maven 2 repository.
+

@@ -13,44 +13,38 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>jour-instrument</artifactId>
-    <name>jour-instrument</name>
-    <description>jour-instrument</description>
+    <artifactId>jour-maven-plugin</artifactId>
+    <name>jour-maven-plugin</name>
+    <description>jour maven2 plugin</description>
+    <packaging>maven-plugin</packaging>
 
     <dependencies>
+
         <dependency>
-            <groupId>jboss</groupId>
-            <artifactId>javassist</artifactId>
+            <groupId>net.sf.jour</groupId>
+            <artifactId>jour-instrument</artifactId>
+            <version>${version}</version>
         </dependency>
 
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-plugin-api</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-adapters</artifactId>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-api</artifactId>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
 
         <dependency>
-            <groupId>org.codehaus.castor</groupId>
-            <artifactId>castor</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>regexp</groupId>
-            <artifactId>regexp</artifactId>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-archiver</artifactId>
         </dependency>
 
         <dependency>
@@ -75,6 +69,10 @@
 
     <reporting>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>

@@ -1,0 +1,47 @@
+~~ @version $Revision$ ($Author$) $Date$
+~~ See this file format http://maven.apache.org/guides/mini/guide-apt-format.html
+
+                                    ------------------
+                                    Overview
+                                    ------------------
+
+
+Jour overview
+
+    The Jour library is an open source suite of java bytecode instrumentation base on {{{http://www.jboss.org/products/javassist}Javassist}}.
+
+* Key usage examples
+
+    * Bytecode optimization.
+
+    * Aspect Oriented Programming.
+
+    * Profiler and monitoring tools. See {{{http://jour.sourceforge.net/0.3.1}Old Jour}}
+
+    * UnitTest helper for J2ME.
+
+    * Bytecode optimization for specific J2ME device. See {{{http://www.pyx4me.com}pyx4me}}
+
+
+* Features
+
+    * Easy to use and add new type of instrumentation.
+
+    * Integration into Ant and Maven build systems.
+
+
+
+* Requirements
+
+   * Java 2 SE 1.4+
+
+
+* What project name stands for?
+
+   Jour is abbreviation of journeyman.
+
+   According to Merriam-Webster Online Dictionary.
+
+    * a worker who has learned a trade and works for another person usually by the day
+
+    * an experienced reliable worker or performer especially as distinguished from one who is brilliant or colorful
