@@ -15,5 +15,33 @@ java -jar jour-instrument-2.0.0.jar --config jour.xml --src classesDir|classes.j
 
 * Building instrumented project using Maven2
 
+---
+<project>
+    ...
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>net.sf.jour</groupId>
+                <artifactId>jour-maven-plugin</artifactId>
+                <version>2.0.0</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>instrument</goal>
+                        </goals>
+                        <configuration>
+                            <jourConfig>${basedir}/process-classes.jour.xml</jourConfig>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
+---
+
 * Building instrumented project using Ant
 
