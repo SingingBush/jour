@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="aspect">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="typedef" minOccurs="0"/>
+				<xs:element ref="pointcut" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="descr" type="xs:string" use="optional" default=""/>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+			<xs:attribute name="enabled" type="xs:boolean" use="optional" default="true"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="jour">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="aspect" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="debug" type="xs:boolean" use="optional" default="false"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="pointcut">
+		<xs:complexType>
+			<xs:attribute name="expr" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="typedef" type="xs:string"/>
+</xs:schema>

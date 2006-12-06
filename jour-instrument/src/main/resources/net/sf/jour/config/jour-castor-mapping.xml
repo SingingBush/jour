@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Object Mapping DTD Version 1.0//EN" "http://castor.org/mapping.dtd">
+<mapping>
+	<!-- @version $Revision$ ($Author$) $Date$ -->
+
+	<class name="net.sf.jour.config.Jour">
+		<map-to xml="jour"/>
+
+		<field name="aspect" type="net.sf.jour.config.Aspect" collection="collection" required="true">
+			<bind-xml name="aspect" node="element"/>
+		</field>
+
+		<field name="debug" type="boolean" required="false">
+			<bind-xml name="debug" node="attribute"/>
+		</field>
+
+    </class>
+
+	<class name="net.sf.jour.config.Aspect">
+
+		<field name="descr" type="java.lang.String" required="false">
+			<bind-xml name="descr" node="attribute"/>
+		</field>
+
+		<field name="type" type="java.lang.String" required="true">
+			<bind-xml name="type" node="attribute"/>
+		</field>
+
+		<field name="enabled" type="boolean" required="false">
+			<bind-xml name="enabled" node="attribute"/>
+		</field>
+
+		<field name="typedef" type="java.lang.String">
+			<bind-xml name="typedef" node="element"/>
+		</field>
+
+		<field name="pointcut" type="net.sf.jour.config.Pointcut" collection="collection" required="true">
+			<bind-xml name="pointcut" node="element"/>
+		</field>
+
+	</class>
+
+    <class name="net.sf.jour.config.Pointcut">
+        <field name="expr" type="java.lang.String" required="false">
+			<bind-xml name="expr" node="attribute"/>
+		</field>
+    </class>
+
+</mapping>
