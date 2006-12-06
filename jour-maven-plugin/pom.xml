@@ -15,7 +15,7 @@
 
     <artifactId>jour-maven-plugin</artifactId>
     <name>jour-maven-plugin</name>
-    <description>jour maven2 plugin</description>
+    <description>Maven2 jour plugin</description>
     <packaging>maven-plugin</packaging>
 
     <dependencies>

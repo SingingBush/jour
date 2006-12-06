@@ -15,7 +15,7 @@
 
     <artifactId>jour-examples</artifactId>
     <name>jour-examples</name>
-    <description>examples and integration tests of jour ant task and maven-plugin usage</description>
+    <description>Examples and integration tests of jour ant task and maven-plugin usage</description>
 
     <dependencies>
 
@@ -48,5 +48,23 @@
 
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                   <reportSet>
+                      <reports>
+                         <report>index</report>
+                         <report>dependencies</report>
+                         <report>dependency-convergence</report>
+                      </reports>
+                   </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>

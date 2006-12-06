@@ -15,7 +15,7 @@
 
     <artifactId>jour-ant</artifactId>
     <name>jour-ant</name>
-    <description>jour ant task</description>
+    <description>Jour ant task</description>
 
     <dependencies>
 
@@ -58,6 +58,7 @@
                 <reportSets>
                    <reportSet>
                       <reports>
+                         <report>index</report>
                          <report>dependencies</report>
                          <report>dependency-convergence</report>
                       </reports>

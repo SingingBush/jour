@@ -15,7 +15,7 @@
 
     <artifactId>jour-instrument</artifactId>
     <name>jour-instrument</name>
-    <description>jour-instrument</description>
+    <description>Jour main instrumentation module</description>
 
     <dependencies>
         <dependency>
@@ -81,6 +81,7 @@
                 <reportSets>
                    <reportSet>
                       <reports>
+                         <report>index</report>
                          <report>dependencies</report>
                          <report>dependency-convergence</report>
                       </reports>

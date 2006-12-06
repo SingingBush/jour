@@ -3,11 +3,11 @@
 
 <!-- @version $Revision$ ($Author$) $Date$ -->
 
-    <publishDate position="left" format="MM-dd-yyyy HH:mm z 'GMT'Z" />
+    <publishDate position="left" format="MMM-dd-yyyy HH:mm z 'GMT'Z" />
 
     <bannerLeft>
             <name>Jour</name>
-            <src>images/logo.jpg</src>
+            <src>http://jour.sourceforge.net/images/logo.jpg</src>
             <href>http://jour.sourceforge.net/</href>
     </bannerLeft>
 
@@ -22,18 +22,20 @@
         </menu>
 
         <menu name="Overview">
-            <item name="Introduction" href="index.html" />
-            <item name="Usage" href="usage.html" />
-            <item name="Instrumentation" href="instrumentation.html" />
-            <item name="Faq" href="faq.html" />
+            <item name="Introduction" href="http://jour.sourceforge.net/index.html" />
+            <item name="Usage" href="http://jour.sourceforge.net/usage.html" />
+            <item name="Instrumentation" href="http://jour.sourceforge.net/instrumentation.html" />
+            <item name="Faq" href="http://jour.sourceforge.net/faq.html" />
 
             <item name="Download">
                 <item name="Releases" href="http://sourceforge.net/project/showfiles.php?group_id=122892"/>
-                <item name="Maven" href="maven.html"/>
-                <item name="SVN Access" href="source-repository.html"/>
+                <item name="Maven" href="http://jour.sourceforge.net/maven.html"/>
+                <item name="SVN Access" href="http://jour.sourceforge.net/source-repository.html"/>
             </item>
 
         </menu>
+
+        <menu ref="parent" />
 
         <menu ref="modules" collapse="true" />
 
