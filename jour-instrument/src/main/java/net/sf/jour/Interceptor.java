@@ -56,7 +56,7 @@ public class Interceptor {
 	/**
 	 * Creates a new Interceptor object.
 	 */
-	public Interceptor(ClassPool pool, String className, Instrumentor[] instrumentors) throws InterceptorException {
+	public Interceptor(Config config, ClassPool pool, String className, Instrumentor[] instrumentors) throws InterceptorException {
 		if ((instrumentors == null) || (instrumentors.length == 0)) {
 			throw new InterceptorException("Should be at least one instrumentor");
 		}

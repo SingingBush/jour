@@ -21,7 +21,7 @@ public class InstrumentingTranslator implements Translator {
 	public void onLoad(ClassPool pool, String classname) throws NotFoundException, CannotCompileException {
 		Instrumentor[] instrumentors = config.getInstrumentors(classname);
         if (instrumentors.length > 0) {
-            Interceptor interceptor = new Interceptor(pool, classname, instrumentors);
+            Interceptor interceptor = new Interceptor(this.config , pool, classname, instrumentors);
             interceptor.instrument();
         }
 	}

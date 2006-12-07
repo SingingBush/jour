@@ -20,6 +20,9 @@
  */
 package net.sf.jour;
 
+import java.io.File;
+
+import net.sf.jour.test.Utils;
 import junit.framework.TestCase;
 
 /*
@@ -35,18 +38,33 @@ import junit.framework.TestCase;
  */
 public class TestPreProcessor extends TestCase {
     
-    public void xtestPreProcessor() throws Exception {
+    public void testPreProcessorDirectory() throws Exception {
         
-        PreProcessor.main(new String[]{
-			"-src", "./target/test-classes/", 
-			"-dst", "./target/test-iclasses"});       
+		File srcDir = new File(Utils.getClassResourcePath(this.getClass().getName()));
+		
+		File dstDir = new File(srcDir.getParentFile(), "test-iclasses-dir");
+		
+		PreProcessor pp = new PreProcessor(new String[]{
+        	"--config", Utils.getResourceAbsolutePath("/preProcessorTest.jour.xml"), 	
+			"--src", srcDir.getAbsolutePath(), 
+			"--dst", dstDir.getAbsolutePath()});
+		pp.process();
+		
+		assertTrue("Nothing instrumented", pp.getCountMethods() > 0);
     }
 
-	public void testPreProcessor01() throws Exception {
+    public void testPreProcessorJar() throws Exception {
         
-		PreProcessor.main(new String[]{
-			"-classlist", "./src/test/resources/case01.list.txt", 
-			"-dst", "./target/test-iclasses"});       
-	}    
-
+		File srcJar = new File(Utils.getResourceAbsolutePath("/jarPreProcessorTest.jar"));
+		
+		File dstDir = new File(srcJar.getParentFile().getParentFile(), "test-iclasses-jar");
+		
+		PreProcessor pp = new PreProcessor(new String[]{
+        	"--config", Utils.getResourceAbsolutePath("/preProcessorTest.jour.xml"), 	
+			"--src", srcJar.getAbsolutePath(), 
+			"--dst", dstDir.getAbsolutePath()});
+		pp.process();
+		
+		assertTrue("Nothing instrumented", pp.getCountMethods() > 0);
+    }
 }

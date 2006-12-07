@@ -43,8 +43,8 @@ public class Config {
 	protected boolean isDebug;
 
 	/**
-     * Key - ClassFilter, value - Instrumentor
-     */
+	 * Key - ClassFilter, value - Instrumentor
+	 */
 	private HashMap instrumentors = new HashMap();
 
 	public Config() {
@@ -52,19 +52,22 @@ public class Config {
 	}
 
 	public Config(String configFileName) {
+		if (configFileName == null) {
+			configFileName = DEFAULTCONFING_FILE;
+		}
 		initialize(FileUtil.getFile(configFileName));
 	}
 
 	public Config(URL configLocation) {
 		initialize(configLocation);
 	}
-	
+
 	protected void initialize(URL configLocation) {
-		Jour config = (Jour) ConfigFileUtil
-				.unmarshalConfigFile(configLocation, "/net/sf/jour/config/jour-castor-mapping.xml");
-		if (config != null) {
-			isDebug = config.isDebug();
-			List aspectList = config.getAspect();
+		Jour jour = (Jour) ConfigFileUtil.unmarshalConfigFile(configLocation,
+				"/net/sf/jour/config/jour-castor-mapping.xml");
+		if (jour != null) {
+			isDebug = jour.isDebug();
+			List aspectList = jour.getAspect();
 			if (aspectList == null) {
 				return;
 			}

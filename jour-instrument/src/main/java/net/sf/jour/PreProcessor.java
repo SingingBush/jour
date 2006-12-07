@@ -20,19 +20,29 @@
  */
 package net.sf.jour;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Properties;
+import java.util.Vector;
 
-import javassist.*;
-import net.sf.jour.instrumentor.*;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.NotFoundException;
+import net.sf.jour.instrumentor.Instrumentor;
+import net.sf.jour.processor.DirectoryInputSource;
+import net.sf.jour.processor.DirectoryOutputWriter;
+import net.sf.jour.processor.Entry;
+import net.sf.jour.processor.InputSource;
+import net.sf.jour.processor.InstrumentedEntry;
+import net.sf.jour.processor.JarFileInputSource;
+import net.sf.jour.processor.OutputWriter;
+import net.sf.jour.util.CmdArgs;
 
 import org.apache.log4j.Logger;
 
-//import net.sf.jour.util.PropertiesBase;
-import net.sf.jour.util.FileUtil;
-
 /**
- * TODO add docs.
  *
  * Created on 02.10.2004
  *
@@ -45,198 +55,178 @@ import net.sf.jour.util.FileUtil;
  * @version $Revision$ ($Author$) $Date$
  */
 public class PreProcessor {
-    
+
 	protected static final Logger log = Logger.getLogger(PreProcessor.class);
-	
-    public static long startTime = new Date().getTime();
-	
-    public long savedClasses;
-    private long countMethods;
-    private long countCounstructors;
-    
-    private static final char FILE_SEPARATOR = System.getProperty("file.separator").charAt(0);
 
-	//private PropertiesBase properties;
-	
-    private File startFile;
-    
-	private File classList;
+	public long savedClasses;
 
-    private String outDir;
-    
-    Config config;
+	public long countClasses;
 
-    public PreProcessor(/*PropertiesBase properties*/) {
-//    	//this.properties = properties;
-//		
-//    	log.info("java.class.path = " + System.getProperty("java.class.path"));
-//    	
-//    	File out;// = properties.getFolder("dst", true);
-//		if (out == null) {
-//			throw new Error("-dst DIR Output folder expected");
-//		}
-//		
-//        String classlist = properties.getProperty("classlist");
-//        if (classlist != null) {
-//            this.classList = properties.getFile("classlist", true);
-//            if (this.classList == null) {
-//                throw new Error("-classlist fileName Input file expected");
-//            }
-//        } else {
-//            File f = properties.getFolder("src", false);
-//            if (f == null) {
-//                throw new Error("-src DIR Input folder expected");
-//            }
-//            this.startFile = f;
-//        }
-//
-//        System.out.println("Start Processor");
-//
-//		this.outDir = out.getAbsolutePath();
-		
-		config = new Config(); 
-    }
+	private long countMethods;
 
-    public void process() throws Exception {
-		
-//		InstrumentationMap map = InstrumentationMap.instance();
-//		String mapFile = properties.getProperty("imap", 
-//			outDir + File.separator + InstrumentationMap.DEFULAT_FILE_NAME);
-//		
-//		if (new File(mapFile).canRead()) {
-//			map.load(new File(mapFile));
-//    	}	
-//		
-//    	if (this.startFile != null) {
-//	        process(this.startFile);
-//    	} else if (this.classList != null) {
-//			processList(this.classList);
-//    	}
-//    	
-//    	if (map.isUpdated()) {
-//    		if (map.save(mapFile)) {
-//    			log.info("Map saved " + mapFile);
-//    		}
-//    	}
-//    	log.info("Map size " + map.size());
-//		log.info("Altered Counstructors " + this.countCounstructors);
-//		log.info("Altered Methods " + this.countMethods);
-//		log.info("Saved Classes " + savedClasses);
-    }
+	private long countCounstructors;
 
-    public void process(File f) throws Exception {
-        if (f.isFile()) {
-            processFile(f);
-        } else if (f.isDirectory()) {
-            processDirectory(f);
-        }
-    }
+	private File input;
 
-    void processDirectory(File f) throws Exception {
-        String[] flist = f.list();
-        String initPath = f.getCanonicalPath();
-		log.debug(f);
-        for (int i = 0; i < flist.length; i++) {
-            String path = initPath;
+	private File output;
 
-            if (path.charAt(path.length() - 1) != FILE_SEPARATOR) {
-                path += FILE_SEPARATOR;
-            }
+	Config config;
 
-            path += flist[i];
+	ClassPool classPool;
 
-            File f1 = new File(path);
-            process(f1);
-        }
-    }
+	public PreProcessor(String[] args) throws NotFoundException {
+		this(CmdArgs.load(args));
+	}
 
-    void processFile(File f) throws Exception {
-        //log.debug(f);
-        String className = fileName2Class(f);
-        if (className != null) {
-			processClass(className);
-        }
-    }
-    
-	private void processList(File f) throws Exception {
-		HashSet list = FileUtil.readTextFile(f);
-		if (list == null) {
-			return;
+	public PreProcessor(Properties properties) throws NotFoundException {
+		String configFileName = properties.getProperty("config");
+		String out = properties.getProperty("dst");
+		String in = properties.getProperty("src");
+		if (out == null) {
+			out = in;
 		}
-		for (Iterator i = list.iterator(); i.hasNext(); ) {
-			String className = (String) i.next();
-			processClass(className);
+
+		List classpath = new Vector();
+
+		Object cp = properties.get("cp");
+		if (cp != null) {
+			if (cp instanceof List) {
+				classpath.addAll((List) cp);
+			} else {
+				classpath.add(cp);
+			}
+		}
+		cp = properties.get("classpath");
+		if (cp != null) {
+			if (cp instanceof List) {
+				classpath.addAll((List) cp);
+			} else {
+				classpath.add(cp);
+			}
+		}
+
+		init(configFileName, new File(in), new File(out), classpath);
+	}
+
+	public PreProcessor(String configFileName, File in, File out, List classpath) throws NotFoundException {
+		init(configFileName, in, out, classpath);
+	}
+
+	private void init(String configFileName, File in, File out, List classpath) throws NotFoundException {
+		if ((in == null) || (!in.exists())) {
+			throw new Error("Input jar or folder expected");
+		}
+		if (in.isFile() && (!in.getName().endsWith(".jar"))) {
+			throw new Error("Input file should be .jar");
+		}
+		this.input = in;
+		this.output = out;
+		this.config = new Config(configFileName);
+		this.classPool = new ClassPool();
+		this.classPool.appendSystemPath();
+		this.classPool.appendClassPath(this.input.getAbsolutePath());
+
+		for (Iterator i = classpath.iterator(); i.hasNext();) {
+			this.classPool.appendPathList((String) i.next());
 		}
 	}
 
-    void processClass(String className) throws Exception {
-        log.debug("className " + className);
-        ClassPool pool = ClassPool.getDefault();
-        Instrumentor[] instrumentors = config.getInstrumentors(className);
-        if (instrumentors.length > 0) {
-            log.debug("intercepting class " + className);
-            Interceptor interceptor = new Interceptor(pool, className, instrumentors);
-            CtClass cc = interceptor.instrument();
-            log.debug("intercepted methods " + interceptor.getCountMethods());
-            if (interceptor.isModified()) {
-	            cc.writeFile(outDir);
-    	        this.savedClasses ++;
-    	        this.countCounstructors += interceptor.getCountCounstructors();
-    	        this.countMethods += interceptor.getCountMethods();
-            }
-        }
-    }
+	public void process() throws Exception {
 
-    String fileName2Class(File f) {
-        String className = null;
+		OutputWriter outputWriter;
+		if (!output.isFile()) {
+			outputWriter = new DirectoryOutputWriter(output);
+		} else {
+			throw new Error("jar output not supported yet");
+		}
 
-        try {
-            if (f.getName().endsWith(".class")) {
-            	String baseName = startFile.getCanonicalPath();
-            	String fileName = f.getCanonicalPath();
-                int idx = fileName.indexOf(baseName);
-                if (idx == -1) {
-            		log.debug("base:" + baseName);
-            		log.debug("file:" + fileName);
-                	return null;
-                }
-            	idx = baseName.length() + 1;
-                    
-                className = fileName.substring(idx).replace(FILE_SEPARATOR, '.');
-                className = className.substring(0,
-                        className.length() - ".class".length());
-            }
-        } catch (IOException e) {
-            log.error("File name rrror ", e);
-            return null;
-        }
+		InputSource inputSource;
+		if (input.isDirectory()) {
+			inputSource = new DirectoryInputSource(input);
+		} else {
+			inputSource = new JarFileInputSource(input);
+		}
 
-        return className;
-    }
+		int countEntry = 0;
 
-    String class2FileName(String classname) {
-        return startFile.getAbsolutePath() + FILE_SEPARATOR +
-        classname.replace('.', FILE_SEPARATOR) + ".class";
-    }
+		try {
 
-    public static void main(String[] args) {
-        if (args.length < 1) {
-            System.out.println("Usage:java net.sf.jour.PreProcessor " 
-            + " -dst outDir \n"
-            + " (-src targetDir | -classlist fileName.txt)"
-            + " [-imap mapFileName]");
-            System.exit(1);
-        }
+			for (Enumeration en = inputSource.getEntries(); en.hasMoreElements();) {
+				Entry e = (Entry) en.nextElement();
+				log.debug(e.getName());
+				if (outputWriter.needUpdate(e)) {
+					outputWriter.write(instrument(e));
+				}
+				countEntry++;
+			}
+		} finally {
+			inputSource.close();
+			outputWriter.close();
+		}
+		log.debug("countEntry   " + countEntry);
+		log.debug("countClasses " + countClasses);
 
-        try {
-			//PropertiesBase pargs = new PropertiesBase();
-			//pargs.loadArgs(args);
-			
-            //PreProcessor pp = new PreProcessor(pargs);
-            //pp.process();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-    }
+		log.info("Altered Counstructors " + this.countCounstructors);
+		log.info("Altered Methods       " + this.countMethods);
+		log.info("Saved Classes         " + this.savedClasses);
+	}
+
+	public Entry instrument(Entry entry) {
+		if (!entry.isClass()) {
+			return entry;
+		}
+		this.countClasses++;
+		String className = entry.getName().replace('/', '.');
+		className = className.substring(0, className.lastIndexOf('.'));
+		Instrumentor[] instrumentors = config.getInstrumentors(className);
+		if (instrumentors.length > 0) {
+			log.debug("intercepting class " + className);
+			Interceptor interceptor = new Interceptor(config, classPool, className, instrumentors);
+			CtClass ctClass = interceptor.instrument();
+			log.debug("intercepted methods " + interceptor.getCountMethods());
+			if (interceptor.isModified()) {
+				this.savedClasses++;
+				this.countCounstructors += interceptor.getCountCounstructors();
+				this.countMethods += interceptor.getCountMethods();
+				return new InstrumentedEntry(entry, ctClass);
+			}
+		}
+		return entry;
+	}
+
+	public long getCountCounstructors() {
+		return countCounstructors;
+	}
+
+	public long getCountMethods() {
+		return countMethods;
+	}
+
+	public long getSavedClasses() {
+		return savedClasses;
+	}
+
+	public long getCountClasses() {
+		return countClasses;
+	}
+
+	public static void main(String[] args) {
+		Properties argsp = CmdArgs.load(args);
+		if ((args.length < 1) || argsp.getProperty("help") != null) {
+			StringBuffer usage = new StringBuffer();
+			usage.append("Usage:java ").append(PreProcessor.class.getName());
+			usage.append("--config jour.xml --src classesDir|classes.jar --dst outDir|out.jar\n");
+			usage.append("    (--classpath classpath)\n");
+			return;
+		}
+
+		try {
+			PreProcessor pp = new PreProcessor(argsp);
+			pp.process();
+		} catch (Throwable e) {
+			e.printStackTrace();
+			throw new Error(e);
+		}
+	}
+
 }

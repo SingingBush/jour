@@ -12,10 +12,25 @@ public class Utils {
 	}
 	
 	public static String getClassResourcePath(String testClassName) {
-		String resource = getClassResourceName(testClassName);
+		return getResourcePath(getClassResourceName(testClassName));
+	}
+
+	public static String getResourcePath(String resource) {
 	    URL url = Utils.class.getResource(resource); 
+	    if (url == null) {
+	    	throw new Error("Resource not found " + resource);
+	    }
 	    String path = url.toExternalForm();
 	    return path.substring("file:".length(), path.length() - resource.length());
+	}
+	
+	public static String getResourceAbsolutePath(String resource) {
+	    URL url = Utils.class.getResource(resource); 
+	    if (url == null) {
+	    	throw new Error("Resource not found " + resource);
+	    }
+	    String path = url.toExternalForm();
+	    return path.substring("file:".length(), path.length());
 	}
 	
 	public static ClassPool getClassPool(String testClassName) {

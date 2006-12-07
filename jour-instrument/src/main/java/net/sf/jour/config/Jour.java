@@ -6,6 +6,8 @@ public class Jour {
 
 	List aspect;
 
+	boolean setSerialVersionUID;
+	
 	boolean debug;
 
 	public List getAspect() {
@@ -22,5 +24,13 @@ public class Jour {
 
 	public void setDebug(boolean debug) {
 		this.debug = debug;
+	}
+
+	public boolean isSetSerialVersionUID() {
+		return setSerialVersionUID;
+	}
+
+	public void setSetSerialVersionUID(boolean setSerialVersionUID) {
+		this.setSerialVersionUID = setSerialVersionUID;
 	}
 }

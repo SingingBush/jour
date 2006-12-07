@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<jour xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="jour.xsd" debug="false">
+	<aspect descr="MakeEmptyMethod" type="net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor" enabled="true">
+		<typedef>uut.makeempty.*Case</typedef>
+		<pointcut expr="* debug(..)"/>
+	</aspect>
+</jour>
