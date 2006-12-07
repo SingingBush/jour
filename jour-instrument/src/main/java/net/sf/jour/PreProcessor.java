@@ -108,11 +108,11 @@ public class PreProcessor {
 		init(configFileName, new File(in), new File(out), classpath);
 	}
 
-	public PreProcessor(String configFileName, File in, File out, List classpath) throws NotFoundException {
+	public PreProcessor(String configFileName, File in, File out, List classpath) {
 		init(configFileName, in, out, classpath);
 	}
 
-	private void init(String configFileName, File in, File out, List classpath) throws NotFoundException {
+	private void init(String configFileName, File in, File out, List classpath) {
 		if ((in == null) || (!in.exists())) {
 			throw new Error("Input jar or folder expected");
 		}
@@ -124,10 +124,17 @@ public class PreProcessor {
 		this.config = new Config(configFileName);
 		this.classPool = new ClassPool();
 		this.classPool.appendSystemPath();
-		this.classPool.appendClassPath(this.input.getAbsolutePath());
+		try {
+			this.classPool.appendClassPath(this.input.getAbsolutePath());
 
-		for (Iterator i = classpath.iterator(); i.hasNext();) {
-			this.classPool.appendPathList((String) i.next());
+			if (classpath != null) {
+				for (Iterator i = classpath.iterator(); i.hasNext();) {
+					this.classPool.appendPathList((String) i.next());
+				}
+			}
+		} catch (NotFoundException e) {
+			log.error("Can't setup class path", e);
+			throw new ConfigException("Can't setup class path", e);
 		}
 	}
 
@@ -137,7 +144,7 @@ public class PreProcessor {
 		if (!output.isFile()) {
 			outputWriter = new DirectoryOutputWriter(output);
 		} else {
-			throw new Error("jar output not supported yet");
+			throw new ConfigException("jar output not supported yet");
 		}
 
 		InputSource inputSource;
