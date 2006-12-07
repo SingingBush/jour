@@ -35,7 +35,7 @@ public class InstrumentationMojo extends AbstractMojo {
 	private File jourConfig;
 
 	/**
-	 * The directory containing generated classes.
+	 * The directory or jar containing original classes.
 	 *
 	 * @parameter expression="${project.build.outputDirectory}"
 	 * @required
