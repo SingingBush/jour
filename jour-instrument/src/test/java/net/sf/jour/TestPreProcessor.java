@@ -62,7 +62,8 @@ public class TestPreProcessor extends TestCase {
 		PreProcessor pp = new PreProcessor(new String[]{
         	"--config", Utils.getResourceAbsolutePath("/preProcessorTest.jour.xml"), 	
 			"--src", srcJar.getAbsolutePath(), 
-			"--dst", dstDir.getAbsolutePath()});
+			"--dst", dstDir.getAbsolutePath(),
+			"--classpath", srcJar.getParentFile().getAbsolutePath()});
 		pp.process();
 		
 		assertTrue("Nothing instrumented", pp.getCountMethods() > 0);
