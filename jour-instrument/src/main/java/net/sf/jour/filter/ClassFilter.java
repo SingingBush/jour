@@ -25,31 +25,12 @@ package net.sf.jour.filter;
  * @author michaellif
  */
 public class ClassFilter extends MatchStringListFilter {
-
-	// private String[] typedefArray;
-	// private Pattern[] patternArray;
-	// private RE[] patternArray;
-
+	
 	public ClassFilter(String def) {
 		super(def);
-		/*
-         * StringTokenizer tokenizer = new StringTokenizer(def,",");
-         * typedefArray = new String[tokenizer.countTokens()]; //patternArray =
-         * new Pattern[tokenizer.countTokens()]; patternArray = new
-         * RE[tokenizer.countTokens()]; int i = 0; while
-         * (tokenizer.hasMoreTokens()) { typedefArray[i] =
-         * tokenizer.nextToken().trim(); patternArray[i] =
-         * getGlobPattern(typedefArray[i]); i++; }
-         */
 	}
 
 	public boolean accept(String clazz) {
 		return match(clazz);
 	}
-
-	/*
-     * public boolean accept(String clazz) { if (typedefArray.length == 0) {
-     * return true; } for (int i = 0; i < patternArray.length; i++) { if
-     * (super.accept(patternArray[i], clazz)) { return true; } } return false; }
-     */
 }

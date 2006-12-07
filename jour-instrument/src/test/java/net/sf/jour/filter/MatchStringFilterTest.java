@@ -119,6 +119,10 @@ public class MatchStringFilterTest extends TestCase {
 		verifyList("*; !foo.* ; !bar.* ", "bar.foo", false);
 		verifyList("!foo.*;bar.*", "foo.bar", false);
 		verifyList("!foo.*;bar.*", "bar.foo.bar", true);
+		verifyList("*.examples.*; *.tests.*", "bar.tests.bar", true);
+		verifyList("*.examples.*; *.tests.*", "bar.test.bar", false);
+		verifyList("*.examples.*; *.tests.*", "bar.examples.bar", true);
+		verifyList("*.examples.*; *.tests.*", "bar.example.bar", false);
 	}
 
 }

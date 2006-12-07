@@ -108,7 +108,6 @@ public class Config {
 			if (filter.accept(className)) {
 				instrList.add(instrumentors.get(filter));
 			}
-
 		}
 		return (Instrumentor[]) instrList.toArray(new Instrumentor[0]);
 	}
@@ -119,7 +118,6 @@ public class Config {
 		while (filters.hasNext()) {
 			ClassFilter filter = (ClassFilter) filters.next();
 			instrList.add(instrumentors.get(filter));
-
 		}
 		return (Instrumentor[]) instrList.toArray(new Instrumentor[0]);
 	}
