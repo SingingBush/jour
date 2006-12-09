@@ -17,6 +17,18 @@
     <name>jour-examples</name>
     <description>Examples and integration tests of jour ant task and maven-plugin usage</description>
 
+    <distributionManagement>
+        <!-- just integration tests not shared as artifact -->
+        <repository>
+            <id>pyx4j.com-no-development</id>
+            <url>file:///${basedir}/target/tmp</url>
+        </repository>
+        <snapshotRepository>
+            <id>pyx4j.com-no-development</id>
+            <url>file:///${basedir}/target/tmp</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <dependencies>
 
         <dependency>
