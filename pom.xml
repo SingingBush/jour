@@ -147,6 +147,13 @@
             <version>1.2</version>
         </dependency>
 
+        <!-- fix to ignore repositories referenceed in castor -->
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xerces</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.codehaus.castor</groupId>
             <artifactId>castor</artifactId>
@@ -158,6 +165,7 @@
                 <exclusion><groupId>javax.transaction</groupId><artifactId>jta</artifactId></exclusion>
                 <exclusion><groupId>com.cenqua.clover</groupId><artifactId>clover</artifactId></exclusion>
                 <exclusion><groupId>ant</groupId><artifactId>ant</artifactId></exclusion>
+                <exclusion><groupId>oro</groupId><artifactId>oro</artifactId></exclusion>
                 <exclusion><groupId>jakarta-regexp</groupId><artifactId>jakarta-regexp</artifactId></exclusion>
                 <exclusion><groupId>ldapsdk</groupId><artifactId>ldapsdk</artifactId></exclusion>
                 <exclusion><groupId>cglib</groupId><artifactId>cglib-full</artifactId></exclusion>

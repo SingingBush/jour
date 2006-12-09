@@ -43,6 +43,12 @@
             <artifactId>commons-io</artifactId>
         </dependency>
 
+        <!-- fix to ignore repositories referenceed in castor -->
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xerces</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.codehaus.castor</groupId>
             <artifactId>castor</artifactId>
