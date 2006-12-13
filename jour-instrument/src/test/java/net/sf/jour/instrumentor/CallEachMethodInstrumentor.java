@@ -17,15 +17,15 @@ public class CallEachMethodInstrumentor extends AbstractInstrumentor {
 	Pointcut pointcut = new Pointcut("* test*()");
 	
 	
-	boolean instrumentClass(CtClass clazz) throws InterceptorException {
+	public boolean instrumentClass(CtClass clazz) throws InterceptorException {
 		return false;
 	}
 
-	boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException {
+	public boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException {
 		return false;
 	}
 
-	boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
+	public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
 		Iterator methods = Arrays.asList(clazz.getDeclaredMethods()).iterator();
 		List testMethods = new Vector();
 		while (methods.hasNext()) {

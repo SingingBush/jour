@@ -8,15 +8,15 @@ import net.sf.jour.filter.PointcutListFilter;
 
 public class ConfigTestInstrumentor extends AbstractInstrumentor {
 	
-	boolean instrumentClass(CtClass clazz) throws InterceptorException {
+	public boolean instrumentClass(CtClass clazz) throws InterceptorException {
 		return false;
 	}
 
-	boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException {
+	public boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException {
 		return false;
 	}
 
-	boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
+	public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
 		return true;
 	}
 	

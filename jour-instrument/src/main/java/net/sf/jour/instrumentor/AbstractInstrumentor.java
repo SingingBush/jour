@@ -124,9 +124,9 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 		this.pointcuts = pointcuts;
 	}
 
-	abstract boolean instrumentClass(CtClass clazz) throws InterceptorException;
+	public abstract boolean instrumentClass(CtClass clazz) throws InterceptorException;
 
-	abstract boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException;
+	public abstract boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException;
 
-	abstract boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException;
+	public abstract boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException;
 }
