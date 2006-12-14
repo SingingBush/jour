@@ -32,6 +32,8 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
 import net.sf.jour.instrumentor.Instrumentor;
+import net.sf.jour.instrumentor.InstrumentorResults;
+import net.sf.jour.instrumentor.InstrumentorResultsImpl;
 import net.sf.jour.processor.DirectoryInputSource;
 import net.sf.jour.processor.DirectoryOutputWriter;
 import net.sf.jour.processor.Entry;
@@ -184,7 +186,7 @@ public class PreProcessor {
 		log.info("Saved Classes         " + this.savedClasses);
 	}
 
-	public void instrument(Entry entry, OutputWriter outputWriter) throws IOException {
+	public InstrumentorResults instrument(Entry entry, OutputWriter outputWriter) throws IOException {
 		this.countClasses++;
 		String className = entry.getName().replace('/', '.');
 		className = className.substring(0, className.lastIndexOf('.'));
@@ -193,20 +195,23 @@ public class PreProcessor {
 			log.debug("intercepting class " + className);
 			Interceptor interceptor = new Interceptor(config, classPool, className, instrumentors);
 			CtClass ctClass = interceptor.instrument();
-			log.debug("intercepted methods " + interceptor.getCountMethods());
-			if (interceptor.isModified()) {
+			InstrumentorResults rc = interceptor.getInstrumentorResults();
+			log.debug("intercepted methods " + rc.getCountMethods());
+			if (rc.isModified()) {
 				this.savedClasses++;
-				this.countCounstructors += interceptor.getCountCounstructors();
-				this.countMethods += interceptor.getCountMethods();
+				this.countCounstructors += rc.getCountCounstructors();
+				this.countMethods += rc.getCountMethods();
 				outputWriter.write(new InstrumentedEntry(entry, ctClass));
-				for(Iterator i = interceptor.getCreatedClasses().iterator(); i.hasNext(); ) {
-					outputWriter.write(new InstrumentedCreatedEntry(entry, ctClass, (CtClass)i.next()));
-					this.savedClasses++;
+				if (rc.getCreatedClasses() != null) {
+					for (Iterator i = rc.getCreatedClasses().iterator(); i.hasNext();) {
+						outputWriter.write(new InstrumentedCreatedEntry(entry, ctClass, (CtClass) i.next()));
+						this.savedClasses++;
+					}
 				}
+				return rc;
 			}
-		} else {
-			outputWriter.write(entry);
 		}
+		return InstrumentorResultsImpl.NOT_MODIFIED;
 	}
 
 	public long getCountCounstructors() {

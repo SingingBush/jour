@@ -25,8 +25,10 @@ public class EachMethodCallTest extends TestCase {
 		Instrumentor[] instrumentors = config.getInstrumentors(testClassName);
 		Interceptor interceptor = new Interceptor(config, pool, testClassName, instrumentors);
 		CtClass cc = interceptor.instrument();
-
-		assertTrue("Modified", interceptor.isModified());
+		
+		InstrumentorResults rc = interceptor.getInstrumentorResults();
+		
+		assertTrue("Modified", rc.isModified());
 
 		Class caseClass = cc.toClass();
 		

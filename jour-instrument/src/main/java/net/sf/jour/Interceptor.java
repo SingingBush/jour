@@ -20,12 +20,14 @@
  */
 package net.sf.jour;
 
-import java.util.List;
-import java.util.Vector;
-
+import javassist.ByteArrayClassPath;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.NotFoundException;
+import javassist.SerialVersionUID;
 import net.sf.jour.instrumentor.Instrumentor;
-
-import javassist.*;
+import net.sf.jour.instrumentor.InstrumentorResults;
+import net.sf.jour.instrumentor.InstrumentorResultsImpl;
 
 /**
  * 
@@ -47,18 +49,12 @@ public class Interceptor {
 
 	Instrumentor[] instrumentors;
 
-	private long countMethods;
-
-	private long countCounstructors;
+	private Config config;
 
 	/**
 	 * Flag any modification to class.
 	 */
-	boolean modified;
-
-	private Config config;
-	
-	private List createdClasses;
+	private InstrumentorResults results;
 	
 	/**
 	 * Creates a new Interceptor object.
@@ -72,7 +68,7 @@ public class Interceptor {
 		this.className = className;
 		this.instrumentors = instrumentors;
 		this.config = config;
-		this.createdClasses = new Vector();
+		this.results = InstrumentorResultsImpl.NOT_MODIFIED; 
 	}
 
 	public byte[] instrument(byte[] bytes) throws InterceptorException {
@@ -110,22 +106,12 @@ public class Interceptor {
 				if (config.isSetSerialVersionUID()) {
 					SerialVersionUID.setSerialVersionUID(clazz);
 				}
-				this.modified = false;
 				for (int i = 0; i < instrumentors.length; i++) {
-					// instrumentor has a total running count per instance
-					// interceptor should return currently modified count
-					long beforeCountCounstructors = instrumentors[i].getCountCounstructors();
-					long beforeCountMethods = instrumentors[i].getCountMethods();
-
 					// Go to actual instrumentation
-					List newc = instrumentors[i].instrument(clazz);
-					if (newc != null) {
-						this.modified = true;
-						createdClasses.addAll(newc);
+					InstrumentorResults rc = instrumentors[i].instrument(clazz);
+					if (rc.isModified()) {
+						this.results = new InstrumentorResultsImpl(this.results, rc);
 					}
-
-					this.countCounstructors += instrumentors[i].getCountCounstructors() - beforeCountCounstructors;
-					this.countMethods += instrumentors[i].getCountMethods() - beforeCountMethods;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -137,31 +123,9 @@ public class Interceptor {
 	}
 
 	/**
-	 * @return List<CtClass> of created classes, may be empty.
-	 * @throws InterceptorException
+	 * @return Returns the Results.
 	 */
-	public List getCreatedClasses() {
-		return this.createdClasses;
-	}
-	
-	/**
-	 * @return Returns true if any modification has been made to the class.
-	 */
-	public boolean isModified() {
-		return modified;
-	}
-
-	/**
-	 * @return Returns the countCounstructors.
-	 */
-	public long getCountCounstructors() {
-		return countCounstructors;
-	}
-
-	/**
-	 * @return Returns the countMethods.
-	 */
-	public long getCountMethods() {
-		return countMethods;
+	public InstrumentorResults getInstrumentorResults() {
+		return this.results;
 	}
 }

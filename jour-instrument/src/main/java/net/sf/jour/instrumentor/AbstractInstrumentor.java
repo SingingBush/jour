@@ -45,22 +45,23 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 
 	protected PointcutListFilter pointcuts;
 
-	private long countMethods;
-
-	private long countCounstructors;
-
-	protected List createdClasses;
+	List createdClasses;
 	
 	protected AbstractInstrumentor() {
 		log.debug("AbstractInstrumentor Created");
-		createdClasses = new Vector(); 
 	}
 
-	public List instrument(CtClass clazz) throws InterceptorException {
+	public InstrumentorResults instrument(CtClass clazz) throws InterceptorException {
 		if (clazz.isInterface()) {
-			return null;
+			return InstrumentorResultsImpl.NOT_MODIFIED;
 		}
 		boolean modified = false;
+		
+		long countCounstructors = 0;
+
+		long countMethods = 0;
+		
+		createdClasses = new Vector();
 		
 		HashMap instrumented = new HashMap();
 		
@@ -112,24 +113,20 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 		}
 		log.debug("End instrumenting:" + clazz.getName());
 		if (modified) {
-			return createdClasses;
+			return new InstrumentorResultsImpl(countCounstructors, countMethods, createdClasses);
 		} else {
-			return null;
+			return InstrumentorResultsImpl.NOT_MODIFIED;
 		}
-	}
-
-	public long getCountCounstructors() {
-		return countCounstructors;
-	}
-
-	public long getCountMethods() {
-		return countMethods;
 	}
 
 	public void setPointcuts(PointcutListFilter pointcuts) {
 		this.pointcuts = pointcuts;
 	}
 
+	protected void classCreated(CtClass clazz) {
+		createdClasses.add(clazz);
+	}
+	
 	public abstract boolean instrumentClass(CtClass clazz) throws InterceptorException;
 
 	public abstract boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException;
