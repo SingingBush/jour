@@ -14,6 +14,10 @@
 			<bind-xml name="debug" node="attribute"/>
 		</field>
 
+		<field name="setSerialVersionUID" type="boolean" required="false">
+			<bind-xml name="setSerialVersionUID" node="attribute"/>
+		</field>		
+
     </class>
 
 	<class name="net.sf.jour.config.Aspect">

@@ -42,6 +42,8 @@ public class Config {
 
 	protected boolean isDebug;
 
+	private boolean isSetSerialVersionUID;
+	
 	/**
 	 * Key - ClassFilter, value - Instrumentor
 	 */
@@ -67,6 +69,7 @@ public class Config {
 				"/net/sf/jour/config/jour-castor-mapping.xml");
 		if (jour != null) {
 			isDebug = jour.isDebug();
+			isSetSerialVersionUID = jour.isSetSerialVersionUID();
 			List aspectList = jour.getAspect();
 			if (aspectList == null) {
 				return;
@@ -84,6 +87,10 @@ public class Config {
 		}
 	}
 
+	public boolean isSetSerialVersionUID() {
+		return isSetSerialVersionUID;
+	}
+	
 	protected void checkUniqueAspect() throws ConfigException {
 		HashMap map = new HashMap();
 		Iterator iter = instrumentors.entrySet().iterator();

@@ -17,6 +17,7 @@
 				<xs:element ref="aspect" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:attribute name="debug" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="setSerialVersionUID" type="xs:boolean" use="optional" default="false"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="pointcut">

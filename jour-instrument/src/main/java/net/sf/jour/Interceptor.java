@@ -53,6 +53,8 @@ public class Interceptor {
 	 */
 	boolean modified;
 
+	private Config config;
+	
 	/**
 	 * Creates a new Interceptor object.
 	 */
@@ -64,6 +66,7 @@ public class Interceptor {
 		this.pool = pool;
 		this.className = className;
 		this.instrumentors = instrumentors;
+		this.config = config;
 	}
 
 	public byte[] instrument(byte[] bytes) throws InterceptorException {
@@ -98,7 +101,9 @@ public class Interceptor {
 
 		if ((clazz != null) && !clazz.isInterface() && !clazz.isModified()) {
 			try {
-				SerialVersionUID.setSerialVersionUID(clazz);
+				if (config.isSetSerialVersionUID()) {
+					SerialVersionUID.setSerialVersionUID(clazz);
+				}
 				this.modified = false;
 				for (int i = 0; i < instrumentors.length; i++) {
 					// instrumentor has a total running count per instance

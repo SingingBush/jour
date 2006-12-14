@@ -6,7 +6,7 @@ public class Jour {
 
 	List aspect;
 
-	boolean setSerialVersionUID;
+	boolean isSetSerialVersionUID;
 	
 	boolean debug;
 
@@ -27,10 +27,10 @@ public class Jour {
 	}
 
 	public boolean isSetSerialVersionUID() {
-		return setSerialVersionUID;
+		return isSetSerialVersionUID;
 	}
 
 	public void setSetSerialVersionUID(boolean setSerialVersionUID) {
-		this.setSerialVersionUID = setSerialVersionUID;
+		this.isSetSerialVersionUID = setSerialVersionUID;
 	}
 }
