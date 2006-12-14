@@ -138,25 +138,24 @@ public class Pointcut extends MatchStringFilter {
 		}
 	}
 
-	private CtClass getclassAsMethodsFilter() {
+	private CtClass getclassAsMethodsFilter(ClassPool pool) {
 		if (this.filterCtClass != null) {
 			return this.filterCtClass;
 		}
 
 		if (this.interfaceType != null) {
-			return loadFilterClass(this.interfaceType);
+			return loadFilterClass(pool, this.interfaceType);
 		} else if (this.classMethodsType != null) {
-			return loadFilterClass(this.classMethodsType);
+			return loadFilterClass(pool, this.classMethodsType);
 		} else {
 			return null;
 		}
 	}
 
-	private CtClass loadFilterClass(String className) {
+	private CtClass loadFilterClass(ClassPool pool, String className) {
 		if (className == null) {
 			return null;
 		}
-		ClassPool pool = ClassPool.getDefault();
 		try {
 			this.filterCtClass = pool.get(className);
 		} catch (NotFoundException nfe) {
@@ -199,7 +198,7 @@ public class Pointcut extends MatchStringFilter {
 			String name = method.getName();
 			CtClass[] paramTypes = method.getParameterTypes();
 
-			CtClass mFilterClass = getclassAsMethodsFilter();
+			CtClass mFilterClass = getclassAsMethodsFilter(method.getDeclaringClass().getClassPool());
 			if (mFilterClass != null) {
 				CtMethod has = null;
 				try {
