@@ -258,7 +258,7 @@
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>
-                        <testFailureIgnore>true</testFailureIgnore>
+                        <testFailureIgnore>false</testFailureIgnore>
                         <!-- fix bug in report generation -->
                         <forkMode>always</forkMode>
                     </configuration>
