@@ -21,6 +21,7 @@
 package net.sf.jour;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,7 @@ import net.sf.jour.processor.DirectoryInputSource;
 import net.sf.jour.processor.DirectoryOutputWriter;
 import net.sf.jour.processor.Entry;
 import net.sf.jour.processor.InputSource;
+import net.sf.jour.processor.InstrumentedCreatedEntry;
 import net.sf.jour.processor.InstrumentedEntry;
 import net.sf.jour.processor.JarFileInputSource;
 import net.sf.jour.processor.OutputWriter;
@@ -162,7 +164,11 @@ public class PreProcessor {
 				Entry e = (Entry) en.nextElement();
 				log.debug(e.getName());
 				if (outputWriter.needUpdate(e)) {
-					outputWriter.write(instrument(e));
+					if (!e.isClass()) {
+						outputWriter.write(e);
+					} else {
+						instrument(e, outputWriter);
+					}
 				}
 				countEntry++;
 			}
@@ -171,17 +177,14 @@ public class PreProcessor {
 			outputWriter.close();
 		}
 		log.debug("countEntry   " + countEntry);
-		log.debug("countClasses " + countClasses);
 
+		log.info("Processed Classes     " + this.countClasses);
 		log.info("Altered Counstructors " + this.countCounstructors);
 		log.info("Altered Methods       " + this.countMethods);
 		log.info("Saved Classes         " + this.savedClasses);
 	}
 
-	public Entry instrument(Entry entry) {
-		if (!entry.isClass()) {
-			return entry;
-		}
+	public void instrument(Entry entry, OutputWriter outputWriter) throws IOException {
 		this.countClasses++;
 		String className = entry.getName().replace('/', '.');
 		className = className.substring(0, className.lastIndexOf('.'));
@@ -195,10 +198,15 @@ public class PreProcessor {
 				this.savedClasses++;
 				this.countCounstructors += interceptor.getCountCounstructors();
 				this.countMethods += interceptor.getCountMethods();
-				return new InstrumentedEntry(entry, ctClass);
+				outputWriter.write(new InstrumentedEntry(entry, ctClass));
+				for(Iterator i = interceptor.getCreatedClasses().iterator(); i.hasNext(); ) {
+					outputWriter.write(new InstrumentedCreatedEntry(entry, ctClass, (CtClass)i.next()));
+					this.savedClasses++;
+				}
 			}
+		} else {
+			outputWriter.write(entry);
 		}
-		return entry;
 	}
 
 	public long getCountCounstructors() {

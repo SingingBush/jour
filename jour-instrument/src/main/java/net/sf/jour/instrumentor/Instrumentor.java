@@ -20,6 +20,8 @@
  */
 package net.sf.jour.instrumentor;
 
+import java.util.List;
+
 import net.sf.jour.InterceptorException;
 import net.sf.jour.filter.PointcutListFilter;
 
@@ -37,7 +39,13 @@ import javassist.CtClass;
  */
 public interface Instrumentor {
 
-	boolean instrument(CtClass clazz) throws InterceptorException;
+	/**
+	 * 
+	 * @param clazz Class to instrument
+	 * @return List<CtClass> of created classes, null if no modifications been made.
+	 * @throws InterceptorException
+	 */
+	public List instrument(CtClass clazz) throws InterceptorException;
     
     void setPointcuts(PointcutListFilter pointcuts);
     

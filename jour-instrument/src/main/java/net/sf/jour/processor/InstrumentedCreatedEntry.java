@@ -7,17 +7,20 @@ import java.io.InputStream;
 import javassist.CannotCompileException;
 import javassist.CtClass;
 
-public class InstrumentedEntry implements Entry {
+public class InstrumentedCreatedEntry implements Entry {
 
 	private Entry orig; 
+
+	//private CtClass origClass;
 	
 	private CtClass ctClass;
 	
-	public InstrumentedEntry(Entry orig, CtClass ctClass) {
+	public InstrumentedCreatedEntry(Entry orig, CtClass origClass, CtClass ctClass) {
 		this.orig = orig;
+		//this.origClass = origClass;
 		this.ctClass = ctClass;
 	}
-	
+
 	public InputStream getInputStream() throws IOException {
 		try {
 			return new ByteArrayInputStream(ctClass.toBytecode());
@@ -31,11 +34,11 @@ public class InstrumentedEntry implements Entry {
 	}
 
 	public String getName() {
-		return this.orig.getName();
+		return "/" + ctClass.getName().replace('.', '/') + ".class";
 	}
 
 	public long getSize() {
-		return -1; //this.orig.getSize();
+		return -1;
 	}
 
 	public long getTime() {
@@ -49,5 +52,5 @@ public class InstrumentedEntry implements Entry {
 	public boolean isDirectory() {
 		return false;
 	}
-	
+
 }

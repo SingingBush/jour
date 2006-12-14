@@ -20,6 +20,9 @@
  */
 package net.sf.jour;
 
+import java.util.List;
+import java.util.Vector;
+
 import net.sf.jour.instrumentor.Instrumentor;
 
 import javassist.*;
@@ -55,6 +58,8 @@ public class Interceptor {
 
 	private Config config;
 	
+	private List createdClasses;
+	
 	/**
 	 * Creates a new Interceptor object.
 	 */
@@ -67,6 +72,7 @@ public class Interceptor {
 		this.className = className;
 		this.instrumentors = instrumentors;
 		this.config = config;
+		this.createdClasses = new Vector();
 	}
 
 	public byte[] instrument(byte[] bytes) throws InterceptorException {
@@ -112,7 +118,11 @@ public class Interceptor {
 					long beforeCountMethods = instrumentors[i].getCountMethods();
 
 					// Go to actual instrumentation
-					this.modified = instrumentors[i].instrument(clazz) || this.modified;
+					List newc = instrumentors[i].instrument(clazz);
+					if (newc != null) {
+						this.modified = true;
+						createdClasses.addAll(newc);
+					}
 
 					this.countCounstructors += instrumentors[i].getCountCounstructors() - beforeCountCounstructors;
 					this.countMethods += instrumentors[i].getCountMethods() - beforeCountMethods;
@@ -126,6 +136,14 @@ public class Interceptor {
 		return clazz;
 	}
 
+	/**
+	 * @return List<CtClass> of created classes, may be empty.
+	 * @throws InterceptorException
+	 */
+	public List getCreatedClasses() {
+		return this.createdClasses;
+	}
+	
 	/**
 	 * @return Returns true if any modification has been made to the class.
 	 */

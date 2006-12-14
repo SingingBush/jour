@@ -28,7 +28,6 @@ import java.util.*;
 import org.apache.log4j.Logger;
 
 import javassist.*;
-import javassist.CtMethod;
 
 /**
  *
@@ -50,13 +49,16 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 
 	private long countCounstructors;
 
+	protected List createdClasses;
+	
 	protected AbstractInstrumentor() {
 		log.debug("AbstractInstrumentor Created");
+		createdClasses = new Vector(); 
 	}
 
-	public boolean instrument(CtClass clazz) throws InterceptorException {
+	public List instrument(CtClass clazz) throws InterceptorException {
 		if (clazz.isInterface()) {
-			return false;
+			return null;
 		}
 		boolean modified = false;
 		
@@ -109,7 +111,11 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 			}
 		}
 		log.debug("End instrumenting:" + clazz.getName());
-		return modified;
+		if (modified) {
+			return createdClasses;
+		} else {
+			return null;
+		}
 	}
 
 	public long getCountCounstructors() {

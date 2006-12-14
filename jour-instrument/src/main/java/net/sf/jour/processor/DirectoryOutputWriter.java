@@ -19,6 +19,9 @@ public class DirectoryOutputWriter implements OutputWriter {
 	}
 
 	public void write(Entry entry) throws IOException {
+		if (entry.getOrigin() == entry) {
+			return;
+		}
 		String name = entry.getName().replace('/', File.separatorChar);
 		File file = new File(dir.getAbsolutePath() + File.separatorChar + name);
 		File dir = file.getParentFile();

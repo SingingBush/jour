@@ -20,6 +20,10 @@ public class FileEntry implements Entry {
 		return new FileInputStream(file);
 	}
 
+	public Entry getOrigin() {
+		return this;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -40,4 +44,11 @@ public class FileEntry implements Entry {
 		return file.isDirectory();
 	}
 
+	public boolean equals(Object o) {
+		 if ((o == null) || (!(o instanceof FileEntry))) {
+			 return false;
+		 }
+		 return file.equals(((FileEntry)o).file);
+	}
+	 
 }

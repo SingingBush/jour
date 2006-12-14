@@ -22,4 +22,6 @@ public interface Entry {
 	 boolean isClass(); 
 	 
 	 InputStream getInputStream() throws IOException;
+	 
+	 Entry getOrigin();
 }

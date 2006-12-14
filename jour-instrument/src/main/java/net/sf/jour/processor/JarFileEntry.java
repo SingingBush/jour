@@ -20,6 +20,10 @@ public class JarFileEntry implements Entry {
 		return jarFile.getInputStream(this.jarEntry );
 	}
 
+	public Entry getOrigin() {
+		return this;
+	}
+	
 	public String getName() {
 		return jarEntry.getName();
 	}
