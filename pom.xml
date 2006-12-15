@@ -48,7 +48,7 @@
         <site>
             <id>pyx4j-site</id>
             <name>pyx4j-project</name>
-            <url>file:///home/apache/pyx4j/jour</url>
+            <url>file:///home/apache/pyx4j/snapshot/jour</url>
         </site>
         <repository>
             <id>pyx4j.com-dav-development</id>
