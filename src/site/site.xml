@@ -27,7 +27,7 @@
             <item name="Instrumentation" href="http://jour.sourceforge.net/instrumentation.html" />
             <item name="Faq" href="http://jour.sourceforge.net/faq.html" />
 
-            <item name="Download">
+            <item name="Download" href="#">
                 <item name="Releases" href="http://sourceforge.net/project/showfiles.php?group_id=122892"/>
                 <item name="Maven" href="http://jour.sourceforge.net/maven.html"/>
                 <item name="SVN Access" href="http://jour.sourceforge.net/source-repository.html"/>
