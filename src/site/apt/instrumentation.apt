@@ -64,3 +64,103 @@ public class ClassWithDebug {
 
 }
 ---
+
+
+* Details of jour.xml
+
+    * <aspect>  Define the instrumentor to be used.
+
+        Predevined values are
+
+        * net.sf.jour.instrumentor.MethodExecutionTimeInstrumentor
+
+        * net.sf.jour.instrumentor.ExceptionCatcherInstrumentor
+
+        * net.sf.jour.instrumentor.InstanceCounterInstrumentor
+
+        * net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor
+
+        []
+
+        Custom instrumentor should implement net.sf.jour.instrumentor.Instrumentor
+
+    * <typedef>  Apply class filter
+
+        Examples:
+
+        *  All test classes
+
+---
+<typedef>*.*Test</typedef>
+---
+
+        * All classes in package net.sf.jour.examples.
+
+---
+<typedef>net.sf.jour.examples.*</typedef>
+---
+
+        []
+
+    * <pointcut> Apply function filter
+
+        Examples:
+
+        * Explicit function name and return type
+
+---
+<pointcut>junit.framework.Test suite()</pointcut>
+---
+
+        * All getters
+
+---
+<pointcut>* get*()</pointcut>
+---
+
+        * All not final getters
+
+---
+<pointcut>!final * get*()</pointcut>
+---
+            public private synchronized static modifiers can be used
+
+        * All functions other than seters
+
+---
+<pointcut>* *(..)|!* set*(..)</pointcut>
+---
+
+        * Any function returning String taking any arguments
+
+---
+<pointcut>java.lang.String *(..)</pointcut>
+---
+
+        * Any function returning String or int
+
+---
+<pointcut>java.lang.String;int *(..)</pointcut>
+---
+
+        * Any function taking String and int arguments
+
+---
+<pointcut>* *(java.lang.String,int)</pointcut>
+---
+
+        * Any function taking String or int arguments
+
+---
+<pointcut>* *(java.lang.String|int)</pointcut>
+---
+
+
+        * Any function that implements interface com.exmple.MyInterface
+
+---
+<pointcut>* com.exmple.MyInterface->*(..)</pointcut>
+---
+
+        []
+    []
