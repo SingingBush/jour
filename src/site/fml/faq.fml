@@ -5,7 +5,7 @@
 -->
 <faqs title="Frequently Asked Questions">
     <part id="general">
-        <title>Compilation</title>
+        <title>Customization</title>
 
         <faq id="customInstrumentor">
             <question>
@@ -15,7 +15,7 @@
                 <p>
                     Yes you can. You should know Javassist. And follow provided examples:
 
-                     <a href="http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/instrumentor/">provided instrumentors</a>
+                     <a href="http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/instrumentor/">provided instrumentors</a> or
 
                      <a href="https://pyx4j.com/viewvc/pyx4me/pyx4me-cldcunit/cldcunit-instrument/src/main/java/com/pyx4me/cldcunit/">JUnit to J2MEUnit instrumentor</a>
 
