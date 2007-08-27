@@ -51,8 +51,8 @@
             <url>file:///home/apache/pyx4j/snapshot/jour</url>
         </site>
         <repository>
-            <id>pyx4j.com-file-development</id>
-            <url>file:///home/apache/pyx4j/maven2</url>
+            <id>pyx4j.com-file-release</id>
+            <url>file:///home/apache/pyx4j/maven2-release</url>
         </repository>
         <snapshotRepository>
             <id>pyx4j.com-file-development</id>
@@ -87,11 +87,14 @@
     <modules>
         <module>jour-instrument</module>
         <module>jour-maven-plugin</module>
+        <!--
         <module>jour-ant</module>
+        -->
         <module>jour-examples</module>
         <!--module>jour-runtime</module-->
     </modules>
 
+<!--
     <repositories>
         <repository>
             <id>pyx4me-web</id>
@@ -105,6 +108,7 @@
             <url>http://www.pyx4me.com/maven2</url>
         </pluginRepository>
     </pluginRepositories>
+-->
 
     <dependencyManagement>
         <dependencies>
@@ -331,12 +335,13 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>taglist-maven-plugin</artifactId>
             </plugin>
+            <!--
             <plugin>
                <groupId>org.codehaus.mojo</groupId>
                <artifactId>simian-report-maven-plugin</artifactId>
-               <!--artifactId>simian-maven-plugin</artifactId-->
                <version>1.0-tmp</version>
             </plugin>
+            -->
             <!--artifactId>maven-changelog-plugin</artifactId-->
             <!--
             <plugin>

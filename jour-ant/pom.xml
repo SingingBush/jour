@@ -15,7 +15,7 @@
 
     <artifactId>jour-ant</artifactId>
     <name>jour-ant</name>
-    <description>Jour ant task</description>
+    <description>Jour ant task, NOT implemented</description>
 
     <dependencies>
 
