@@ -20,9 +20,8 @@
  */
 package net.sf.jour.filter;
 
-import org.apache.log4j.Logger;
-
 import junit.framework.TestCase;
+import net.sf.jour.log.Logger;
 
 /**
  * TODO Add docs
@@ -38,7 +37,7 @@ import junit.framework.TestCase;
  */
 public class MatchStringFilterTest extends TestCase {
 	
-	protected static final Logger log = Logger.getLogger(MatchStringFilterTest.class);
+	protected static final Logger log = Logger.getLogger();
 	
 	public static void main(String[] args) {
 		MatchStringFilterTest b = new MatchStringFilterTest();

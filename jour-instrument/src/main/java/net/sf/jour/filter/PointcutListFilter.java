@@ -20,7 +20,7 @@
  */
 package net.sf.jour.filter;
 
-import org.apache.log4j.Logger;
+import net.sf.jour.log.Logger;
 
 /**
  * 
@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
  */
 public class PointcutListFilter extends MatchListFilter {
 
-	protected static final Logger log = Logger.getLogger(PointcutListFilter.class);
+	protected static final Logger log = Logger.getLogger();
 
 	public boolean readContext(Object o) {
 		if (o instanceof net.sf.jour.config.Pointcut) {

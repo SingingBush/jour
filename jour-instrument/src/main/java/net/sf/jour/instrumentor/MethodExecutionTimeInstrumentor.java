@@ -20,11 +20,11 @@
  */
 package net.sf.jour.instrumentor;
 
-import net.sf.jour.InterceptorException;
-
-import javassist.*;
+import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtMethod;
+import javassist.CtNewMethod;
+import net.sf.jour.InterceptorException;
 
 /**
  *

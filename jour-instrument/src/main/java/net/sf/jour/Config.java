@@ -39,10 +39,10 @@ import net.sf.jour.filter.ClassFilter;
 import net.sf.jour.filter.PointcutListFilter;
 import net.sf.jour.instrumentor.Instrumentor;
 import net.sf.jour.instrumentor.InstrumentorFactory;
+import net.sf.jour.log.Logger;
 import net.sf.jour.util.ConfigFileUtil;
 import net.sf.jour.util.FileUtil;
 
-import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -53,7 +53,7 @@ import org.xml.sax.SAXException;
  */
 public class Config {
 
-	protected static final Logger log = Logger.getLogger(Config.class);
+	protected static final Logger log = Logger.getLogger();
 
 	public static final String DEFAULTCONFING_FILE = "jour.xml";
 

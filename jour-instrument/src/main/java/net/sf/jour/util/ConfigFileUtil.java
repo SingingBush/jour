@@ -28,7 +28,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.log4j.Logger;
+import net.sf.jour.log.Logger;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -52,7 +53,7 @@ import org.xml.sax.SAXException;
 
 public class ConfigFileUtil extends FileUtil {
 
-	protected static final Logger log = Logger.getLogger(ConfigFileUtil.class);
+	protected static final Logger log = Logger.getLogger();
 	
 	public static Document loadDocument(InputStream stream) throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

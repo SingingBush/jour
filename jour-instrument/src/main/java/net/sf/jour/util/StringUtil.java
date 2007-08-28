@@ -20,8 +20,8 @@
  */
 package net.sf.jour.util;
 
-import java.util.StringTokenizer;
 import java.text.DecimalFormat;
+import java.util.StringTokenizer;
 
 /**
  *

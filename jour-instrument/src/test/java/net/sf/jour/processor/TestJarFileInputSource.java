@@ -4,13 +4,12 @@ import java.io.File;
 import java.util.Enumeration;
 
 import junit.framework.TestCase;
+import net.sf.jour.log.Logger;
 import net.sf.jour.test.Utils;
-
-import org.apache.log4j.Logger;
 
 public class TestJarFileInputSource extends TestCase {
 
-	protected static final Logger log = Logger.getLogger(TestJarFileInputSource.class);
+	protected static final Logger log = Logger.getLogger();
 
 	public void testRecursion() throws Exception {
 

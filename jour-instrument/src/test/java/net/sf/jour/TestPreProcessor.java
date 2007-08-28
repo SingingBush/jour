@@ -22,8 +22,8 @@ package net.sf.jour;
 
 import java.io.File;
 
-import net.sf.jour.test.Utils;
 import junit.framework.TestCase;
+import net.sf.jour.test.Utils;
 
 /*
  * Created on Dec 2, 2004

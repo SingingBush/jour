@@ -31,11 +31,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 
-import org.apache.log4j.Logger;
+import net.sf.jour.log.Logger;
 
 public class FileUtil {
 
-	protected static final Logger log = Logger.getLogger(FileUtil.class);
+	protected static final Logger log = Logger.getLogger();
 
 	public static URL getFileLocation(String resource) {
 		return getFileLocation(resource, null);

@@ -23,7 +23,7 @@ package net.sf.jour.filter;
 import java.lang.reflect.Modifier;
 import java.util.Hashtable;
 
-import org.apache.log4j.Logger;
+import net.sf.jour.log.Logger;
 
 /**
  * TODO Add docs
@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
  */
 public class PointcutModifierFiler extends MatchFilter {
 
-	protected static final Logger log = Logger.getLogger(PointcutModifierFiler.class);
+	protected static final Logger log = Logger.getLogger();
 
 	private static Hashtable map = buildMap();
 

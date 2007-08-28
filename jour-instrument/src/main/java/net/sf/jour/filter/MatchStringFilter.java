@@ -20,7 +20,8 @@
  */
 package net.sf.jour.filter;
 
-import org.apache.log4j.Logger;
+import net.sf.jour.log.Logger;
+
 import org.apache.regexp.RE;
 
 /**
@@ -38,7 +39,7 @@ import org.apache.regexp.RE;
  */
 public class MatchStringFilter extends BasicFilter {
 
-	protected static final Logger log = Logger.getLogger(MatchStringFilter.class);
+	protected static final Logger log = Logger.getLogger();
 
 	String pattern;
 

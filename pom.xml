@@ -122,7 +122,8 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.13</version>
+            <version>1.2.14</version>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -152,6 +153,13 @@
 
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.4</source>
+                        <target>1.4</target>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <configuration>

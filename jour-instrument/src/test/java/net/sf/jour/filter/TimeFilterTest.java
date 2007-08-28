@@ -22,15 +22,13 @@ package net.sf.jour.filter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import junit.framework.TestCase;
-
-import org.apache.log4j.Logger;
-
+import net.sf.jour.log.Logger;
 import net.sf.jour.util.TimeUtil;
 
 /**
@@ -47,7 +45,7 @@ import net.sf.jour.util.TimeUtil;
  */
 public class TimeFilterTest  extends TestCase {
     
-    protected static final Logger log = Logger.getLogger(TimeFilterTest.class);
+    protected static final Logger log = Logger.getLogger();
     
     public static String date2text(Calendar c) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);

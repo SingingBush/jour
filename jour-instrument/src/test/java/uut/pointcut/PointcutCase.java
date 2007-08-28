@@ -20,7 +20,7 @@
  */
 package uut.pointcut;
 
-import java.util.*;
+import java.util.List;
 
 /**
  *

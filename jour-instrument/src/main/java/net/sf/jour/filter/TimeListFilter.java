@@ -22,11 +22,11 @@ package net.sf.jour.filter;
 
 import java.util.StringTokenizer;
 
-import org.apache.log4j.Logger;
+import net.sf.jour.log.Logger;
 
 public class TimeListFilter extends MatchListFilter {
 
-	protected static final Logger log = Logger.getLogger(TimeMatchFilter.class);
+	protected static final Logger log = Logger.getLogger();
 
 	public TimeListFilter() {
 		emptyListMath = true;

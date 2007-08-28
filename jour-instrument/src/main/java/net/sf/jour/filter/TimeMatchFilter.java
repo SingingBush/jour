@@ -20,13 +20,12 @@
  */
 package net.sf.jour.filter;
 
+import net.sf.jour.log.Logger;
 import net.sf.jour.util.TimeUtil;
-
-import org.apache.log4j.Logger;
 
 public class TimeMatchFilter extends MatchFilter {
 
-	protected static final Logger log = Logger.getLogger(TimeMatchFilter.class);
+	protected static final Logger log = Logger.getLogger();
 
 	double timeFrom;
 

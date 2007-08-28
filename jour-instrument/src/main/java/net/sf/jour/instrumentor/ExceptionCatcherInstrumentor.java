@@ -20,9 +20,8 @@
  */
 package net.sf.jour.instrumentor;
 
-import net.sf.jour.InterceptorException;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javassist.CannotCompileException;
 import javassist.ClassPool;
@@ -30,6 +29,7 @@ import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtMethod;
 import javassist.NotFoundException;
+import net.sf.jour.InterceptorException;
 
 /**
  *

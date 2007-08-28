@@ -23,9 +23,6 @@ package net.sf.jour.util;
 //import java.util.ArrayList;
 import java.util.Vector;
 
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
-//Java1.3
 import org.apache.regexp.RE;
 
 /**

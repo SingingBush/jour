@@ -21,7 +21,8 @@
 package net.sf.jour.filter;
 
 // Java1.3 import java.util.regex.Pattern;
-import org.apache.log4j.Logger;
+import net.sf.jour.log.Logger;
+
 import org.apache.regexp.RE;
 import org.apache.regexp.RESyntaxException;
 
@@ -30,7 +31,7 @@ import org.apache.regexp.RESyntaxException;
  */
 public abstract class BasicFilter extends MatchFilter {
 
-	protected static final Logger log = Logger.getLogger(BasicFilter.class);
+	protected static final Logger log = Logger.getLogger();
 
 	public static RE getGlobPattern(String globPattern) {
 		char[] gPat = globPattern.toCharArray();

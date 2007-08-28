@@ -1,11 +1,11 @@
 package net.sf.jour;
 
+import junit.framework.TestCase;
 import net.sf.jour.filter.PointcutListFilter;
 import net.sf.jour.instrumentor.ConfigTestInstrumentor;
 import net.sf.jour.instrumentor.Instrumentor;
 import net.sf.jour.test.Utils;
 import net.sf.jour.util.FileUtil;
-import junit.framework.TestCase;
 
 public class TestConfig extends TestCase {
 

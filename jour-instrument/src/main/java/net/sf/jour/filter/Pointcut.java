@@ -25,9 +25,9 @@ import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtMethod;
 import javassist.NotFoundException;
+import net.sf.jour.log.Logger;
 import net.sf.jour.util.RegExUtil;
 
-import org.apache.log4j.Logger;
 import org.apache.regexp.RE;
 
 /**
@@ -35,7 +35,7 @@ import org.apache.regexp.RE;
  */
 public class Pointcut extends MatchStringFilter {
 
-	protected static final Logger log = Logger.getLogger(Pointcut.class);
+	protected static final Logger log = Logger.getLogger();
 
 	private static String modifierKeywords = "((final)|(static)|(native)|(synchronized)|(private)|(public)|(protected))";
 

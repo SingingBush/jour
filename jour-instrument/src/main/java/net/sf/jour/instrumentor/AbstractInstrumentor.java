@@ -20,14 +20,19 @@
  */
 package net.sf.jour.instrumentor;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+
+import javassist.CtClass;
+import javassist.CtConstructor;
+import javassist.CtMethod;
 import net.sf.jour.InterceptorException;
-import net.sf.jour.filter.*;
-
-import java.util.*;
-
-import org.apache.log4j.Logger;
-
-import javassist.*;
+import net.sf.jour.filter.Pointcut;
+import net.sf.jour.filter.PointcutListFilter;
+import net.sf.jour.log.Logger;
 
 /**
  *
@@ -41,7 +46,7 @@ import javassist.*;
  */
 public abstract class AbstractInstrumentor implements Instrumentor {
 
-	protected static final Logger log = Logger.getLogger(AbstractInstrumentor.class);
+	protected static final Logger log = Logger.getLogger();
 
 	protected PointcutListFilter pointcuts;
 

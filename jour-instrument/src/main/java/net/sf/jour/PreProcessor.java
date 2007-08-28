@@ -34,6 +34,7 @@ import javassist.NotFoundException;
 import net.sf.jour.instrumentor.Instrumentor;
 import net.sf.jour.instrumentor.InstrumentorResults;
 import net.sf.jour.instrumentor.InstrumentorResultsImpl;
+import net.sf.jour.log.Logger;
 import net.sf.jour.processor.DirectoryInputSource;
 import net.sf.jour.processor.DirectoryOutputWriter;
 import net.sf.jour.processor.Entry;
@@ -43,8 +44,6 @@ import net.sf.jour.processor.InstrumentedEntry;
 import net.sf.jour.processor.JarFileInputSource;
 import net.sf.jour.processor.OutputWriter;
 import net.sf.jour.util.CmdArgs;
-
-import org.apache.log4j.Logger;
 
 /**
  *
@@ -60,7 +59,7 @@ import org.apache.log4j.Logger;
  */
 public class PreProcessor {
 
-	protected static final Logger log = Logger.getLogger(PreProcessor.class);
+	protected static final Logger log = Logger.getLogger();
 
 	public long savedClasses;
 
