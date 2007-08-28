@@ -18,7 +18,7 @@
     </bannerRight>
 
     <body>
-        <menu name="Ver 2.0.0" inherit="top"/>
+        <menu name="Ver 2.0.1-SNAPSHOT" inherit="top"/>
 
         <menu name="Overview">
             <item name="Introduction" href="http://jour.sourceforge.net/index.html" />
@@ -33,7 +33,9 @@
             </item>
 
             <!--4release-->
+            <!--
             <item name="Preview 2.0.1" href="http://pyx4me.com/snapshot/jour/"/>
+            -->
 
         </menu>
 
