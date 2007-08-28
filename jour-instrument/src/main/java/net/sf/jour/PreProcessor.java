@@ -108,7 +108,11 @@ public class PreProcessor {
 			}
 		}
 
-		init(configFileName, new File(in), new File(out), classpath);
+		try {
+			init(configFileName, new File(in).getCanonicalFile(), new File(out).getCanonicalFile(), classpath);
+		} catch (IOException e) {
+			throw new Error("Can't configure input/output path", e);
+		}
 	}
 
 	public PreProcessor(String configFileName, File in, File out, List classpath) {
@@ -122,6 +126,8 @@ public class PreProcessor {
 		if (in.isFile() && (!in.getName().endsWith(".jar"))) {
 			throw new Error("Input file should be .jar");
 		}
+		log.debug("input " + in.getAbsolutePath());
+		log.debug("output " + out.getAbsolutePath());
 		this.input = in;
 		this.output = out;
 		this.config = new Config(configFileName);
@@ -233,15 +239,22 @@ public class PreProcessor {
 		Properties argsp = CmdArgs.load(args);
 		if ((args.length < 1) || argsp.getProperty("help") != null) {
 			StringBuffer usage = new StringBuffer();
-			usage.append("Usage:java ").append(PreProcessor.class.getName());
-			usage.append("--config jour.xml --src classesDir|classes.jar --dst outDir|out.jar\n");
+			usage.append("Usage:\n java ").append(PreProcessor.class.getName());
+			usage.append(" --config jour.xml --src classesDir|classes.jar --dst outDir|out.jar\n");
 			usage.append("    (--classpath classpath)\n");
+			System.out.println(usage);
 			return;
 		}
 
 		try {
 			PreProcessor pp = new PreProcessor(argsp);
 			pp.process();
+			
+			System.out.println("Processed Classes     " + pp.countClasses);
+			System.out.println("Altered Counstructors " + pp.countCounstructors);
+			System.out.println("Altered Methods       " + pp.countMethods);
+			System.out.println("Saved Classes         " + pp.savedClasses);
+			
 		} catch (Throwable e) {
 			e.printStackTrace();
 			throw new Error(e);

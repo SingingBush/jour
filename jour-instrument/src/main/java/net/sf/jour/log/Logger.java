@@ -22,8 +22,6 @@ package net.sf.jour.log;
 
 import java.util.WeakHashMap;
 
-import org.apache.log4j.Level;
-
 /**
  * Log4j wrapper
  * 
@@ -37,12 +35,9 @@ public class Logger {
     
     private static int log4jAvalable = 0;
     
-    private Object logger;
-    
     private static WeakHashMap instances = new WeakHashMap();
     
-    protected Logger(Object log4jLogger) {
-    	this.logger = log4jLogger;
+    protected Logger() {
     }
     
     private static int detectLog4j() {
@@ -87,7 +82,7 @@ public class Logger {
     	if (log4jAvalable > 0) {
     		return createLoggerWrapper(name);
     	} else {
-    		return new Logger(null);
+    		return new Logger();
     	}
     }
     
@@ -96,7 +91,7 @@ public class Logger {
         if (instances.containsKey(logger)) {
             return (Logger)instances.get(logger);
         } else {
-            Logger log = new Logger(logger);
+            Logger log = new LoggerLog4j(logger);
             instances.put(logger, log);
             return log;
         }
@@ -110,27 +105,60 @@ public class Logger {
         return getLogger(clazz.getName());
     }
     
-    public void error(Object message) {
-    	((org.apache.log4j.Logger)this.logger).log(FQCN, Level.ERROR, message, null);
-    }
+    private static class LoggerLog4j extends Logger {
 
-    public void error(Object message, Throwable t) {
-    	((org.apache.log4j.Logger)this.logger).log(FQCN, Level.ERROR, message, t);
-    }
+		private org.apache.log4j.Logger logger;
+
+		protected LoggerLog4j(org.apache.log4j.Logger log4jLogger) {
+			this.logger = log4jLogger;
+		}
+
+		public void error(Object message) {
+			this.logger.log(FQCN, org.apache.log4j.Level.ERROR, message, null);
+		}
+
+		public void error(Object message, Throwable t) {
+			this.logger.log(FQCN, org.apache.log4j.Level.ERROR, message, t);
+		}
+
+		public void warn(Object message) {
+			this.logger.log(FQCN, org.apache.log4j.Level.WARN, message, null);
+		}
+
+		public void info(Object message) {
+			this.logger.log(FQCN, org.apache.log4j.Level.INFO, message, null);
+		}
+
+		public boolean isDebugEnabled() {
+			return this.logger.isDebugEnabled();
+		}
+
+		public void debug(Object message) {
+			this.logger.log(FQCN, org.apache.log4j.Level.DEBUG, message, null);
+		}
+	}
+
+	public void error(Object message) {
+		System.err.println(message);
+	}
+
+	public void error(Object message, Throwable t) {
+		System.err.println(message);
+		if (t != null) {
+			t.printStackTrace(System.err);
+		}
+	}
     
     public void warn(Object message) {
-    	((org.apache.log4j.Logger)this.logger).log(FQCN, Level.WARN, message, null);
     }
     
     public void info(Object message) {
-    	((org.apache.log4j.Logger)this.logger).log(FQCN, Level.INFO, message, null);
     }
     
     public boolean isDebugEnabled() {
-    	return ((org.apache.log4j.Logger)this.logger).isDebugEnabled();
+   		return false;
     }
 
     public void debug(Object message) {
-    	((org.apache.log4j.Logger)this.logger).log(FQCN, Level.DEBUG, message, null);
     }
 }
