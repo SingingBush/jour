@@ -20,11 +20,9 @@
  */
 package net.sf.jour.filter;
 
-// Java1.3 import java.util.regex.Pattern;
-import net.sf.jour.log.Logger;
+import java.util.regex.Pattern;
 
-import org.apache.regexp.RE;
-import org.apache.regexp.RESyntaxException;
+import net.sf.jour.log.Logger;
 
 /**
  * @author michaellif
@@ -33,7 +31,7 @@ public abstract class BasicFilter extends MatchFilter {
 
 	protected static final Logger log = Logger.getLogger();
 
-	public static RE getGlobPattern(String globPattern) {
+	public static Pattern getGlobPattern(String globPattern) {
 		char[] gPat = globPattern.toCharArray();
 		char[] rPat = new char[gPat.length * 2 + 2];
 		boolean inBrackets = false;
@@ -123,25 +121,14 @@ public abstract class BasicFilter extends MatchFilter {
 
 		// System.out.println(new String(rPat, 0, j));
 
-		try {
-			// Java1.3
-			// return Pattern.compile(new String(rPat, 0, j),
-			// Pattern.CASE_INSENSITIVE);
-			return new RE(new String(rPat, 0, j), RE.MATCH_CASEINDEPENDENT);
-		} catch (RESyntaxException e) {
-			// e.printStackTrace();
-			log.error("Regexpr Error in [" + new String(rPat, 0, j) + "] for " + globPattern, e);
-			return new RE("!!!TODO");
-		}
+		return Pattern.compile(new String(rPat, 0, j),  Pattern.CASE_INSENSITIVE);
 	}
 
-	protected static boolean accept(RE pattern, String str) {
+	protected static boolean accept(Pattern  pattern, String str) {
 		if (str == null) {
 			return false;
 		}
-		// Java1.3
-		// return pattern.matcher(str).matches();
-		return pattern.match(str);
+		return pattern.matcher(str).matches();
 	}
 
 }

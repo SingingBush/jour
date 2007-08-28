@@ -1,7 +1,7 @@
 /*
  * Jour - java profiler and monitoring library
  *
- * Copyright (C) 2004 Jour team
+ * Copyright (C) 2004-2007 Jour team
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,10 +20,9 @@
  */
 package net.sf.jour.util;
 
-//import java.util.ArrayList;
 import java.util.Vector;
-
-import org.apache.regexp.RE;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author michaellif
@@ -31,37 +30,50 @@ import org.apache.regexp.RE;
  */
 public class RegExUtil {
 
-	/*
-    public static String[][] match(String input, String regExp) {
-        ArrayList resultList = new ArrayList();
+    public static String[] match(String input, String regExp) {
+		Vector resultList = new Vector();
 
-        Pattern pattern = Pattern.compile(regExp);
-        Matcher matcher = pattern.matcher(input);
+		Pattern pattern = Pattern.compile(regExp);
+		Matcher matcher = pattern.matcher(input);
 
-        while (matcher.find()) {
-            int groupCount = matcher.groupCount();
-            String[] s = new String[groupCount + 1];
-            for (int i = 0; i <= groupCount; i++) {
-                s[i] = matcher.group(i);
-            }
-            resultList.add(s);
-        }
-
-        return (resultList.size() == 0) ? new String[][] {}
-        : (String[][]) resultList.toArray(new String[0][0]);
-    }*/
-
-	public static String[] match(String input, String regExp) {
-			Vector resultList = new Vector();
-			RE regex = new RE(regExp);
-
-		if (regex.match(input)) {
-			for( int i=1; i < regex.getParenCount() ; ++i ) {
-				String s = regex.getParen(i);
-				resultList.add(s);
+		if (matcher.matches()) {
+			int groupCount = matcher.groupCount();
+			for (int i = 1; i <= groupCount; i++) {
+				resultList.add(matcher.group(i));
 			}
 		}
-		return (String[])resultList.toArray(new String[0]);
-	}
 
+		return (String[]) resultList.toArray(new String[0]);
+	}
+    
+//	public static String[] match(String input, String regExp) {
+//		Vector resultList = new Vector();
+//		org.apache.regexp.RE regex = new org.apache.regexp.RE(regExp);
+//
+//		if (regex.match(input)) {
+//			for (int i = 1; i < regex.getParenCount(); ++i) {
+//				String s = regex.getParen(i);
+//				resultList.add(s);
+//			}
+//		}
+//		return (String[]) resultList.toArray(new String[0]);
+//	}
+
+    public static String getParen(String input, String regExp) {
+    	Pattern pattern = Pattern.compile(regExp);
+		Matcher matcher = pattern.matcher(input);
+		if (matcher.find()) {
+			return matcher.group(0);
+		} else {
+			return null;
+		}
+    }
+    
+//    public static String getParen(String input, String regExp) {
+//    	org.apache.regexp.RE regex = new org.apache.regexp.RE(regExp);
+//		if (regex.match(input)) {
+//			return regex.getParen(0);
+//		}
+//		return null;
+//    }
 }

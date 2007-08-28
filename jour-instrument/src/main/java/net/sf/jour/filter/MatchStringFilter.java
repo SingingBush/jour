@@ -20,9 +20,9 @@
  */
 package net.sf.jour.filter;
 
-import net.sf.jour.log.Logger;
+import java.util.regex.Pattern;
 
-import org.apache.regexp.RE;
+import net.sf.jour.log.Logger;
 
 /**
  * TODO Add docs Created on 04.12.2004
@@ -43,7 +43,7 @@ public class MatchStringFilter extends BasicFilter {
 
 	String pattern;
 
-	private RE rePattern;
+	private Pattern rePattern;
 
 	boolean negative;
 

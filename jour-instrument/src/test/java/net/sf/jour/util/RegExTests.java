@@ -20,6 +20,8 @@
  */
 package net.sf.jour.util;
 
+import java.util.StringTokenizer;
+
 import junit.framework.TestCase;
 
 /**
@@ -36,21 +38,25 @@ import junit.framework.TestCase;
  */
 public class RegExTests extends TestCase {
 	
-	void verify(String str, String regEx){
+	void verify(String str, String expected, String regEx){
 		String[] ar = RegExUtil.match(str, regEx);
-		for(int i = 0; i <ar.length; i ++) {
+		StringTokenizer st = new StringTokenizer(expected, "|");
+		for(int i = 0; i < ar.length; i ++) {
 			System.out.print("[" + ar[i] + "]");
+			String expectedItem = st.nextToken();
+			assertEquals(expectedItem, ar[i]);
 		}
 		System.out.println();
+		assertFalse(st.hasMoreTokens()) ;
 	}
 	
 	public void testJ14() throws Exception {
 		//verify("(^[\\S]*)\\s*(\\S*)\\((\\S*)\\)\\s*$");
 		
-		verify("A B S", "(\\S*)\\s*(\\S*)\\s*(\\S*)");
-		verify(" * set* (..) ", "(\\S*)\\s*(\\S*)\\s*\\((\\S*)\\)\\s*");
+		verify("A B S", "A|B|S", "(\\S*)\\s*(\\S*)\\s*(\\S*)");
+		verify("* set* (..) ", "*|set*|..", "(\\S*)\\s*(\\S*)\\s*\\((\\S*)\\)\\s*");
 		//verify("* set*(..)", "(^[\\S]*)\\s*(\\S*)\\((\\S*)\\)\\s*$");
 		
-		verify("bob.bb->set*(..)", "(\\S*)\\s*(\\.\\S*)->(\\S*)\\((\\S*)\\)");
+		verify("bob.bb->set*(..)", "bob|.bb|set*|..", "(\\S*)\\s*(\\.\\S*)->(\\S*)\\((\\S*)\\)");
 	}
 }

@@ -28,8 +28,6 @@ import javassist.NotFoundException;
 import net.sf.jour.log.Logger;
 import net.sf.jour.util.RegExUtil;
 
-import org.apache.regexp.RE;
-
 /**
  * @author michaellif
  */
@@ -45,7 +43,7 @@ public class Pointcut extends MatchStringFilter {
 
 	private static String classMethodsPattern = "(\\S*)\\s*(\\S*)\\s*=>\\s*(\\S*)\\s*\\((.*)\\)";
 
-	private static String methodPattern = "(\\S*)\\s*(\\S*)\\s*\\((.*)\\)";
+	private static String methodPattern = "\\s*(\\S*)\\s*(\\S*)\\s*\\((.*)\\)";
 
 	private String retType = "";
 
@@ -69,9 +67,8 @@ public class Pointcut extends MatchStringFilter {
      * Creates a new Pointcut object.
      */
 	public Pointcut(String expr) {
-		RE regex = new RE(modifierListPattern);
-		if (regex.match(expr)) {
-			String mod = regex.getParen(0);
+		String mod = RegExUtil.getParen(expr, modifierListPattern);
+		if (mod != null) {
 			if (debug) {
 				log.debug("modexpr: " + expr);
 				log.debug("mod: " + mod);
