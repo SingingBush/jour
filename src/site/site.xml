@@ -32,6 +32,9 @@
                 <item name="SVN Access" href="source-repository.html"/>
             </item>
 
+            <!--4release-->
+            <item name="Preview 2.0.1" href="http://pyx4me.com/snapshot/jour/"/>
+
         </menu>
 
         <menu ref="parent" />
