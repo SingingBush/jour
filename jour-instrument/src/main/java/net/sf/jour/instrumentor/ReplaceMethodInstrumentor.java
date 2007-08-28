@@ -5,6 +5,7 @@ import javassist.CtConstructor;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
 import net.sf.jour.InterceptorException;
+import net.sf.jour.util.StringUtil;
 
 public class ReplaceMethodInstrumentor  extends AbstractInstrumentor {
 
@@ -38,9 +39,9 @@ public class ReplaceMethodInstrumentor  extends AbstractInstrumentor {
 
 			CtMethod mnew = CtNewMethod.copy(method, mname, clazz, null);
 
-			//  replace the body of the interceptor method with generated
-			//  code block and add it to class
-			mnew.setBody(code.replace("$origMethodName", nname));
+			// replace the body of the interceptor method with generated
+			// code block and add it to class
+			mnew.setBody(StringUtil.replaceAll(code, "$origMethodName", nname));
 			clazz.addMethod(mnew);
 		} catch (Exception e) {
 			throw new InterceptorException("Failed to replace method body " + method.getName(), e);

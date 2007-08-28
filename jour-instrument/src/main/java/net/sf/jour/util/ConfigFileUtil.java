@@ -20,18 +20,21 @@
  */
 package net.sf.jour.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.exolab.castor.mapping.Mapping;
-import org.exolab.castor.xml.Unmarshaller;
-import org.xml.sax.InputSource;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * TODO Add docs
@@ -52,61 +55,16 @@ public class ConfigFileUtil extends FileUtil {
 
 	protected static final Logger log = Logger.getLogger(ConfigFileUtil.class);
 	
-    public static Object unmarshal(InputStream configStream, String castorMapingResource) {
-        InputStream mappingStream = null;
-        try {
-            mappingStream = ConfigFileUtil.class.getResourceAsStream(castorMapingResource);
-            if (mappingStream == null) {
-                throw new FileNotFoundException(castorMapingResource);
-            }
-            Mapping mapping = new Mapping();
-            mapping.loadMapping(new InputSource(mappingStream));
-            Unmarshaller unmar = new Unmarshaller(mapping);
-            return unmar.unmarshal(new InputSource(configStream));
-        } catch (Throwable e) {
-        	log.error("Can't configure processor", e);
-            throw new Error("Can't configure processor " + e.getMessage(), e);
-        } finally {
-            IOUtils.closeQuietly(mappingStream);
-        }
-    }
-    
-    public static Object unmarshal(String resourceXML, String castorMapingResource) {
-        InputStream configStream = null;
-        try {
-            File config = new File(resourceXML);
-            if (!config.exists()) {
-                configStream = ConfigFileUtil.class.getResourceAsStream(resourceXML);
-                if (configStream == null) {
-                    throw new Error("resource or file not found " + resourceXML);
-                }
-            } else {
-                try {
-                    configStream = new FileInputStream(config);
-                } catch (FileNotFoundException e) {
-                    throw new Error("Can't configure processor " + e.getMessage(), e);
-                }
-            }
-            return unmarshal(configStream, castorMapingResource);
-        } finally {
-            IOUtils.closeQuietly(configStream);
-        }
-    }
-    
-    public static Object unmarshalConfigFile(String fileName, String castorMapingResource) {
-    	InputStream configStream = null;
-    	try {
-    		configStream = loadConfig(fileName);
-    		if (configStream == null) {
-    			throw new Error("resource or file not found " + fileName);
-    		}
-    		return unmarshal(configStream, castorMapingResource);
-        } finally {
-            IOUtils.closeQuietly(configStream);
-        }
-    }
-
-    public static Object unmarshalConfigFile(URL location, String castorMapingResource) {
+	public static Document loadDocument(InputStream stream) throws ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setIgnoringComments(true);
+        factory.setValidating(false);
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        builder.setErrorHandler(null);
+        return builder.parse(stream);
+	}
+	
+    public static Document loadDocument(URL location) throws ParserConfigurationException, SAXException, IOException {
     	InputStream configStream = null;
     	try {
     		try {
@@ -114,13 +72,13 @@ public class ConfigFileUtil extends FileUtil {
             } catch (IOException e) {
             	throw new Error("resource not found " + location);
     		} 
-    		return unmarshal(configStream, castorMapingResource);
+    		return loadDocument(configStream);
 		} finally {
             IOUtils.closeQuietly(configStream);
         }
     }
     
-    public static InputStream loadConfig(String fileName) {
+    public static InputStream loadFile(String fileName) {
         URL location = FileUtil.getFile(fileName);
         if (location != null) {
             try {
@@ -134,5 +92,74 @@ public class ConfigFileUtil extends FileUtil {
             FileUtil.log.error("Config file not found: " + fileName);
             return null;
         }
+    }
+    
+    public static Node getFirstElement(Document doc, String tagname) {
+        NodeList list = doc.getElementsByTagName(tagname);
+        if (list.getLength() == 0) {
+            return null;
+        }
+        return list.item(0);
+    }
+    
+    public static Node getChildNode(Node node, String tagName) {
+        if (node == null) {
+            return null;
+        }
+        NodeList children =  node.getChildNodes();  
+        for (int j = 0, cnt = children.getLength(); j < cnt; j++) {
+            Node child = children.item(j);
+            if (child != null) {
+                String nodeName = child.getNodeName();
+                if (nodeName != null && nodeName.equals(tagName)) {
+                    return child;
+                }
+            }
+        }
+        return null;
+    }
+    
+    public static String getNodeValue(Node node, String tagName) {
+        if (node == null) {
+            return null;
+        }
+        NodeList children =  node.getChildNodes();  
+        for (int j = 0, cnt = children.getLength(); j < cnt; j++) {
+            Node child = children.item(j);
+            if (child != null) {
+                String nodeName = child.getNodeName();
+                if (nodeName != null && nodeName.equals(tagName)) {
+                    Node firstChild = child.getFirstChild();
+                    if (firstChild != null) {
+                        String nodeValue = firstChild.getNodeValue();
+                        if (nodeValue != null) {
+                            return nodeValue;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    
+    public static String getNodeAttribute(Node node, String tagName) {
+    	NamedNodeMap nodeAttrs = node.getAttributes();
+    	if (nodeAttrs == null) {
+    		return null;
+    	}
+    	Node value = nodeAttrs.getNamedItem(tagName);
+    	if (value != null) {
+    		return value.getNodeValue();
+    	} else {
+    		return null;
+    	}
+    }
+    
+    public static boolean getNodeAttribute(Node node, String tagName, boolean defaultValue) {
+    	String value = getNodeAttribute(node, tagName);
+    	if (value == null) {
+    		return defaultValue;
+    	}
+    	return Boolean.valueOf(value).booleanValue();
     }
 }

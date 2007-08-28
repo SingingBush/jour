@@ -1,6 +1,7 @@
 package net.sf.jour.config;
 
 import java.util.List;
+import java.util.Vector;
 
 public class Jour {
 
@@ -18,6 +19,13 @@ public class Jour {
 		this.aspect = aspect;
 	}
 
+	public void addAspect(Aspect aspect) {
+		if (this.aspect == null) {
+			this.aspect = new Vector();
+		}
+		this.aspect.add(aspect);
+	}
+	
 	public boolean isDebug() {
 		return debug;
 	}

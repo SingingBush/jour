@@ -1,6 +1,7 @@
 package net.sf.jour.config;
 
 import java.util.List;
+import java.util.Vector;
 
 public class Aspect {
 
@@ -40,6 +41,13 @@ public class Aspect {
 		this.pointcut = pointcut;
 	}
 
+	public void addPointcut(Pointcut pointcut) {
+		if (this.pointcut == null) {
+			this.pointcut = new Vector();
+		}
+		this.pointcut.add(pointcut);
+	}
+	
 	public String getType() {
 		return type;
 	}
@@ -62,5 +70,13 @@ public class Aspect {
 
 	public void setProperty(List properties) {
 		this.properties = properties;
+	}
+
+
+	public void addProperty(AspectProperty property) {
+		if (this.properties == null) {
+			this.properties = new Vector();
+		}
+		this.properties.add(property);
 	}
 }

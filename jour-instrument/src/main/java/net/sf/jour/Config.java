@@ -20,19 +20,33 @@
  */
 package net.sf.jour;
 
-import net.sf.jour.config.Aspect;
-import net.sf.jour.config.AspectProperty;
-import net.sf.jour.config.Jour;
-import net.sf.jour.filter.*;
-import net.sf.jour.instrumentor.*;
-import net.sf.jour.util.*;
-
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import net.sf.jour.config.Aspect;
+import net.sf.jour.config.AspectProperty;
+import net.sf.jour.config.Jour;
+import net.sf.jour.config.Pointcut;
+import net.sf.jour.filter.ClassFilter;
+import net.sf.jour.filter.PointcutListFilter;
+import net.sf.jour.instrumentor.Instrumentor;
+import net.sf.jour.instrumentor.InstrumentorFactory;
+import net.sf.jour.util.ConfigFileUtil;
+import net.sf.jour.util.FileUtil;
 
 import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * @author michaellif
@@ -68,8 +82,7 @@ public class Config {
 	}
 
 	protected void initialize(URL configLocation) {
-		Jour jour = (Jour) ConfigFileUtil.unmarshalConfigFile(configLocation,
-				"/net/sf/jour/config/jour-castor-mapping.xml");
+		Jour jour = parsJourXML(configLocation);
 		if (jour != null) {
 			isDebug = jour.isDebug();
 			isSetSerialVersionUID = jour.isSetSerialVersionUID();
@@ -96,6 +109,78 @@ public class Config {
 		}
 	}
 	
+	private Jour parsJourXML(URL configLocation) {
+		Jour jour = new Jour();
+		try {
+			Document xmlDoc = ConfigFileUtil.loadDocument(configLocation);
+			Node jourNode = ConfigFileUtil.getFirstElement(xmlDoc, "jour");
+			if (jourNode == null) {
+				throw new ConfigException("Invalid XML root");
+			}
+			
+			jour.setDebug(ConfigFileUtil.getNodeAttribute(jourNode, "debug", false));
+			jour.setSetSerialVersionUID(ConfigFileUtil.getNodeAttribute(jourNode, "setSerialVersionUID", false));
+			
+			NodeList aspectList = jourNode.getChildNodes();
+			for (int j = 0; j < aspectList.getLength(); j++) {
+	            Node aspectNode = aspectList.item(j);
+	            if (!"aspect".equals(aspectNode.getNodeName())) {
+	            	continue;
+	            }
+	            
+	            Aspect aspect = new Aspect();
+	            
+	            aspect.setDescr(ConfigFileUtil.getNodeAttribute(aspectNode, "descr"));
+	            aspect.setType(ConfigFileUtil.getNodeAttribute(aspectNode, "type"));
+	            aspect.setEnabled(ConfigFileUtil.getNodeAttribute(aspectNode, "enabled", true));
+	            aspect.setTypedef(ConfigFileUtil.getNodeValue(aspectNode, "typedef"));
+	            
+	            NodeList aspectChildList = aspectNode.getChildNodes();
+	            for (int k = 0; k < aspectChildList.getLength(); k++) {
+		            Node aspectChildNode = aspectChildList.item(k);
+		            String nodeName = aspectChildNode.getNodeName();
+		            
+		            if ("pointcut".equals(nodeName)) {
+		            	aspect.addPointcut(parsPointcut(aspectChildNode));
+		            } else if ("property".equals(nodeName)) {
+		            	aspect.addProperty(parsProperty(aspectChildNode));
+		            }
+		            
+	            }
+	            jour.addAspect(aspect);
+			}
+		} catch (ParserConfigurationException e) {
+			throw new ConfigException("Error parsing XML", e);
+		} catch (SAXException e) {
+			throw new ConfigException("Error parsing XML", e);
+		} catch (IOException e) {
+			throw new ConfigException("Error parsing XML", e);
+		}
+		return jour;
+	}
+	
+	private AspectProperty parsProperty(Node node) {
+		AspectProperty p = new AspectProperty();
+		p.setName(ConfigFileUtil.getNodeAttribute(node, "name"));
+		
+		String value = ConfigFileUtil.getNodeValue(node, "value");
+		if (value == null) {
+			value = ConfigFileUtil.getNodeAttribute(node, "value");
+		}
+		p.setValue(value);
+		return p;
+	}
+
+	private Pointcut parsPointcut(Node node) {
+		Pointcut p = new Pointcut();
+		String expr = ConfigFileUtil.getNodeAttribute(node, "expr");
+		if (expr == null) {
+			expr = node.getNodeValue();
+		}
+		p.setExpr(expr);
+		return p;
+	}
+
 	void setInstrumentorProperty(Instrumentor instrumentor, String name, String value) {
 		try {
 			Method method = instrumentor.getClass().getMethod(name, new Class[] {String.class});

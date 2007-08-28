@@ -38,12 +38,13 @@ public class InstrumentorFactory {
 	public static Instrumentor createInstrumentor(String instrumentor, PointcutListFilter pointcuts)
 			throws InterceptorException {
 		Instrumentor instr = null;
-
+		if (instrumentor == null) {
+			throw new InterceptorException("Instrumentor is NULL");			
+		}
 		try {
 			instr = (Instrumentor) Class.forName(instrumentor).newInstance();
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new InterceptorException("Failed to instantiate " + instrumentor + "instrumentor.");
+			throw new InterceptorException("Failed to instantiate " + instrumentor + "instrumentor.", e);
 		}
 
 		instr.setPointcuts(pointcuts);
