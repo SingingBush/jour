@@ -29,34 +29,6 @@
         </dependency>
 
         <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-adapters</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-api</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <!-- fix to ignore repositories referenceed in castor -->
-        <!--
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xerces</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.castor</groupId>
-            <artifactId>castor</artifactId>
-        </dependency>
-        -->
-
-        <dependency>
             <groupId>regexp</groupId>
             <artifactId>regexp</artifactId>
         </dependency>

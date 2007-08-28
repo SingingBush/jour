@@ -23,6 +23,8 @@ package net.sf.jour.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -112,6 +114,16 @@ public class FileUtil {
 		}
 	}
 
+	public static void closeQuietly(InputStream input) {
+        try {
+            if (input != null) {
+                input.close();
+            }
+        } catch (IOException ioe) {
+            // ignore
+        }
+    }
+	
 	public static HashSet readTextFile(File file) {
 		HashSet list = new HashSet();
 		if (!readTextFile(file, list)) {

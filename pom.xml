@@ -24,25 +24,25 @@
     <licenses>
         <license>
             <name>GNU Lesser General Public License (LGPL)</name>
-			<url>http://www.gnu.org/licenses/lgpl.html</url>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
         </license>
     </licenses>
 
-	<issueManagement>
-		<system>SourceForge</system>
-		<url>http://sourceforge.net/tracker/?group_id=122892</url>
-	</issueManagement>
+    <issueManagement>
+        <system>SourceForge</system>
+        <url>http://sourceforge.net/tracker/?group_id=122892</url>
+    </issueManagement>
 
     <ciManagement>
         <system>Cruisecontrol</system>
         <url>https://pyx4j.com/cruisecontrol/</url>
     </ciManagement>
 
-	<scm>
-		<url>http://jour.svn.sourceforge.net/viewvc/jour/</url>
-		<connection>scm:svn:https://jour.svn.sourceforge.net/svnroot/jour</connection>
-		<developerConnection>scm:svn:https://jour.svn.sourceforge.net/svnroot/jour</developerConnection>
-	</scm>
+    <scm>
+        <url>http://jour.svn.sourceforge.net/viewvc/jour/</url>
+        <connection>scm:svn:https://jour.svn.sourceforge.net/svnroot/jour</connection>
+        <developerConnection>scm:svn:https://jour.svn.sourceforge.net/svnroot/jour</developerConnection>
+    </scm>
 
     <distributionManagement>
         <site>
@@ -130,53 +130,6 @@
             <artifactId>maven-plugin-log4j</artifactId>
             <version>1.0.1</version>
         </dependency>
-
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-adapters</artifactId>
-            <version>1.1</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging-api</artifactId>
-            <version>1.1</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>1.2</version>
-        </dependency>
-
-        <!-- fix to ignore repositories referenceed in castor -->
-        <!--
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xerces</artifactId>
-            <version>1.4.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.castor</groupId>
-            <artifactId>castor</artifactId>
-            <version>1.0.5</version>
-            <exclusions>
-                <exclusion><groupId>adaptx</groupId><artifactId>adaptx</artifactId></exclusion>
-                <exclusion><groupId>commons-logging</groupId><artifactId>commons-logging</artifactId></exclusion>
-                <exclusion><groupId>javax.servlet</groupId><artifactId>servlet-api</artifactId></exclusion>
-                <exclusion><groupId>javax.transaction</groupId><artifactId>jta</artifactId></exclusion>
-                <exclusion><groupId>com.cenqua.clover</groupId><artifactId>clover</artifactId></exclusion>
-                <exclusion><groupId>ant</groupId><artifactId>ant</artifactId></exclusion>
-                <exclusion><groupId>oro</groupId><artifactId>oro</artifactId></exclusion>
-                <exclusion><groupId>jakarta-regexp</groupId><artifactId>jakarta-regexp</artifactId></exclusion>
-                <exclusion><groupId>ldapsdk</groupId><artifactId>ldapsdk</artifactId></exclusion>
-                <exclusion><groupId>cglib</groupId><artifactId>cglib-full</artifactId></exclusion>
-            </exclusions>
-        </dependency>
-        -->
 
         <dependency>
             <groupId>regexp</groupId>

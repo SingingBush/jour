@@ -28,7 +28,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -74,7 +73,7 @@ public class ConfigFileUtil extends FileUtil {
     		} 
     		return loadDocument(configStream);
 		} finally {
-            IOUtils.closeQuietly(configStream);
+			FileUtil.closeQuietly(configStream);
         }
     }
     
