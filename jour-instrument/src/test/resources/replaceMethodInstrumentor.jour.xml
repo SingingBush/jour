@@ -1,0 +1,16 @@
+<jour>
+	<aspect type="net.sf.jour.instrumentor.ReplaceMethodInstrumentor" enabled="true">
+		<typedef>uut.replaceMethod.*Case</typedef>
+		<pointcut expr="* toReplace*()"/>
+		<property name="code">
+		    <value><![CDATA[
+		        {
+		        System.out.println("before original Method $origMethodName");
+		        $origMethodName($$);
+		        System.out.println("after original Method $origMethodName");
+		        uut.Monitor.count ++;
+		        }
+		    ]]></value>
+		</property>
+	</aspect>
+</jour>

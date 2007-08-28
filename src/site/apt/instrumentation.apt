@@ -80,6 +80,8 @@ public class ClassWithDebug {
 
         * net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor
 
+        * net.sf.jour.instrumentor.ReplaceMethodInstrumentor
+
         []
 
         Custom instrumentor should implement net.sf.jour.instrumentor.Instrumentor
