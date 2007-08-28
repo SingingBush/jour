@@ -44,6 +44,8 @@ import javassist.NotFoundException;
 public class ExceptionCatcherInstrumentor extends AbstractInstrumentor {
 
     private ArrayList exceptions = new ArrayList();
+    
+    private String code;
 
     /**
      * Creates a new ExceptionCatcherInstrumentor object.
@@ -51,9 +53,13 @@ public class ExceptionCatcherInstrumentor extends AbstractInstrumentor {
     public ExceptionCatcherInstrumentor() {
     }
 
-    public void addExceptionType(String exception) {
+    public void exceptionType(String exception) {
         exceptions.add(exception);
     }
+    
+	public void code(String code) {
+		this.code = code;
+	}
 
     public boolean instrumentClass(CtClass clazz) throws InterceptorException {
     	return false;
@@ -84,17 +90,20 @@ public class ExceptionCatcherInstrumentor extends AbstractInstrumentor {
         throws NotFoundException, CannotCompileException {
         String mname = method.getName();
         CtClass etype = ClassPool.getDefault().get(exception);
-        StringBuffer code = new StringBuffer(300);
-        code.append("{ System.out.println(\"Exception ").append(exception)
-            .append(" at ");
-        code.append(clazz.getName()).append(".").append(mname).append("\");");
-        code.append(" throw $e; }");
-        method.addCatch(code.toString(), etype);
+        StringBuffer codeBuffer = new StringBuffer();
+        if (this.code == null) {
+        	codeBuffer.append("{ System.out.println(\"Exception ").append(exception).append(" at ");
+        	codeBuffer.append(clazz.getName()).append(".").append(mname).append("\");");
+        	codeBuffer.append(" throw $e; }");
+        } else {
+        	codeBuffer.append(this.code);
+        }
+        method.addCatch(codeBuffer.toString(), etype);
     }
 
     public boolean instrumentConstructor(CtClass clazz, CtConstructor constructor)
         throws InterceptorException {
 			return false;
     }
-    
+   
 }

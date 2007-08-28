@@ -16,7 +16,7 @@
 
 		<field name="setSerialVersionUID" type="boolean" required="false">
 			<bind-xml name="setSerialVersionUID" node="attribute"/>
-		</field>		
+		</field>
 
     </class>
 
@@ -42,11 +42,27 @@
 			<bind-xml name="pointcut" node="element"/>
 		</field>
 
+        <field name="property" type="net.sf.jour.config.AspectProperty" collection="collection" required="false">
+			<bind-xml name="property" node="element"/>
+		</field>
+
 	</class>
 
     <class name="net.sf.jour.config.Pointcut">
         <field name="expr" type="java.lang.String" required="false">
 			<bind-xml name="expr" node="attribute"/>
+		</field>
+    </class>
+
+    <class name="net.sf.jour.config.AspectProperty">
+        <field name="name" type="java.lang.String" required="true">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="value" type="java.lang.String" required="false">
+			<bind-xml name="value" node="attribute"/>
+		</field>
+		<field name="valueElement" type="java.lang.String" required="false">
+			<bind-xml name="value" node="element"/>
 		</field>
     </class>
 

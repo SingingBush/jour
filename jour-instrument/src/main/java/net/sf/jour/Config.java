@@ -21,11 +21,14 @@
 package net.sf.jour;
 
 import net.sf.jour.config.Aspect;
+import net.sf.jour.config.AspectProperty;
 import net.sf.jour.config.Jour;
 import net.sf.jour.filter.*;
 import net.sf.jour.instrumentor.*;
 import net.sf.jour.util.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
 
@@ -81,10 +84,29 @@ public class Config {
 					PointcutListFilter pointcuts = new PointcutListFilter();
 					pointcuts.readConfig(aspectCfg.getPointcut());
 					Instrumentor instr = InstrumentorFactory.createInstrumentor(aspectCfg.getType(), pointcuts);
+					if (aspectCfg.getProperty() != null) {
+						for (Iterator pi = aspectCfg.getProperty().iterator(); pi.hasNext();) {
+							AspectProperty prop = (AspectProperty) pi.next();
+							setInstrumentorProperty(instr, prop.getName(), prop.getValue());
+						}
+					}
 					instrumentors.put(filter, instr);
 				}
 			}
 		}
+	}
+	
+	void setInstrumentorProperty(Instrumentor instrumentor, String name, String value) {
+		try {
+			Method method = instrumentor.getClass().getMethod(name, new Class[] {String.class});
+			method.invoke(instrumentor, new Object[] {value});
+		} catch (NoSuchMethodException e) {
+			throw new Error("Can't set property " + name, e);
+		} catch (IllegalAccessException e) {
+			throw new Error("Can't set property " + name, e);
+		} catch (InvocationTargetException e) {
+			throw new Error("Can't set property " + name, e);
+		}	
 	}
 
 	public boolean isSetSerialVersionUID() {

@@ -11,6 +11,8 @@ public class Aspect {
 	String typedef;
 
 	List pointcut;
+	
+	List properties;
 
 	boolean enabled;
 	
@@ -52,5 +54,13 @@ public class Aspect {
 
 	public void setTypedef(String typedef) {
 		this.typedef = typedef;
+	}
+
+	public List getProperty() {
+		return properties;
+	}
+
+	public void setProperty(List properties) {
+		this.properties = properties;
 	}
 }

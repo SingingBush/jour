@@ -16,6 +16,16 @@ public class InstrumentingClassLoader extends Loader {
 	}
 
 	public InstrumentingClassLoader(String configFileName, String[] path) {
+		super();
+		init(configFileName, path);
+	}
+	
+	public InstrumentingClassLoader(String configFileName, String[] path, ClassLoader parent) {
+		super(parent, null);
+		init(configFileName, path);
+	}
+	
+	private void init(String configFileName, String[] path) {
 		config = new Config(configFileName);
 		translator = new InstrumentingTranslator(config);
 		ClassPool pool = ClassPool.getDefault();

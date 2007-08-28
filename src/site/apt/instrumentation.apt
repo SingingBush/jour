@@ -76,7 +76,7 @@ public class ClassWithDebug {
 
         * net.sf.jour.instrumentor.ExceptionCatcherInstrumentor
 
-        * net.sf.jour.instrumentor.InstanceCounterInstrumentor
+~~        * net.sf.jour.instrumentor.InstanceCounterInstrumentor
 
         * net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor
 
@@ -104,63 +104,88 @@ public class ClassWithDebug {
 
     * <pointcut> Apply function filter
 
-        Examples:
+       Examples:
 
         * Explicit function name and return type
 
 ---
-<pointcut>junit.framework.Test suite()</pointcut>
+<pointcut expr="junit.framework.Test suite()">
 ---
 
         * All getters
 
 ---
-<pointcut>* get*()</pointcut>
+<pointcut expr="* get*()">
 ---
 
         * All not final getters
 
 ---
-<pointcut>!final * get*()</pointcut>
+<pointcut expr="!final * get*()">
 ---
             public private synchronized static modifiers can be used
 
         * All functions other than seters
 
 ---
-<pointcut>* *(..)|!* set*(..)</pointcut>
+<pointcut expr="* *(..)|!* set*(..)">
 ---
 
         * Any function returning String taking any arguments
 
 ---
-<pointcut>java.lang.String *(..)</pointcut>
+<pointcut expr="java.lang.String *(..)">
 ---
 
         * Any function returning String or int
 
 ---
-<pointcut>java.lang.String;int *(..)</pointcut>
+<pointcut expr="java.lang.String;int *(..)">
 ---
 
         * Any function taking String and int arguments
 
 ---
-<pointcut>* *(java.lang.String,int)</pointcut>
+<pointcut expr="* *(java.lang.String,int)">
 ---
 
         * Any function taking String or int arguments
 
 ---
-<pointcut>* *(java.lang.String|int)</pointcut>
+<pointcut expr="* *(java.lang.String|int)">
 ---
 
 
         * Any function that implements interface com.exmple.MyInterface
 
 ---
-<pointcut>* com.exmple.MyInterface->*(..)</pointcut>
+<pointcut expr="* com.exmple.MyInterface->*(..)">
 ---
 
         []
+
+    * <property> Any other property of Instrumentor
+
+    This translates to method call "propertyName(String);
+
+    Example:
+
+---
+<jour>
+	<aspect type="net.sf.jour.instrumentor.ExceptionCatcherInstrumentor" enabled="true">
+		<typedef>uut.exceptionCatcher.*Case</typedef>
+		<pointcut expr="* throwMethod*()"/>
+		<property name="exceptionType" value="java.lang.Error"/>
+		<property name="code">
+		    <value><![CDATA[
+		        {
+		        caught = $e;
+		        return;
+		        }
+		    ]]></value>
+		</property>
+	</aspect>
+</jour>
+---
+
     []
