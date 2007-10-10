@@ -12,6 +12,8 @@ Jour overview
 
 * Key usage examples
 
+    * API signature validation.
+
     * Bytecode optimization.
 
     * Aspect Oriented Programming.

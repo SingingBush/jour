@@ -1,0 +1,87 @@
+~~ @version $Revision$ ($Author$) $Date$
+~~ See this file format http://maven.apache.org/guides/mini/guide-apt-format.html
+
+                                    ------------------
+                                    API Signature verification
+
+
+API Signature verification
+
+  This is Java API compatibility testing tools.
+
+  Main goal is to be able to create to create API signature and verify that library implemenation conforms to described specification.
+
+  java reflection API is not used during tests so Object are not instantiate. javassist is used to get the API description from classes
+
+* Related projects
+
+  There are other tools that do something like this:
+
+  * SignatureTool from Motorola {{{https://opensource.motorola.com/sf/sfmain/do/viewProject/projects.gatling}Gatling}} project.
+
+  * {{http://sab39.netreach.com/japi/}Japitools}}
+
+  * {{http://jcp.org/en/resources/tdk}SUN Signature Test tool}}
+
+
+* Creation of API descriptor XML from command line
+
+---
+java -cp jour-instrument-2.0.1.jar net.sf.jour.SignatureGenerator --src myclasses.jar --packages com.api;com.ext --dst api-signature.xml
+---
+
+* Example of generated signature XML
+
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<signature>
+
+  <interface name="uut.signature.AnInerface" modifiers="public">
+    <method name="getVoid" return="void" modifiers="public abstract"/>
+    <method name="getInt" return="int" modifiers="public abstract"/>
+  </interface>
+
+  <class name="uut.signature.AClass" modifiers="public">
+    <implements>
+      <interface name="uut.signature.AnInerface"/>
+    </implements>
+    <constructor modifiers="public"/>
+    <constructor>
+      <parameter name="int[]"/>
+      <exception name="java.lang.Error"/>
+    </constructor>
+    <method name="getInt" return="int" modifiers="public"/>
+    <method name="getProt" return="void" modifiers="protected"/>
+    <method name="getVoid" return="void" modifiers="public"/>
+    <field name="constData" type="int" modifiers="public static final" constant-value="10"/>
+    <field name="data" type="short" modifiers="static"/>
+  </class>
+
+  <class name="uut.signature.AChildClass" modifiers="public" extends="uut.signature.AClass">
+    <constructor modifiers="protected"/>
+    <method name="run" return="void" modifiers="public"/>
+    <method name="run" return="java.lang.Long" modifiers="public">
+      <exception name="java.lang.Error"/>
+      <parameter name="byte"/>
+    </method>
+    <field name="constData" type="int" modifiers="public static final" constant-value="10"/>
+    <field name="data" type="short" modifiers="static"/>
+  </class>
+
+</signature>
+
+---
+
+* Verification of API descriptor XML from command line
+
+---
+java -cp jour-instrument-2.0.1.jar net.sf.jour.SignatureVerify --src myclasses-v2.jar --signature api-signature.xml
+---
+
+* Verification of API descriptor XML from JUnit tests
+
+ Extend your JUnit test from net.sf.jour.signature.SignatureTestCase and override abstract methods
+
+---
+
+---

@@ -38,6 +38,7 @@ import net.sf.jour.log.Logger;
 import net.sf.jour.processor.DirectoryInputSource;
 import net.sf.jour.processor.DirectoryOutputWriter;
 import net.sf.jour.processor.Entry;
+import net.sf.jour.processor.EntryHelper;
 import net.sf.jour.processor.InputSource;
 import net.sf.jour.processor.InstrumentedCreatedEntry;
 import net.sf.jour.processor.InstrumentedEntry;
@@ -193,8 +194,7 @@ public class PreProcessor {
 
 	public InstrumentorResults instrument(Entry entry, OutputWriter outputWriter) throws IOException {
 		this.countClasses++;
-		String className = entry.getName().replace('/', '.');
-		className = className.substring(0, className.lastIndexOf('.'));
+		String className = EntryHelper.getClassName(entry);
 		Instrumentor[] instrumentors = config.getInstrumentors(className);
 		if (instrumentors.length > 0) {
 			log.debug("intercepting class " + className);

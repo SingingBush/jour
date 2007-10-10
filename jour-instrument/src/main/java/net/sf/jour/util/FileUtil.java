@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -118,6 +119,16 @@ public class FileUtil {
         try {
             if (input != null) {
                 input.close();
+            }
+        } catch (IOException ioe) {
+            // ignore
+        }
+    }
+
+	public static void closeQuietly(OutputStream out) {
+        try {
+            if (out != null) {
+                out.close();
             }
         } catch (IOException ioe) {
             // ignore
