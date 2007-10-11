@@ -11,23 +11,26 @@ API Signature verification
 
   Main goal is to be able to create to create API signature and verify that library implemenation conforms to described specification.
 
-  java reflection API is not used during tests so Object are not instantiate. javassist is used to get the API description from classes
+  The tool automates verification process of the API under test with a reference API.
+
+  java reflection API is not used during tests so Object are not instantiated. {{{http://www.jboss.org/products/javassist}Javassist}} is used to get the API description from classes.
 
 * Related projects
 
   There are other tools that do something like this:
 
-  * SignatureTool from Motorola {{{https://opensource.motorola.com/sf/sfmain/do/viewProject/projects.gatling}Gatling}} project.
+  * SignatureTool from Motorola {{{https://opensource.motorola.com/sf/sfmain/do/viewProject/projects.gatling}Gatling}} project
 
-  * Test compatibility between Java APIs {{http://sab39.netreach.com/japi/}Japitools}}
+  * Test compatibility between Java APIs {{{http://sab39.netreach.com/japi/}Japitools}}
 
-  * SUN TCK Tools {{http://jcp.org/en/resources/tdk}Signature Test tool}}
+  * SUN TCK Tools {{{http://jcp.org/en/resources/tdk}Signature Test tool}}
 
 
 * Creation of API descriptor XML from command line
 
 ---
-java -cp jour-instrument-2.0.1.jar;javassist.jar net.sf.jour.SignatureGenerator --src myclasses.jar --packages com.api;com.ext --dst api-signature.xml
+java -cp jour-instrument-2.0.1.jar;javassist.jar net.sf.jour.SignatureGenerator \
+   --src myclasses.jar --packages com.api;com.ext --dst api-signature.xml
 ---
 
     All command line options:
