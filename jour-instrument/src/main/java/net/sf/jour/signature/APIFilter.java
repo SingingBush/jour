@@ -30,6 +30,8 @@ import javassist.Modifier;
  */
 public class APIFilter {
 
+	public static final String javaLangString = "java.lang.String";
+	
 	public static boolean isAPIClass(CtClass klass) {
 		int mod = klass.getModifiers();
 		if (Modifier.isPrivate(mod)) {
@@ -46,6 +48,15 @@ public class APIFilter {
 		} else {
 			return true;
 		}
+	}
+	
+	public static boolean isExportableConstantType(CtClass klass) {
+		if (klass.isPrimitive()) {
+			return true;
+		} else if (javaLangString.equals(klass.getName())) {
+			return true;
+		}
+		return false;
 	}
 	
 	static int filterModifiers(int mod) {

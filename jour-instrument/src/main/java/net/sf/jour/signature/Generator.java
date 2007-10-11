@@ -29,6 +29,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -51,6 +52,10 @@ public class Generator {
 
 	protected static final Logger log = Logger.getLogger();
 	
+	private boolean useSystemClassPath = true;
+	
+	private String supportingJars;
+	
 	private String sources;
 	
 	private String packages;
@@ -60,6 +65,12 @@ public class Generator {
 	private Set packageSet = new HashSet();
 	
 	private List classNames = new Vector();
+	
+	public Generator(Properties properties) {
+		this(properties.getProperty("src"), properties.getProperty("packages"), properties.getProperty("dst"));
+		this.useSystemClassPath = properties.getProperty("systempath") != null; 
+		this.supportingJars = properties.getProperty("systempath");
+	}
 	
 	public Generator(String sources, String packages, String reportFile) {
 		super();
@@ -114,7 +125,12 @@ public class Generator {
 		
 		ClassPool classPool = new ClassPool();
 		classPool.appendClassPath(input.getAbsolutePath());
-		classPool.appendSystemPath();
+		if (this.supportingJars != null) {
+			classPool.appendClassPath(this.supportingJars);
+		}
+		if (this.useSystemClassPath) {
+			classPool.appendSystemPath();
+		}
 		
 		List classes = new Vector();
 		
@@ -142,8 +158,7 @@ public class Generator {
 		}
 		log.debug("countEntry   " + countEntry);
 		
-		XMLExport xml = new XMLExport();
-		xml.export(reportFile, classes);
+		ExportXML.export(reportFile, classes);
 		
 	}
 	
@@ -154,8 +169,7 @@ public class Generator {
             classes.add(classPool.get(className));
             this.classNames.add(className);
         }
-	    XMLExport xml = new XMLExport();
-        xml.export(reportFile, classes);
+	    ExportXML.export(reportFile, classes);
 	}
 
 	public List getClassNames() {

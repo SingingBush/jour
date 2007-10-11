@@ -17,34 +17,39 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
+ * 
+ * @version $Id$
+ * 
  */
-package net.sf.jour;
+package net.sf.jour.signature;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Properties;
+import java.util.Iterator;
+import java.util.List;
 
-import javassist.NotFoundException;
+import net.sf.jour.util.FileUtil;
 
-import net.sf.jour.signature.Generator;
-import net.sf.jour.util.CmdArgs;
+import javassist.CannotCompileException;
+import javassist.CtClass;
 
 /**
  * @author vlads
  *
  */
-public class SignatureGenerator {
+public class ExportClasses {
 
-	public static void main(String[] args) throws IOException, NotFoundException {
-		Properties argsp = CmdArgs.load(args);
-		if ((args.length < 1) || argsp.getProperty("help") != null) {
-			StringBuffer usage = new StringBuffer();
-			usage.append("Usage:\n java ").append(SignatureGenerator.class.getName());
-			usage.append(" --src classesDir|classes.jar (--systempath) (--jars jar1.jar;jar2.jar) (--packages com.api;com.ext) (--dst api-signature.xml)\n");
-			System.out.println(usage);
-			return;
+	public static void export(String directoryName, List classes) {
+		FileUtil.deleteDir(new File(directoryName), false);
+		for (Iterator iterator = classes.iterator(); iterator.hasNext();) {
+			CtClass klass = (CtClass) iterator.next();
+			try {
+				klass.writeFile(directoryName);
+			} catch (CannotCompileException e) {
+				throw new RuntimeException(e);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
 		}
-		Generator g = new Generator(argsp);
-		g.process();
 	}
-
 }

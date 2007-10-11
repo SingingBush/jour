@@ -26,6 +26,7 @@ import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.List;
 
+import javassist.CtBehavior;
 import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtField;
@@ -55,13 +56,13 @@ import org.w3c.dom.Node;
  * @author vlads
  *
  */
-public class XMLExport {
+public class ExportXML {
 
 	public static final String rootNodeName = "signature";
 	
 	private Document document; 
 		
-	public void export(String reportFile, List classes) {
+	public static void export(String reportFile, List classes) {
 
 		DocumentBuilder builder;
 		try {
@@ -72,18 +73,20 @@ public class XMLExport {
 			throw new RuntimeException(e);
 		}
 		
-		document = builder.newDocument();
+		ExportXML instance = new ExportXML();
 		
-		Element root = document.createElement(rootNodeName);
-		document.appendChild(root);
+		instance.document = builder.newDocument();
+		
+		Element root = instance.document.createElement(rootNodeName);
+		instance.document.appendChild(root);
 		
 		for (Iterator iterator = classes.iterator(); iterator.hasNext();) {
 			CtClass klass = (CtClass) iterator.next();
 			if (APIFilter.isAPIClass(klass)) {
-				root.appendChild(classNode(klass));
+				root.appendChild(instance.classNode(klass));
 			}
 		}
-		serializeXML(reportFile);
+		instance.serializeXML(reportFile);
 	}
 	
 	private void serializeXML(String reportFile) {
@@ -162,6 +165,24 @@ public class XMLExport {
 			}
 	}
 	
+	private void buildExceptions(Element element, CtBehavior method) throws NotFoundException {
+		CtClass[] exceptions = method.getExceptionTypes();
+		for (int k = 0; k < exceptions.length; k++) {
+			Element exceptElement = document.createElement("exception");
+			addAttribute(exceptElement, "name", exceptions[k].getName());
+			element.appendChild(exceptElement);
+		}
+	}
+	
+	private void buildParameterTypes(Element element, CtBehavior method) throws NotFoundException {
+		CtClass[] params = method.getParameterTypes();
+		for (int k = 0; k < params.length; k++) {
+			Element paramsElement = document.createElement("parameter");
+			addAttribute(paramsElement, "name", params[k].getName());
+			element.appendChild(paramsElement);
+		}
+	}
+	
 	private void buildConstructors(Element element, CtClass klass) throws NotFoundException {
 		CtConstructor[] constructors = klass.getDeclaredConstructors();
 		for (int i = 0; i < constructors.length; i++) {
@@ -172,20 +193,8 @@ public class XMLExport {
 			
 			Element constructorElement = document.createElement("constructor");
 			addModifiers(constructorElement, constructors[i].getModifiers());
-			CtClass[] exceptions = constructors[i].getExceptionTypes();
-			for (int k = 0; k < exceptions.length; k++) {
-				Element exceptElement = document.createElement("exception");
-				addAttribute(exceptElement, "name", exceptions[k].getName());
-				constructorElement.appendChild(exceptElement);
-			}
-			
-			CtClass[] params = constructors[i].getParameterTypes();
-			for (int k = 0; k < params.length; k++) {
-				Element paramsElement = document.createElement("parameter");
-				addAttribute(paramsElement, "name", params[k].getName());
-				constructorElement.appendChild(paramsElement);
-			}
-			
+			buildExceptions(constructorElement, constructors[i]);
+			buildParameterTypes(constructorElement, constructors[i]);
 			element.appendChild(constructorElement);
 		}
 	}
@@ -202,26 +211,15 @@ public class XMLExport {
 			addAttribute(methElement, "name", methods[i].getName());
 			addAttribute(methElement, "return", methods[i].getReturnType().getName());
 			addModifiers(methElement, methods[i].getModifiers());
-			CtClass[] exceptions = methods[i].getExceptionTypes();
-			for (int k = 0; k < exceptions.length; k++) {
-				Element exceptElement = document.createElement("exception");
-				addAttribute(exceptElement, "name", exceptions[k].getName());
-				methElement.appendChild(exceptElement);
-			}
-			
-			CtClass[] params = methods[i].getParameterTypes();
-			for (int k = 0; k < params.length; k++) {
-				Element paramsElement = document.createElement("parameter");
-				addAttribute(paramsElement, "name", params[k].getName());
-				methElement.appendChild(paramsElement);
-			}
+			buildExceptions(methElement, methods[i]);
+			buildParameterTypes(methElement, methods[i]);		
 			
 			element.appendChild(methElement);
 		}
 	}
 	
 	private void buildFields(Element element, CtClass klass) throws NotFoundException {
-		CtField[] fields = klass.getFields();
+		CtField[] fields = klass.getDeclaredFields();
 		for (int i = 0; i < fields.length; i++) {
 			
 			if (!APIFilter.isAPIMember(fields[i])) {
@@ -232,8 +230,10 @@ public class XMLExport {
 			addAttribute(fieldElement, "name", fields[i].getName());
 			addAttribute(fieldElement, "type", fields[i].getType().getName());
 			addModifiers(fieldElement, fields[i].getModifiers());
+
+			int mod = fields[i].getModifiers();
 			
-			if ((Modifier.isFinal(fields[i].getModifiers())) && (Modifier.isStatic(fields[i].getModifiers()))) {
+			if ((Modifier.isFinal(mod)) && (Modifier.isStatic(mod)) && APIFilter.isExportableConstantType(fields[i].getType())) {
 				Object constValue = fields[i].getConstantValue();
 				if (constValue != null) {
 					addAttribute(fieldElement, "constant-value", constValue.toString());		

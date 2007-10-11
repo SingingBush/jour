@@ -50,4 +50,11 @@ public class AClass implements AnInerface {
 	
 	private native void getData();
 
+	AnInerface getAnInerface() {
+		return this;
+	}
+	
+	AClass getAClass() {
+		return this;
+	}
 }

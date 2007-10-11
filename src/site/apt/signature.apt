@@ -19,18 +19,32 @@ API Signature verification
 
   * SignatureTool from Motorola {{{https://opensource.motorola.com/sf/sfmain/do/viewProject/projects.gatling}Gatling}} project.
 
-  * {{http://sab39.netreach.com/japi/}Japitools}}
+  * Test compatibility between Java APIs {{http://sab39.netreach.com/japi/}Japitools}}
 
-  * {{http://jcp.org/en/resources/tdk}SUN Signature Test tool}}
+  * SUN TCK Tools {{http://jcp.org/en/resources/tdk}Signature Test tool}}
 
 
 * Creation of API descriptor XML from command line
 
 ---
-java -cp jour-instrument-2.0.1.jar net.sf.jour.SignatureGenerator --src myclasses.jar --packages com.api;com.ext --dst api-signature.xml
+java -cp jour-instrument-2.0.1.jar;javassist.jar net.sf.jour.SignatureGenerator --src myclasses.jar --packages com.api;com.ext --dst api-signature.xml
 ---
 
-* Example of generated signature XML
+    All command line options:
+
+    * --src <implementation> : The source JAR or Directory for which the Signature File should be generated.
+
+    * --jars <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
+
+    * --systempath : Appends the system search path to the end of the search path.
+
+    * --packages org.api2;org.api2 :  List package names to be included in signature
+
+    * --dst api-signature.xml : Generated Signature XML report.
+
+  N.B  javassist.jar should be in classpath when running jour.
+
+* Example of generated signature XML.
 
 ---
 <?xml version="1.0" encoding="UTF-8"?>

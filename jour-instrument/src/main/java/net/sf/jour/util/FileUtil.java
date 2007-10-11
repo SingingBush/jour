@@ -99,7 +99,7 @@ public class FileUtil {
 		}
 	}
 
-	public boolean deleteDir(File dir, boolean delSelf) {
+	public static boolean deleteDir(File dir, boolean delSelf) {
 		if (dir.isDirectory()) {
 			String[] children = dir.list();
 			for (int i = 0; i < children.length; i++) {

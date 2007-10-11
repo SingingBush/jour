@@ -20,6 +20,7 @@
  */
 package net.sf.jour.signature;
 
+import net.sf.jour.log.Logger;
 import net.sf.jour.signature.Generator;
 import net.sf.jour.test.Utils;
 import junit.framework.TestCase;
@@ -29,22 +30,31 @@ import junit.framework.TestCase;
  *
  */
 public class GeneratorTest extends TestCase {
-
+	
+	protected static final Logger log = Logger.getLogger();
+	
 	public void testXMLGeneration() throws Exception {
-		final String fileName = "target/generatorTest.xml";
-		final String testPackages = "uut.signature";
+		try {
+			final String fileName = "target/generatorTest.xml";
+			final String testPackages = "uut.signature";
 
-		String classpath = Utils.getClassResourcePath(this.getClass().getName());
-		
-		Generator g = new Generator(classpath, testPackages, fileName);
-		g.process();
-		
-		SignatureImport im = new SignatureImport();
-		im.load(fileName);
-		
-		assertEquals("classes", im.getClassNames().size(), g.getClassNames().size());
-		
-		Generator g2 = new Generator(null, null, "target/generatorTestImported.xml");
-        g2.process(im.getClassPool(), im.getClassNames());
+			String classpath = Utils.getClassResourcePath(this.getClass().getName());
+			
+			Generator g = new Generator(classpath, testPackages, fileName);
+			g.process();
+			
+			SignatureImport im = new SignatureImport();
+			im.load(fileName);
+			
+			assertEquals("classes", im.getClassNames().size(), g.getClassNames().size());
+			
+			ExportClasses.export("target/test-api-classes", im.getClasses());
+			
+			Generator g2 = new Generator(null, null, "target/generatorTestImported.xml");
+			g2.process(im.getClassPool(), im.getClassNames());
+		} catch (Throwable e) {
+			log.error("test error", e);
+			fail(e.getMessage());
+		}
 	}
 }
