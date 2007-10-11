@@ -8,19 +8,21 @@ Building project using maven
 
 * Releases
 
-    We are woking on publishing in http://www.ibiblio.org ...
-
-    Now the releases available from the {{{http://jour.sourceforge.net/maven2}http://jour.sourceforge.net/maven2}} jour maven 2 repository.
-    You need to add this repository to your $home/.m2/settings.xml
-
----
-        <repository>
-            <id>jour-web</id>
-            <url>http://jour.sourceforge.net/maven</url>
-        </repository>
----
+    Jour can be found in maven Central Repository {{{http://repo1.maven.org/maven2/net/sf/jour/}maven.org}} and {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/net/sf/jour/}ibiblio.org}}.
 
 * Development snapshot
 
-    The latest snapshot builds can be downloaded directly from the {{{http://www.pyx4j.com/maven2/}http://www.pyx4j.com/maven2}} pyx4j.com maven 2 repository.
+    The latest snapshot builds can be downloaded from the {{{http://www.pyx4j.com/maven2-snapshot/}http://www.pyx4j.com/maven2-snapshot}} pyx4j.com maven 2 snapshot repository.
 
+---
+        <repository>
+            <id>pyx4j-web-snapshot</id>
+            <url>http://www.pyx4j.com/maven2-snapshot</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+---
