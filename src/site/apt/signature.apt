@@ -9,7 +9,7 @@ API Signature verification
 
   This is Java API compatibility testing tools.
 
-  Main goal is to be able to create to create API signature and verify that library implemenation conforms to described specification.
+  Main goal is to be able to create API signature and verify that library implemenation conforms to described specification.
 
   The tool automates verification process of the API under test with a reference API.
 
