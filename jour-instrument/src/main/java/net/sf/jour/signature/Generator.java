@@ -17,6 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
+ * 
+ * @version $Id$
+ * 
  */
 package net.sf.jour.signature;
 
@@ -24,6 +27,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -141,6 +145,17 @@ public class Generator {
 		XMLExport xml = new XMLExport();
 		xml.export(reportFile, classes);
 		
+	}
+	
+	public void process(ClassPool classPool, List processClassNames) throws IOException, NotFoundException {
+	    List classes = new Vector();
+	    for (Iterator iterator = processClassNames.iterator(); iterator.hasNext();) {
+            String className = (String) iterator.next();
+            classes.add(classPool.get(className));
+            this.classNames.add(className);
+        }
+	    XMLExport xml = new XMLExport();
+        xml.export(reportFile, classes);
 	}
 
 	public List getClassNames() {

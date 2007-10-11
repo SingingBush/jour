@@ -17,34 +17,16 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
+ * 
+ * @version $Id$
+ *  
  */
-package net.sf.jour.signature;
-
-import net.sf.jour.signature.Generator;
-import net.sf.jour.test.Utils;
-import junit.framework.TestCase;
+package uut.signature;
 
 /**
  * @author vlads
  *
  */
-public class GeneratorTest extends TestCase {
+public interface AnInerface1 {
 
-	public void testXMLGeneration() throws Exception {
-		final String fileName = "target/generatorTest.xml";
-		final String testPackages = "uut.signature";
-
-		String classpath = Utils.getClassResourcePath(this.getClass().getName());
-		
-		Generator g = new Generator(classpath, testPackages, fileName);
-		g.process();
-		
-		SignatureImport im = new SignatureImport();
-		im.load(fileName);
-		
-		assertEquals("classes", im.getClassNames().size(), g.getClassNames().size());
-		
-		Generator g2 = new Generator(null, null, "target/generatorTestImported.xml");
-        g2.process(im.getClassPool(), im.getClassNames());
-	}
 }

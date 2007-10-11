@@ -17,6 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
+ * 
+ * @version $Id$
+ * 
  */
 package net.sf.jour.signature;
 
@@ -25,8 +28,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.Vector;
 
+import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.CtConstructor;
 import javassist.NotFoundException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -52,6 +57,7 @@ public class SignatureImport {
 	
 	public SignatureImport() {
 		classPool = new ClassPool();	
+		classPool.appendSystemPath();
 	}
 
 	public ClassPool getClassPool() {
@@ -90,17 +96,21 @@ public class SignatureImport {
 
 	private void loadInterface(Node node) {
 		CtClass klass = createInterface(node);
-		
+		loadHierarchy(klass, node);
+		loadMethods(klass, node);
 		classNames.add(klass.getName());
 	}
 
-	private void loadClass(Node node) {
+    private void loadClass(Node node) {
 		CtClass klass = createClass(node);
-		
+		loadHierarchy(klass, node);
+		loadConstructors(klass, node);
+		loadMethods(klass, node);
+		loadFields(klass, node);
 		classNames.add(klass.getName());
 	}
 	
-	private CtClass createClass(Node node) {
+    private CtClass createClass(Node node) {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
 		String superclassName = ConfigFileUtil.getNodeAttribute(node, "extends");
 		
@@ -157,4 +167,45 @@ public class SignatureImport {
 		return this.classNames;
 	}
 	
+	private void loadHierarchy(CtClass klass, Node node) {
+	    Node implementNode = ConfigFileUtil.getChildNode(node, "implements");
+	    if (implementNode == null) {
+	        return;
+	    }
+	    Node[] interfaceList = ConfigFileUtil.getChildNodes(implementNode, "interface");
+	    for (int i = 0; i < interfaceList.length; i++) {
+            Node interfaceNode = interfaceList[i];
+            String interfaceName = ConfigFileUtil.getNodeAttribute(interfaceNode, "name");
+            klass.addInterface(createInterface(interfaceName));
+        }
+	}
+
+    private void loadConstructors(CtClass klass, Node node) {
+        Node[] list = ConfigFileUtil.getChildNodes(node, "constructor");
+        for (int i = 0; i < list.length; i++) {
+            Node[] partNodes = ConfigFileUtil.getChildNodes(node, "parameter");
+            CtClass[] parameters = new CtClass[partNodes.length];
+            for (int j = 0; j < partNodes.length; j++) {
+                parameters[j] = parameters[j];
+            }
+            CtConstructor c = new CtConstructor(parameters, klass);
+//            try {
+//                klass.addConstructor(c);
+//            } catch (CannotCompileException e) {
+//                throw new RuntimeException(klass.getName(), e);
+//            }
+        }
+        
+    }
+    
+    private void loadMethods(CtClass klass, Node node) {
+        // TODO Auto-generated method stub
+        
+    }
+    
+    private void loadFields(CtClass klass, Node node) {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

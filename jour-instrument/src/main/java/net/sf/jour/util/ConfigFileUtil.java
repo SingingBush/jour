@@ -23,6 +23,8 @@ package net.sf.jour.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
+import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -117,6 +119,24 @@ public class ConfigFileUtil extends FileUtil {
             }
         }
         return null;
+    }
+    
+    public static Node[] getChildNodes(Node node, String tagName) {
+        if (node == null) {
+            return null;
+        }
+        List ret = new Vector();
+        NodeList children =  node.getChildNodes();  
+        for (int j = 0, cnt = children.getLength(); j < cnt; j++) {
+            Node child = children.item(j);
+            if (child != null) {
+                String nodeName = child.getNodeName();
+                if (nodeName != null && nodeName.equals(tagName)) {
+                    ret.add(child);
+                }
+            }
+        }
+        return (Node[])ret.toArray(new Node[ret.size()]);
     }
     
     public static String getNodeValue(Node node, String tagName) {
