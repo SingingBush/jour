@@ -17,38 +17,18 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
+ * 
+ * @version $Id$
+ * 
  */
 package net.sf.jour.signature;
-
-import junit.framework.TestCase;
 
 /**
  * @author vlads
  *
  */
-public abstract class SignatureTestCase extends TestCase {
-
-    public abstract String getAPIPath();
+public class APICompareConfig {
     
-    public abstract String getSignatureXMLPath(); 
+    public boolean allowAPIextension = false;
     
-    public boolean isUeSystemClassPath() {
-        return true;
-    }
-    
-    public String getSupportingJarsPath() {
-        return null;
-    }
-    
-	public APICompareConfig getAPICompareConfig() {
-	    return new APICompareConfig();
-	}
-	
-	public void testAPI() {
-	    try {
-            APICompare.compare(getAPIPath(), getSignatureXMLPath(), getAPICompareConfig(), isUeSystemClassPath(), getSupportingJarsPath());
-        } catch (ChangeDetectedException e) {
-            fail(e.getMessage());
-        }
-	}
 }

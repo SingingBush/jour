@@ -68,8 +68,8 @@ public class Generator {
 	
 	public Generator(Properties properties) {
 		this(properties.getProperty("src"), properties.getProperty("packages"), properties.getProperty("dst"));
-		this.useSystemClassPath = properties.getProperty("systempath") != null; 
-		this.supportingJars = properties.getProperty("systempath");
+		this.useSystemClassPath = "true".equals(properties.getProperty("systempath")); 
+		this.supportingJars = properties.getProperty("jars");
 	}
 	
 	public Generator(String sources, String packages, String reportFile) {

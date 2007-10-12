@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javassist.NotFoundException;
-import net.sf.jour.signature.Generator;
+import net.sf.jour.signature.APICompare;
+import net.sf.jour.signature.APICompareConfig;
+import net.sf.jour.signature.ChangeDetectedException;
 import net.sf.jour.util.CmdArgs;
 
 /**
@@ -35,14 +37,25 @@ public class SignatureVerify {
 	
 	public static void main(String[] args) throws IOException, NotFoundException {
 		Properties argsp = CmdArgs.load(args);
-		if ((args.length < 1) || argsp.getProperty("help") != null) {
+		if ((args.length < 2) || argsp.getProperty("help") != null) {
 			StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(SignatureVerify.class.getName());
-			usage.append(" --src classesDir|classes.jar --signature api-signature.xml\n");
+			usage.append(" --src classesDir|classes.jar --signature api-signature.xml (--systempath) (--jars jar1.jar;jar2.jar)\n");
 			System.out.println(usage);
 			return;
 		}
-		Generator g = new Generator(argsp.getProperty("src"), argsp.getProperty("packages"), argsp.getProperty("signature"));
-		g.process();
+		
+		APICompareConfig config = new APICompareConfig();
+		
+		try {
+            APICompare.compare(argsp.getProperty("src"), argsp.getProperty("signature"), config, "true".equals(argsp.getProperty("systempath")), argsp.getProperty("jars"));
+        } catch (ChangeDetectedException e) {
+            System.out.println("API compare FAILED");
+            System.out.println(e.getMessage());
+            System.exit(1);
+        }
+        System.out.println("API compare PASSED");
+        System.exit(0);
+		
 	}
 }

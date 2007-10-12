@@ -17,38 +17,41 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
+ * 
+ * @version $Id$
+ * 
  */
 package net.sf.jour.signature;
 
-import junit.framework.TestCase;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author vlads
  *
  */
-public abstract class SignatureTestCase extends TestCase {
+public class ChangeDetectedException extends Exception {
 
-    public abstract String getAPIPath();
-    
-    public abstract String getSignatureXMLPath(); 
-    
-    public boolean isUeSystemClassPath() {
-        return true;
+    private static final long serialVersionUID = 1L;
+
+    public ChangeDetectedException(String message) {
+        super(message);
     }
     
-    public String getSupportingJarsPath() {
-        return null;
+    ChangeDetectedException(List changed) {
+        this(chageList(changed));
     }
     
-	public APICompareConfig getAPICompareConfig() {
-	    return new APICompareConfig();
-	}
-	
-	public void testAPI() {
-	    try {
-            APICompare.compare(getAPIPath(), getSignatureXMLPath(), getAPICompareConfig(), isUeSystemClassPath(), getSupportingJarsPath());
-        } catch (ChangeDetectedException e) {
-            fail(e.getMessage());
+    private static String chageList(List changed) {
+        StringBuffer b = new StringBuffer();
+        for (Iterator iterator = changed.iterator(); iterator.hasNext();) {
+            String v = (String) iterator.next();
+            if (b.length() > 0) {
+                b.append("\n");    
+            }
+            b.append(v);
         }
-	}
+        return b.toString();
+    }
+
 }

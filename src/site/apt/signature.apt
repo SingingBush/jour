@@ -95,10 +95,25 @@ java -cp jour-instrument-2.0.1.jar;javassist.jar net.sf.jour.SignatureGenerator 
 java -cp jour-instrument-2.0.1.jar net.sf.jour.SignatureVerify --src myclasses-v2.jar --signature api-signature.xml
 ---
 
+    All command line options:
+
+    * --src <implementation> : The source JAR or Directory for which the Signature File should be generated.
+
+    * --jars <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
+
+    * --systempath : Appends the system search path to the end of the search path.
+
+    * --signature api-signature.xml : Base Signature XML.
+
+  N.B  javassist.jar should be in classpath when running jour.
+
 * Verification of API descriptor XML from JUnit tests
 
- Extend your JUnit test from net.sf.jour.signature.SignatureTestCase and override abstract methods
+ Extend your JUnit test from {{http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/signature/SignatureTestCase.java?view=markup}net.sf.jour.signature.SignatureTestCase}}
+    and implement abstract methods
 
 ---
 
 ---
+
+    Alternativly you can use class {{http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/signature/APICompare.java?view=markup}net.sf.jour.signature.APICompare}}

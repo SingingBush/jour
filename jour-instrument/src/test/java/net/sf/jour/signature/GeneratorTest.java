@@ -37,21 +37,30 @@ public class GeneratorTest extends TestCase {
 		try {
 			final String fileName = "target/generatorTest.xml";
 			final String testPackages = "uut.signature";
-
+			final String classpathTempDirectory = "target/test-api-classes";
+			
 			String classpath = Utils.getClassResourcePath(this.getClass().getName());
 			
 			Generator g = new Generator(classpath, testPackages, fileName);
 			g.process();
 			
-			SignatureImport im = new SignatureImport();
+			SignatureImport im = new SignatureImport(true, null);
 			im.load(fileName);
 			
 			assertEquals("classes", im.getClassNames().size(), g.getClassNames().size());
-			
-			ExportClasses.export("target/test-api-classes", im.getClasses());
+
+			APICompare.compare(classpath, fileName, null, true, null);
+	         
+			ExportClasses.export(classpathTempDirectory, im.getClasses());
 			
 			Generator g2 = new Generator(null, null, "target/generatorTestImported.xml");
 			g2.process(im.getClassPool(), im.getClassNames());
+			
+			Generator g3 = new Generator(classpathTempDirectory, null, "target/generatorTestImportedClasses.xml");
+            g3.process();
+            
+            APICompare.compare(classpathTempDirectory, fileName, null, true, null);
+            
 		} catch (Throwable e) {
 			log.error("test error", e);
 			fail(e.getMessage());

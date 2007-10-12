@@ -63,9 +63,18 @@ public class SignatureImport {
 	
 	private List classes = new Vector();
 	
-	public SignatureImport() {
+	public SignatureImport(boolean useSystemClassPath, String supportingJars) {
 		classPool = new ClassPool();	
-		classPool.appendSystemPath();
+		if (supportingJars != null) {
+            try {
+                classPool.appendClassPath(supportingJars);
+            } catch (NotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+		if (useSystemClassPath) {
+		    classPool.appendSystemPath();
+		}
 	}
 
 	public ClassPool getClassPool() {
@@ -320,6 +329,7 @@ public class SignatureImport {
 			CtField field;
 			try {
 				field = new CtField(fieldType, fname, klass);
+	            field.setModifiers(decodeModifiers(ConfigFileUtil.getNodeAttribute(list[i], "modifiers")));
 				CtField.Initializer initializer = null;
 				String constValue = ConfigFileUtil.getNodeAttribute(list[i], "constant-value");
 				if (constValue != null) {
@@ -329,20 +339,22 @@ public class SignatureImport {
 			} catch (CannotCompileException e) {
 				throw new RuntimeException(klass.getName() + " filed " + fname, e);
 			}
-			field.setModifiers(decodeModifiers(ConfigFileUtil.getNodeAttribute(list[i], "modifiers")));
 		}
     }
 
-	private CtField.Initializer createFieldInitializer(CtClass fieldType, String constValue) {
+    private CtField.Initializer createFieldInitializer(CtClass fieldType, String constValue) {
 		if (APIFilter.javaLangString.equals(fieldType.getName())) {
 			return CtField.Initializer.constant(constValue);
 		} else if (fieldType == CtClass.longType) {
 			return CtField.Initializer.constant(Long.valueOf(constValue).longValue());
-		} else if ((fieldType == CtClass.floatType) ||  (fieldType == CtClass.doubleType)) {
+		} else if (fieldType == CtClass.floatType) {
+		    throw new RuntimeException("Not implemented");
+		} else if (fieldType == CtClass.doubleType) {
 			return CtField.Initializer.constant(Double.valueOf(constValue).doubleValue());
 		} else if (fieldType == CtClass.booleanType) {
-			int b = Boolean.valueOf(constValue).booleanValue()?1:0;
-			return CtField.Initializer.constant(b);
+		    throw new RuntimeException("Not implemented");
+//			int b = Boolean.valueOf(constValue).booleanValue()?1:0;
+//			return CtField.Initializer.constant(b);
 		} else {
 			return CtField.Initializer.constant(Integer.valueOf(constValue).intValue());
 		}

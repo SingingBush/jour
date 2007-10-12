@@ -26,12 +26,14 @@ package uut.signature;
  */
 class AChildClass extends AClass {
 
-	public static final boolean booleanField = true;
+	//public static final boolean booleanField = true;
 	
-	public static final float floatField = (float)3.14;
+	//public static final float floatField = (float)3.14;
 	
 	public static final double doubleField = 3.1415;
 	
+	public static final String stringField = "AString";
+	   
 	protected AChildClass() {
 		
 	}
