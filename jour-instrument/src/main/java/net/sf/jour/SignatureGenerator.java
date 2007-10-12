@@ -45,6 +45,7 @@ public class SignatureGenerator {
 		}
 		Generator g = new Generator(argsp);
 		g.process();
+		System.out.println("Signature file " + g.getReportFile() + " created for " + g.getClassNames().size() + " classes");
 	}
 
 }

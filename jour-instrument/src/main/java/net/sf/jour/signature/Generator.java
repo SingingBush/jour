@@ -25,6 +25,8 @@ package net.sf.jour.signature;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -35,6 +37,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javassist.ClassPool;
+import javassist.CtClass;
 import javassist.NotFoundException;
 
 import net.sf.jour.log.Logger;
@@ -124,9 +127,9 @@ public class Generator {
 		}
 		
 		ClassPool classPool = new ClassPool();
-		classPool.appendClassPath(input.getAbsolutePath());
+		classPool.appendPathList(input.getAbsolutePath());
 		if (this.supportingJars != null) {
-			classPool.appendClassPath(this.supportingJars);
+			classPool.appendPathList(this.supportingJars);
 		}
 		if (this.useSystemClassPath) {
 			classPool.appendSystemPath();
@@ -158,8 +161,18 @@ public class Generator {
 		}
 		log.debug("countEntry   " + countEntry);
 		
+		Collections.sort(classes, new ClassSortComparator());
+		
 		ExportXML.export(reportFile, classes);
 		
+	}
+	
+	private static class ClassSortComparator implements Comparator {
+
+        public int compare(Object arg0, Object arg1) {
+            return ((CtClass)(arg0)).getName().compareTo(((CtClass)(arg1)).getName());
+        }
+	    
 	}
 	
 	public void process(ClassPool classPool, List processClassNames) throws IOException, NotFoundException {
@@ -175,5 +188,9 @@ public class Generator {
 	public List getClassNames() {
 		return this.classNames;
 	}
+
+    public String getReportFile() {
+        return reportFile;
+    }
 	
 }

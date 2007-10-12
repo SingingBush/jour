@@ -53,9 +53,9 @@ public class APICompare extends APICompareChangeHelper {
         
         ClassPool classPool = new ClassPool();
         try {
-            classPool.appendClassPath(classpath);
+            classPool.appendPathList(classpath);
             if (supportingJars != null) {
-                classPool.appendClassPath(supportingJars);
+                classPool.appendPathList(supportingJars);
             }
         } catch (NotFoundException e) {
             throw new RuntimeException(e);

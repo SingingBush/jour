@@ -67,7 +67,7 @@ public class SignatureImport {
 		classPool = new ClassPool();	
 		if (supportingJars != null) {
             try {
-                classPool.appendClassPath(supportingJars);
+                classPool.appendPathList(supportingJars);
             } catch (NotFoundException e) {
                 throw new RuntimeException(e);
             }
