@@ -9,11 +9,11 @@ API Signature verification
 
   This is Java API compatibility testing tools.
 
-  Main goal is to be able to create API signature and verify that library implemenation conforms to described specification.
+  Main goal is to be able to create API signature and verify that library implementation conforms to defined specification.
 
   The tool automates verification process of the API under test with a reference API.
 
-  java reflection API is not used during tests so Object are not instantiated. {{{http://www.jboss.org/products/javassist}Javassist}} is used to get the API description from classes.
+  Java reflection API is not used during tests so Object are not instantiated. {{{http://www.jboss.org/products/javassist}Javassist}} is used to get the API description from classes.
 
 * Related projects
 
@@ -109,11 +109,27 @@ java -cp jour-instrument-2.0.1.jar net.sf.jour.SignatureVerify --src myclasses-v
 
 * Verification of API descriptor XML from JUnit tests
 
- Extend your JUnit test from {{http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/signature/SignatureTestCase.java?view=markup}net.sf.jour.signature.SignatureTestCase}}
+ Extend your JUnit test from {{{http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/signature/SignatureTestCase.java?view=markup}net.sf.jour.signature.SignatureTestCase}}
     and implement abstract methods
 
 ---
 
+package javax.obex;
+
+import net.sf.jour.signature.SignatureTestCase;
+
+public class JSR82APIObexDeclarationsTest extends SignatureTestCase {
+
+    public String getAPIPath() {
+        return getClassPath(SessionNotifier.class);
+    }
+
+    public String getSignatureXMLPath() {
+        return "jsr82-obex-signature.xml";
+    }
+
+}
+
 ---
 
-    Alternativly you can use class {{http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/signature/APICompare.java?view=markup}net.sf.jour.signature.APICompare}}
+    Alternatively you can use class {{{http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/signature/APICompare.java?view=markup}net.sf.jour.signature.APICompare}}
