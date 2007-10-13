@@ -49,7 +49,7 @@ public abstract class SignatureTestCase extends TestCase {
 	    return new APICompareConfig();
 	}
 	
-	public void testAPI() {
+	public void testAPIDeclaration() {
 	    try {
             APICompare.compare(getAPIPath(), getSignatureXMLPath(), getAPICompareConfig(), isUeSystemClassPath(), getSupportingJarsPath());
         } catch (ChangeDetectedException e) {

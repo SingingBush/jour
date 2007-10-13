@@ -25,7 +25,9 @@ package net.sf.jour.signature;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -43,6 +45,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.jour.ConfigException;
 import net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor;
+import net.sf.jour.log.Logger;
 import net.sf.jour.util.ConfigFileUtil;
 import net.sf.jour.util.FileUtil;
 
@@ -56,12 +59,16 @@ import org.xml.sax.SAXException;
  *
  */
 public class SignatureImport {
-
+    
+    protected static final Logger log = Logger.getLogger();
+    
 	private ClassPool classPool;
 
 	private List classNames = new Vector();
 	
 	private List classes = new Vector();
+	
+	Map fieldInitializerHack = new HashMap(); 
 	
 	public SignatureImport(boolean useSystemClassPath, String supportingJars) {
 		classPool = new ClassPool();	
@@ -125,6 +132,8 @@ public class SignatureImport {
 		
 		loadHierarchy(klass, node);
 		loadMethods(klass, node);
+		loadFields(klass, node);
+		
 		classNames.add(klass.getName());
 		return klass;
 	}
@@ -139,6 +148,7 @@ public class SignatureImport {
 		loadConstructors(klass, node);
 		loadMethods(klass, node);
 		loadFields(klass, node);
+		
 		classNames.add(klass.getName());
 		return klass;
 	}
@@ -228,6 +238,7 @@ public class SignatureImport {
 
     private void loadConstructors(CtClass klass, Node node) {
         Node[] list = ConfigFileUtil.getChildNodes(node, "constructor");
+        boolean defaultConstructorLoaded = false;
         for (int i = 0; i < list.length; i++) {
             CtClass[] parameters = getParameters(list[i]);
             CtConstructor c;
@@ -243,6 +254,23 @@ public class SignatureImport {
 			}
 			loadExceptions(c, list[i]);
 			setModifiers(c, list[i]);
+			if (parameters.length == 0) {
+			    defaultConstructorLoaded = true;
+			}
+        }
+        if (!defaultConstructorLoaded) {
+            CtConstructor defaultConstructor;
+            try {
+                defaultConstructor = klass.getDeclaredConstructor(new CtClass[0]);
+            } catch (NotFoundException e) {
+                defaultConstructor = new CtConstructor(new CtClass[0], klass);
+                try {
+                    klass.addConstructor(defaultConstructor);
+                } catch (CannotCompileException e2) {
+                    throw new RuntimeException(klass.getName(), e2);
+                }
+            }
+            defaultConstructor.setModifiers(Modifier.PRIVATE);
         }
     }
 
@@ -317,7 +345,7 @@ public class SignatureImport {
 			CtMethod method = new CtMethod(returnType, mname, parameters, klass);
 			setModifiers(method, list[i]);
 			try {
-				if (!klass.isInterface()) {
+				if ((!klass.isInterface()) && (!Modifier.isAbstract(method.getModifiers()))) {
 					method.setBody(MakeEmptyMethodInstrumentor.emptyBody(returnType));
 				}
 				loadExceptions(method, list[i]);
@@ -340,7 +368,7 @@ public class SignatureImport {
 				CtField.Initializer initializer = null;
 				String constValue = ConfigFileUtil.getNodeAttribute(list[i], "constant-value");
 				if (constValue != null) {
-					initializer = createFieldInitializer(fieldType, constValue);
+					initializer = createFieldInitializer(fieldType, constValue, klass.getName() + "." + fname);
 				}
 				klass.addField(field, initializer);
 			} catch (CannotCompileException e) {
@@ -349,19 +377,35 @@ public class SignatureImport {
 		}
     }
 
-    private CtField.Initializer createFieldInitializer(CtClass fieldType, String constValue) {
+    private CtField.Initializer createFieldInitializer(CtClass fieldType, String constValue, String name) {
 		if (APIFilter.javaLangString.equals(fieldType.getName())) {
 			return CtField.Initializer.constant(constValue);
 		} else if (fieldType == CtClass.longType) {
 			return CtField.Initializer.constant(Long.valueOf(constValue).longValue());
 		} else if (fieldType == CtClass.floatType) {
-		    throw new RuntimeException("Not implemented");
+		    //throw new RuntimeException(name + " Float FieldInitializer Not implemented");
+		    log.warn(name + " float FieldInitializer Not implemented");
+            //throw new RuntimeException(name + " Boolean FieldInitializer Not implemented");
+            fieldInitializerHack.put(name, constValue);
+            return null;
 		} else if (fieldType == CtClass.doubleType) {
 			return CtField.Initializer.constant(Double.valueOf(constValue).doubleValue());
 		} else if (fieldType == CtClass.booleanType) {
-		    throw new RuntimeException("Not implemented");
+		    if (Boolean.valueOf(constValue).booleanValue()) {
+		        log.warn(name + " boolean FieldInitializer Not implemented");
+		        //throw new RuntimeException(name + " Boolean FieldInitializer Not implemented");
+		        fieldInitializerHack.put(name, constValue);
+		        return null;
+		    } else {
+		        return null;
+		    }
 //			int b = Boolean.valueOf(constValue).booleanValue()?1:0;
 //			return CtField.Initializer.constant(b);
+		} else if (fieldType == CtClass.byteType) {
+		    log.warn(name + " byte FieldInitializer Not implemented");
+		    //throw new RuntimeException(name + " byte FieldInitializer Not implemented");
+		    fieldInitializerHack.put(name, constValue);
+		    return null;
 		} else {
 			return CtField.Initializer.constant(Integer.valueOf(constValue).intValue());
 		}

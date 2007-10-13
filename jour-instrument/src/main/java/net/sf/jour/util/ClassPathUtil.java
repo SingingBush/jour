@@ -46,7 +46,13 @@ public class ClassPathUtil {
             throw new Error("Resource not found " + resource);
         }
         String path = url.toExternalForm();
-        return path.substring("file:".length(), path.length() - resource.length());
+        String prefix = "file:";
+        int extraPathLen = 0;
+        if (!path.startsWith(prefix)) {
+            prefix = "jar:file:";
+            extraPathLen = 1;
+        }
+        return path.substring(prefix.length(), path.length() - resource.length() - extraPathLen);
     }
 
 }

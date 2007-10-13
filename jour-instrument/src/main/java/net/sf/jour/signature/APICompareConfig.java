@@ -32,4 +32,6 @@ public class APICompareConfig {
     public boolean allowAPIextension = false;
     
     public boolean allowThrowsLess = false;
+    
+    public boolean allowPackageAPIextension = true;
 }

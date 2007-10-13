@@ -38,7 +38,7 @@ public class ChangesTest extends TestCase {
     private void verify(String signatureFileName, int ecpectedChanges) {
         List changes = APICompare.listChanges(Utils.getClassResourcePath("uut.signature.AChildClass"), "/net/sf/jour/signature/" + signatureFileName, null, true, null);
         String message = ChangeDetectedException.chageList(changes);
-        System.out.println(message);
+        //System.out.println(message);
         if (message.length() > 0) {
             message += "\n";    
         }

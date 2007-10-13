@@ -23,7 +23,6 @@
  */
 package net.sf.jour.signature;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
@@ -48,12 +47,15 @@ public class APICompare extends APICompareChangeHelper {
 
     public APICompareConfig config = new APICompareConfig();
     
+    Map fieldInitializerHack; 
+    
     public static void compare(String classpath, String signatureFileName, APICompareConfig config, boolean useSystemClassPath, String supportingJars) throws ChangeDetectedException {
         List changes = listChanges(classpath, signatureFileName, config, useSystemClassPath, supportingJars);
         if (changes.size() > 0) {
             throw new ChangeDetectedException(changes);
         }
     }
+    
     public static List listChanges(String classpath, String signatureFileName, APICompareConfig config, boolean useSystemClassPath, String supportingJars) {
         SignatureImport im = new SignatureImport(useSystemClassPath, supportingJars);
         im.load(signatureFileName);
@@ -72,16 +74,28 @@ public class APICompare extends APICompareChangeHelper {
         }
         
         List classes = im.getClasses();
+        
+        //ExportClasses.export("target/test-api-classes", classes);
+        
         APICompare cmp = new APICompare();
+        cmp.fieldInitializerHack = im.fieldInitializerHack;
         if (config != null) {
             cmp.config = config;
         }
         for (Iterator iterator = classes.iterator(); iterator.hasNext();) {
             CtClass refClass = (CtClass) iterator.next();
+            CtClass implClass = null;
             try {
-                cmp.compareClasses(refClass, classPool.get(refClass.getName()));
+                implClass = classPool.get(refClass.getName());
             } catch (NotFoundException e) {
                 cmp.fail(refClass.getName() + " is missing");
+            }
+            if (implClass != null) {
+                try {
+                    cmp.compareClasses(refClass, implClass);
+                } catch (NotFoundException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         return cmp.changes;
@@ -131,11 +145,18 @@ public class APICompare extends APICompareChangeHelper {
         compareMethods(refMethods, implMethods, className);
 
         // all accessible public fields
-        CtField[] refFields = refClass.getFields();
-        CtField[] implFields = implClass.getFields();
+        CtField[] refFields = refClass.getDeclaredFields();
+        CtField[] implFields = implClass.getDeclaredFields();
         compareFields(refFields, implFields, className, refClass, implClass);
 
         return changes;
+    }
+    
+    private boolean isAPIMember(CtMember member) {
+        if (Modifier.isPackage(member.getModifiers())) {
+            return !config.allowPackageAPIextension;
+        }
+        return APIFilter.isAPIMember(member);
     }
     
     private void compareInterfaces(CtClass[] refInterfaces, CtClass[] implInterfacess, String className) {
@@ -153,7 +174,7 @@ public class APICompare extends APICompareChangeHelper {
     private Map buildNameMap(CtMember[] members, String className) throws NotFoundException {
         Map namesMap = new Hashtable();
         for (int i = 0; i < members.length; i++) {
-            if (ignoreMember(members[i])) {
+            if (!isAPIMember(members[i])) {
                 //System.out.println("ignore " + members[i].getName());
                 continue;
             }
@@ -168,16 +189,6 @@ public class APICompare extends APICompareChangeHelper {
             namesMap.put(name, members[i]);
         }
         return namesMap;
-    }
-
-    private boolean ignoreMember(CtMember member) {
-        if (Modifier.isPublic(member.getModifiers())) {
-            return false;
-        } else if (Modifier.isProtected(member.getModifiers())) {
-            return false;
-        } else {
-            return true;
-        }
     }
 
     private int getModifiers(CtMember member) {
@@ -195,11 +206,11 @@ public class APICompare extends APICompareChangeHelper {
         Map implNames = buildNameMap(implConstructors, className);
         int compared = 0;
         for (int i = 0; i < refConstructors.length; i++) {
-            if (ignoreMember(refConstructors[i])) {
+            if (!isAPIMember(refConstructors[i])) {
+                implNames.remove(getName4Map(refConstructors[i]));
                 continue;
             }
-            compareConstructor(refConstructors[i], (CtConstructor) implNames.get(getName4Map(refConstructors[i])),
-                    className);
+            compareConstructor(refConstructors[i], (CtConstructor)implNames.get(getName4Map(refConstructors[i])), className);
             compared++;
             implNames.remove(getName4Map(refConstructors[i]));
         }
@@ -208,6 +219,9 @@ public class APICompare extends APICompareChangeHelper {
         }
         StringBuffer extra = new StringBuffer(); 
         for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
+            if (extra.length() > 0) {
+                extra.append(", ");
+            }
             extra.append(((CtConstructor)implNames.get(i.next())).getSignature());
         }
         assertEquals(className + " number of Constructors, Extra constructor(s) [" + extra.toString() + "]", compared, implNames.size() + compared);
@@ -245,18 +259,18 @@ public class APICompare extends APICompareChangeHelper {
         if (implConstructor == null) {
             return;
         }
-        assertEquals(className + ". Constructor " + name + " getModifiers", Modifier
+        assertEquals(className + ". Constructor " + name + " modifiers", Modifier
                 .toString(getModifiers(refConstructor)), Modifier.toString(getModifiers(implConstructor)));
         compareThrows(refConstructor, implConstructor, className);
     }
 
-    private void compareMember(CtMember refMember, CtMember implMember, String className) {
+    private void compareMember(CtMember refMember, CtMember implMember, String className, String signature) {
         String name = refMember.getName();
-        assertNotNull(className + "." + name + " is Missing", implMember);
+        assertNotNull(className + "." + name + signature + " is Missing", implMember);
         if (implMember == null) {
             return;
         }
-        assertEquals(className + "." + name + " getModifiers", Modifier.toString(getModifiers(refMember)), Modifier
+        assertEquals(className + "." + name + " modifiers", Modifier.toString(getModifiers(refMember)), Modifier
                 .toString(getModifiers(implMember)));
     }
 
@@ -289,7 +303,8 @@ public class APICompare extends APICompareChangeHelper {
         Map implNames = buildNameMap(implMethods, className);
         int compared = 0;
         for (int i = 0; i < refMethods.length; i++) {
-            if (ignoreMember(refMethods[i])) {
+            if (!isAPIMember(refMethods[i])) {
+                implNames.remove(getName4Map(refMethods[i]));
                 continue;
             }
             compareMethod(refMethods[i], (CtMethod) implNames.get(getName4Map(refMethods[i])), className);
@@ -301,56 +316,59 @@ public class APICompare extends APICompareChangeHelper {
         }
         StringBuffer extra = new StringBuffer(); 
         for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
+            if (extra.length() > 0) {
+                extra.append(", ");
+            }
             extra.append(i.next());
         }
         assertEquals(className + " number of Methods, Extra method(s) [" + extra.toString() + "]", compared, implNames.size() + compared);
     }
 
     private void compareMethod(CtMethod refMethod, CtMethod implMethod, String className) throws NotFoundException {
-        compareMember(refMethod, implMethod, className);
+        compareMember(refMethod, implMethod, className, refMethod.getSignature());
         if (implMethod == null) {
             return;
         }
         String name = refMethod.getName();
-        assertEquals(className + "." + name + " getReturnType", refMethod.getReturnType().getName(), implMethod
+        assertEquals(className + "." + name + " returnType", refMethod.getReturnType().getName(), implMethod
                 .getReturnType().getName());
         compareThrows(refMethod, implMethod, className);
     }
 
     private void compareFields(CtField[] refFields, CtField[] implFields, String className, CtClass refClass, CtClass implClass) throws NotFoundException {
         Map implNames = buildNameMap(implFields, className);
-        Map implNamesTested = new HashMap();
         int compared = 0;
         for (int i = 0; i < refFields.length; i++) {
-            if (ignoreMember(refFields[i])) {
-                continue;
-            }
             String name = getName4Map(refFields[i]);
-            CtField impl = (CtField) implNames.get(name);
-            if ((impl == null) && (implNamesTested.containsKey(name))) {
+            if (!isAPIMember(refFields[i])) {
+                implNames.remove(name);
                 continue;
             }
-            compareField(refFields[i], impl, className, refClass, implClass);
             compared++;
-            implNamesTested.put(name, impl);
+            CtField impl = (CtField) implNames.get(name);
+            compareField(refFields[i], impl, className, refClass, implClass);
             implNames.remove(name);
         }
-        if (!config.allowAPIextension) {
+        if (config.allowAPIextension) {
             return;
         }
-        assertEquals(className + " number of Fields ", compared, implNames.size() + compared);
+        StringBuffer extra = new StringBuffer(); 
         for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
-            System.out.println("   extra field " + i.next());
+            if (extra.length() > 0) {
+                extra.append(", ");
+            }
+            extra.append(i.next());
         }
+        assertEquals(className + " number of Fields, Extra field(s) [" + extra.toString() + "]", compared, implNames.size() + compared);
     }
     
     private void compareField(CtField refField, CtField implField, String className, CtClass refClass, CtClass implClass) throws NotFoundException {
         String name = refField.getName();
-        compareMember(refField, implField, className);
+        compareMember(refField, implField, className, "");
         if (implField == null) {
             return;
         }
-        assertEquals(className + "." + name + " getType", refField.getType().getName(), implField.getType().getName());
+        assertEquals(className + "." + name + " type", refField.getType().getName(), implField.getType().getName());
         if ((Modifier.isFinal(refField.getModifiers())) && (Modifier.isStatic(refField.getModifiers()))) {
             // Compare value
             Object refConstValue = refField.getConstantValue();
@@ -359,9 +377,22 @@ public class APICompare extends APICompareChangeHelper {
                 return;
             }
 
-            String value = refConstValue.toString();
-            String implValue = implConstValue.toString();
-            assertEquals(className + "." + name + " value ", value, implValue);
+            String refValue = null;
+            if (refConstValue != null) {
+                refValue = refConstValue.toString();
+            } else if (refField.getType() == CtClass.booleanType) {
+                refValue = "false";
+            } else if (fieldInitializerHack != null) {
+                refValue = (String)fieldInitializerHack.get(className + "." + name);
+            }
+            
+            String implValue = null;
+            if (implConstValue != null) {
+                implValue = implConstValue.toString();
+            } else if (implField.getType() == CtClass.booleanType) {
+                implValue = "false";
+            }
+            assertEquals(className + "." + name + " value ", refValue, implValue);
         }
     }
 
