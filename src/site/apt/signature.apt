@@ -64,7 +64,7 @@ java -cp jour-instrument-2.0.1.jar;javassist.jar net.sf.jour.SignatureGenerator 
     </implements>
     <constructor modifiers="public"/>
     <constructor>
-      <parameter name="int[]"/>
+      <parameter type="int[]"/>
       <exception name="java.lang.Error"/>
     </constructor>
     <method name="getInt" return="int" modifiers="public"/>
@@ -79,7 +79,7 @@ java -cp jour-instrument-2.0.1.jar;javassist.jar net.sf.jour.SignatureGenerator 
     <method name="run" return="void" modifiers="public"/>
     <method name="run" return="java.lang.Long" modifiers="public">
       <exception name="java.lang.Error"/>
-      <parameter name="byte"/>
+      <parameter type="byte"/>
     </method>
     <field name="constData" type="int" modifiers="public static final" constant-value="10"/>
     <field name="data" type="short" modifiers="static"/>

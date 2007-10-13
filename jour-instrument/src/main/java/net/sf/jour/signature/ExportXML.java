@@ -178,7 +178,7 @@ public class ExportXML {
 		CtClass[] params = method.getParameterTypes();
 		for (int k = 0; k < params.length; k++) {
 			Element paramsElement = document.createElement("parameter");
-			addAttribute(paramsElement, "name", params[k].getName());
+			addAttribute(paramsElement, "type", params[k].getName());
 			element.appendChild(paramsElement);
 		}
 	}

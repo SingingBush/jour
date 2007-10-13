@@ -21,36 +21,32 @@
  * @version $Id$
  * 
  */
-package uut.signature;
+package net.sf.jour.util;
+
+import java.net.URL;
 
 /**
- * Do not change this class it is used in ChangesTest.
- * 
  * @author vlads
  *
  */
-class AChildClass extends AClass {
+public class ClassPathUtil {
 
-	//public static final boolean booleanField = true;
-	
-	//public static final float floatField = (float)3.14;
-	
-	public static final double doubleField = 3.1415;
-	
-	public static final String stringField = "AString";
-	   
-	protected AChildClass() {
-		
-	}
-	
-	public AChildClass(int a, char b) throws IllegalAccessException {
-        
+    public static String getClassResourceName(Class testClass) {
+        return getClassResourceName(testClass.getName());
+    }
+    
+    public static String getClassResourceName(String testClassName) {
+        return "/" + testClassName.replace('.', '/') + ".class";
+    }
+    
+    public static String getClassPath(Class testClass) {
+        String resource = getClassResourceName(testClass);
+        URL url = testClass.getResource(resource); 
+        if (url == null) {
+            throw new Error("Resource not found " + resource);
+        }
+        String path = url.toExternalForm();
+        return path.substring("file:".length(), path.length() - resource.length());
     }
 
-	public void run() {
-	}
-	
-	public Long run(byte b) throws Error {
-		return null;
-	}
 }

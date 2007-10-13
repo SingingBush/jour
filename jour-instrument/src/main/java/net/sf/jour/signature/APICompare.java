@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import javassist.ClassPool;
+import javassist.CtBehavior;
 import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtField;
@@ -48,6 +49,12 @@ public class APICompare extends APICompareChangeHelper {
     public APICompareConfig config = new APICompareConfig();
     
     public static void compare(String classpath, String signatureFileName, APICompareConfig config, boolean useSystemClassPath, String supportingJars) throws ChangeDetectedException {
+        List changes = listChanges(classpath, signatureFileName, config, useSystemClassPath, supportingJars);
+        if (changes.size() > 0) {
+            throw new ChangeDetectedException(changes);
+        }
+    }
+    public static List listChanges(String classpath, String signatureFileName, APICompareConfig config, boolean useSystemClassPath, String supportingJars) {
         SignatureImport im = new SignatureImport(useSystemClassPath, supportingJars);
         im.load(signatureFileName);
         
@@ -77,9 +84,7 @@ public class APICompare extends APICompareChangeHelper {
                 cmp.fail(refClass.getName() + " is missing");
             }
         }
-        if (cmp.changes.size() > 0) {
-            throw new ChangeDetectedException(cmp.changes);
-        }
+        return cmp.changes;
     }
     
     public static void compare(CtClass refClass, CtClass implClass) throws ChangeDetectedException {
@@ -140,7 +145,7 @@ public class APICompare extends APICompareChangeHelper {
         }
         for (int i = 0; i < refInterfaces.length; i++) {
             String interfaceName = refInterfaces[i].getName();
-            assertTrue(className + "Interface " + interfaceName, implNames.contains(interfaceName));
+            assertTrue(className + " should implement interface " + interfaceName, implNames.contains(interfaceName));
         }
     }
     
@@ -198,17 +203,43 @@ public class APICompare extends APICompareChangeHelper {
             compared++;
             implNames.remove(getName4Map(refConstructors[i]));
         }
-        if (!config.allowAPIextension) {
+        if (config.allowAPIextension) {
             return;
         }
-        assertEquals(className + " number of Constructors ", compared, implNames.size() + compared);
+        StringBuffer extra = new StringBuffer(); 
         for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
-            System.out.println("   extra constructor " + i.next());
+            extra.append(((CtConstructor)implNames.get(i.next())).getSignature());
         }
-
+        assertEquals(className + " number of Constructors, Extra constructor(s) [" + extra.toString() + "]", compared, implNames.size() + compared);
     }
 
-    private void compareConstructor(CtConstructor refConstructor, CtConstructor implConstructor, String className) {
+    private void compareThrows(CtBehavior refMethod, CtBehavior implMethod, String className) throws NotFoundException {
+        List refNames = new Vector();
+        CtClass[] refExceptions = refMethod.getExceptionTypes();
+        for (int i = 0; i < refExceptions.length; i++) {
+            refNames.add(refExceptions[i].getName());
+        }
+
+        List implNames = new Vector();
+        CtClass[] implExceptions = implMethod.getExceptionTypes();
+        for (int i = 0; i < implExceptions.length; i++) {
+            implNames.add(implExceptions[i].getName());
+            String exceptionName = implExceptions[i].getName();
+            assertTrue(className + " " + refMethod.getName() + refMethod.getSignature() + " should not throw " + exceptionName, refNames
+                    .contains(exceptionName));
+
+        }
+        
+        if (!config.allowThrowsLess) {
+            for (int i = 0; i < refExceptions.length; i++) {
+                String exceptionName = refExceptions[i].getName();
+                assertTrue(className + " " + refMethod.getName() + refMethod.getSignature() + " should throw " + exceptionName, implNames
+                        .contains(exceptionName));
+            }
+        }
+    }
+    
+    private void compareConstructor(CtConstructor refConstructor, CtConstructor implConstructor, String className) throws NotFoundException {
         String name = refConstructor.getName();
         assertNotNull(className + " Constructor " + name + " is Missing", implConstructor);
         if (implConstructor == null) {
@@ -216,6 +247,7 @@ public class APICompare extends APICompareChangeHelper {
         }
         assertEquals(className + ". Constructor " + name + " getModifiers", Modifier
                 .toString(getModifiers(refConstructor)), Modifier.toString(getModifiers(implConstructor)));
+        compareThrows(refConstructor, implConstructor, className);
     }
 
     private void compareMember(CtMember refMember, CtMember implMember, String className) {
@@ -264,13 +296,14 @@ public class APICompare extends APICompareChangeHelper {
             compared++;
             implNames.remove(getName4Map(refMethods[i]));
         }
-        if (!config.allowAPIextension) {
+        if (config.allowAPIextension) {
             return;
         }
-        assertEquals(className + " number of Methods ", compared, implNames.size() + compared);
+        StringBuffer extra = new StringBuffer(); 
         for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
-            System.out.println("   extra method " + i.next());
+            extra.append(i.next());
         }
+        assertEquals(className + " number of Methods, Extra method(s) [" + extra.toString() + "]", compared, implNames.size() + compared);
     }
 
     private void compareMethod(CtMethod refMethod, CtMethod implMethod, String className) throws NotFoundException {
@@ -281,6 +314,7 @@ public class APICompare extends APICompareChangeHelper {
         String name = refMethod.getName();
         assertEquals(className + "." + name + " getReturnType", refMethod.getReturnType().getName(), implMethod
                 .getReturnType().getName());
+        compareThrows(refMethod, implMethod, className);
     }
 
     private void compareFields(CtField[] refFields, CtField[] implFields, String className, CtClass refClass, CtClass implClass) throws NotFoundException {

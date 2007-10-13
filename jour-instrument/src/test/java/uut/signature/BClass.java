@@ -24,33 +24,9 @@
 package uut.signature;
 
 /**
- * Do not change this class it is used in ChangesTest.
- * 
  * @author vlads
  *
  */
-class AChildClass extends AClass {
+public class BClass {
 
-	//public static final boolean booleanField = true;
-	
-	//public static final float floatField = (float)3.14;
-	
-	public static final double doubleField = 3.1415;
-	
-	public static final String stringField = "AString";
-	   
-	protected AChildClass() {
-		
-	}
-	
-	public AChildClass(int a, char b) throws IllegalAccessException {
-        
-    }
-
-	public void run() {
-	}
-	
-	public Long run(byte b) throws Error {
-		return null;
-	}
 }

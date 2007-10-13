@@ -87,6 +87,9 @@ public class SignatureImport {
 	
 	public void load(String xmlFileName){
 		URL location = FileUtil.getFile(xmlFileName);
+		if (location == null) {
+		    throw new ConfigException("File Not found " + xmlFileName);
+		}
 		try {
 			Document xmlDoc = ConfigFileUtil.loadDocument(location);
 			Node rootNode = ConfigFileUtil.getFirstElement(xmlDoc, ExportXML.rootNodeName);
@@ -144,13 +147,14 @@ public class SignatureImport {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
 		String superclassName = ConfigFileUtil.getNodeAttribute(node, "extends");
 		
-		CtClass klass;
 		try {
-			klass = classPool.get(classname);
+		    CtClass exists = classPool.get(classname);
+		    exists.detach();
 		} catch (NotFoundException e) {
-			klass = classPool.makeClass(classname, createClass(superclassName));
+			
 		}
-		return klass;
+		
+		return classPool.makeClass(classname, createClass(superclassName));
 	}
 
 	private CtClass createClass(String classname) {
@@ -171,13 +175,13 @@ public class SignatureImport {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
 		String superclassName = ConfigFileUtil.getNodeAttribute(node, "extends");
 		
-		CtClass klass;
 		try {
-			klass = classPool.get(classname);
+		    CtClass exists = classPool.get(classname);
+            exists.detach();
 		} catch (NotFoundException e) {
-			klass = classPool.makeInterface(classname, createInterface(superclassName));
 		}
-		return klass;
+		
+		return classPool.makeInterface(classname, createInterface(superclassName));
 	}
 
 	private CtClass createInterface(String classname) {
@@ -214,7 +218,10 @@ public class SignatureImport {
 		Node[] partNodes = ConfigFileUtil.getChildNodes(node, "parameter");
         CtClass[] parameters = new CtClass[partNodes.length];
         for (int j = 0; j < partNodes.length; j++) {
-            parameters[j] = createInterface(ConfigFileUtil.getNodeAttribute(partNodes[j], "name"));
+            parameters[j] = createInterface(ConfigFileUtil.getNodeAttribute(partNodes[j], "type"));
+            if (parameters[j] == null) {
+                throw new RuntimeException("parameter " + j + " type is missing");
+            }
         }
         return parameters;
 	}

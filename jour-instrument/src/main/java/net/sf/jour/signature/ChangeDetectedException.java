@@ -42,7 +42,7 @@ public class ChangeDetectedException extends Exception {
         this(chageList(changed));
     }
     
-    private static String chageList(List changed) {
+    public static String chageList(List changed) {
         StringBuffer b = new StringBuffer();
         for (Iterator iterator = changed.iterator(); iterator.hasNext();) {
             String v = (String) iterator.next();

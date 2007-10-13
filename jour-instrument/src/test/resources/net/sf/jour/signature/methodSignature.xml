@@ -1,0 +1,20 @@
+<!-- @version $Id$ -->
+<signature>
+	<class name="uut.signature.AChildClass" extends="uut.signature.AClass">
+		<constructor modifiers="protected"/>
+		<constructor modifiers="public">
+			<exception name="java.lang.IllegalAccessException"/>
+			<parameter type="int"/>
+			<parameter type="char"/>
+		</constructor>		
+		<method modifiers="public" name="run" return="void" />
+		<method modifiers="public" name="run" return="java.lang.Long">
+			<exception name="java.lang.Error" />
+			<parameter type="int" />
+		</method>
+		<field constant-value="3.1415" modifiers="public static final"
+			name="doubleField" type="double" />
+		<field constant-value="AString" modifiers="public static final"
+			name="stringField" type="java.lang.String" />
+	</class>
+</signature>

@@ -20,6 +20,7 @@
  */
 package net.sf.jour.signature;
 
+import net.sf.jour.util.ClassPathUtil;
 import junit.framework.TestCase;
 
 /**
@@ -34,6 +35,10 @@ public abstract class SignatureTestCase extends TestCase {
     
     public boolean isUeSystemClassPath() {
         return true;
+    }
+    
+    public static String getClassPath(Class testClass) {
+        return ClassPathUtil.getClassPath(testClass); 
     }
     
     public String getSupportingJarsPath() {
