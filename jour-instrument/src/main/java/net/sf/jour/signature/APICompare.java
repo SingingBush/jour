@@ -114,6 +114,14 @@ public class APICompare extends APICompareChangeHelper {
         }
     }
     
+    private String className(CtClass klass) {
+        if (klass == null) {
+            return null;
+        } else {
+            return klass.getName();
+        }
+    }
+    
     public List compareClasses(CtClass refClass, CtClass implClass) throws NotFoundException {
 
         String className = refClass.getName();
@@ -127,11 +135,15 @@ public class APICompare extends APICompareChangeHelper {
         assertEquals(className + " interfaces implemented", refInterfaces.length, implInterfaces.length);
         compareInterfaces(refInterfaces, implInterfaces, className);
 
-        if (refClass.getSuperclass() != null) {
-            assertEquals(className + " Superclass", refClass.getSuperclass().getName(), implClass.getSuperclass()
-                    .getName());
+        if (implClass.getSuperclass() == null) {
+            // java.lang.Object in CLDC / javassist will reference same class...
+            if (refClass.getSuperclass() != null) {
+                assertEquals(className + " Superclass ", "java.lang.Object", refClass.getSuperclass().getName());
+            }
+        } else if (refClass.getSuperclass() != null) {
+            assertEquals(className + " Superclass", refClass.getSuperclass().getName(), implClass.getSuperclass().getName());
         } else {
-            assertNull(className + " Superclass", implClass.getSuperclass());
+            assertNull(className + " Superclass " + className(implClass.getSuperclass()), implClass.getSuperclass());
         }
 
         // Constructors
@@ -198,6 +210,9 @@ public class APICompare extends APICompareChangeHelper {
         }
         if (Modifier.isSynchronized(mod)) {
             mod = mod - Modifier.SYNCHRONIZED;
+        }
+        if (Modifier.isStrict(mod)) {
+            mod = mod - Modifier.STRICT;
         }
         return mod;
     }

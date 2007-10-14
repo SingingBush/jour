@@ -315,6 +315,8 @@ public class SignatureImport {
 			return Modifier.NATIVE;
 		} else if (modifier.equalsIgnoreCase("interface")) {
 			return Modifier.INTERFACE;
+		} else if (modifier.equalsIgnoreCase("strictfp")) {
+            return Modifier.STRICT;
 		} else {
 			throw new RuntimeException("Invalid modifier [" + modifier + "]");
 		}
@@ -406,7 +408,17 @@ public class SignatureImport {
 		    //throw new RuntimeException(name + " byte FieldInitializer Not implemented");
 		    fieldInitializerHack.put(name, constValue);
 		    return null;
-		} else {
+        } else if (fieldType == CtClass.charType) {
+            log.warn(name + " char FieldInitializer Not implemented");
+            //throw new RuntimeException(name + " char FieldInitializer Not implemented");
+            fieldInitializerHack.put(name, constValue);
+            return null;
+        } else if (fieldType == CtClass.shortType) {
+            log.warn(name + " short FieldInitializer Not implemented");
+            //throw new RuntimeException(name + " short FieldInitializer Not implemented");
+            fieldInitializerHack.put(name, constValue);
+            return null;
+        } else {
 			return CtField.Initializer.constant(Integer.valueOf(constValue).intValue());
 		}
 	}
