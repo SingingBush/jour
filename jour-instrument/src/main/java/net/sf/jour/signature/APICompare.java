@@ -280,7 +280,7 @@ public class APICompare extends APICompareChangeHelper {
     }
     
     private void compareConstructor(CtConstructor refConstructor, CtConstructor implConstructor, String className) throws NotFoundException {
-        String name = refConstructor.getName();
+        String name = refConstructor.getSignature();
         assertNotNull(className + " Constructor " + name + " is Missing", implConstructor);
         if (implConstructor == null) {
             return;

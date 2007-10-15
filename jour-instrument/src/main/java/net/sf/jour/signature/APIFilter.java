@@ -42,11 +42,14 @@ public class APIFilter {
     
     private int level;
 	
-	public APIFilter(int level) {
+	public APIFilter(int level) throws IllegalArgumentException {
 	    this.level = level;
+	    if (this.level > PRIVATE) {
+	        throw new IllegalArgumentException("level " + level);
+	    }
 	}
 	
-	public APIFilter(String level) {
+	public APIFilter(String level) throws IllegalArgumentException {
 	    if (level == null) {
 	        this.level = PROTECTED;
 	    } else if (level.equalsIgnoreCase("public")) {
@@ -74,7 +77,7 @@ public class APIFilter {
 	    }
         return true;
     }
-
+	
 	public boolean isAPIClass(CtClass klass) {
 		return isAPIModifier(klass.getModifiers());
 	}
@@ -90,6 +93,10 @@ public class APIFilter {
 			return true;
 		}
 		return false;
+	}
+
+	public APIFilter getLessRestrictiveFilter() throws IllegalArgumentException {
+	    return new APIFilter(this.level + 1);
 	}
 	
 	static int filterModifiers(int mod) {

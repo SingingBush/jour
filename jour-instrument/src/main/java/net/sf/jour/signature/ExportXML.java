@@ -188,18 +188,38 @@ public class ExportXML {
 	
 	private void buildConstructors(Element element, CtClass klass) throws NotFoundException {
 		CtConstructor[] constructors = klass.getDeclaredConstructors();
+		int exportedCount = 0;
 		for (int i = 0; i < constructors.length; i++) {
-			
 			if (!filter.isAPIMember(constructors[i])) {
 				continue;
 			}
-			
-			Element constructorElement = document.createElement("constructor");
-			addModifiers(constructorElement, constructors[i].getModifiers());
-			buildExceptions(constructorElement, constructors[i]);
-			buildParameterTypes(constructorElement, constructors[i]);
-			element.appendChild(constructorElement);
+			buildConstructor(element, constructors[i]);
+			exportedCount ++;
 		}
+		// Define some constructor
+		APIFilter lrfilter = filter;
+		while (exportedCount == 0) {
+		    try {
+                lrfilter = lrfilter.getLessRestrictiveFilter();
+            } catch (IllegalArgumentException e) {
+                break;
+            }
+            for (int i = 0; i < constructors.length; i++) {
+                if (!lrfilter.isAPIMember(constructors[i])) {
+                    continue;
+                }
+                buildConstructor(element, constructors[i]);
+                exportedCount ++;
+            }
+		}
+	}
+	
+	private void buildConstructor(Element element, CtConstructor constructor) throws NotFoundException {
+	    Element constructorElement = document.createElement("constructor");
+        addModifiers(constructorElement, constructor.getModifiers());
+        buildExceptions(constructorElement, constructor);
+        buildParameterTypes(constructorElement, constructor);
+        element.appendChild(constructorElement);
 	}
 	
 	private void buildMethods(Element element, CtClass klass) throws NotFoundException {
