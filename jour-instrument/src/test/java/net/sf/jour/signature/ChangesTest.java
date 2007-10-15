@@ -36,7 +36,13 @@ import junit.framework.TestCase;
 public class ChangesTest extends TestCase {
 
     private void verify(String signatureFileName, int ecpectedChanges) {
-        List changes = APICompare.listChanges(Utils.getClassResourcePath("uut.signature.AChildClass"), "/net/sf/jour/signature/" + signatureFileName, null, true, null);
+        APICompareConfig config = new APICompareConfig();
+        config.allowPackageAPIextension = false;
+        verify(signatureFileName, ecpectedChanges, config);
+    }
+    
+    private void verify(String signatureFileName, int ecpectedChanges, APICompareConfig config) {        
+        List changes = APICompare.listChanges(Utils.getClassResourcePath("uut.signature.AChildClass"), "/net/sf/jour/signature/" + signatureFileName, config, true, null);
         String message = ChangeDetectedException.chageList(changes);
         //System.out.println(message);
         if (message.length() > 0) {
@@ -45,6 +51,10 @@ public class ChangesTest extends TestCase {
         assertEquals("Changes:\n" + message, ecpectedChanges, changes.size());
     }
 
+    public void testNoChange() {
+        verify("base.xml", 0);
+    }
+    
     public void testHierarchyChange() {
         verify("hierarchyChange.xml", 1);
     }
@@ -87,6 +97,12 @@ public class ChangesTest extends TestCase {
     
     public void testConstantValue() {
         verify("constantValue.xml", 2);
+    }
+    
+    public void testPackageAPIextension() {
+        APICompareConfig config = new APICompareConfig();
+        config.allowPackageAPIextension = true;
+        verify("packageAPIextension.xml", 0, config);
     }
 
 }

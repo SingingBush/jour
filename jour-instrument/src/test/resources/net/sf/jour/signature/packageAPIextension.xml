@@ -1,25 +1,18 @@
 <!-- @version $Id$ -->
 <signature>
 	<class name="uut.signature.AChildClass" extends="uut.signature.AClass">
-		<implements>
-			<interface name="uut.signature.AnInerface1"/>
-		</implements>
 		<constructor modifiers="protected"/>
 		<constructor modifiers="public">
 			<exception name="java.lang.IllegalAccessException"/>
 			<parameter type="int"/>
 			<parameter type="char"/>
-		</constructor>	
-		<constructor modifiers="protected"/>
-			<constructor>
-			<parameter type="int[]"/>
-		</constructor>	
+		</constructor>		
 		<method modifiers="public" name="run" return="void" />
 		<method modifiers="public" name="run" return="java.lang.Long">
 			<exception name="java.lang.Error" />
 			<parameter type="byte" />
 		</method>
-		<method name="runImpl" return="void"/>
+		<method name="runImplOld" return="void"/>
 		<field constant-value="3.1415" modifiers="public static final"
 			name="doubleField" type="double" />
 		<field constant-value="AString" modifiers="public static final"

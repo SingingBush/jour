@@ -30,7 +30,7 @@ public class AClass implements AnInerface {
 	
 	private static int internalData;
 	
-	static short data;
+	protected static short data;
 	
 	public AClass() {
 		
@@ -50,11 +50,11 @@ public class AClass implements AnInerface {
 	
 	private native void getData();
 
-	AnInerface getAnInerface() {
+	protected AnInerface getAnInerface() {
 		return this;
 	}
 	
-	AClass getAClass() {
+	protected AClass getAClass() {
 		return this;
 	}
 }

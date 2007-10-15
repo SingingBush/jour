@@ -43,6 +43,10 @@ class AChildClass extends AClass {
 		
 	}
 	
+	AChildClass(int[] data) {
+        
+    }
+
 	public AChildClass(int a, char b) throws IllegalAccessException {
         
     }
@@ -53,4 +57,7 @@ class AChildClass extends AClass {
 	public Long run(byte b) throws Error {
 		return null;
 	}
+	
+	void runImpl() {
+    }
 }

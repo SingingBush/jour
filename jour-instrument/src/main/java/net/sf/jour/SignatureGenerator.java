@@ -39,7 +39,8 @@ public class SignatureGenerator {
 		if ((args.length < 1) || argsp.getProperty("help") != null) {
 			StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(SignatureGenerator.class.getName());
-			usage.append(" --src classesDir|classes.jar (--systempath) (--jars jar1.jar;jar2.jar) (--packages com.api;com.ext) (--dst api-signature.xml)\n");
+			usage.append(" --src classesDir|classes.jar (--systempath) (--jars jar1.jar;jar2.jar) (--dst api-signature.xml)\n");
+			usage.append("  (--packages com.api;com.ext) (--level public|protected*|package|private)\n");
 			System.out.println(usage);
 			return;
 		}

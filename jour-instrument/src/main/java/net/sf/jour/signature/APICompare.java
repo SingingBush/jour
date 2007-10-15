@@ -45,9 +45,16 @@ import javassist.NotFoundException;
  */
 public class APICompare extends APICompareChangeHelper {
 
-    public APICompareConfig config = new APICompareConfig();
+    private APIFilter filter;
+    
+    private APICompareConfig config;
     
     Map fieldInitializerHack; 
+    
+    public APICompare () {
+        filter = new APIFilter(APIFilter.PROTECTED);
+        config = new APICompareConfig();
+    }
     
     public static void compare(String classpath, String signatureFileName, APICompareConfig config, boolean useSystemClassPath, String supportingJars) throws ChangeDetectedException {
         List changes = listChanges(classpath, signatureFileName, config, useSystemClassPath, supportingJars);
@@ -82,8 +89,15 @@ public class APICompare extends APICompareChangeHelper {
         if (config != null) {
             cmp.config = config;
         }
+        if (!cmp.config.allowPackageAPIextension) {
+            cmp.filter = new APIFilter(APIFilter.PACKAGE);
+        }
+        
         for (Iterator iterator = classes.iterator(); iterator.hasNext();) {
             CtClass refClass = (CtClass) iterator.next();
+            if (!cmp.filter.isAPIClass(refClass)) {
+                continue;
+            }
             CtClass implClass = null;
             try {
                 implClass = classPool.get(refClass.getName());
@@ -165,10 +179,7 @@ public class APICompare extends APICompareChangeHelper {
     }
     
     private boolean isAPIMember(CtMember member) {
-        if (Modifier.isPackage(member.getModifiers())) {
-            return !config.allowPackageAPIextension;
-        }
-        return APIFilter.isAPIMember(member);
+        return filter.isAPIMember(member);
     }
     
     private void compareInterfaces(CtClass[] refInterfaces, CtClass[] implInterfacess, String className) {

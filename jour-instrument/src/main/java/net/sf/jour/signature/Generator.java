@@ -65,21 +65,25 @@ public class Generator {
 	
 	private String reportFile;
 
+	private String filterLevel;
+	
 	private Set packageSet = new HashSet();
 	
 	private List classNames = new Vector();
 	
 	public Generator(Properties properties) {
-		this(properties.getProperty("src"), properties.getProperty("packages"), properties.getProperty("dst"));
+		this(properties.getProperty("src"), properties.getProperty("packages"), properties.getProperty("dst"), properties.getProperty("level"));
 		this.useSystemClassPath = "true".equals(properties.getProperty("systempath")); 
 		this.supportingJars = properties.getProperty("jars");
+		this.filterLevel = properties.getProperty("level");
 	}
 	
-	public Generator(String sources, String packages, String reportFile) {
+	public Generator(String sources, String packages, String reportFile, String filterLevel) {
 		super();
 		this.sources = sources;
 		this.packages = packages;
 		this.reportFile = reportFile;
+		this.filterLevel = filterLevel; 
 		
 		if (reportFile == null) {
 			this.reportFile = "api-signature.xml";
@@ -94,7 +98,6 @@ public class Generator {
 				packageSet.add(packages);
 			}
 		}
-
 	}
 
 	private boolean isSelectedPackage(String className) {
@@ -138,7 +141,9 @@ public class Generator {
 		List classes = new Vector();
 		
 		int countEntry = 0;
-
+		
+		APIFilter filter = new APIFilter(filterLevel);
+		
 		try {
 
 			for (Enumeration en = inputSource.getEntries(); en.hasMoreElements();) {
@@ -153,8 +158,11 @@ public class Generator {
 
 				log.debug(entry.getName());
 				countEntry++;
-				classes.add(classPool.get(className));
-				classNames.add(className);
+				CtClass klass = classPool.get(className);
+				if (filter.isAPIClass(klass)) {
+	                classes.add(klass);
+	                classNames.add(className);
+				}
 			}
 		} finally {
 			inputSource.close();
@@ -163,7 +171,7 @@ public class Generator {
 		
 		Collections.sort(classes, new ClassSortComparator());
 		
-		ExportXML.export(reportFile, classes);
+		ExportXML.export(reportFile, classes, filter);
 		
 	}
 	
@@ -176,13 +184,17 @@ public class Generator {
 	}
 	
 	public void process(ClassPool classPool, List processClassNames) throws IOException, NotFoundException {
+	    APIFilter filter = new APIFilter(filterLevel);
 	    List classes = new Vector();
 	    for (Iterator iterator = processClassNames.iterator(); iterator.hasNext();) {
             String className = (String) iterator.next();
-            classes.add(classPool.get(className));
-            this.classNames.add(className);
+            CtClass klass = classPool.get(className);
+            if (filter.isAPIClass(klass)) {
+                classes.add(klass);
+                classNames.add(className);
+            }
         }
-	    ExportXML.export(reportFile, classes);
+	    ExportXML.export(reportFile, classes, filter);
 	}
 
 	public List getClassNames() {

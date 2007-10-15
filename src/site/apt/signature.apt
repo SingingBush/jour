@@ -45,6 +45,8 @@ java -cp jour-instrument-2.0.1.jar;javassist.jar net.sf.jour.SignatureGenerator 
 
     * --dst api-signature.xml : Generated Signature XML report.
 
+    * --level public|protected|package|private: Specifies the access level for classes and members to export. Default value is protected.
+
   N.B  javassist.jar should be in classpath when running jour.
 
 * Example of generated signature XML.

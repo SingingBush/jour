@@ -6,12 +6,17 @@
 			<exception name="java.lang.IllegalAccessException"/>
 			<parameter type="int"/>
 			<parameter type="char"/>
-		</constructor>		
+		</constructor>	
+		<constructor modifiers="protected"/>
+			<constructor>
+			<parameter type="int[]"/>
+		</constructor>	
 		<method modifiers="public" name="run" return="void" />
 		<method modifiers="public" name="run" return="java.lang.Long">
 			<exception name="java.lang.Error" />
 			<parameter type="byte" />
 		</method>
+		<method name="runImpl" return="void"/>
 		<field constant-value="3.14151" modifiers="public static final"
 			name="doubleField" type="double" />
 		<field constant-value="AStrinG" modifiers="public static final"

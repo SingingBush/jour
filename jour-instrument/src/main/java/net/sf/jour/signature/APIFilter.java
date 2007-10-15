@@ -32,22 +32,55 @@ public class APIFilter {
 
 	public static final String javaLangString = "java.lang.String";
 	
-	public static boolean isAPIClass(CtClass klass) {
-		int mod = klass.getModifiers();
-		if (Modifier.isPrivate(mod)) {
-			return false;
-		}
-		return true;
+	public static final int PUBLIC = 1;
+    
+	public static final int PROTECTED = 2;
+    
+	public static final int PACKAGE = 3;
+    
+	public static final int PRIVATE = 4;
+    
+    private int level;
+	
+	public APIFilter(int level) {
+	    this.level = level;
 	}
 	
-	public static boolean isAPIMember(CtMember member) {
-		if (Modifier.isPublic(member.getModifiers())) {
-			return true;
-		} else if (Modifier.isPrivate(member.getModifiers())) {
-			return false;
-		} else {
-			return true;
-		}
+	public APIFilter(String level) {
+	    if (level == null) {
+	        this.level = PROTECTED;
+	    } else if (level.equalsIgnoreCase("public")) {
+	        this.level = PUBLIC;
+        } else if (level.equalsIgnoreCase("protected")) {
+            this.level = PROTECTED;
+        } else if (level.equalsIgnoreCase("package")) {
+            this.level = PACKAGE;
+        } else if (level.equalsIgnoreCase("private")) {
+            this.level = PRIVATE;
+        } else {
+            throw new IllegalArgumentException("level " + level);
+        }
+    }
+	
+	public boolean isAPIModifier(int mod) {
+	    if (Modifier.isPublic(mod)) {
+            return (level >= PUBLIC);
+        } else  if (Modifier.isProtected(mod)) {
+            return (level >= PROTECTED);
+        } else  if (Modifier.isPackage(mod)) {
+            return (level >= PACKAGE);
+        } else  if (Modifier.isPrivate(mod)) {
+	        return (level >= PRIVATE);
+	    }
+        return true;
+    }
+
+	public boolean isAPIClass(CtClass klass) {
+		return isAPIModifier(klass.getModifiers());
+	}
+	
+	public boolean isAPIMember(CtMember member) {
+	    return isAPIModifier(member.getModifiers());
 	}
 	
 	public static boolean isExportableConstantType(CtClass klass) {

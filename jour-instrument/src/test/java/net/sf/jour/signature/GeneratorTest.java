@@ -41,13 +41,14 @@ public class GeneratorTest extends TestCase {
 			
 			String classpath = Utils.getClassResourcePath(this.getClass().getName());
 			
-			Generator g = new Generator(classpath, testPackages, fileName);
+			Generator g = new Generator(classpath, testPackages, fileName, "package");
 			g.process();
+			assertTrue("exported classes", g.getClassNames().size() > 0);
 			
 			SignatureImport im = new SignatureImport(true, null);
 			im.load(fileName);
 			
-			assertEquals("classes", im.getClassNames().size(), g.getClassNames().size());
+			assertEquals("imported classes", g.getClassNames().size(), im.getClassNames().size());
 
 			APICompareConfig compareConfig = new APICompareConfig();
 			compareConfig.allowPackageAPIextension = false;
@@ -56,10 +57,10 @@ public class GeneratorTest extends TestCase {
 	         
 			ExportClasses.export(classpathTempDirectory, im.getClasses());
 			
-			Generator g2 = new Generator(null, null, "target/generatorTestImported.xml");
+			Generator g2 = new Generator(null, null, "target/generatorTestImported.xml", "package");
 			g2.process(im.getClassPool(), im.getClassNames());
 			
-			Generator g3 = new Generator(classpathTempDirectory, null, "target/generatorTestImportedClasses.xml");
+			Generator g3 = new Generator(classpathTempDirectory, null, "target/generatorTestImportedClasses.xml", "package");
             g3.process();
             
             APICompare.compare(classpathTempDirectory, fileName, compareConfig, true, null);

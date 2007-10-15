@@ -61,8 +61,10 @@ public class ExportXML {
 	public static final String rootNodeName = "signature";
 	
 	private Document document; 
+	
+	private APIFilter filter;
 		
-	public static void export(String reportFile, List classes) {
+	public static void export(String reportFile, List classes, APIFilter filter) {
 
 		DocumentBuilder builder;
 		try {
@@ -74,6 +76,7 @@ public class ExportXML {
 		}
 		
 		ExportXML instance = new ExportXML();
+		instance.filter = filter;
 		
 		instance.document = builder.newDocument();
 		
@@ -82,7 +85,7 @@ public class ExportXML {
 		
 		for (Iterator iterator = classes.iterator(); iterator.hasNext();) {
 			CtClass klass = (CtClass) iterator.next();
-			if (APIFilter.isAPIClass(klass)) {
+			if (filter.isAPIClass(klass)) {
 				root.appendChild(instance.classNode(klass));
 			}
 		}
@@ -187,7 +190,7 @@ public class ExportXML {
 		CtConstructor[] constructors = klass.getDeclaredConstructors();
 		for (int i = 0; i < constructors.length; i++) {
 			
-			if (!APIFilter.isAPIMember(constructors[i])) {
+			if (!filter.isAPIMember(constructors[i])) {
 				continue;
 			}
 			
@@ -203,7 +206,7 @@ public class ExportXML {
 		CtMethod[] methods = klass.getDeclaredMethods();
 		for (int i = 0; i < methods.length; i++) {
 			
-			if (!APIFilter.isAPIMember(methods[i])) {
+			if (!filter.isAPIMember(methods[i])) {
 				continue;
 			}
 			
@@ -222,7 +225,7 @@ public class ExportXML {
 		CtField[] fields = klass.getDeclaredFields();
 		for (int i = 0; i < fields.length; i++) {
 			
-			if (!APIFilter.isAPIMember(fields[i])) {
+			if (!filter.isAPIMember(fields[i])) {
 				continue;
 			}
 			
