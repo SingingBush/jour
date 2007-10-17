@@ -30,15 +30,15 @@
         </menu>
 
         <menu name="Overview">
-            <item name="Introduction" href="/index.html" />
-            <item name="Usage" href="/usage.html" />
-            <item name="Instrumentation" href="/instrumentation.html" />
-            <item name="API Signature" href="/signature.html" />
-            <item name="Faq" href="/faq.html" />
+            <item name="Introduction" href="#remove#/index.html" />
+            <item name="Usage" href="#remove#/usage.html" />
+            <item name="Instrumentation" href="#remove#/instrumentation.html" />
+            <item name="API Signature" href="#remove#/signature.html" />
+            <item name="Faq" href="#remove#/faq.html" />
 
             <item name="Download" href="#">
                 <item name="Releases" href="http://sourceforge.net/project/showfiles.php?group_id=122892"/>
-                <item name="Maven" href="/maven.html"/>
+                <item name="Maven" href="#remove#/maven.html"/>
                 <item name="SVN Access" href="source-repository.html"/>
             </item>
 
