@@ -10,8 +10,24 @@ Instrumentation
 * Instrumentation from command line
 
 ---
-java -jar jour-instrument-2.0.1.jar --config jour.xml --src classesDir|classes.jar --dst outDir (--classpath classpath) (--copy resource|classes|all) (--systempath)
+java -jar jour-instrument-2.0.1.jar --config jour.xml --src classesDir|classes.jar --dst outDir (--classpath classpath) \
+     (--copy resource|classes|all) (--systempath)
 ---
+
+    All command line options:
+
+    * --src <implementation> : The source JAR or Directory with classes that needs to be instrumented.
+
+    * --classpath <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
+
+    * --systempath : Appends the system search path to the end of the search path.
+
+    * --dst directoryName : The destination directory for instrumented classes
+
+    * --copy resource|classes|all: Also copy non instrumented classes and resources. Default value is none. Only the classes that has been changed are saved in --dst
+
+  N.B  javassist.jar should be in classpath when running jour.
+
 
 * Building instrumented project using Maven2
 

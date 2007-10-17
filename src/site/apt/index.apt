@@ -10,9 +10,11 @@ Jour overview
 
     The Jour library is an open source suite of java bytecode instrumentation base on {{{http://www.jboss.org/products/javassist}Javassist}}.
 
-* Key usage examples
+    Jour is designed to simplify the use of Javassist for processing multiple classes. In short Jour is simple Aspect Oriented Programming AOP framework on top of Javassist.
 
-    * {{{signature.html} API signature validation.}}
+    Jour is licensed under LGPL.
+
+* Key usage examples
 
     * UnitTest helper for J2ME. See {{{http://pyx4me.com/snapshot/pyx4me/pyx4me-cldcunit/index.html}cldcunit}}
 
@@ -22,16 +24,18 @@ Jour overview
 
     * Profiler and monitoring tools. See {{{http://jour.sourceforge.net/0.3.1}Old Jour}}
 
+    * {{{signature.html} API signature creation and validation.}}
+
 
 * Features
 
-    * Easy to use and add new type of instrumentation
+    * Configurable filters to specify the classes for {{{instrumentation.html}instrumentation}}
+
+    * Easy to use and add new type of {{{instrumentation.html}instrumentation}}
 
     * {{{jour-maven-plugin/index.html}Integration into Maven build system}}
 
     * TODO Ant Integration
-
-
 
 * Requirements
 

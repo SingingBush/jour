@@ -6,9 +6,26 @@
 
 Bytecode Instrumentation
 
-* Preprocessing
+    Bytecode Instrumentation is done using Instrumentors. Jour configuration files defines which Instrumentor should be called for class and its methods.
 
-    Bytecode Instrumentation is done using preprocessing. Original classes are not changed.
+        * Class selection is done using <<typedef>>. This is basicaly wildcard for class name.
+
+            instrumentor.instrumentClass would be called.
+
+        * Method selection is done using <<pointcut>>. This is more complex wildcard that allow filtering base on method signature.
+
+            instrumentor.instrumentMethod or instrumentor.instrumentConstructor would be called.
+
+        []
+
+    To create your own instrumentor you should know Javassist. And follow provided examples:
+
+        * {{{http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/instrumentor/}provided by jour instrumentors}}
+
+        * {{{https://pyx4j.com/viewvc/pyx4me/pyx4me-cldcunit/cldcunit-instrument/src/main/java/com/pyx4me/cldcunit/}JUnit to J2MEUnit instrumentor}}
+
+
+    If instrumentClass
 
     * jour.xml
 
