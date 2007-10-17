@@ -14,7 +14,7 @@ Jour overview
 
     * {{{signature.html} API signature validation.}}
 
-    * UnitTest helper for J2ME. See {{{http://pyx4j.com/snapshot/pyx4me/pyx4me-cldcunit/index.html}cldcunit}}
+    * UnitTest helper for J2ME. See {{{http://pyx4me.com/snapshot/pyx4me/pyx4me-cldcunit/index.html}cldcunit}}
 
     * Bytecode optimization for specific J2ME device. See {{{http://www.pyx4me.com}pyx4me}}
 

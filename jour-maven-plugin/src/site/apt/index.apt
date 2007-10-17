@@ -10,11 +10,11 @@ jour-maven-plugin
 
 * Overview
 
-  The jour-maven-plugin is maven2 plugin to apply Bytecode instrumentation during build
+  The jour-maven-plugin is maven2 plugin to apply bytecode instrumentation during build
 
 * Parameters
 
-    Regular {{{instrument-mojo.html}pjour:instrument parameters}}
+    Regular {{{instrument-mojo.html}jour:instrument parameters}}
 
 
 * Usage
@@ -51,13 +51,13 @@ jour-maven-plugin
 ---
 
 
-    Replace project test-classes with instrumented one.
+    Replace project test-classes with instrumented one. Instrumentor class taken from plugin dependencies.
 
 ---
             <plugin>
                 <groupId>net.sf.jour</groupId>
                 <artifactId>jour-maven-plugin</artifactId>
-                <version>2.0.0</version>
+                <version>2.0.1</version>
                 <executions>
                     <execution>
                         <phase>test-compile</phase>
