@@ -180,6 +180,36 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <outputEncoding>UTF-8</outputEncoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>site-process-version</id>
+                        <phase>site</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <!-- Set build number -->
+                                <replace dir="${project.build.directory}/site">
+                                    <include name="*.html"></include>
+                                    <replacefilter token="#build#" value="${buildLabel}"/>
+                                    <replacefilter token="#version#" value="${version}"/>
+                                    <replacefilter token="#remove#" value=""/>
+                                </replace>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
