@@ -47,16 +47,18 @@ import net.sf.jour.processor.OutputWriter;
 import net.sf.jour.util.CmdArgs;
 
 /**
- *
+ * 
  * Created on 02.10.2004
- *
+ * 
  * Contributing Author(s):
- *
- *   Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital implementation)
- *   Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital implementation)
+ * 
+ * Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital
+ * implementation) Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital
+ * implementation)
  * 
  * @author michaellif
- * @version $Revision$ ($Author$) $Date$
+ * @version $Revision$ ($Author$) $Date: 2007-10-10 18:49:54 -0400
+ *          (Wed, 10 Oct 2007) $
  */
 public class PreProcessor {
 
@@ -240,7 +242,7 @@ public class PreProcessor {
 		if ((args.length < 1) || argsp.getProperty("help") != null) {
 			StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(PreProcessor.class.getName());
-			usage.append(" --config jour.xml --src classesDir|classes.jar --dst outDir|out.jar\n");
+			usage.append(" --config jour.xml --src classesDir|classes.jar --dst outDir\n");
 			usage.append("    (--classpath classpath)\n");
 			System.out.println(usage);
 			return;
@@ -249,12 +251,12 @@ public class PreProcessor {
 		try {
 			PreProcessor pp = new PreProcessor(argsp);
 			pp.process();
-			
+
 			System.out.println("Processed Classes     " + pp.countClasses);
 			System.out.println("Altered Counstructors " + pp.countCounstructors);
 			System.out.println("Altered Methods       " + pp.countMethods);
 			System.out.println("Saved Classes         " + pp.savedClasses);
-			
+
 		} catch (Throwable e) {
 			e.printStackTrace();
 			throw new Error(e);

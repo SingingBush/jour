@@ -1,0 +1,15 @@
+~~ @version $Revision$ ($Author$) $Date$
+~~ See this file format http://maven.apache.org/guides/mini/guide-apt-format.html
+
+                                    ------------------
+                                    About jour-examples
+                                    ------------------
+
+
+About jour-examples
+
+  Examples and integration tests of maven-plugin.
+
+  In this project we are replacing all <<<debug()>>> methods with empty implementation.
+
+  See the {{{source-repository.html}sources}} for this project.

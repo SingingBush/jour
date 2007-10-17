@@ -20,7 +20,7 @@ import com.pyx4j.log4j.MavenLogAppender;
  * The jour:instrument will apply instrumentation during build.
  * 
  * @author vlads
- *
+ * 
  * @goal instrument
  * 
  * @pahse process-classes
@@ -42,7 +42,7 @@ public class InstrumentationMojo extends AbstractMojo {
 
 	/**
 	 * The directory or jar containing original classes.
-	 *
+	 * 
 	 * @parameter expression="${project.build.outputDirectory}"
 	 * @required
 	 */
@@ -50,25 +50,25 @@ public class InstrumentationMojo extends AbstractMojo {
 
 	/**
 	 * Directory containing the generated JAR.
-	 *
+	 * 
 	 * @parameter expression="${project.build.directory}"
 	 * @required
 	 */
 	protected File outputDirectory;
 
 	/**
-	 * Output directory name or the name of the output JAR file relative to outputDirectory parameter. 
+	 * Output directory name relative to outputDirectory parameter.
 	 * 
 	 * @parameter expression="iclasses"
 	 * @required
 	 */
 	protected String output;
-	
+
 	/**
 	 * The Maven project reference where the plugin is currently being executed.
-	 * Used for dependancy resolution during compilation.
-	 * The default value is populated from maven.
-	 *
+	 * Used for dependency resolution during compilation. The default value is
+	 * populated from maven.
+	 * 
 	 * @parameter expression="${project}"
 	 * @readonly
 	 * @required
@@ -93,7 +93,7 @@ public class InstrumentationMojo extends AbstractMojo {
 				log.debug("dependancy:" + file.toString());
 				classpath.add(file.toString());
 			}
-			
+
 			PreProcessor pp = new PreProcessor(jourConfig.getAbsolutePath(), classesDirectory, out, classpath);
 
 			try {
@@ -107,11 +107,11 @@ public class InstrumentationMojo extends AbstractMojo {
 			MavenLogAppender.endPluginLog(this);
 		}
 	}
-	
+
 	public static File getClasspathElement(Artifact artifact, MavenProject mavenProject) throws MojoExecutionException {
 		String refId = artifact.getGroupId() + ":" + artifact.getArtifactId();
-        MavenProject project = (MavenProject) mavenProject.getProjectReferences().get( refId );
-        if (project != null) {
+		MavenProject project = (MavenProject) mavenProject.getProjectReferences().get(refId);
+		if (project != null) {
 			return new File(project.getBuild().getOutputDirectory());
 		} else {
 			File file = artifact.getFile();

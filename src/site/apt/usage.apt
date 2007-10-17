@@ -10,7 +10,7 @@ Instrumentation
 * Instrumentation from command line
 
 ---
-java -jar jour-instrument-2.0.0.jar --config jour.xml --src classesDir|classes.jar --dst outDir|out.jar
+java -jar jour-instrument-2.0.1.jar --config jour.xml --src classesDir|classes.jar --dst outDir
 ---
 
 * Building instrumented project using Maven2
@@ -24,7 +24,7 @@ java -jar jour-instrument-2.0.0.jar --config jour.xml --src classesDir|classes.j
             <plugin>
                 <groupId>net.sf.jour</groupId>
                 <artifactId>jour-maven-plugin</artifactId>
-                <version>2.0.0</version>
+                <version>2.0.1</version>
                 <executions>
                     <execution>
                         <phase>process-classes</phase>
@@ -32,6 +32,7 @@ java -jar jour-instrument-2.0.0.jar --config jour.xml --src classesDir|classes.j
                             <goal>instrument</goal>
                         </goals>
                         <configuration>
+                            <output>classes</output>
                             <jourConfig>${basedir}/process-classes.jour.xml</jourConfig>
                         </configuration>
                     </execution>
