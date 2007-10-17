@@ -34,11 +34,11 @@ public class InstrumentationMojo extends AbstractMojo {
 	private Log log;
 
 	/**
-	 * Reads configuration options from the given file.
+	 * Reads configuration options from the given file. File or resource name.
 	 * 
 	 * @parameter default-value="${basedir}/jour.xml"
 	 */
-	private File jourConfig;
+	private String jourConfig;
 
 	/**
 	 * The directory or jar containing original classes.
@@ -65,6 +65,30 @@ public class InstrumentationMojo extends AbstractMojo {
 	protected String output;
 
 	/**
+	 * Copy not instrumented classes to "output"
+	 * 
+	 * @parameter expression="false"
+	 */
+	private boolean copyClasses;
+
+	/**
+	 * Copy resources to "output"
+	 * 
+	 * @parameter expression="false"
+	 */
+	private boolean copyResources;
+
+	/**
+	 * Appends the system search path to the end of the search path. The system
+	 * search path usually includes the platform library, extension libraries,
+	 * and the search path specified by the <code>-classpath</code> option or
+	 * the <code>CLASSPATH</code> environment variable.
+	 * 
+	 * @parameter expression="true"
+	 */
+	private boolean useSystemClassPath;
+
+	/**
 	 * The Maven project reference where the plugin is currently being executed.
 	 * Used for dependency resolution during compilation. The default value is
 	 * populated from maven.
@@ -80,7 +104,7 @@ public class InstrumentationMojo extends AbstractMojo {
 		MavenLogAppender.startPluginLog(this);
 		try {
 
-			log.info(jourConfig.getAbsolutePath());
+			log.info("jourConfig: " + jourConfig);
 
 			File out = new File(outputDirectory, output);
 
@@ -94,7 +118,11 @@ public class InstrumentationMojo extends AbstractMojo {
 				classpath.add(file.toString());
 			}
 
-			PreProcessor pp = new PreProcessor(jourConfig.getAbsolutePath(), classesDirectory, out, classpath);
+			PreProcessor pp = new PreProcessor(jourConfig, classesDirectory, out, classpath);
+
+			pp.setUseSystemClassPath(useSystemClassPath);
+			pp.setCopyClasses(copyClasses);
+			pp.setCopyResources(copyResources);
 
 			try {
 				pp.process();

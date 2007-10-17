@@ -44,6 +44,7 @@ import net.sf.jour.processor.InstrumentedCreatedEntry;
 import net.sf.jour.processor.InstrumentedEntry;
 import net.sf.jour.processor.JarFileInputSource;
 import net.sf.jour.processor.OutputWriter;
+import net.sf.jour.util.BuildVersion;
 import net.sf.jour.util.CmdArgs;
 
 /**
@@ -76,9 +77,41 @@ public class PreProcessor {
 
 	private File output;
 
+	private boolean copyClasses = false;
+
+	private boolean copyResources = false;
+
+	private boolean useSystemClassPath = false;
+
 	Config config;
 
 	ClassPool classPool;
+
+	public static void main(String[] args) {
+		Properties argsp = CmdArgs.load(args);
+		if ((args.length < 1) || argsp.getProperty("help") != null) {
+			StringBuffer usage = new StringBuffer();
+			usage.append("Usage:\n java ").append(PreProcessor.class.getName());
+			usage.append(" --config jour.xml --src classesDir|classes.jar --dst outDir\n");
+			usage.append("    (--classpath classpath) (--copy resource|classes|all) (--systempath)\n");
+			System.out.println(usage);
+			return;
+		}
+
+		try {
+			PreProcessor pp = new PreProcessor(argsp);
+			pp.process();
+
+			System.out.println("Processed Classes     " + pp.countClasses);
+			System.out.println("Altered Counstructors " + pp.countCounstructors);
+			System.out.println("Altered Methods       " + pp.countMethods);
+			System.out.println("Saved Classes         " + pp.savedClasses);
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			throw new Error(e);
+		}
+	}
 
 	public PreProcessor(String[] args) throws NotFoundException {
 		this(CmdArgs.load(args));
@@ -91,6 +124,17 @@ public class PreProcessor {
 		if (out == null) {
 			out = in;
 		}
+		String copy = properties.getProperty("config");
+		if ("all".equalsIgnoreCase(copy)) {
+			setCopyClasses(true);
+			setCopyResources(true);
+		} else if ("classes".equalsIgnoreCase(copy)) {
+			setCopyClasses(true);
+		} else if ("resources".equalsIgnoreCase(copy)) {
+			setCopyResources(true);
+		}
+
+		this.useSystemClassPath = "true".equals(properties.getProperty("systempath"));
 
 		List classpath = new Vector();
 
@@ -135,13 +179,14 @@ public class PreProcessor {
 		this.output = out;
 		this.config = new Config(configFileName);
 		this.classPool = new ClassPool();
-		this.classPool.appendSystemPath();
 		try {
 			this.classPool.appendClassPath(this.input.getAbsolutePath());
 
 			if (classpath != null) {
 				for (Iterator i = classpath.iterator(); i.hasNext();) {
-					this.classPool.appendPathList((String) i.next());
+					String path = (String) i.next();
+					log.debug("classPath " + path);
+					this.classPool.appendPathList(path);
 				}
 			}
 		} catch (NotFoundException e) {
@@ -151,6 +196,13 @@ public class PreProcessor {
 	}
 
 	public void process() throws Exception {
+
+		log.info("Jour, version " + BuildVersion.getVersion());
+
+		if (this.useSystemClassPath) {
+			log.debug("useSystemClassPath");
+			this.classPool.appendSystemPath();
+		}
 
 		OutputWriter outputWriter;
 		if (!output.isFile()) {
@@ -167,7 +219,8 @@ public class PreProcessor {
 		}
 
 		int countEntry = 0;
-
+		int countResources = 0;
+		int countNIClasses = 0;
 		try {
 
 			for (Enumeration en = inputSource.getEntries(); en.hasMoreElements();) {
@@ -175,9 +228,17 @@ public class PreProcessor {
 				log.debug(e.getName());
 				if (outputWriter.needUpdate(e)) {
 					if (!e.isClass()) {
-						outputWriter.write(e);
+						if (isCopyResources()) {
+							outputWriter.write(e);
+							countResources++;
+						}
 					} else {
-						instrument(e, outputWriter);
+						if (instrument(e, outputWriter) == InstrumentorResultsImpl.NOT_MODIFIED) {
+							if (isCopyClasses()) {
+								outputWriter.write(e);
+								countNIClasses++;
+							}
+						}
 					}
 				}
 				countEntry++;
@@ -192,6 +253,12 @@ public class PreProcessor {
 		log.info("Altered Counstructors " + this.countCounstructors);
 		log.info("Altered Methods       " + this.countMethods);
 		log.info("Saved Classes         " + this.savedClasses);
+		if (isCopyClasses()) {
+			log.info("NotInstr Classes      " + countNIClasses);
+		}
+		if (isCopyResources()) {
+			log.info("Resources             " + countResources);
+		}
 	}
 
 	public InstrumentorResults instrument(Entry entry, OutputWriter outputWriter) throws IOException {
@@ -237,30 +304,49 @@ public class PreProcessor {
 		return countClasses;
 	}
 
-	public static void main(String[] args) {
-		Properties argsp = CmdArgs.load(args);
-		if ((args.length < 1) || argsp.getProperty("help") != null) {
-			StringBuffer usage = new StringBuffer();
-			usage.append("Usage:\n java ").append(PreProcessor.class.getName());
-			usage.append(" --config jour.xml --src classesDir|classes.jar --dst outDir\n");
-			usage.append("    (--classpath classpath)\n");
-			System.out.println(usage);
-			return;
-		}
+	/**
+	 * @return the copyClasses
+	 */
+	public boolean isCopyClasses() {
+		return copyClasses;
+	}
 
-		try {
-			PreProcessor pp = new PreProcessor(argsp);
-			pp.process();
+	/**
+	 * @param copyClasses
+	 *            the copyClasses to set
+	 */
+	public void setCopyClasses(boolean copyClasses) {
+		this.copyClasses = copyClasses;
+	}
 
-			System.out.println("Processed Classes     " + pp.countClasses);
-			System.out.println("Altered Counstructors " + pp.countCounstructors);
-			System.out.println("Altered Methods       " + pp.countMethods);
-			System.out.println("Saved Classes         " + pp.savedClasses);
+	/**
+	 * @return the copyResources
+	 */
+	public boolean isCopyResources() {
+		return copyResources;
+	}
 
-		} catch (Throwable e) {
-			e.printStackTrace();
-			throw new Error(e);
-		}
+	/**
+	 * @param copyResources
+	 *            the copyResources to set
+	 */
+	public void setCopyResources(boolean copyResources) {
+		this.copyResources = copyResources;
+	}
+
+	/**
+	 * @return the useSystemClassPath
+	 */
+	public boolean isUseSystemClassPath() {
+		return useSystemClassPath;
+	}
+
+	/**
+	 * @param useSystemClassPath
+	 *            the useSystemClassPath to set
+	 */
+	public void setUseSystemClassPath(boolean useSystemClassPath) {
+		this.useSystemClassPath = useSystemClassPath;
 	}
 
 }

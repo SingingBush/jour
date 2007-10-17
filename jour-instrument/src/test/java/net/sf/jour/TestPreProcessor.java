@@ -27,45 +27,45 @@ import net.sf.jour.test.Utils;
 
 /*
  * Created on Dec 2, 2004
- *
+ * 
  * Contributing Author(s):
- *
- *   Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital implementation)
- *   Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital implementation)
- *
+ * 
+ * Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital
+ * implementation) Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital
+ * implementation)
+ * 
  * @author michaellif
+ * 
  * @version $Revision$ ($Author$)
  */
 public class TestPreProcessor extends TestCase {
-    
-    public void testPreProcessorDirectory() throws Exception {
-        
-		File srcDir = new File(Utils.getClassResourcePath(this.getClass().getName()));
-		
-		File dstDir = new File(srcDir.getParentFile(), "test-iclasses-dir");
-		
-		PreProcessor pp = new PreProcessor(new String[]{
-        	"--config", Utils.getResourceAbsolutePath("/preProcessorTest.jour.xml"), 	
-			"--src", srcDir.getAbsolutePath(), 
-			"--dst", dstDir.getAbsolutePath()});
-		pp.process();
-		
-		assertTrue("Nothing instrumented", pp.getCountMethods() > 0);
-    }
 
-    public void testPreProcessorJar() throws Exception {
-        
-		File srcJar = new File(Utils.getResourceAbsolutePath("/jarPreProcessorTest.jar"));
-		
-		File dstDir = new File(srcJar.getParentFile().getParentFile(), "test-iclasses-jar");
-		
-		PreProcessor pp = new PreProcessor(new String[]{
-        	"--config", Utils.getResourceAbsolutePath("/preProcessorTest.jour.xml"), 	
-			"--src", srcJar.getAbsolutePath(), 
-			"--dst", dstDir.getAbsolutePath(),
-			"--classpath", srcJar.getParentFile().getAbsolutePath()});
+	public void testPreProcessorDirectory() throws Exception {
+
+		File srcDir = new File(Utils.getClassResourcePath(this.getClass().getName()));
+
+		File dstDir = new File(srcDir.getParentFile(), "test-iclasses-dir");
+
+		PreProcessor pp = new PreProcessor(new String[] { "--config",
+				Utils.getResourceAbsolutePath("/preProcessorTest.jour.xml"), "--src", srcDir.getAbsolutePath(),
+				"--dst", dstDir.getAbsolutePath(), "--systempath" });
 		pp.process();
-		
+
 		assertTrue("Nothing instrumented", pp.getCountMethods() > 0);
-    }
+	}
+
+	public void testPreProcessorJar() throws Exception {
+
+		File srcJar = new File(Utils.getResourceAbsolutePath("/jarPreProcessorTest.jar"));
+
+		File dstDir = new File(srcJar.getParentFile().getParentFile(), "test-iclasses-jar");
+
+		PreProcessor pp = new PreProcessor(new String[] { "--config",
+				Utils.getResourceAbsolutePath("/preProcessorTest.jour.xml"), "--src", srcJar.getAbsolutePath(),
+				"--dst", dstDir.getAbsolutePath(), "--classpath", srcJar.getParentFile().getAbsolutePath(),
+				"--systempath" });
+		pp.process();
+
+		assertTrue("Nothing instrumented", pp.getCountMethods() > 0);
+	}
 }

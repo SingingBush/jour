@@ -10,7 +10,7 @@ Instrumentation
 * Instrumentation from command line
 
 ---
-java -jar jour-instrument-2.0.1.jar --config jour.xml --src classesDir|classes.jar --dst outDir
+java -jar jour-instrument-2.0.1.jar --config jour.xml --src classesDir|classes.jar --dst outDir (--classpath classpath) (--copy resource|classes|all) (--systempath)
 ---
 
 * Building instrumented project using Maven2

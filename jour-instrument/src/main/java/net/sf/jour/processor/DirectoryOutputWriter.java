@@ -15,13 +15,14 @@ public class DirectoryOutputWriter implements OutputWriter {
 	}
 
 	public boolean needUpdate(Entry entry) {
+		// TODO
 		return true;
 	}
 
 	public void write(Entry entry) throws IOException {
-		if (entry.getOrigin() == entry) {
-			return;
-		}
+		// if (entry.getOrigin() == entry) {
+		// return;
+		// }
 		String name = entry.getName().replace('/', File.separatorChar);
 		File file = new File(dir.getAbsolutePath() + File.separatorChar + name);
 		File dir = file.getParentFile();
@@ -32,7 +33,7 @@ public class DirectoryOutputWriter implements OutputWriter {
 			file.mkdirs();
 			return;
 		}
-		
+
 		OutputStream out = null;
 		InputStream in = null;
 		try {

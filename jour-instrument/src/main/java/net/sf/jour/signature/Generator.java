@@ -49,42 +49,43 @@ import net.sf.jour.processor.JarFileInputSource;
 
 /**
  * @author vlads
- *
+ * 
  */
 public class Generator {
 
 	protected static final Logger log = Logger.getLogger();
-	
-	private boolean useSystemClassPath = true;
-	
+
+	private boolean useSystemClassPath = false;
+
 	private String supportingJars;
-	
+
 	private String sources;
-	
+
 	private String packages;
-	
+
 	private String reportFile;
 
 	private String filterLevel;
-	
+
 	private Set packageSet = new HashSet();
-	
+
 	private List classNames = new Vector();
-	
+
 	public Generator(Properties properties) {
-		this(properties.getProperty("src"), properties.getProperty("packages"), properties.getProperty("dst"), properties.getProperty("level"));
-		this.useSystemClassPath = "true".equals(properties.getProperty("systempath")); 
+		this(properties.getProperty("src"), properties.getProperty("packages"), properties.getProperty("dst"),
+				properties.getProperty("level"));
+		this.useSystemClassPath = "true".equals(properties.getProperty("systempath"));
 		this.supportingJars = properties.getProperty("jars");
 		this.filterLevel = properties.getProperty("level");
 	}
-	
+
 	public Generator(String sources, String packages, String reportFile, String filterLevel) {
 		super();
 		this.sources = sources;
 		this.packages = packages;
 		this.reportFile = reportFile;
-		this.filterLevel = filterLevel; 
-		
+		this.filterLevel = filterLevel;
+
 		if (reportFile == null) {
 			this.reportFile = "api-signature.xml";
 		}
@@ -119,16 +120,16 @@ public class Generator {
 	}
 
 	public void process() throws IOException, NotFoundException {
-		
+
 		File input = new File(sources).getCanonicalFile();
-		
+
 		InputSource inputSource;
 		if (input.isDirectory()) {
 			inputSource = new DirectoryInputSource(input);
 		} else {
 			inputSource = new JarFileInputSource(input);
 		}
-		
+
 		ClassPool classPool = new ClassPool();
 		classPool.appendPathList(input.getAbsolutePath());
 		if (this.supportingJars != null) {
@@ -137,13 +138,13 @@ public class Generator {
 		if (this.useSystemClassPath) {
 			classPool.appendSystemPath();
 		}
-		
+
 		List classes = new Vector();
-		
+
 		int countEntry = 0;
-		
+
 		APIFilter filter = new APIFilter(filterLevel);
-		
+
 		try {
 
 			for (Enumeration en = inputSource.getEntries(); en.hasMoreElements();) {
@@ -160,49 +161,64 @@ public class Generator {
 				countEntry++;
 				CtClass klass = classPool.get(className);
 				if (filter.isAPIClass(klass)) {
-	                classes.add(klass);
-	                classNames.add(className);
+					classes.add(klass);
+					classNames.add(className);
 				}
 			}
 		} finally {
 			inputSource.close();
 		}
 		log.debug("countEntry   " + countEntry);
-		
+
 		Collections.sort(classes, new ClassSortComparator());
-		
+
 		ExportXML.export(reportFile, classes, filter);
-		
+
 	}
-	
+
 	private static class ClassSortComparator implements Comparator {
 
-        public int compare(Object arg0, Object arg1) {
-            return ((CtClass)(arg0)).getName().compareTo(((CtClass)(arg1)).getName());
-        }
-	    
+		public int compare(Object arg0, Object arg1) {
+			return ((CtClass) (arg0)).getName().compareTo(((CtClass) (arg1)).getName());
+		}
+
 	}
-	
+
 	public void process(ClassPool classPool, List processClassNames) throws IOException, NotFoundException {
-	    APIFilter filter = new APIFilter(filterLevel);
-	    List classes = new Vector();
-	    for (Iterator iterator = processClassNames.iterator(); iterator.hasNext();) {
-            String className = (String) iterator.next();
-            CtClass klass = classPool.get(className);
-            if (filter.isAPIClass(klass)) {
-                classes.add(klass);
-                classNames.add(className);
-            }
-        }
-	    ExportXML.export(reportFile, classes, filter);
+		APIFilter filter = new APIFilter(filterLevel);
+		List classes = new Vector();
+		for (Iterator iterator = processClassNames.iterator(); iterator.hasNext();) {
+			String className = (String) iterator.next();
+			CtClass klass = classPool.get(className);
+			if (filter.isAPIClass(klass)) {
+				classes.add(klass);
+				classNames.add(className);
+			}
+		}
+		ExportXML.export(reportFile, classes, filter);
 	}
 
 	public List getClassNames() {
 		return this.classNames;
 	}
 
-    public String getReportFile() {
-        return reportFile;
-    }
-	
+	public String getReportFile() {
+		return reportFile;
+	}
+
+	/**
+	 * @return the useSystemClassPath
+	 */
+	public boolean isUseSystemClassPath() {
+		return useSystemClassPath;
+	}
+
+	/**
+	 * @param useSystemClassPath
+	 *            the useSystemClassPath to set
+	 */
+	public void setUseSystemClassPath(boolean useSystemClassPath) {
+		this.useSystemClassPath = useSystemClassPath;
+	}
+
 }
