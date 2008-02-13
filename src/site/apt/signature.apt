@@ -135,3 +135,23 @@ public class JSR82APIObexDeclarationsTest extends SignatureTestCase {
 ---
 
     Alternatively you can use class {{{http://jour.svn.sourceforge.net/viewvc/jour/jour-instrument/src/main/java/net/sf/jour/signature/APICompare.java?view=markup}net.sf.jour.signature.APICompare}}
+
+* Creation of classes base on API descriptor XML from command line
+
+---
+java -cp jour-instrument-2.0.1.jar net.sf.jour.SignatureExport --signature api-signature.xml --dst ./api-classes
+---
+
+    All command line options:
+
+    * --signature api-signature.xml : Base Signature XML.
+
+    * --jars <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
+
+    * --systempath : Appends the system search path to the end of the search path.
+
+    * --stubException <ExceptionClassName>:  Use throw new Exception() for method implementations
+
+    * --stubExceptionMessage <ExceptionMessage>:  Use throw new Exception("ExceptionMessage") for method implementations
+
+
