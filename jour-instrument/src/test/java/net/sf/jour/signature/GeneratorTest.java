@@ -55,7 +55,7 @@ public class GeneratorTest extends TestCase {
 
 			APICompare.compare(classpath, fileName, compareConfig, true, null);
 
-			ExportClasses.export(classpathTempDirectory, im.getClasses());
+			ExportClasses.export(classpathTempDirectory, im.getClasses(), "1.1");
 
 			Generator g2 = new Generator(null, null, "target/generatorTestImported.xml", "package");
 			g2.setUseSystemClassPath(true);

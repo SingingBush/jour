@@ -42,7 +42,8 @@ public class SignatureExport {
 		if ((args.length < 2) || argsp.getProperty("help") != null) {
 			StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(SignatureExport.class.getName());
-			usage.append("--signature api-signature.xml (--systempath) (--jars jar1.jar;jar2.jar) --dst classesDir\n");
+			usage
+					.append("--signature api-signature.xml (--systempath) (--jars jar1.jar;jar2.jar) (--classVersion 1.4) --dst classesDir\n");
 			System.out.println(usage);
 			return;
 		}
@@ -51,7 +52,7 @@ public class SignatureExport {
 				.getProperty("jars"));
 		im.load(argsp.getProperty("signature"));
 
-		ExportClasses.export(argsp.getProperty("dst"), im.getClasses());
+		ExportClasses.export(argsp.getProperty("dst"), im.getClasses(), argsp.getProperty("classVersion"));
 
 	}
 }

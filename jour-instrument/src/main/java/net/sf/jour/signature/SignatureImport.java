@@ -115,6 +115,12 @@ public class SignatureImport {
 					throw new ConfigException("Invalid XML node " + node.getNodeName());
 				}
 			}
+			for (int j = 0; j < classNodeList.getLength(); j++) {
+				Node node = classNodeList.item(j);
+				if ("class".equals(node.getNodeName())) {
+					updateClass(node);
+				}
+			}
 		} catch (ParserConfigurationException e) {
 			throw new ConfigException("Error parsing XML", e);
 		} catch (SAXException e) {
@@ -151,6 +157,17 @@ public class SignatureImport {
 
 		classNames.add(klass.getName());
 		return klass;
+	}
+
+	private void updateClass(Node node) {
+		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
+		CtClass klass;
+		try {
+			klass = classPool.get(classname);
+		} catch (NotFoundException e) {
+			throw new RuntimeException(classname + " class is missing");
+		}
+		updateConstructors(klass, node);
 	}
 
 	private CtClass createClass(Node node) {
@@ -245,6 +262,7 @@ public class SignatureImport {
 				c = klass.getDeclaredConstructor(parameters);
 			} catch (NotFoundException e) {
 				c = new CtConstructor(parameters, klass);
+				// for setBody see updateConstructors
 				try {
 					klass.addConstructor(c);
 				} catch (CannotCompileException e2) {
@@ -263,6 +281,7 @@ public class SignatureImport {
 				defaultConstructor = klass.getDeclaredConstructor(new CtClass[0]);
 			} catch (NotFoundException e) {
 				defaultConstructor = new CtConstructor(new CtClass[0], klass);
+				// for setBody see updateConstructors
 				try {
 					klass.addConstructor(defaultConstructor);
 				} catch (CannotCompileException e2) {
@@ -270,6 +289,17 @@ public class SignatureImport {
 				}
 			}
 			defaultConstructor.setModifiers(Modifier.PRIVATE);
+		}
+	}
+
+	private void updateConstructors(CtClass klass, Node node) {
+		CtConstructor[] constructors = klass.getDeclaredConstructors();
+		for (int i = 0; i < constructors.length; i++) {
+			try {
+				constructors[i].setBody(MakeEmptyMethodInstrumentor.emptyBody(CtClass.voidType));
+			} catch (CannotCompileException ce) {
+				throw new RuntimeException(klass.getName(), ce);
+			}
 		}
 	}
 
@@ -389,26 +419,21 @@ public class SignatureImport {
 			return CtField.Initializer.constant(Double.valueOf(constValue).doubleValue());
 		} else if (fieldType == CtClass.booleanType) {
 			return CtField.Initializer.constant(Boolean.valueOf(constValue).booleanValue());
-/*
-		} else if (fieldType == CtClass.byteType) {
-			log.warn(name + " byte FieldInitializer Not implemented");
-			// throw new RuntimeException(name + " byte FieldInitializer Not
-			// implemented");
-			fieldInitializerHack.put(name, constValue);
-			return null;
-		} else if (fieldType == CtClass.charType) {
-			log.warn(name + " char FieldInitializer Not implemented");
-			// throw new RuntimeException(name + " char FieldInitializer Not
-			// implemented");
-			fieldInitializerHack.put(name, constValue);
-			return null;
-		} else if (fieldType == CtClass.shortType) {
-			log.warn(name + " short FieldInitializer Not implemented");
-			// throw new RuntimeException(name + " short FieldInitializer Not
-			// implemented");
-			fieldInitializerHack.put(name, constValue);
-			return null;
-*/			
+			/*
+			 * } else if (fieldType == CtClass.byteType) { log.warn(name + "
+			 * byte FieldInitializer Not implemented"); // throw new
+			 * RuntimeException(name + " byte FieldInitializer Not //
+			 * implemented"); fieldInitializerHack.put(name, constValue); return
+			 * null; } else if (fieldType == CtClass.charType) { log.warn(name + "
+			 * char FieldInitializer Not implemented"); // throw new
+			 * RuntimeException(name + " char FieldInitializer Not //
+			 * implemented"); fieldInitializerHack.put(name, constValue); return
+			 * null; } else if (fieldType == CtClass.shortType) { log.warn(name + "
+			 * short FieldInitializer Not implemented"); // throw new
+			 * RuntimeException(name + " short FieldInitializer Not //
+			 * implemented"); fieldInitializerHack.put(name, constValue); return
+			 * null;
+			 */
 		} else {
 			return CtField.Initializer.constant(Integer.valueOf(constValue).intValue());
 		}

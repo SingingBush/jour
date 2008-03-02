@@ -25,25 +25,49 @@ package net.sf.jour.signature;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-
-import net.sf.jour.util.FileUtil;
+import java.util.Map;
 
 import javassist.CannotCompileException;
 import javassist.CtClass;
+import javassist.bytecode.ClassFile;
+import net.sf.jour.util.FileUtil;
 
 /**
  * @author vlads
- *
+ * 
  */
 public class ExportClasses {
 
-	public static void export(String directoryName, List classes) {
+	static final Map javaVersion = new HashMap();
+
+	static {
+		javaVersion.put("1.0", new int[] { 45, 3 });
+		javaVersion.put("1.1", new int[] { 45, 3 });
+		javaVersion.put("1.2", new int[] { 46, 3 });
+		javaVersion.put("1.3", new int[] { 47, 0 });
+		javaVersion.put("1.4", new int[] { 48, 0 });
+		javaVersion.put("1.5", new int[] { 49, 0 });
+		javaVersion.put("1.6", new int[] { 50, 0 });
+	}
+
+	public static void export(String directoryName, List classes, String classVersion) {
 		FileUtil.deleteDir(new File(directoryName), false);
 		for (Iterator iterator = classes.iterator(); iterator.hasNext();) {
 			CtClass klass = (CtClass) iterator.next();
 			try {
+				if (classVersion != null) {
+					int[] majorMinor = (int[]) javaVersion.get(classVersion);
+					if (majorMinor == null) {
+						throw new RuntimeException("Unknown classVersion " + classVersion);
+					}
+					ClassFile cf = klass.getClassFile();
+					cf.setMajorVersion(majorMinor[0]);
+					cf.setMinorVersion(majorMinor[1]);
+				}
+
 				klass.writeFile(directoryName);
 			} catch (CannotCompileException e) {
 				throw new RuntimeException(e);

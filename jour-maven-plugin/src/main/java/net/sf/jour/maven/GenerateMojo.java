@@ -71,6 +71,13 @@ public class GenerateMojo extends AbstractMojo {
 	 */
 	private boolean useSystemClassPath;
 
+	/**
+	 * Java platform version for created classes. e.g. 1.1, 1.3, 1.4, 1.5 or 1.6
+	 * 
+	 * @parameter
+	 */
+	private String classVersion;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -85,7 +92,7 @@ public class GenerateMojo extends AbstractMojo {
 
 		im.load(signature.getAbsolutePath());
 
-		ExportClasses.export(output.getAbsolutePath(), im.getClasses());
+		ExportClasses.export(output.getAbsolutePath(), im.getClasses(), classVersion);
 	}
 
 }
