@@ -94,21 +94,19 @@
         <!--module>jour-runtime</module-->
     </modules>
 
-<!--
+<!-- tmp for javassist 3.7.ga-->
     <repositories>
         <repository>
-            <id>pyx4me-web</id>
-            <url>http://www.pyx4me.com/maven2</url>
+            <id>pyx4j-internal</id>
+            <url>http://pyx4j.com/internal/maven2-internal</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
         </repository>
     </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>pyx4me-web</id>
-            <url>http://www.pyx4me.com/maven2</url>
-        </pluginRepository>
-    </pluginRepositories>
--->
 
     <dependencyManagement>
         <dependencies>
@@ -116,7 +114,7 @@
         <dependency>
             <groupId>jboss</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.6.ga</version>
+            <version>3.7.ga</version>
         </dependency>
 
         <dependency>

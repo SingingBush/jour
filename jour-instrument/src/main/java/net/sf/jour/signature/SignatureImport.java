@@ -56,46 +56,46 @@ import org.xml.sax.SAXException;
 
 /**
  * @author vlads
- *
+ * 
  */
 public class SignatureImport {
-    
-    protected static final Logger log = Logger.getLogger();
-    
+
+	protected static final Logger log = Logger.getLogger();
+
 	private ClassPool classPool;
 
 	private List classNames = new Vector();
-	
+
 	private List classes = new Vector();
-	
-	Map fieldInitializerHack = new HashMap(); 
-	
+
+	Map fieldInitializerHack = new HashMap();
+
 	public SignatureImport(boolean useSystemClassPath, String supportingJars) {
-		classPool = new ClassPool();	
+		classPool = new ClassPool();
 		if (supportingJars != null) {
-            try {
-                classPool.appendPathList(supportingJars);
-            } catch (NotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        }
+			try {
+				classPool.appendPathList(supportingJars);
+			} catch (NotFoundException e) {
+				throw new RuntimeException(e);
+			}
+		}
 		if (useSystemClassPath) {
-		    classPool.appendSystemPath();
+			classPool.appendSystemPath();
 		}
 	}
 
 	public ClassPool getClassPool() {
 		return classPool;
 	}
-	
+
 	public List getClasses() {
 		return this.classes;
 	}
-	
-	public void load(String xmlFileName){
+
+	public void load(String xmlFileName) {
 		URL location = FileUtil.getFile(xmlFileName);
 		if (location == null) {
-		    throw new ConfigException("File Not found " + xmlFileName);
+			throw new ConfigException("File Not found " + xmlFileName);
 		}
 		try {
 			Document xmlDoc = ConfigFileUtil.loadDocument(location);
@@ -103,17 +103,17 @@ public class SignatureImport {
 			if (rootNode == null) {
 				throw new ConfigException("Invalid XML root");
 			}
-			
+
 			NodeList classNodeList = rootNode.getChildNodes();
 			for (int j = 0; j < classNodeList.getLength(); j++) {
-	            Node node = classNodeList.item(j);
-	            if ("interface".equals(node.getNodeName())) {
-	            	this.classes.add(loadInterface(node));
-	            } else if ("class".equals(node.getNodeName())) {
-	            	this.classes.add(loadClass(node));
-	            } else if (node.hasChildNodes()) {
-	            	throw new ConfigException("Invalid XML node " + node.getNodeName());	
-	            }
+				Node node = classNodeList.item(j);
+				if ("interface".equals(node.getNodeName())) {
+					this.classes.add(loadInterface(node));
+				} else if ("class".equals(node.getNodeName())) {
+					this.classes.add(loadClass(node));
+				} else if (node.hasChildNodes()) {
+					throw new ConfigException("Invalid XML node " + node.getNodeName());
+				}
 			}
 		} catch (ParserConfigurationException e) {
 			throw new ConfigException("Error parsing XML", e);
@@ -129,41 +129,41 @@ public class SignatureImport {
 		int mod = decodeModifiers(ConfigFileUtil.getNodeAttribute(node, "modifiers"));
 		mod |= Modifier.INTERFACE | Modifier.ABSTRACT;
 		klass.setModifiers(mod);
-		
+
 		loadHierarchy(klass, node);
 		loadMethods(klass, node);
 		loadFields(klass, node);
-		
+
 		classNames.add(klass.getName());
 		return klass;
 	}
 
-    private CtClass loadClass(Node node) {
+	private CtClass loadClass(Node node) {
 		CtClass klass = createClass(node);
-		
+
 		int mod = decodeModifiers(ConfigFileUtil.getNodeAttribute(node, "modifiers"));
 		klass.setModifiers(mod);
-		
+
 		loadHierarchy(klass, node);
 		loadConstructors(klass, node);
 		loadMethods(klass, node);
 		loadFields(klass, node);
-		
+
 		classNames.add(klass.getName());
 		return klass;
 	}
-	
-    private CtClass createClass(Node node) {
+
+	private CtClass createClass(Node node) {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
 		String superclassName = ConfigFileUtil.getNodeAttribute(node, "extends");
-		
+
 		try {
-		    CtClass exists = classPool.get(classname);
-		    exists.detach();
+			CtClass exists = classPool.get(classname);
+			exists.detach();
 		} catch (NotFoundException e) {
-			
+
 		}
-		
+
 		return classPool.makeClass(classname, createClass(superclassName));
 	}
 
@@ -179,18 +179,17 @@ public class SignatureImport {
 		}
 		return klass;
 	}
-	
 
 	private CtClass createInterface(Node node) {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
 		String superclassName = ConfigFileUtil.getNodeAttribute(node, "extends");
-		
+
 		try {
-		    CtClass exists = classPool.get(classname);
-            exists.detach();
+			CtClass exists = classPool.get(classname);
+			exists.detach();
 		} catch (NotFoundException e) {
 		}
-		
+
 		return classPool.makeInterface(classname, createInterface(superclassName));
 	}
 
@@ -210,38 +209,38 @@ public class SignatureImport {
 	public List getClassNames() {
 		return this.classNames;
 	}
-	
+
 	private void loadHierarchy(CtClass klass, Node node) {
-	    Node implementNode = ConfigFileUtil.getChildNode(node, "implements");
-	    if (implementNode == null) {
-	        return;
-	    }
-	    Node[] interfaceList = ConfigFileUtil.getChildNodes(implementNode, "interface");
-	    for (int i = 0; i < interfaceList.length; i++) {
-            Node interfaceNode = interfaceList[i];
-            String interfaceName = ConfigFileUtil.getNodeAttribute(interfaceNode, "name");
-            klass.addInterface(createInterface(interfaceName));
-        }
-	}
-	
-	private CtClass[] getParameters(Node node) {
-		Node[] partNodes = ConfigFileUtil.getChildNodes(node, "parameter");
-        CtClass[] parameters = new CtClass[partNodes.length];
-        for (int j = 0; j < partNodes.length; j++) {
-            parameters[j] = createInterface(ConfigFileUtil.getNodeAttribute(partNodes[j], "type"));
-            if (parameters[j] == null) {
-                throw new RuntimeException("parameter " + j + " type is missing");
-            }
-        }
-        return parameters;
+		Node implementNode = ConfigFileUtil.getChildNode(node, "implements");
+		if (implementNode == null) {
+			return;
+		}
+		Node[] interfaceList = ConfigFileUtil.getChildNodes(implementNode, "interface");
+		for (int i = 0; i < interfaceList.length; i++) {
+			Node interfaceNode = interfaceList[i];
+			String interfaceName = ConfigFileUtil.getNodeAttribute(interfaceNode, "name");
+			klass.addInterface(createInterface(interfaceName));
+		}
 	}
 
-    private void loadConstructors(CtClass klass, Node node) {
-        Node[] list = ConfigFileUtil.getChildNodes(node, "constructor");
-        boolean defaultConstructorLoaded = false;
-        for (int i = 0; i < list.length; i++) {
-            CtClass[] parameters = getParameters(list[i]);
-            CtConstructor c;
+	private CtClass[] getParameters(Node node) {
+		Node[] partNodes = ConfigFileUtil.getChildNodes(node, "parameter");
+		CtClass[] parameters = new CtClass[partNodes.length];
+		for (int j = 0; j < partNodes.length; j++) {
+			parameters[j] = createInterface(ConfigFileUtil.getNodeAttribute(partNodes[j], "type"));
+			if (parameters[j] == null) {
+				throw new RuntimeException("parameter " + j + " type is missing");
+			}
+		}
+		return parameters;
+	}
+
+	private void loadConstructors(CtClass klass, Node node) {
+		Node[] list = ConfigFileUtil.getChildNodes(node, "constructor");
+		boolean defaultConstructorLoaded = false;
+		for (int i = 0; i < list.length; i++) {
+			CtClass[] parameters = getParameters(list[i]);
+			CtConstructor c;
 			try {
 				c = klass.getDeclaredConstructor(parameters);
 			} catch (NotFoundException e) {
@@ -255,45 +254,45 @@ public class SignatureImport {
 			loadExceptions(c, list[i]);
 			setModifiers(c, list[i]);
 			if (parameters.length == 0) {
-			    defaultConstructorLoaded = true;
+				defaultConstructorLoaded = true;
 			}
-        }
-        if (!defaultConstructorLoaded) {
-            CtConstructor defaultConstructor;
-            try {
-                defaultConstructor = klass.getDeclaredConstructor(new CtClass[0]);
-            } catch (NotFoundException e) {
-                defaultConstructor = new CtConstructor(new CtClass[0], klass);
-                try {
-                    klass.addConstructor(defaultConstructor);
-                } catch (CannotCompileException e2) {
-                    throw new RuntimeException(klass.getName(), e2);
-                }
-            }
-            defaultConstructor.setModifiers(Modifier.PRIVATE);
-        }
-    }
+		}
+		if (!defaultConstructorLoaded) {
+			CtConstructor defaultConstructor;
+			try {
+				defaultConstructor = klass.getDeclaredConstructor(new CtClass[0]);
+			} catch (NotFoundException e) {
+				defaultConstructor = new CtConstructor(new CtClass[0], klass);
+				try {
+					klass.addConstructor(defaultConstructor);
+				} catch (CannotCompileException e2) {
+					throw new RuntimeException(klass.getName(), e2);
+				}
+			}
+			defaultConstructor.setModifiers(Modifier.PRIVATE);
+		}
+	}
 
-    private void setModifiers(CtBehavior m, Node node) {
-    	m.setModifiers(decodeModifiers(ConfigFileUtil.getNodeAttribute(node, "modifiers")));
-    }
-    
-    private int decodeModifiers(String modifiers) {
-    	if (modifiers == null) {
-    		return 0;
-    	}
-    	int mod = 0;
-    	StringTokenizer st = new StringTokenizer(modifiers, " ");
+	private void setModifiers(CtBehavior m, Node node) {
+		m.setModifiers(decodeModifiers(ConfigFileUtil.getNodeAttribute(node, "modifiers")));
+	}
+
+	private int decodeModifiers(String modifiers) {
+		if (modifiers == null) {
+			return 0;
+		}
+		int mod = 0;
+		StringTokenizer st = new StringTokenizer(modifiers, " ");
 		if (st.hasMoreTokens()) {
 			while (st.hasMoreTokens()) {
-				mod |= decodeModifier(st.nextToken()); 
+				mod |= decodeModifier(st.nextToken());
 			}
 		} else {
 			mod = decodeModifier(modifiers);
 		}
-    	return mod;
-    }
-    
+		return mod;
+	}
+
 	private int decodeModifier(String modifier) {
 		if (modifier.equalsIgnoreCase("public")) {
 			return Modifier.PUBLIC;
@@ -316,7 +315,7 @@ public class SignatureImport {
 		} else if (modifier.equalsIgnoreCase("interface")) {
 			return Modifier.INTERFACE;
 		} else if (modifier.equalsIgnoreCase("strictfp")) {
-            return Modifier.STRICT;
+			return Modifier.STRICT;
 		} else {
 			throw new RuntimeException("Invalid modifier [" + modifier + "]");
 		}
@@ -335,9 +334,9 @@ public class SignatureImport {
 			m.setExceptionTypes(types);
 		} catch (NotFoundException e) {
 			throw new RuntimeException("Can't add exceptions", e);
-		} 
+		}
 	}
-	
+
 	private void loadMethods(CtClass klass, Node node) {
 		Node[] list = ConfigFileUtil.getChildNodes(node, "method");
 		for (int i = 0; i < list.length; i++) {
@@ -357,16 +356,16 @@ public class SignatureImport {
 			}
 		}
 	}
-    
-    private void loadFields(CtClass klass, Node node) {
-    	Node[] list = ConfigFileUtil.getChildNodes(node, "field");
+
+	private void loadFields(CtClass klass, Node node) {
+		Node[] list = ConfigFileUtil.getChildNodes(node, "field");
 		for (int i = 0; i < list.length; i++) {
 			String fname = ConfigFileUtil.getNodeAttribute(list[i], "name");
 			CtClass fieldType = createInterface(ConfigFileUtil.getNodeAttribute(list[i], "type"));
 			CtField field;
 			try {
 				field = new CtField(fieldType, fname, klass);
-	            field.setModifiers(decodeModifiers(ConfigFileUtil.getNodeAttribute(list[i], "modifiers")));
+				field.setModifiers(decodeModifiers(ConfigFileUtil.getNodeAttribute(list[i], "modifiers")));
 				CtField.Initializer initializer = null;
 				String constValue = ConfigFileUtil.getNodeAttribute(list[i], "constant-value");
 				if (constValue != null) {
@@ -377,50 +376,42 @@ public class SignatureImport {
 				throw new RuntimeException(klass.getName() + " filed " + fname, e);
 			}
 		}
-    }
+	}
 
-    private CtField.Initializer createFieldInitializer(CtClass fieldType, String constValue, String name) {
+	private CtField.Initializer createFieldInitializer(CtClass fieldType, String constValue, String name) {
 		if (APIFilter.javaLangString.equals(fieldType.getName())) {
 			return CtField.Initializer.constant(constValue);
 		} else if (fieldType == CtClass.longType) {
 			return CtField.Initializer.constant(Long.valueOf(constValue).longValue());
 		} else if (fieldType == CtClass.floatType) {
-		    //throw new RuntimeException(name + " Float FieldInitializer Not implemented");
-		    log.warn(name + " float FieldInitializer Not implemented");
-            //throw new RuntimeException(name + " Boolean FieldInitializer Not implemented");
-            fieldInitializerHack.put(name, constValue);
-            return null;
+			return CtField.Initializer.constant(Float.valueOf(constValue).floatValue());
 		} else if (fieldType == CtClass.doubleType) {
 			return CtField.Initializer.constant(Double.valueOf(constValue).doubleValue());
 		} else if (fieldType == CtClass.booleanType) {
-		    if (Boolean.valueOf(constValue).booleanValue()) {
-		        log.warn(name + " boolean FieldInitializer Not implemented");
-		        //throw new RuntimeException(name + " Boolean FieldInitializer Not implemented");
-		        fieldInitializerHack.put(name, constValue);
-		        return null;
-		    } else {
-		        return null;
-		    }
-//			int b = Boolean.valueOf(constValue).booleanValue()?1:0;
-//			return CtField.Initializer.constant(b);
+			return CtField.Initializer.constant(Boolean.valueOf(constValue).booleanValue());
+/*
 		} else if (fieldType == CtClass.byteType) {
-		    log.warn(name + " byte FieldInitializer Not implemented");
-		    //throw new RuntimeException(name + " byte FieldInitializer Not implemented");
-		    fieldInitializerHack.put(name, constValue);
-		    return null;
-        } else if (fieldType == CtClass.charType) {
-            log.warn(name + " char FieldInitializer Not implemented");
-            //throw new RuntimeException(name + " char FieldInitializer Not implemented");
-            fieldInitializerHack.put(name, constValue);
-            return null;
-        } else if (fieldType == CtClass.shortType) {
-            log.warn(name + " short FieldInitializer Not implemented");
-            //throw new RuntimeException(name + " short FieldInitializer Not implemented");
-            fieldInitializerHack.put(name, constValue);
-            return null;
-        } else {
+			log.warn(name + " byte FieldInitializer Not implemented");
+			// throw new RuntimeException(name + " byte FieldInitializer Not
+			// implemented");
+			fieldInitializerHack.put(name, constValue);
+			return null;
+		} else if (fieldType == CtClass.charType) {
+			log.warn(name + " char FieldInitializer Not implemented");
+			// throw new RuntimeException(name + " char FieldInitializer Not
+			// implemented");
+			fieldInitializerHack.put(name, constValue);
+			return null;
+		} else if (fieldType == CtClass.shortType) {
+			log.warn(name + " short FieldInitializer Not implemented");
+			// throw new RuntimeException(name + " short FieldInitializer Not
+			// implemented");
+			fieldInitializerHack.put(name, constValue);
+			return null;
+*/			
+		} else {
 			return CtField.Initializer.constant(Integer.valueOf(constValue).intValue());
 		}
 	}
-	
+
 }
