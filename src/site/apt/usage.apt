@@ -10,7 +10,7 @@ Instrumentation
 * Instrumentation from command line
 
 ---
-java -jar jour-instrument-2.0.1.jar --config jour.xml --src classesDir|classes.jar --dst outDir (--classpath classpath) \
+java -jar jour-instrument-#version#.jar --config jour.xml --src classesDir|classes.jar --dst outDir (--classpath classpath) \
      (--copy resource|classes|all) (--systempath)
 ---
 
@@ -40,7 +40,7 @@ java -jar jour-instrument-2.0.1.jar --config jour.xml --src classesDir|classes.j
             <plugin>
                 <groupId>net.sf.jour</groupId>
                 <artifactId>jour-maven-plugin</artifactId>
-                <version>2.0.1</version>
+                <version>#version#</version>
                 <executions>
                     <execution>
                         <phase>process-classes</phase>

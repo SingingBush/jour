@@ -11,7 +11,7 @@ API Signature verification
 
   Main goal is to be able to create API signature and verify that library implementation conforms to defined specification.
 
-  The tool automates verification process of the API under test with a reference API.
+  The tool automates verification process of the API under test with a reference API. Also tool can create classes base on API descriptor XML.
 
   Java reflection API is not used during tests so Object are not instantiated. {{{http://www.jboss.org/products/javassist}Javassist}} is used to get the API description from classes.
 
@@ -23,13 +23,15 @@ API Signature verification
 
   * Test compatibility between Java APIs {{{http://sab39.netreach.com/japi/}Japitools}}
 
+  * {{{http://www.osjava.org/jardiff/}Jardiff}} takes two jar files and outputs all the public API changes as xml, html or plain text
+
   * SUN TCK Tools {{{http://jcp.org/en/resources/tdk}Signature Test tool}}
 
 
 * Creation of API descriptor XML from command line
 
 ---
-java -cp jour-instrument-2.0.1.jar;javassist.jar net.sf.jour.SignatureGenerator \
+java -cp jour-instrument-#version#.jar;javassist.jar net.sf.jour.SignatureGenerator \
    --src myclasses.jar --packages com.api;com.ext --dst api-signature.xml
 ---
 
@@ -94,7 +96,7 @@ java -cp jour-instrument-2.0.1.jar;javassist.jar net.sf.jour.SignatureGenerator 
 * Verification of API descriptor XML from command line
 
 ---
-java -cp jour-instrument-2.0.1.jar net.sf.jour.SignatureVerify --src myclasses-v2.jar --signature api-signature.xml
+java -cp jour-instrument-#version#.jar net.sf.jour.SignatureVerify --src myclasses-v2.jar --signature api-signature.xml
 ---
 
     All command line options:
@@ -139,7 +141,7 @@ public class JSR82APIObexDeclarationsTest extends SignatureTestCase {
 * Creation of classes base on API descriptor XML from command line
 
 ---
-java -cp jour-instrument-2.0.1.jar net.sf.jour.SignatureExport --signature api-signature.xml --dst ./api-classes
+java -cp jour-instrument-#version#.jar net.sf.jour.SignatureExport --signature api-signature.xml --dst ./api-classes
 ---
 
     All command line options:
