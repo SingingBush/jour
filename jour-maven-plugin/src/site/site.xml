@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Jour">
+<!-- @version $Revision$ ($Author$) $Date$ -->
+
+    <bannerLeft>
+            <name>Jour</name>
+            <src>http://jour.sourceforge.net/images/logo.jpg</src>
+            <href>http://jour.sourceforge.net/</href>
+    </bannerLeft>
+
+    <body>
+
+        <menu name="Plugin Overview">
+            <item name="Plugin Introduction" href="index.html" />
+            <item name="Plugin API tools" href="api-tools.html" />
+        </menu>
+
+        <menu name="Jour Overview">
+
+            <item name="Jour Introduction" href="../index.html" />
+            <item name="Usage" href="../usage.html" />
+            <item name="Instrumentation" href="../instrumentation.html" />
+            <item name="API Signature" href="../signature.html" />
+            <item name="Faq" href="../faq.html" />
+
+            <item name="Download" href="#">
+                <item name="Releases" href="http://sourceforge.net/project/showfiles.php?group_id=122892"/>
+                <item name="Maven" href="../maven.html"/>
+                <item name="SVN Access" href="source-repository.html"/>
+            </item>
+
+        </menu>
+
+        <menu ref="parent" />
+
+        <menu ref="modules" collapse="true" />
+
+        <menu ref="reports" />
+
+    </body>
+
+</project>

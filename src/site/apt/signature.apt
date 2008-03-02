@@ -2,10 +2,10 @@
 ~~ See this file format http://maven.apache.org/guides/mini/guide-apt-format.html
 
                                     ------------------
-                                    API Signature verification
+                                    Java API Signature verification
 
 
-API Signature verification
+Java API Signature verification
 
   This is Java API compatibility testing tools.
 

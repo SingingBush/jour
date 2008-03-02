@@ -16,7 +16,7 @@ Jour overview
 
 * Key usage examples
 
-    * UnitTest helper for J2ME. See {{{http://pyx4me.com/snapshot/pyx4me/pyx4me-cldcunit/index.html}cldcunit}}
+    * UnitTest helper for J2ME. See {{{http://pyx4me.com/pyx4me-cldcunit/index.html}cldcunit}}
 
     * Bytecode optimization for specific J2ME device. See {{{http://www.pyx4me.com}pyx4me}}
 
@@ -24,7 +24,7 @@ Jour overview
 
     * Profiler and monitoring tools. See {{{http://jour.sourceforge.net/0.3.1}Old Jour}}
 
-    * {{{signature.html} API signature creation and validation.}}
+    * {{{signature.html} Java API signature creation and validation.}}
 
 
 * Features

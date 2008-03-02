@@ -1,0 +1,47 @@
+~~ @version $Revision$ ($Author$) $Date$
+~~ See this file format http://maven.apache.org/guides/mini/guide-apt-format.html
+
+                                    ------------------
+                                    jour-maven-plugin Java API Signature tools
+                                    ------------------
+
+jour-maven-plugin Java API Signature tools
+
+  The jour-maven-plugin allows creation of stub classes base on API descriptor XML during build
+
+* Parameters
+
+    Regular {{{generate-mojo.html}jour:generate parameters}}
+
+* Usage
+
+    Create new project classes base on API descriptor XML.
+
+---
+<project>
+    ...
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>net.sf.jour</groupId>
+                <artifactId>jour-maven-plugin</artifactId>
+                <version>#version#</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <output>${basedir}/target/classes</output>
+                            <signature>${basedir}/src/main/api-signature.xml</signature>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
+---
