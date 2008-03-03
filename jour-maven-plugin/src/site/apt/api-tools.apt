@@ -7,17 +7,49 @@
 
 jour-maven-plugin Java API Signature tools
 
+  The signatureVerify allows comparison of compiled classes with API descriptor XML during build.
+
   The generate goal allows creation of stub classes base on API descriptor XML during build.
 
-  The signatureVerify allows validation compiled classes base on API descriptor XML during build.
 
 * Parameters
 
-    Regular {{{generate-mojo.html}jour:generate parameters}}
+    {{{signatureVerify-mojo.html}jour:signatureVerify parameters}}
 
-    Regular {{{signatureVerify-mojo.html}jour:signatureVerify parameters}}
+    {{{generate-mojo.html}jour:generate parameters}}
+
 
 * Usage
+
+    Verify project classes base on API descriptor XML. Find API differences and stop build with error if any.
+
+---
+<project>
+    ...
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.sf.jour</groupId>
+                <artifactId>jour-maven-plugin</artifactId>
+                <version>#version#</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>signatureVerify</goal>
+                        </goals>
+                        <configuration>
+                            <allowAPIextension>false</allowAPIextension>
+                            <allowPackageAPIextension>true</allowPackageAPIextension>
+                            <signature>${basedir}/src/test/resources/midpapi20-signature.xml</signature>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+---
+
 
     Create new project classes base on API descriptor XML.
 
