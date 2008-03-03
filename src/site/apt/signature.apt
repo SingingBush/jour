@@ -37,7 +37,7 @@ java -cp jour-instrument-#version#.jar;javassist.jar net.sf.jour.SignatureGenera
 
     All command line options:
 
-    * --src <implementation> : The source JAR or Directory for which the Signature File should be generated.
+    * --src <implementation> : The source JAR or Directory for which the Signature File should be generated. (required)
 
     * --jars <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
 
@@ -101,13 +101,19 @@ java -cp jour-instrument-#version#.jar net.sf.jour.SignatureVerify --src myclass
 
     All command line options:
 
-    * --src <implementation> : The source JAR or Directory for which the Signature File should be generated.
+    * --src <implementation> : The source JAR or Directory for which the Signature File should be generated. (required)
+
+    * --signature api-signature.xml : Base Signature XML. (required)
 
     * --jars <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
 
-    * --systempath : Appends the system search path to the end of the search path.
+    * --systempath : Appends the system search path to the end of the search path. Defaults to false
 
-    * --signature api-signature.xml : Base Signature XML.
+    * --allowAPIextension [false]|true
+
+    * --allowThrowsLess [false]|true
+
+    * --allowPackageAPIextension false|[true]
 
   N.B  javassist.jar should be in classpath when running jour.
 
@@ -146,7 +152,9 @@ java -cp jour-instrument-#version#.jar net.sf.jour.SignatureExport --signature a
 
     All command line options:
 
-    * --signature api-signature.xml : Base Signature XML.
+    * --signature api-signature.xml : Base Signature XML. (required)
+
+    * --dst outputClassesDir: Directory to write created classes to. (required)
 
     * --jars <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
 
@@ -155,5 +163,7 @@ java -cp jour-instrument-#version#.jar net.sf.jour.SignatureExport --signature a
     * --stubException <ExceptionClassName>:  Use throw new Exception() for method implementations
 
     * --stubExceptionMessage <ExceptionMessage>:  Use throw new Exception("ExceptionMessage") for method implementations
+
+    * --classVersion 1.1|1.3|1.5|1.4|1.6 :  Java classes version. Defaults to 1.5 on when running by java 5 and 1.3 on java 1.4
 
 

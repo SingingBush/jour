@@ -25,84 +25,84 @@ package net.sf.jour.signature;
 
 import java.util.List;
 
-import net.sf.jour.test.Utils;
-
 import junit.framework.TestCase;
+import net.sf.jour.test.Utils;
 
 /**
  * @author vlads
- *
+ * 
  */
 public class ChangesTest extends TestCase {
 
-    private void verify(String signatureFileName, int ecpectedChanges) {
-        APICompareConfig config = new APICompareConfig();
-        config.allowPackageAPIextension = false;
-        verify(signatureFileName, ecpectedChanges, config);
-    }
-    
-    private void verify(String signatureFileName, int ecpectedChanges, APICompareConfig config) {        
-        List changes = APICompare.listChanges(Utils.getClassResourcePath("uut.signature.AChildClass"), "/net/sf/jour/signature/" + signatureFileName, config, true, null);
-        String message = ChangeDetectedException.chageList(changes);
-        //System.out.println(message);
-        if (message.length() > 0) {
-            message += "\n";    
-        }
-        assertEquals("Changes:\n" + message, ecpectedChanges, changes.size());
-    }
+	private void verify(String signatureFileName, int ecpectedChanges) {
+		APICompareConfig config = new APICompareConfig();
+		config.allowPackageAPIextension = false;
+		verify(signatureFileName, ecpectedChanges, config);
+	}
 
-    public void testNoChange() {
-        verify("base.xml", 0);
-    }
-    
-    public void testHierarchyChange() {
-        verify("hierarchyChange.xml", 1);
-    }
-    
-    public void testInterfaceChange() {
-        verify("interfaceChange.xml", 2);
-    }
-    
-    public void testMethodMissing() {
-        verify("methodMissing.xml", 1);
-    }
-    
-    public void testMethodExtra() {
-        verify("methodExtra.xml", 1);
-    }
-    
-    public void testMethodSignature() {
-        verify("methodSignature.xml", 2);
-    }
-   
-    public void testMethodSignatureReturn() {
-        verify("methodSignatureReturn.xml", 1);
-    }
-   
-    public void testMethodSignatureModifiers() {
-        verify("methodSignatureModifiers.xml", 1);
-    }
-    
-    public void testConstructorMissing() {
-        verify("constructorMissing.xml", 1);
-    }
-    
-    public void testConstructorExtra() {
-        verify("constructorExtra.xml", 1);
-    }
-    
-    public void testConstructorThrow() {
-        verify("constructorThrow.xml", 3);
-    }
-    
-    public void testConstantValue() {
-        verify("constantValue.xml", 2);
-    }
-    
-    public void testPackageAPIextension() {
-        APICompareConfig config = new APICompareConfig();
-        config.allowPackageAPIextension = true;
-        verify("packageAPIextension.xml", 0, config);
-    }
+	private void verify(String signatureFileName, int ecpectedChanges, APICompareConfig config) {
+		List changes = APICompare.listChanges(Utils.getClassResourcePath("uut.signature.AChildClass"),
+				"/net/sf/jour/signature/" + signatureFileName, config, true, null);
+		String message = ChangeDetectedException.chageList(changes);
+		// System.out.println(message);
+		if (message.length() > 0) {
+			message += "\n";
+		}
+		assertEquals("Changes:\n" + message, ecpectedChanges, changes.size());
+	}
+
+	public void testNoChange() {
+		verify("base.xml", 0);
+	}
+
+	public void testHierarchyChange() {
+		verify("hierarchyChange.xml", 1);
+	}
+
+	public void testInterfaceChange() {
+		verify("interfaceChange.xml", 2);
+	}
+
+	public void testMethodMissing() {
+		verify("methodMissing.xml", 2);
+	}
+
+	public void testMethodExtra() {
+		verify("methodExtra.xml", 1);
+	}
+
+	public void testMethodSignature() {
+		verify("methodSignature.xml", 1);
+	}
+
+	public void testMethodSignatureReturn() {
+		verify("methodSignatureReturn.xml", 1);
+	}
+
+	public void testMethodSignatureModifiers() {
+		verify("methodSignatureModifiers.xml", 1);
+	}
+
+	public void testConstructorMissing() {
+		verify("constructorMissing.xml", 1);
+	}
+
+	public void testConstructorExtra() {
+		verify("constructorExtra.xml", 1);
+	}
+
+	public void testConstructorThrow() {
+		verify("constructorThrow.xml", 3);
+	}
+
+	public void testConstantValue() {
+		verify("constantValue.xml", 2);
+	}
+
+	public void testPackageAPIextension() {
+		APICompareConfig config = new APICompareConfig();
+		config.allowPackageAPIextension = true;
+		verify("packageAPIextension.xml", 0, config);
+	}
 
 }

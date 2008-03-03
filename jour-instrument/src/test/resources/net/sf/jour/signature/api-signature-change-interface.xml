@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<signature>
+    <interface modifiers="public" name="uut.signature.AnInerface1"/>
+    <interface modifiers="public" name="uut.signature.AnInerface2"/>
+    <interface modifiers="public" name="uut.signature.AnInerface">
+        <implements>
+            <interface name="uut.signature.AnInerface1"/>
+            <interface name="uut.signature.AnInerface2"/>
+        </implements>
+        <method modifiers="public abstract" name="getVoid" return="void"/>
+        <!--method modifiers="public abstract" name="getInt" return="int"/-->
+    </interface>
+</signature>

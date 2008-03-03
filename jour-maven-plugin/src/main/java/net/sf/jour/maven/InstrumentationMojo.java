@@ -1,7 +1,7 @@
 /*
  * Jour - bytecode instrumentation library
  *
- * Copyright (C) 2007 Vlad Skarzhevskyy
+ * Copyright (C) 2007-2008 Vlad Skarzhevskyy
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -43,7 +43,7 @@ import com.pyx4j.log4j.MavenLogAppender;
  * 
  * @goal instrument
  * 
- * @pahse process-classes
+ * @phase process-classes
  * 
  * @requiresDependencyResolution test
  * 

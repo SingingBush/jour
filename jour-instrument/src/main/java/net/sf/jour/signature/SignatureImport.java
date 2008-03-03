@@ -1,7 +1,7 @@
 /*
  * Jour - bytecode instrumentation library
  *
- * Copyright (C) 2007 Vlad Skarzhevskyy
+ * Copyright (C) 2007-2008 Vlad Skarzhevskyy
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -93,6 +93,9 @@ public class SignatureImport {
 	}
 
 	public void load(String xmlFileName) {
+		if (xmlFileName == null) {
+			throw new ConfigException("Signature File required");
+		}
 		URL location = FileUtil.getFile(xmlFileName);
 		if (location == null) {
 			throw new ConfigException("File Not found " + xmlFileName);

@@ -1,7 +1,7 @@
 /*
  * Jour - bytecode instrumentation library
  *
- * Copyright (C) 2007 Vlad Skarzhevskyy
+ * Copyright (C) 2007-2008 Vlad Skarzhevskyy
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -31,31 +31,41 @@ import net.sf.jour.util.CmdArgs;
 
 /**
  * @author vlads
- *
+ * 
  */
 public class SignatureVerify {
-	
+
 	public static void main(String[] args) throws IOException, NotFoundException {
 		Properties argsp = CmdArgs.load(args);
 		if ((args.length < 2) || argsp.getProperty("help") != null) {
 			StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(SignatureVerify.class.getName());
-			usage.append(" --src classesDir|classes.jar --signature api-signature.xml (--systempath) (--jars jar1.jar;jar2.jar)\n");
+			usage.append(" --src classesDir|classes.jar --signature api-signature.xml\n");
+			usage.append("\t (--systempath)\n");
+			usage.append("\t (--jars jar1.jar;jar2.jar)\n");
+			usage.append("\t (--allowAPIextension [false]|true)\n");
+			usage.append("\t (--allowThrowsLess [false]|true)\n");
+			usage.append("\t (--allowPackageAPIextension false|[true])\n");
 			System.out.println(usage);
 			return;
 		}
-		
+
 		APICompareConfig config = new APICompareConfig();
-		
+
+		config.allowAPIextension = "true".equals(argsp.getProperty("allowAPIextension", "false"));
+		config.allowThrowsLess = "true".equals(argsp.getProperty("allowThrowsLess", "false"));
+		config.allowPackageAPIextension = "true".equals(argsp.getProperty("allowPackageAPIextension", "true"));
+
 		try {
-            APICompare.compare(argsp.getProperty("src"), argsp.getProperty("signature"), config, "true".equals(argsp.getProperty("systempath")), argsp.getProperty("jars"));
-        } catch (ChangeDetectedException e) {
-            System.out.println("API compare FAILED");
-            System.out.println(e.getMessage());
-            System.exit(1);
-        }
-        System.out.println("API compare PASSED");
-        System.exit(0);
-		
+			APICompare.compare(argsp.getProperty("src"), argsp.getProperty("signature"), config, "true".equals(argsp
+					.getProperty("systempath")), argsp.getProperty("jars"));
+		} catch (ChangeDetectedException e) {
+			System.out.println("API compare FAILED, processed " + APICompare.getClassesCount() + " classes");
+			System.out.println(e.getMessage());
+			System.exit(1);
+		}
+		System.out.println("API compare PASSED in " + APICompare.getClassesCount() + " classes");
+		System.exit(0);
+
 	}
 }

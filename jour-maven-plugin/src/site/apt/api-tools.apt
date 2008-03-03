@@ -7,11 +7,15 @@
 
 jour-maven-plugin Java API Signature tools
 
-  The jour-maven-plugin allows creation of stub classes base on API descriptor XML during build
+  The generate goal allows creation of stub classes base on API descriptor XML during build.
+
+  The signatureVerify allows validation compiled classes base on API descriptor XML during build.
 
 * Parameters
 
     Regular {{{generate-mojo.html}jour:generate parameters}}
+
+    Regular {{{signatureVerify-mojo.html}jour:signatureVerify parameters}}
 
 * Usage
 
