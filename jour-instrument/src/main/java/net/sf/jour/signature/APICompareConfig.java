@@ -25,21 +25,21 @@ package net.sf.jour.signature;
 
 /**
  * @author vlads
- *
+ * 
  */
 public class APICompareConfig {
-    
-    /**
-     * Generate error if new API member with access level public or protected has been added to class.
-     * @see allowPackageAPIextension
-     */
-    public boolean allowAPIextension = false;
-    
-    public boolean allowThrowsLess = false;
-    
-    /**
-     * Generate error if new API member with access level package has been added to class.
-     * To include package level members use SignatureGenerator --level package 
-     */
-    public boolean allowPackageAPIextension = true;
+
+	/**
+	 * Generate error if new API member with access level public or protected
+	 * has been added to class.
+	 * 
+	 * @see allowPackageAPIextension
+	 */
+	public boolean allowAPIextension = false;
+
+	public boolean allowThrowsLess = false;
+
+	public String packages;
+
+	public int apiLevel = APIFilter.PROTECTED;
 }

@@ -36,7 +36,7 @@ public class ChangesTest extends TestCase {
 
 	private void verify(String signatureFileName, int ecpectedChanges) {
 		APICompareConfig config = new APICompareConfig();
-		config.allowPackageAPIextension = false;
+		config.apiLevel = APIFilter.PACKAGE;
 		verify(signatureFileName, ecpectedChanges, config);
 	}
 
@@ -101,7 +101,7 @@ public class ChangesTest extends TestCase {
 
 	public void testPackageAPIextension() {
 		APICompareConfig config = new APICompareConfig();
-		config.allowPackageAPIextension = true;
+		config.apiLevel = APIFilter.PROTECTED;
 		verify("packageAPIextension.xml", 0, config);
 	}
 

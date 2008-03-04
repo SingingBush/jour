@@ -22,6 +22,7 @@ package net.sf.jour.maven;
 
 import java.io.File;
 
+import net.sf.jour.signature.APIFilter;
 import net.sf.jour.signature.ExportClasses;
 import net.sf.jour.signature.SignatureImport;
 
@@ -78,6 +79,34 @@ public class GenerateMojo extends AbstractMojo {
 	 */
 	private String classVersion;
 
+	/**
+	 * Export API level public|[protected]|package|private
+	 * 
+	 * @parameter expression="protected"
+	 */
+	private String level;
+
+	/**
+	 * Export Only selected packages
+	 * 
+	 * @parameter
+	 */
+	private String packages;
+
+	/**
+	 * Exception class name
+	 * 
+	 * @parameter
+	 */
+	private String stubException;
+
+	/**
+	 * Exception class constructor String argument
+	 * 
+	 * @parameter
+	 */
+	private String stubExceptionMessage;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -90,7 +119,12 @@ public class GenerateMojo extends AbstractMojo {
 
 		SignatureImport im = new SignatureImport(useSystemClassPath, null);
 
-		im.load(signature.getAbsolutePath());
+		im.setStubException(stubException);
+		im.setStubExceptionMessage(stubExceptionMessage);
+
+		APIFilter apiFilter = new APIFilter(level, packages);
+
+		im.load(signature.getAbsolutePath(), apiFilter);
 
 		ExportClasses.export(output.getAbsolutePath(), im.getClasses(), classVersion);
 	}

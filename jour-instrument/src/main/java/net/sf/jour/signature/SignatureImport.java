@@ -95,7 +95,19 @@ public class SignatureImport {
 		return this.classes;
 	}
 
+	public void setStubException(String property) {
+		// TODO Auto-generated method stub
+	}
+
+	public void setStubExceptionMessage(String property) {
+		// TODO Auto-generated method stub
+	}
+
 	public void load(String xmlFileName) {
+		load(xmlFileName, null);
+	}
+
+	public void load(String xmlFileName, APIFilter filter) {
 		if (xmlFileName == null) {
 			throw new ConfigException("Signature File required");
 		}

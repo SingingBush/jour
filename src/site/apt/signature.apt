@@ -39,19 +39,21 @@ java -cp jour-instrument-#version#.jar;javassist.jar net.sf.jour.SignatureGenera
 
     * --src <implementation> : The source JAR or Directory for which the Signature File should be generated. (required)
 
+    * --dst api-signature.xml : Generated Signature XML report.
+
     * --jars <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
 
     * --systempath : Appends the system search path to the end of the search path.
 
     * --packages org.api2;org.api2 :  List package names to be included in signature
 
-    * --dst api-signature.xml : Generated Signature XML report.
-
     * --level public|protected|package|private: Specifies the access level for classes and members to export. Default value is protected.
 
   N.B  javassist.jar should be in classpath when running jour.
 
 * Example of generated signature XML.
+
+    See Schema for signature.xml {{{2.0/api-signature.xsd}http://jour.sourceforge.net/2.0/api-signature.xsd}} and {{{2.0/api-signature-xsd-doc/index.html}XML Schema Documentation}}.
 
 ---
 <?xml version="1.0" encoding="UTF-8"?>
@@ -105,6 +107,8 @@ java -cp jour-instrument-#version#.jar net.sf.jour.SignatureVerify --src myclass
 
     * --signature api-signature.xml : Base Signature XML. (required)
 
+    * --packages org.api2;org.api2 :  List package names to compare. Default to all classes in Signature File.
+
     * --jars <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
 
     * --systempath : Appends the system search path to the end of the search path. Defaults to false
@@ -113,7 +117,7 @@ java -cp jour-instrument-#version#.jar net.sf.jour.SignatureVerify --src myclass
 
     * --allowThrowsLess [false]|true
 
-    * --allowPackageAPIextension false|[true]
+    * --level public|protected|package|private: Specifies the access level for classes and members to compare. Default value is protected.
 
   N.B  javassist.jar should be in classpath when running jour.
 
@@ -156,6 +160,8 @@ java -cp jour-instrument-#version#.jar net.sf.jour.SignatureExport --signature a
 
     * --dst outputClassesDir: Directory to write created classes to. (required)
 
+    * --packages org.api2;org.api2 :  List package names to export. Default to all classes in Signature File.
+
     * --jars <jar-one>;<jar-two>;...;<jar-n> : The supporting Jars for the Source Jar.
 
     * --systempath : Appends the system search path to the end of the search path.
@@ -165,5 +171,7 @@ java -cp jour-instrument-#version#.jar net.sf.jour.SignatureExport --signature a
     * --stubExceptionMessage <ExceptionMessage>:  Use throw new Exception("ExceptionMessage") for method implementations
 
     * --classVersion 1.1|1.3|1.5|1.4|1.6 :  Java classes version. Defaults to 1.5 on when running by java 5 and 1.3 on java 1.4
+
+    * --level public|protected|package|private: Specifies the access level for classes and members to export. Default value is protected.
 
 

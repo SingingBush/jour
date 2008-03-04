@@ -51,7 +51,7 @@ public class GeneratorTest extends TestCase {
 			assertEquals("imported classes", g.getClassNames().size(), im.getClassNames().size());
 
 			APICompareConfig compareConfig = new APICompareConfig();
-			compareConfig.allowPackageAPIextension = false;
+			compareConfig.apiLevel = APIFilter.PACKAGE;
 
 			APICompare.compare(classpath, fileName, compareConfig, true, null);
 

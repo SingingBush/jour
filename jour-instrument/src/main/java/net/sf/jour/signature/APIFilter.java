@@ -26,66 +26,77 @@ import javassist.Modifier;
 
 /**
  * @author vlads
- *
+ * 
  */
 public class APIFilter {
 
 	public static final String javaLangString = "java.lang.String";
-	
+
 	public static final int PUBLIC = 1;
-    
+
 	public static final int PROTECTED = 2;
-    
+
 	public static final int PACKAGE = 3;
-    
+
 	public static final int PRIVATE = 4;
-    
-    private int level;
-	
+
+	private int level;
+
+	private String packages;
+
 	public APIFilter(int level) throws IllegalArgumentException {
-	    this.level = level;
-	    if (this.level > PRIVATE) {
-	        throw new IllegalArgumentException("level " + level);
-	    }
+		this.level = level;
+		if (this.level > PRIVATE) {
+			throw new IllegalArgumentException("level " + level);
+		}
 	}
-	
+
 	public APIFilter(String level) throws IllegalArgumentException {
-	    if (level == null) {
-	        this.level = PROTECTED;
-	    } else if (level.equalsIgnoreCase("public")) {
-	        this.level = PUBLIC;
-        } else if (level.equalsIgnoreCase("protected")) {
-            this.level = PROTECTED;
-        } else if (level.equalsIgnoreCase("package")) {
-            this.level = PACKAGE;
-        } else if (level.equalsIgnoreCase("private")) {
-            this.level = PRIVATE;
-        } else {
-            throw new IllegalArgumentException("level " + level);
-        }
-    }
-	
+		this.level = getAPILevel(level);
+	}
+
+	public APIFilter(String level, String packages) throws IllegalArgumentException {
+		this.level = getAPILevel(level);
+		this.packages = packages;
+	}
+
+	public static int getAPILevel(String level) throws IllegalArgumentException {
+		if (level == null) {
+			return PROTECTED;
+		} else if (level.equalsIgnoreCase("public")) {
+			return PUBLIC;
+		} else if (level.equalsIgnoreCase("protected")) {
+			return PROTECTED;
+		} else if (level.equalsIgnoreCase("package")) {
+			return PACKAGE;
+		} else if (level.equalsIgnoreCase("private")) {
+			return PRIVATE;
+		} else {
+			throw new IllegalArgumentException("level " + level);
+		}
+	}
+
 	public boolean isAPIModifier(int mod) {
-	    if (Modifier.isPublic(mod)) {
-            return (level >= PUBLIC);
-        } else  if (Modifier.isProtected(mod)) {
-            return (level >= PROTECTED);
-        } else  if (Modifier.isPackage(mod)) {
-            return (level >= PACKAGE);
-        } else  if (Modifier.isPrivate(mod)) {
-	        return (level >= PRIVATE);
-	    }
-        return true;
-    }
-	
+		if (Modifier.isPublic(mod)) {
+			return (level >= PUBLIC);
+		} else if (Modifier.isProtected(mod)) {
+			return (level >= PROTECTED);
+		} else if (Modifier.isPackage(mod)) {
+			return (level >= PACKAGE);
+		} else if (Modifier.isPrivate(mod)) {
+			return (level >= PRIVATE);
+		}
+		return true;
+	}
+
 	public boolean isAPIClass(CtClass klass) {
 		return isAPIModifier(klass.getModifiers());
 	}
-	
+
 	public boolean isAPIMember(CtMember member) {
-	    return isAPIModifier(member.getModifiers());
+		return isAPIModifier(member.getModifiers());
 	}
-	
+
 	public static boolean isExportableConstantType(CtClass klass) {
 		if (klass.isPrimitive()) {
 			return true;
@@ -96,9 +107,9 @@ public class APIFilter {
 	}
 
 	public APIFilter getLessRestrictiveFilter() throws IllegalArgumentException {
-	    return new APIFilter(this.level + 1);
+		return new APIFilter(this.level + 1);
 	}
-	
+
 	static int filterModifiers(int mod) {
 		if (Modifier.isNative(mod)) {
 			mod = mod - Modifier.NATIVE;

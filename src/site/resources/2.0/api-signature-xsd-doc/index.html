@@ -1,0 +1,1108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<style type="text/css"> .textElement { font-family: Arial; font-size: 10pt; color: #800000; }</style>
+		<style type="text/css"> .textAttr { font-family: Arial; font-size: 10pt; color: #FF0000; }</style>
+		<style type="text/css"> .textContents { font-family: Arial; font-size: 10pt; color: #000000; }</style>
+		<style type="text/css"> .textOperator { font-family: Arial; font-size: 10pt; color: #0000FF; }</style>
+		<style type="text/css"> .schemaHeader { font-family: Arial; font-size: 11pt; color: #000000; }</style>
+		<style type="text/css"> .schemaHeader2 { font-family: Arial; font-size: 11pt; font-weight: bold; color: #000000; }</style>
+		<style type="text/css"> .elementHeader { font-family: Arial; font-size: 10pt; color: #000000; }</style>
+		<style type="text/css"> .elementHeader2 { font-family: Arial; font-size: 10pt; font-weight: bold; color: #000000; }</style>
+		<style type="text/css"> .schemaName { font-family: Arial; font-size: 8pt; font-weight: bold; color: #000000; }</style>
+		<style type="text/css"> .schemaSubTitle { font-family: Arial; font-size: 8pt; color: #808080; }</style>
+		<style type="text/css"> .schemaSubData { font-family: Arial; font-size: 8pt; color: #000000; }</style>
+		<style type="text/css"> pre { margin-bottom: 0 }</style>
+	</head>
+	<body>
+		<span class="schemaHeader">Schema </span>
+		<span class="schemaHeader2">api-signature.xsd</span>
+		<br />
+		<br />
+		<br />
+		<table cellspacing="0" cellpadding="0">
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaSubTitle">schema location:&nbsp;</span></td>
+				<td align="left" bgcolor="#FFFFFF"><a href="http://jour.sourceforge.net/2.0/api-signature.xsd"><span class="schemaName">http://jour.sourceforge.net/2.0/api-signature.xsd</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaSubTitle">attribute form default:&nbsp;</span></td>
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaName"></span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaSubTitle">element form default:&nbsp;</span></td>
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaName">qualified</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaSubTitle">targetNamespace:&nbsp;</span></td>
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaName">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaSubTitle">&nbsp;</span></td>
+				<td align="left" bgcolor="#FFFFFF" />
+			</tr>
+		</table>
+		<table cellspacing="0" cellpadding="0">
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaSubTitle">Elements&nbsp;</span></td>
+				<td align="left" bgcolor="#FFFFFF"><span class="schemaSubTitle">Complex types&nbsp;</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF"><a href="#element_signature_Link04616458"><span class="schemaName">signature</span></a><span class="schemaName">&nbsp;</span></td>
+				<td align="left" bgcolor="#FFFFFF"><a href="#complexType_class_Link027DF500"><span class="schemaName">class</span></a><span class="schemaName">&nbsp;</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF" />
+				<td align="left" bgcolor="#FFFFFF"><a href="#complexType_constructor_Link02818A68"><span class="schemaName">constructor</span></a><span class="schemaName">&nbsp;</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF" />
+				<td align="left" bgcolor="#FFFFFF"><a href="#complexType_exception_Link0666D068"><span class="schemaName">exception</span></a><span class="schemaName">&nbsp;</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF" />
+				<td align="left" bgcolor="#FFFFFF"><a href="#complexType_field_Link0461D008"><span class="schemaName">field</span></a><span class="schemaName">&nbsp;</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF" />
+				<td align="left" bgcolor="#FFFFFF"><a href="#complexType_implements_Link046C8008"><span class="schemaName">implements</span></a><span class="schemaName">&nbsp;</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF" />
+				<td align="left" bgcolor="#FFFFFF"><a href="#complexType_interface_Link24D98078"><span class="schemaName">interface</span></a><span class="schemaName">&nbsp;</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF" />
+				<td align="left" bgcolor="#FFFFFF"><a href="#complexType_method_Link130C4D90"><span class="schemaName">method</span></a><span class="schemaName">&nbsp;</span></td>
+			</tr>
+			<tr valign="top">
+				<td align="left" bgcolor="#FFFFFF" />
+				<td align="left" bgcolor="#FFFFFF"><a href="#complexType_parameter_Link05D1EBA8"><span class="schemaName">parameter</span></a><span class="schemaName">&nbsp;</span></td>
+			</tr>
+		</table>
+		<br />
+		<br />
+		<a name="element_signature_Link04616458" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">signature</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map04616458"><area coords="158,0,210,25" href="#element_class_Link04AE6058" /><area coords="232,7,232,7" href="#complexType_class_Link027DF500" /><area coords="158,37,228,62" href="#element_interface_Link045FD668" /><area coords="250,7,250,7" href="#complexType_interface_Link24D98078" /></map><img src="index_p1.png" width="252" height="76" border="0" usemap="#Map04616458" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_class_Link04AE6058"><span class="schemaName">class</span></a><span class="schemaName"> </span><a href="#element_interface_Link045FD668"><span class="schemaName">interface</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;signature</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:choice</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;class</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;class</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;interface</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;interface</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;/</span><span class="textElement">xs:choice</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;/</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+</span><span class="textOperator">&lt;/</span><span class="textElement">xs:element</span><span class="textOperator">&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_class_Link04AE6058" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">signature/class</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map04AE6058"><area coords="74,7,74,7" href="#complexType_class_Link027DF500" /><area coords="102,65,163,90" href="#attribute_extends_Link20ABB6F0" /><area coords="102,97,172,122" href="#attribute_modifiers_Link20ABCD70" /><area coords="102,129,154,154" href="#attribute_name_Link20ABC9F8" /><area coords="157,177,245,202" href="#element_implements_Link046E2F20" /><area coords="267,7,267,7" href="#complexType_implements_Link046C8008" /><area coords="157,214,243,259" href="#element_constructor_Link24D94590" /><area coords="265,7,265,7" href="#complexType_constructor_Link02818A68" /><area coords="157,271,221,316" href="#element_method_Link24D94CE8" /><area coords="243,7,243,7" href="#complexType_method_Link130C4D90" /><area coords="157,328,209,373" href="#element_field_Link04B034A0" /><area coords="231,7,231,7" href="#complexType_field_Link0461D008" /></map><img src="index_p2.png" width="284" height="395" border="0" usemap="#Map04AE6058" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_class_Link027DF500"><span class="schemaName">class</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_implements_Link046E2F20"><span class="schemaName">implements</span></a><span class="schemaName"> </span><a href="#element_constructor_Link24D94590"><span class="schemaName">constructor</span></a><span class="schemaName"> </span><a href="#element_method_Link24D94CE8"><span class="schemaName">method</span></a><span class="schemaName"> </span><a href="#element_field_Link04B034A0"><span class="schemaName">field</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_extends_Link20ABB6F0"><span class="schemaSubTitle">extends</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABCD70"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20ABC9F8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;class</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;class</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_interface_Link045FD668" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">signature/interface</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map045FD668"><area coords="92,7,92,7" href="#complexType_interface_Link24D98078" /><area coords="120,65,190,90" href="#attribute_modifiers_Link20ABD718" /><area coords="120,97,172,122" href="#attribute_name_Link20ABDBE8" /><area coords="175,145,263,170" href="#element_implements_Link04AD91A8" /><area coords="285,7,285,7" href="#complexType_implements_Link046C8008" /><area coords="175,182,239,227" href="#element_method_Link24D944A8" /><area coords="261,7,261,7" href="#complexType_method_Link130C4D90" /><area coords="175,239,227,284" href="#element_field_Link04797598" /><area coords="249,7,249,7" href="#complexType_field_Link0461D008" /></map><img src="index_p3.png" width="301" height="306" border="0" usemap="#Map045FD668" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_interface_Link24D98078"><span class="schemaName">interface</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_implements_Link04AD91A8"><span class="schemaName">implements</span></a><span class="schemaName"> </span><a href="#element_method_Link24D944A8"><span class="schemaName">method</span></a><span class="schemaName"> </span><a href="#element_field_Link04797598"><span class="schemaName">field</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABD718"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"></span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20ABDBE8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;interface</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;interface</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="complexType_class_Link027DF500" />
+		<span class="elementHeader">complexType </span>
+		<span class="elementHeader2">class</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map027DF500"><area coords="95,32,156,57" href="#attribute_extends_Link20ABB6F0" /><area coords="95,64,165,89" href="#attribute_modifiers_Link20ABCD70" /><area coords="95,96,147,121" href="#attribute_name_Link20ABC9F8" /><area coords="150,144,238,169" href="#element_implements_Link046E2F20" /><area coords="260,7,260,7" href="#complexType_implements_Link046C8008" /><area coords="150,181,236,226" href="#element_constructor_Link24D94590" /><area coords="258,7,258,7" href="#complexType_constructor_Link02818A68" /><area coords="150,238,214,283" href="#element_method_Link24D94CE8" /><area coords="236,7,236,7" href="#complexType_method_Link130C4D90" /><area coords="150,295,202,340" href="#element_field_Link04B034A0" /><area coords="224,7,224,7" href="#complexType_field_Link0461D008" /></map><img src="index_p4.png" width="263" height="350" border="0" usemap="#Map027DF500" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_implements_Link046E2F20"><span class="schemaName">implements</span></a><span class="schemaName"> </span><a href="#element_constructor_Link24D94590"><span class="schemaName">constructor</span></a><span class="schemaName"> </span><a href="#element_method_Link24D94CE8"><span class="schemaName">method</span></a><span class="schemaName"> </span><a href="#element_field_Link04B034A0"><span class="schemaName">field</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">used by</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">element&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><a href="#element_class_Link04AE6058"><span class="schemaName">signature/class</span></a></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_extends_Link20ABB6F0"><span class="schemaSubTitle">extends</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABCD70"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20ABC9F8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:complexType</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;class</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;implements</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;implements</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;constructor</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;constructor</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;method</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;method</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;field</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;field</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;/</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;extends</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+</span><span class="textOperator">&lt;/</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_extends_Link20ABB6F0" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">class/@extends</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;extends</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_modifiers_Link20ABCD70" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">class/@modifiers</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_name_Link20ABC9F8" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">class/@name</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">use&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_implements_Link046E2F20" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">class/implements</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map046E2F20"><area coords="110,7,110,7" href="#complexType_implements_Link046C8008" /><area coords="165,33,235,78" href="#element_interface_Link20F74D48" /><area coords="257,7,257,7" href="#complexType_interface_Link24D98078" /></map><img src="index_p5.png" width="276" height="100" border="0" usemap="#Map046E2F20" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_implements_Link046C8008"><span class="schemaName">implements</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">1</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_interface_Link20F74D48"><span class="schemaName">interface</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;implements</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;implements</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_constructor_Link24D94590" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">class/constructor</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map24D94590"><area coords="108,7,108,7" href="#complexType_constructor_Link02818A68" /><area coords="136,65,206,90" href="#attribute_modifiers_Link20ABD278" /><area coords="191,113,266,158" href="#element_exception_Link24D99C50" /><area coords="288,7,288,7" href="#complexType_exception_Link0666D068" /><area coords="191,170,270,215" href="#element_parameter_Link20A778D8" /><area coords="292,7,292,7" href="#complexType_parameter_Link05D1EBA8" /></map><img src="index_p6.png" width="311" height="237" border="0" usemap="#Map24D94590" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_constructor_Link02818A68"><span class="schemaName">constructor</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_exception_Link24D99C50"><span class="schemaName">exception</span></a><span class="schemaName"> </span><a href="#element_parameter_Link20A778D8"><span class="schemaName">parameter</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABD278"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;constructor</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;constructor</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_method_Link24D94CE8" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">class/method</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map24D94CE8"><area coords="86,7,86,7" href="#complexType_method_Link130C4D90" /><area coords="114,65,184,90" href="#attribute_modifiers_Link20AB3CB8" /><area coords="114,97,166,122" href="#attribute_name_Link20AAC3C8" /><area coords="114,129,166,154" href="#attribute_return_Link20AA63D8" /><area coords="169,177,244,222" href="#element_exception_Link027C4FE8" /><area coords="266,7,266,7" href="#complexType_exception_Link0666D068" /><area coords="169,234,248,279" href="#element_parameter_Link2091A0A8" /><area coords="270,7,270,7" href="#complexType_parameter_Link05D1EBA8" /></map><img src="index_p7.png" width="289" height="301" border="0" usemap="#Map24D94CE8" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_method_Link130C4D90"><span class="schemaName">method</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_exception_Link027C4FE8"><span class="schemaName">exception</span></a><span class="schemaName"> </span><a href="#element_parameter_Link2091A0A8"><span class="schemaName">parameter</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20AB3CB8"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20AAC3C8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_return_Link20AA63D8"><span class="schemaSubTitle">return</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;method</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;method</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_field_Link04B034A0" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">class/field</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map04B034A0"><area coords="74,7,74,7" href="#complexType_field_Link0461D008" /><area coords="88,65,158,90" href="#attribute_modifiers_Link20ABB1E8" /><area coords="88,97,140,122" href="#attribute_name_Link20AB50D8" /><area coords="88,129,140,154" href="#attribute_type_Link20AB4670" /><area coords="88,161,185,186" href="#attribute_constant-value_Link20AB3E10" /></map><img src="index_p8.png" width="231" height="231" border="0" usemap="#Map04B034A0" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_field_Link0461D008"><span class="schemaName">field</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABB1E8"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20AB50D8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_type_Link20AB4670"><span class="schemaSubTitle">type</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_constant-value_Link20AB3E10"><span class="schemaSubTitle">constant-value</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;field</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;field</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="complexType_constructor_Link02818A68" />
+		<span class="elementHeader">complexType </span>
+		<span class="elementHeader2">constructor</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map02818A68"><area coords="125,32,195,57" href="#attribute_modifiers_Link20ABD278" /><area coords="180,80,255,125" href="#element_exception_Link24D99C50" /><area coords="277,7,277,7" href="#complexType_exception_Link0666D068" /><area coords="180,137,259,182" href="#element_parameter_Link20A778D8" /><area coords="281,7,281,7" href="#complexType_parameter_Link05D1EBA8" /></map><img src="index_p9.png" width="286" height="192" border="0" usemap="#Map02818A68" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_exception_Link24D99C50"><span class="schemaName">exception</span></a><span class="schemaName"> </span><a href="#element_parameter_Link20A778D8"><span class="schemaName">parameter</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">used by</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">element&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><a href="#element_constructor_Link24D94590"><span class="schemaName">class/constructor</span></a></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABD278"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:complexType</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;constructor</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;exception</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;exception</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;parameter</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;parameter</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;/</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+</span><span class="textOperator">&lt;/</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_modifiers_Link20ABD278" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">constructor/@modifiers</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_exception_Link24D99C50" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">constructor/exception</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map24D99C50"><area coords="97,7,97,7" href="#complexType_exception_Link0666D068" /><area coords="111,65,163,90" href="#attribute_name_Link20AAA7E8" /></map><img src="index_p10.png" width="209" height="135" border="0" usemap="#Map24D99C50" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_exception_Link0666D068"><span class="schemaName">exception</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20AAA7E8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;exception</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;exception</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_parameter_Link20A778D8" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">constructor/parameter</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map20A778D8"><area coords="101,7,101,7" href="#complexType_parameter_Link05D1EBA8" /><area coords="115,65,167,90" href="#attribute_type_Link20A8AD68" /></map><img src="index_p11.png" width="213" height="135" border="0" usemap="#Map20A778D8" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_parameter_Link05D1EBA8"><span class="schemaName">parameter</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_type_Link20A8AD68"><span class="schemaSubTitle">type</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;parameter</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;parameter</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="complexType_exception_Link0666D068" />
+		<span class="elementHeader">complexType </span>
+		<span class="elementHeader2">exception</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map0666D068"><area coords="100,32,152,57" href="#attribute_name_Link20AAA7E8" /></map><img src="index_p12.png" width="184" height="78" border="0" usemap="#Map0666D068" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">used by</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">elements&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><a href="#element_exception_Link24D99C50"><span class="schemaName">constructor/exception</span></a><span class="schemaName"> </span><a href="#element_exception_Link027C4FE8"><span class="schemaName">method/exception</span></a></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20AAA7E8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:complexType</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;exception</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+</span><span class="textOperator">&lt;/</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_name_Link20AAA7E8" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">exception/@name</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">use&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="complexType_field_Link0461D008" />
+		<span class="elementHeader">complexType </span>
+		<span class="elementHeader2">field</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map0461D008"><area coords="81,32,151,57" href="#attribute_modifiers_Link20ABB1E8" /><area coords="81,64,133,89" href="#attribute_name_Link20AB50D8" /><area coords="81,96,133,121" href="#attribute_type_Link20AB4670" /><area coords="81,128,178,153" href="#attribute_constant-value_Link20AB3E10" /></map><img src="index_p13.png" width="210" height="174" border="0" usemap="#Map0461D008" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">used by</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">elements&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><a href="#element_field_Link04B034A0"><span class="schemaName">class/field</span></a><span class="schemaName"> </span><a href="#element_field_Link04797598"><span class="schemaName">interface/field</span></a></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABB1E8"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20AB50D8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_type_Link20AB4670"><span class="schemaSubTitle">type</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_constant-value_Link20AB3E10"><span class="schemaSubTitle">constant-value</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:complexType</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;field</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;type</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;constant-value</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+</span><span class="textOperator">&lt;/</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_modifiers_Link20ABB1E8" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">field/@modifiers</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_name_Link20AB50D8" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">field/@name</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">use&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_type_Link20AB4670" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">field/@type</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">use&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;type</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_constant-value_Link20AB3E10" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">field/@constant-value</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;constant-value</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="complexType_implements_Link046C8008" />
+		<span class="elementHeader">complexType </span>
+		<span class="elementHeader2">implements</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map046C8008"><area coords="154,0,224,45" href="#element_interface_Link20F74D48" /><area coords="246,7,246,7" href="#complexType_interface_Link24D98078" /></map><img src="index_p14.png" width="251" height="55" border="0" usemap="#Map046C8008" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_interface_Link20F74D48"><span class="schemaName">interface</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">used by</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">elements&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><a href="#element_implements_Link046E2F20"><span class="schemaName">class/implements</span></a><span class="schemaName"> </span><a href="#element_implements_Link04AD91A8"><span class="schemaName">interface/implements</span></a></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:complexType</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;implements</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;interface</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;interface</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;/</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+</span><span class="textOperator">&lt;/</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_interface_Link20F74D48" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">implements/interface</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map20F74D48"><area coords="92,7,92,7" href="#complexType_interface_Link24D98078" /><area coords="120,65,190,90" href="#attribute_modifiers_Link20ABD718" /><area coords="120,97,172,122" href="#attribute_name_Link20ABDBE8" /><area coords="175,145,263,170" href="#element_implements_Link04AD91A8" /><area coords="285,7,285,7" href="#complexType_implements_Link046C8008" /><area coords="175,182,239,227" href="#element_method_Link24D944A8" /><area coords="261,7,261,7" href="#complexType_method_Link130C4D90" /><area coords="175,239,227,284" href="#element_field_Link04797598" /><area coords="249,7,249,7" href="#complexType_field_Link0461D008" /></map><img src="index_p15.png" width="301" height="306" border="0" usemap="#Map20F74D48" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_interface_Link24D98078"><span class="schemaName">interface</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">1</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_implements_Link04AD91A8"><span class="schemaName">implements</span></a><span class="schemaName"> </span><a href="#element_method_Link24D944A8"><span class="schemaName">method</span></a><span class="schemaName"> </span><a href="#element_field_Link04797598"><span class="schemaName">field</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABD718"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"></span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20ABDBE8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;interface</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;interface</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="complexType_interface_Link24D98078" />
+		<span class="elementHeader">complexType </span>
+		<span class="elementHeader2">interface</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map24D98078"><area coords="109,32,179,57" href="#attribute_modifiers_Link20ABD718" /><area coords="109,64,161,89" href="#attribute_name_Link20ABDBE8" /><area coords="164,112,252,137" href="#element_implements_Link04AD91A8" /><area coords="274,7,274,7" href="#complexType_implements_Link046C8008" /><area coords="164,149,228,194" href="#element_method_Link24D944A8" /><area coords="250,7,250,7" href="#complexType_method_Link130C4D90" /><area coords="164,206,216,251" href="#element_field_Link04797598" /><area coords="238,7,238,7" href="#complexType_field_Link0461D008" /></map><img src="index_p16.png" width="276" height="261" border="0" usemap="#Map24D98078" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_implements_Link04AD91A8"><span class="schemaName">implements</span></a><span class="schemaName"> </span><a href="#element_method_Link24D944A8"><span class="schemaName">method</span></a><span class="schemaName"> </span><a href="#element_field_Link04797598"><span class="schemaName">field</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">used by</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">elements&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><a href="#element_interface_Link045FD668"><span class="schemaName">signature/interface</span></a><span class="schemaName"> </span><a href="#element_interface_Link20F74D48"><span class="schemaName">implements/interface</span></a></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABD718"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"></span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20ABDBE8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:complexType</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;interface</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;implements</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;implements</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;method</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;method</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;field</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;field</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;/</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+</span><span class="textOperator">&lt;/</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_modifiers_Link20ABD718" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">interface/@modifiers</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_name_Link20ABDBE8" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">interface/@name</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">use&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_implements_Link04AD91A8" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">interface/implements</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map04AD91A8"><area coords="110,7,110,7" href="#complexType_implements_Link046C8008" /><area coords="165,33,235,78" href="#element_interface_Link20F74D48" /><area coords="257,7,257,7" href="#complexType_interface_Link24D98078" /></map><img src="index_p17.png" width="276" height="100" border="0" usemap="#Map04AD91A8" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_implements_Link046C8008"><span class="schemaName">implements</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">1</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_interface_Link20F74D48"><span class="schemaName">interface</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;implements</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;implements</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_method_Link24D944A8" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">interface/method</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map24D944A8"><area coords="86,7,86,7" href="#complexType_method_Link130C4D90" /><area coords="114,65,184,90" href="#attribute_modifiers_Link20AB3CB8" /><area coords="114,97,166,122" href="#attribute_name_Link20AAC3C8" /><area coords="114,129,166,154" href="#attribute_return_Link20AA63D8" /><area coords="169,177,244,222" href="#element_exception_Link027C4FE8" /><area coords="266,7,266,7" href="#complexType_exception_Link0666D068" /><area coords="169,234,248,279" href="#element_parameter_Link2091A0A8" /><area coords="270,7,270,7" href="#complexType_parameter_Link05D1EBA8" /></map><img src="index_p18.png" width="289" height="301" border="0" usemap="#Map24D944A8" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_method_Link130C4D90"><span class="schemaName">method</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_exception_Link027C4FE8"><span class="schemaName">exception</span></a><span class="schemaName"> </span><a href="#element_parameter_Link2091A0A8"><span class="schemaName">parameter</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20AB3CB8"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20AAC3C8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_return_Link20AA63D8"><span class="schemaSubTitle">return</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;method</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;method</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_field_Link04797598" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">interface/field</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map04797598"><area coords="74,7,74,7" href="#complexType_field_Link0461D008" /><area coords="88,65,158,90" href="#attribute_modifiers_Link20ABB1E8" /><area coords="88,97,140,122" href="#attribute_name_Link20AB50D8" /><area coords="88,129,140,154" href="#attribute_type_Link20AB4670" /><area coords="88,161,185,186" href="#attribute_constant-value_Link20AB3E10" /></map><img src="index_p19.png" width="231" height="231" border="0" usemap="#Map04797598" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_field_Link0461D008"><span class="schemaName">field</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20ABB1E8"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20AB50D8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_type_Link20AB4670"><span class="schemaSubTitle">type</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_constant-value_Link20AB3E10"><span class="schemaSubTitle">constant-value</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;field</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;field</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="complexType_method_Link130C4D90" />
+		<span class="elementHeader">complexType </span>
+		<span class="elementHeader2">method</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map130C4D90"><area coords="103,32,173,57" href="#attribute_modifiers_Link20AB3CB8" /><area coords="103,64,155,89" href="#attribute_name_Link20AAC3C8" /><area coords="103,96,155,121" href="#attribute_return_Link20AA63D8" /><area coords="158,144,233,189" href="#element_exception_Link027C4FE8" /><area coords="255,7,255,7" href="#complexType_exception_Link0666D068" /><area coords="158,201,237,246" href="#element_parameter_Link2091A0A8" /><area coords="259,7,259,7" href="#complexType_parameter_Link05D1EBA8" /></map><img src="index_p20.png" width="264" height="256" border="0" usemap="#Map130C4D90" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">children</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#element_exception_Link027C4FE8"><span class="schemaName">exception</span></a><span class="schemaName"> </span><a href="#element_parameter_Link2091A0A8"><span class="schemaName">parameter</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">used by</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">elements&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><a href="#element_method_Link24D94CE8"><span class="schemaName">class/method</span></a><span class="schemaName"> </span><a href="#element_method_Link24D944A8"><span class="schemaName">interface/method</span></a></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_modifiers_Link20AB3CB8"><span class="schemaSubTitle">modifiers</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20AAC3C8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_return_Link20AA63D8"><span class="schemaSubTitle">return</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:complexType</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;method</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;exception</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;exception</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp;&nbsp;&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;parameter</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;parameter</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;/</span><span class="textElement">xs:sequence</span><span class="textOperator">&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;return</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+</span><span class="textOperator">&lt;/</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_modifiers_Link20AB3CB8" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">method/@modifiers</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;modifiers</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_name_Link20AAC3C8" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">method/@name</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">use&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;name</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_return_Link20AA63D8" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">method/@return</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">use&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;return</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_exception_Link027C4FE8" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">method/exception</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map027C4FE8"><area coords="97,7,97,7" href="#complexType_exception_Link0666D068" /><area coords="111,65,163,90" href="#attribute_name_Link20AAA7E8" /></map><img src="index_p21.png" width="209" height="135" border="0" usemap="#Map027C4FE8" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_exception_Link0666D068"><span class="schemaName">exception</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_name_Link20AAA7E8"><span class="schemaSubTitle">name</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;exception</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;exception</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="element_parameter_Link2091A0A8" />
+		<span class="elementHeader">element </span>
+		<span class="elementHeader2">method/parameter</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map2091A0A8"><area coords="101,7,101,7" href="#complexType_parameter_Link05D1EBA8" /><area coords="115,65,167,90" href="#attribute_type_Link20A8AD68" /></map><img src="index_p22.png" width="213" height="135" border="0" usemap="#Map2091A0A8" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><a href="#complexType_parameter_Link05D1EBA8"><span class="schemaName">parameter</span></a></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">minOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">maxOcc&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">unbounded</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">content&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">complex</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_type_Link20A8AD68"><span class="schemaSubTitle">type</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:element</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;parameter</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;parameter</span><span class="textOperator">&quot;</span><span class="textAttr"> minOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;0</span><span class="textOperator">&quot;</span><span class="textAttr"> maxOccurs</span><span class="textOperator">=</span><span class="textContents">&quot;unbounded</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="complexType_parameter_Link05D1EBA8" />
+		<span class="elementHeader">complexType </span>
+		<span class="elementHeader2">parameter</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">diagram</span></td>
+				<td width="90%" align="left" bgcolor="#FFFFFF"><map name="Map05D1EBA8"><area coords="104,32,156,57" href="#attribute_type_Link20A8AD68" /></map><img src="index_p23.png" width="188" height="78" border="0" usemap="#Map05D1EBA8" /></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">namespace</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">http://jour.sourceforge.net/2.0/</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">used by</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">elements&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><a href="#element_parameter_Link20A778D8"><span class="schemaName">constructor/parameter</span></a><span class="schemaName"> </span><a href="#element_parameter_Link2091A0A8"><span class="schemaName">method/parameter</span></a></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">attributes</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Name&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Type&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Use&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Default&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Fixed&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubTitle">Annotation</span></td></tr><tr valign="top"><td width="16%" align="left" bgcolor="#F0F0F0"><a href="#attribute_type_Link20A8AD68"><span class="schemaSubTitle">type</span></a></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData">&nbsp;&nbsp;</span></td><td width="16%" align="left" bgcolor="#F0F0F0"><span class="schemaSubData"> </span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:complexType</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;parameter</span><span class="textOperator">&quot;&gt;</span><span class="textContents"><BR>
+&nbsp; </span><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;type</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span><span class="textContents"><BR>
+</span><span class="textOperator">&lt;/</span><span class="textElement">xs:complexType</span><span class="textOperator">&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<a name="attribute_type_Link20A8AD68" />
+		<span class="elementHeader">attribute </span>
+		<span class="elementHeader2">parameter/@type</span>
+		<table width="100%" cellspacing="0" cellpadding="5" border="1">
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">type</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="schemaName">xs:string</span></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">properties</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><table cellspacing="0" cellpadding="0"><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">isRef&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">0</span></td></tr><tr valign="top"><td align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">use&nbsp;</span></td><td align="left" bgcolor="#F0F0F0"><span class="schemaSubData">required</span></td></tr></table></td>
+			</tr>
+			<tr valign="top">
+				<td width="10%" align="right" bgcolor="#F0F0F0"><span class="schemaSubTitle">source</span></td>
+				<td width="90%" align="left" bgcolor="#F0F0F0"><span class="textOperator">&lt;</span><span class="textElement">xs:attribute</span><span class="textAttr"> name</span><span class="textOperator">=</span><span class="textContents">&quot;type</span><span class="textOperator">&quot;</span><span class="textAttr"> type</span><span class="textOperator">=</span><span class="textContents">&quot;xs:string</span><span class="textOperator">&quot;</span><span class="textAttr"> use</span><span class="textOperator">=</span><span class="textContents">&quot;required</span><span class="textOperator">&quot;/&gt;</span></td>
+			</tr>
+		</table>
+		<br />
+		<br />
+		<span class="schemaSubTitle">XML Schema documentation generated by </span>
+		<a href="http://www.altova.com/xmlspy">
+			<span class="schemaName">XMLSpy</span>
+		</a>
+		<span class="schemaSubTitle"> Schema Editor </span>
+		<a href="http://www.altova.com/xmlspy">
+			<span class="schemaName">http://www.altova.com/xmlspy</span>
+		</a>
+	</body>
+</html>

@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javassist.NotFoundException;
+import net.sf.jour.signature.APIFilter;
 import net.sf.jour.signature.ExportClasses;
 import net.sf.jour.signature.SignatureImport;
 import net.sf.jour.util.CmdArgs;
@@ -42,15 +43,29 @@ public class SignatureExport {
 		if ((args.length < 2) || argsp.getProperty("help") != null) {
 			StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(SignatureExport.class.getName());
-			usage
-					.append("--signature api-signature.xml (--systempath) (--jars jar1.jar;jar2.jar) (--classVersion 1.4) --dst classesDir\n");
+			usage.append("--signature api-signature.xml --dst classesDir");
+
+			usage.append("\t (--packages org.api2;org.api2)\n");
+			usage.append("\t (--systempath)\n");
+			usage.append("\t (--jars jar1.jar;jar2.jar)\n");
+			usage.append("\t (--level public|[protected]|package|private)\n");
+			usage.append("\t (--classVersion 1.3|1.4|1.5)\n");
+			usage.append("\t (--stubException <ExceptionClassName>)\n");
+			usage.append("\t (--stubExceptionMessage <ExceptionMessage>)\n");
+
 			System.out.println(usage);
 			return;
 		}
 
 		SignatureImport im = new SignatureImport("true".equals(argsp.getProperty("systempath")), argsp
 				.getProperty("jars"));
-		im.load(argsp.getProperty("signature"));
+
+		im.setStubException(argsp.getProperty("stubException"));
+		im.setStubExceptionMessage(argsp.getProperty("stubExceptionMessage"));
+
+		APIFilter apiFilter = new APIFilter(argsp.getProperty("level", "protected"), argsp.getProperty("packages"));
+
+		im.load(argsp.getProperty("signature"), apiFilter);
 
 		ExportClasses.export(argsp.getProperty("dst"), im.getClasses(), argsp.getProperty("classVersion"));
 

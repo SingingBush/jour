@@ -39,7 +39,7 @@ jour-maven-plugin Java API Signature tools
                         </goals>
                         <configuration>
                             <allowAPIextension>false</allowAPIextension>
-                            <allowPackageAPIextension>true</allowPackageAPIextension>
+                            <level>package</level>
                             <signature>${basedir}/src/test/resources/midpapi20-signature.xml</signature>
                         </configuration>
                     </execution>
@@ -72,6 +72,7 @@ jour-maven-plugin Java API Signature tools
                         <configuration>
                             <output>${basedir}/target/classes</output>
                             <signature>${basedir}/src/main/api-signature.xml</signature>
+                            <level>private</level>
                         </configuration>
                     </execution>
                 </executions>

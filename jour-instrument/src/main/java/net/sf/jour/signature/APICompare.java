@@ -94,9 +94,7 @@ public class APICompare extends APICompareChangeHelper {
 		if (config != null) {
 			cmp.config = config;
 		}
-		if (!cmp.config.allowPackageAPIextension) {
-			cmp.filter = new APIFilter(APIFilter.PACKAGE);
-		}
+		cmp.filter = new APIFilter(cmp.config.apiLevel);
 
 		int classesCount = 0;
 

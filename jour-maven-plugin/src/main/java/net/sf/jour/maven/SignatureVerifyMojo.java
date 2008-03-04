@@ -26,6 +26,7 @@ import java.util.List;
 
 import net.sf.jour.signature.APICompare;
 import net.sf.jour.signature.APICompareConfig;
+import net.sf.jour.signature.APIFilter;
 import net.sf.jour.signature.ChangeDetectedException;
 
 import org.apache.maven.artifact.Artifact;
@@ -95,13 +96,18 @@ public class SignatureVerifyMojo extends AbstractMojo {
 	private boolean allowThrowsLess;
 
 	/**
-	 * Generate error if new API member with access level package has been added
-	 * to class. To include package level members use SignatureGenerator --level
-	 * package
+	 * Compare API level public|[protected]|package|private
 	 * 
-	 * @parameter expression="false"
+	 * @parameter expression="protected"
 	 */
-	private boolean allowPackageAPIextension;
+	private String level;
+
+	/**
+	 * Compare Only selected packages
+	 * 
+	 * @parameter
+	 */
+	private String packages;
 
 	/**
 	 * The Maven project reference where the plugin is currently being executed.
@@ -123,7 +129,9 @@ public class SignatureVerifyMojo extends AbstractMojo {
 
 		config.allowAPIextension = allowAPIextension;
 		config.allowThrowsLess = allowThrowsLess;
-		config.allowPackageAPIextension = allowPackageAPIextension;
+
+		config.packages = packages;
+		config.apiLevel = APIFilter.getAPILevel(level);
 
 		StringBuffer supportingJars = new StringBuffer();
 

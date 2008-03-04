@@ -26,6 +26,7 @@ import java.util.Properties;
 import javassist.NotFoundException;
 import net.sf.jour.signature.APICompare;
 import net.sf.jour.signature.APICompareConfig;
+import net.sf.jour.signature.APIFilter;
 import net.sf.jour.signature.ChangeDetectedException;
 import net.sf.jour.util.CmdArgs;
 
@@ -41,11 +42,12 @@ public class SignatureVerify {
 			StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(SignatureVerify.class.getName());
 			usage.append(" --src classesDir|classes.jar --signature api-signature.xml\n");
+			usage.append("\t (--packages org.api2;org.api2)\n");
 			usage.append("\t (--systempath)\n");
 			usage.append("\t (--jars jar1.jar;jar2.jar)\n");
 			usage.append("\t (--allowAPIextension [false]|true)\n");
 			usage.append("\t (--allowThrowsLess [false]|true)\n");
-			usage.append("\t (--allowPackageAPIextension false|[true])\n");
+			usage.append("\t (--level public|[protected]|package|private)\n");
 			System.out.println(usage);
 			return;
 		}
@@ -54,7 +56,9 @@ public class SignatureVerify {
 
 		config.allowAPIextension = "true".equals(argsp.getProperty("allowAPIextension", "false"));
 		config.allowThrowsLess = "true".equals(argsp.getProperty("allowThrowsLess", "false"));
-		config.allowPackageAPIextension = "true".equals(argsp.getProperty("allowPackageAPIextension", "true"));
+
+		config.packages = argsp.getProperty("packages");
+		config.apiLevel = APIFilter.getAPILevel(argsp.getProperty("level", "protected"));
 
 		try {
 			APICompare.compare(argsp.getProperty("src"), argsp.getProperty("signature"), config, "true".equals(argsp
