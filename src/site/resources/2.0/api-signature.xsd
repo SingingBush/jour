@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- @version $Revision$ ($Author$) $Date$ -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://jour.sourceforge.net/2.0/" targetNamespace="http://jour.sourceforge.net/2.0/" elementFormDefault="qualified" version="2.0">
+    <xs:element name="signature">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="class" type="class"/>
+                <xs:element name="interface" type="interface"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="class">
+        <xs:sequence>
+            <xs:element name="implements" type="implements" minOccurs="0"/>
+            <xs:element name="constructor" type="constructor" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="method" type="method" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="field" type="field" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="extends" type="xs:string"/>
+        <xs:attribute name="modifiers" type="xs:string"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="interface">
+        <xs:sequence>
+            <xs:element name="implements" type="implements" minOccurs="0"/>
+            <xs:element name="method" type="method" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="field" type="field" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="modifiers"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="constructor">
+        <xs:sequence>
+            <xs:element name="exception" type="exception" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="parameter" type="parameter" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="modifiers" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="field">
+        <xs:attribute name="modifiers" type="xs:string"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="type" type="xs:string" use="required"/>
+        <xs:attribute name="constant-value" type="xs:string"/>
+    </xs:complexType>
+    <xs:complexType name="implements">
+        <xs:sequence>
+            <xs:element name="interface" type="interface" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="method">
+        <xs:sequence>
+            <xs:element name="exception" type="exception" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="parameter" type="parameter" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="modifiers" type="xs:string"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="return" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="exception">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="parameter">
+        <xs:attribute name="type" type="xs:string" use="required"/>
+    </xs:complexType>
+</xs:schema>
