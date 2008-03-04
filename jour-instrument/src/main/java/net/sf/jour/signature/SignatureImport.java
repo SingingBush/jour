@@ -23,6 +23,7 @@
  */
 package net.sf.jour.signature;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
@@ -61,6 +62,8 @@ import org.xml.sax.SAXException;
 public class SignatureImport {
 
 	protected static final Logger log = Logger.getLogger();
+
+	static final String OBJECT_CLASS_NAME = "java.lang.Object";
 
 	private ClassPool classPool;
 
@@ -164,6 +167,9 @@ public class SignatureImport {
 
 	private void updateClass(Node node) {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
+		if (OBJECT_CLASS_NAME.equals(classname)) {
+			return;
+		}
 		CtClass klass;
 		try {
 			klass = classPool.get(classname);
@@ -176,6 +182,10 @@ public class SignatureImport {
 	private CtClass createClass(Node node) {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
 		String superclassName = ConfigFileUtil.getNodeAttribute(node, "extends");
+
+		if (OBJECT_CLASS_NAME.equals(classname)) {
+			return createEmptyObjectClass();
+		}
 
 		try {
 			CtClass exists = classPool.get(classname);
@@ -198,6 +208,40 @@ public class SignatureImport {
 			klass = classPool.makeClass(classname);
 		}
 		return klass;
+	}
+
+	private CtClass createEmptyObjectClass() {
+		ClassPool defaultPool = ClassPool.getDefault();
+		CtClass klass;
+		try {
+			klass = defaultPool.get(OBJECT_CLASS_NAME);
+
+			klass.detach();
+			CtConstructor init = klass.getClassInitializer();
+			if (init != null) {
+				klass.removeConstructor(init);
+			}
+			CtMethod[] methods = klass.getDeclaredMethods();
+			for (int i = 0; i < methods.length; i++) {
+				klass.removeMethod(methods[i]);
+			}
+			CtField[] fields = klass.getFields();
+			for (int i = 0; i < fields.length; i++) {
+				klass.removeField(fields[i]);
+			}
+		} catch (NotFoundException e) {
+			throw new RuntimeException("Can't create class java.lang.Object", e);
+		}
+		try {
+			classPool.makeClass(new ByteArrayInputStream(klass.toBytecode()));
+			return classPool.get(OBJECT_CLASS_NAME);
+		} catch (IOException e) {
+			throw new RuntimeException("Can't create class java.lang.Object", e);
+		} catch (NotFoundException e) {
+			throw new RuntimeException("Can't create class java.lang.Object", e);
+		} catch (CannotCompileException e) {
+			throw new RuntimeException("Can't create class java.lang.Object", e);
+		}
 	}
 
 	private CtClass createInterface(Node node) {
