@@ -45,18 +45,18 @@ class APICompareChangeHelper {
 	public boolean assertTrue(String message, boolean condition) {
 		if (!condition) {
 			fail(message);
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 
 	public boolean assertFalse(String message, boolean condition) {
 		if (condition) {
 			fail(message);
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -78,13 +78,13 @@ class APICompareChangeHelper {
 
 	public boolean assertEquals(String message, Object expected, Object actual) {
 		if (expected == null && actual == null) {
-			return true;
+			return false;
 		}
 		if (expected != null && expected.equals(actual)) {
-			return true;
+			return false;
 		}
 		failNotEquals(message, expected, actual);
-		return false;
+		return true;
 	}
 
 	private void failNotEquals(String message, Object expected, Object actual) {

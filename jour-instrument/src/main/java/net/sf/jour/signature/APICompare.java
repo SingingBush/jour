@@ -182,25 +182,31 @@ public class APICompare extends APICompareChangeHelper {
 
 		String className = refClass.getName();
 
-		assertEquals(className + " isInterface", refClass.isInterface(), implClass.isInterface());
-		assertEquals(className + " getModifiers", refClass.getModifiers(), implClass.getModifiers());
+		boolean ch = false;
+
+		ch |= assertEquals(className + " isInterface", refClass.isInterface(), implClass.isInterface());
+		ch |= assertEquals(className + " getModifiers", refClass.getModifiers(), implClass.getModifiers());
 
 		CtClass[] refInterfaces = refClass.getInterfaces();
 		CtClass[] implInterfaces = implClass.getInterfaces();
 
-		assertEquals(className + " interfaces implemented", refInterfaces.length, implInterfaces.length);
-		compareInterfaces(refInterfaces, implInterfaces, className);
+		ch = ch | assertEquals(className + " interfaces implemented", refInterfaces.length, implInterfaces.length);
+		ch = ch | compareInterfaces(refInterfaces, implInterfaces, className);
 
 		if (implClass.getSuperclass() == null) {
 			// java.lang.Object in CLDC / javassist will reference same class...
 			if (refClass.getSuperclass() != null) {
-				assertEquals(className + " Superclass ", "java.lang.Object", refClass.getSuperclass().getName());
+				ch |= assertEquals(className + " Superclass ", "java.lang.Object", refClass.getSuperclass().getName());
 			}
 		} else if (refClass.getSuperclass() != null) {
-			assertEquals(className + " Superclass", refClass.getSuperclass().getName(), implClass.getSuperclass()
+			ch |= assertEquals(className + " Superclass", refClass.getSuperclass().getName(), implClass.getSuperclass()
 					.getName());
 		} else {
-			assertNull(className + " Superclass " + className(implClass.getSuperclass()), implClass.getSuperclass());
+			ch |= assertNull(className + " Superclass " + className(implClass.getSuperclass()), implClass
+					.getSuperclass());
+		}
+		if (ch) {
+			addChanges(implClass);
 		}
 
 		// Constructors
@@ -225,15 +231,18 @@ public class APICompare extends APICompareChangeHelper {
 		return filter.isAPIMember(member);
 	}
 
-	private void compareInterfaces(CtClass[] refInterfaces, CtClass[] implInterfacess, String className) {
+	private boolean compareInterfaces(CtClass[] refInterfaces, CtClass[] implInterfacess, String className) {
 		List implNames = new Vector();
 		for (int i = 0; i < implInterfacess.length; i++) {
 			implNames.add(implInterfacess[i].getName());
 		}
+		boolean ch = false;
 		for (int i = 0; i < refInterfaces.length; i++) {
 			String interfaceName = refInterfaces[i].getName();
-			assertTrue(className + " should implement interface " + interfaceName, implNames.contains(interfaceName));
+			ch |= assertTrue(className + " should implement interface " + interfaceName, implNames
+					.contains(interfaceName));
 		}
+		return ch;
 	}
 
 	private Map buildNameMap(CtMember[] members, String className) throws NotFoundException {
@@ -311,19 +320,21 @@ public class APICompare extends APICompareChangeHelper {
 				+ compared);
 	}
 
-	private void compareThrows(CtBehavior refMethod, CtBehavior implMethod, String className) throws NotFoundException {
+	private boolean compareThrows(CtBehavior refMethod, CtBehavior implMethod, String className)
+			throws NotFoundException {
 		List refNames = new Vector();
 		CtClass[] refExceptions = refMethod.getExceptionTypes();
 		for (int i = 0; i < refExceptions.length; i++) {
 			refNames.add(refExceptions[i].getName());
 		}
 
+		boolean ch = false;
 		List implNames = new Vector();
 		CtClass[] implExceptions = implMethod.getExceptionTypes();
 		for (int i = 0; i < implExceptions.length; i++) {
 			implNames.add(implExceptions[i].getName());
 			String exceptionName = implExceptions[i].getName();
-			assertTrue(className + " " + refMethod.getName() + refMethod.getSignature() + " should not throw "
+			ch |= assertTrue(className + " " + refMethod.getName() + refMethod.getSignature() + " should not throw "
 					+ exceptionName, refNames.contains(exceptionName));
 
 		}
@@ -331,10 +342,11 @@ public class APICompare extends APICompareChangeHelper {
 		if (!config.allowThrowsLess) {
 			for (int i = 0; i < refExceptions.length; i++) {
 				String exceptionName = refExceptions[i].getName();
-				assertTrue(className + " " + refMethod.getName() + refMethod.getSignature() + " should throw "
+				ch |= assertTrue(className + " " + refMethod.getName() + refMethod.getSignature() + " should throw "
 						+ exceptionName, implNames.contains(exceptionName));
 			}
 		}
+		return ch;
 	}
 
 	private void compareConstructor(CtConstructor refConstructor, CtConstructor implConstructor, String className)
@@ -345,19 +357,22 @@ public class APICompare extends APICompareChangeHelper {
 			addMissing(refConstructor);
 			return;
 		}
-		assertEquals(className + ". Constructor " + name + " modifiers", Modifier
+		boolean ch = assertEquals(className + ". Constructor " + name + " modifiers", Modifier
 				.toString(getModifiers(refConstructor)), Modifier.toString(getModifiers(implConstructor)));
-		compareThrows(refConstructor, implConstructor, className);
+		ch |= compareThrows(refConstructor, implConstructor, className);
+		if (ch) {
+			addChanges(implConstructor);
+		}
 	}
 
-	private void compareMember(CtMember refMember, CtMember implMember, String className, String signature) {
+	private boolean compareMember(CtMember refMember, CtMember implMember, String className, String signature) {
 		String name = refMember.getName();
 		assertNotNull(className + "." + name + signature + " is Missing", implMember);
 		if (implMember == null) {
 			addMissing(refMember);
-			return;
+			return true;
 		}
-		assertEquals(className + "." + name + " modifiers", Modifier.toString(getModifiers(refMember)), Modifier
+		return assertEquals(className + "." + name + " modifiers", Modifier.toString(getModifiers(refMember)), Modifier
 				.toString(getModifiers(implMember)));
 	}
 
@@ -426,14 +441,17 @@ public class APICompare extends APICompareChangeHelper {
 	}
 
 	private void compareMethod(CtMethod refMethod, CtMethod implMethod, String className) throws NotFoundException {
-		compareMember(refMethod, implMethod, className, refMethod.getSignature());
+		boolean ch = compareMember(refMethod, implMethod, className, refMethod.getSignature());
 		if (implMethod == null) {
 			return;
 		}
 		String name = refMethod.getName();
-		assertEquals(className + "." + name + " returnType", refMethod.getReturnType().getName(), implMethod
+		ch |= assertEquals(className + "." + name + " returnType", refMethod.getReturnType().getName(), implMethod
 				.getReturnType().getName());
-		compareThrows(refMethod, implMethod, className);
+		ch |= compareThrows(refMethod, implMethod, className);
+		if (ch) {
+			addChanges(implMethod);
+		}
 	}
 
 	private void compareFields(CtField[] refFields, CtField[] implFields, String className, CtClass refClass,
@@ -479,33 +497,36 @@ public class APICompare extends APICompareChangeHelper {
 	private void compareField(CtField refField, CtField implField, String className, CtClass refClass, CtClass implClass)
 			throws NotFoundException {
 		String name = refField.getName();
-		compareMember(refField, implField, className, "");
+		boolean ch = compareMember(refField, implField, className, "");
 		if (implField == null) {
 			return;
 		}
-		assertEquals(className + "." + name + " type", refField.getType().getName(), implField.getType().getName());
+		ch |= assertEquals(className + "." + name + " type", refField.getType().getName(), implField.getType()
+				.getName());
 		if ((Modifier.isFinal(refField.getModifiers())) && (Modifier.isStatic(refField.getModifiers()))) {
 			// Compare value
 			Object refConstValue = refField.getConstantValue();
 			Object implConstValue = implField.getConstantValue();
-			if ((refConstValue == null) && (implConstValue == null)) {
-				return;
-			}
+			if ((refConstValue != null) || (implConstValue != null)) {
 
-			String refValue = null;
-			if (refConstValue != null) {
-				refValue = refConstValue.toString();
-			} else if (refField.getType() == CtClass.booleanType) {
-				refValue = "false";
-			}
+				String refValue = null;
+				if (refConstValue != null) {
+					refValue = refConstValue.toString();
+				} else if (refField.getType() == CtClass.booleanType) {
+					refValue = "false";
+				}
 
-			String implValue = null;
-			if (implConstValue != null) {
-				implValue = implConstValue.toString();
-			} else if (implField.getType() == CtClass.booleanType) {
-				implValue = "false";
+				String implValue = null;
+				if (implConstValue != null) {
+					implValue = implConstValue.toString();
+				} else if (implField.getType() == CtClass.booleanType) {
+					implValue = "false";
+				}
+				ch |= assertEquals(className + "." + name + " value ", refValue, implValue);
 			}
-			assertEquals(className + "." + name + " value ", refValue, implValue);
+		}
+		if (ch) {
+			addChanges(implField);
 		}
 	}
 
