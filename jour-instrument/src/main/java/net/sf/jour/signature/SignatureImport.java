@@ -71,6 +71,10 @@ public class SignatureImport {
 
 	private APIFilter filter;
 
+	private String stubException;
+
+	private String stubExceptionMessage;
+
 	public SignatureImport(boolean useSystemClassPath, String supportingJars) {
 		classPool = new ClassPool();
 		if (supportingJars != null) {
@@ -98,11 +102,14 @@ public class SignatureImport {
 	}
 
 	public void setStubException(String property) {
-		// TODO Auto-generated method stub
+		this.stubException = property;
 	}
 
 	public void setStubExceptionMessage(String property) {
-		// TODO Auto-generated method stub
+		this.stubExceptionMessage = property;
+		if ((this.stubException == null) && (property != null)) {
+			this.stubException = "java.lang.RuntimeException";
+		}
 	}
 
 	public void load(String xmlFileName) {
@@ -203,6 +210,7 @@ public class SignatureImport {
 			return;
 		}
 		updateConstructors(klass, node);
+		updateMethods(klass, node);
 	}
 
 	private CtClass createClass(Node node) {
@@ -372,10 +380,47 @@ public class SignatureImport {
 		CtConstructor[] constructors = klass.getDeclaredConstructors();
 		for (int i = 0; i < constructors.length; i++) {
 			try {
-				constructors[i].setBody(MakeEmptyMethodInstrumentor.emptyBody(CtClass.voidType));
+				constructors[i].setBody(emptyBodyCode(CtClass.voidType));
 			} catch (CannotCompileException ce) {
 				throw new RuntimeException(klass.getName(), ce);
 			}
+		}
+	}
+
+	private void updateMethods(CtClass klass, Node node) {
+		if (klass.isInterface()) {
+			return;
+		}
+		CtMethod[] methods = klass.getDeclaredMethods();
+		for (int i = 0; i < methods.length; i++) {
+			CtMethod method = methods[i];
+			if (!Modifier.isAbstract(method.getModifiers())) {
+				try {
+					method.setBody(emptyBodyCode(method.getReturnType()));
+				} catch (CannotCompileException e) {
+					throw new RuntimeException(klass.getName() + "." + method.getName(), e);
+				} catch (NotFoundException e) {
+					throw new RuntimeException(klass.getName() + "." + method.getName(), e);
+				}
+			}
+		}
+	}
+
+	private String emptyBodyCode(CtClass returnType) {
+		if (this.stubException == null) {
+			return MakeEmptyMethodInstrumentor.emptyBody(returnType);
+		} else {
+			StringBuffer b = new StringBuffer();
+			b.append("throw new ");
+			b.append(this.stubException);
+			if (this.stubExceptionMessage == null) {
+				b.append("();");
+			} else {
+				b.append("(\"");
+				b.append(this.stubExceptionMessage);
+				b.append("\");");
+			}
+			return b.toString();
 		}
 	}
 
@@ -456,9 +501,11 @@ public class SignatureImport {
 			CtMethod method = new CtMethod(returnType, mname, parameters, klass);
 			method.setModifiers(modifiers);
 			try {
-				if ((!klass.isInterface()) && (!Modifier.isAbstract(method.getModifiers()))) {
-					method.setBody(MakeEmptyMethodInstrumentor.emptyBody(returnType));
-				}
+				// See updateMethods second pass
+				// if ((!klass.isInterface()) &&
+				// (!Modifier.isAbstract(method.getModifiers()))) {
+				// method.setBody(emptyBodyCode(returnType));
+				// }
 				loadExceptions(method, list[i]);
 				klass.addMethod(method);
 			} catch (CannotCompileException e) {

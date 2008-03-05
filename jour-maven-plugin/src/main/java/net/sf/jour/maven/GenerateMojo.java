@@ -94,7 +94,8 @@ public class GenerateMojo extends AbstractMojo {
 	private String packages;
 
 	/**
-	 * Exception class name
+	 * API stub empty method/constructor body code may just throw Exception
+	 * class name can be selected.
 	 * 
 	 * @parameter
 	 */

@@ -16,6 +16,8 @@ set ARGS=%ARGS% --packages uut.signature
 set ARGS=%ARGS% --level private
 set ARGS=%ARGS% --signature api-signature.xml
 set ARGS=%ARGS% --dst .\classes
+set ARGS=%ARGS% --stubException UnsupportedOperationException
+set ARGS=%ARGS% --stubExceptionMessage "API Stub has been used"
 
 java -cp %PROJECT_BUILD_HOME%\target\jour-instrument-%VERSION%.jar  net.sf.jour.SignatureExport %ARGS%
 
