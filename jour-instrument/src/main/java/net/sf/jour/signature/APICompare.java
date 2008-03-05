@@ -263,11 +263,16 @@ public class APICompare extends APICompareChangeHelper {
 		for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
 			if (extra.length() > 0) {
 				extra.append(", ");
+			} else {
+				extra.append(", Extra constructor(s) [");
 			}
 			extra.append(((CtConstructor) implNames.get(i.next())).getSignature());
 		}
-		assertEquals(className + " number of Constructors, Extra constructor(s) [" + extra.toString() + "]",
-				expectedConstructors, implNames.size() + compared);
+		if (extra.length() > 0) {
+			extra.append("]");
+		}
+		assertEquals(className + " number of Constructors" + extra.toString(), expectedConstructors, implNames.size()
+				+ compared);
 	}
 
 	private void compareThrows(CtBehavior refMethod, CtBehavior implMethod, String className) throws NotFoundException {
@@ -368,11 +373,15 @@ public class APICompare extends APICompareChangeHelper {
 		for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
 			if (extra.length() > 0) {
 				extra.append(", ");
+			} else {
+				extra.append(", Extra method(s) [");
 			}
 			extra.append(i.next());
 		}
-		assertEquals(className + " number of Methods, Extra method(s) [" + extra.toString() + "]", expectedMethods,
-				implNames.size() + compared);
+		if (extra.length() > 0) {
+			extra.append("]");
+		}
+		assertEquals(className + " number of Methods" + extra.toString(), expectedMethods, implNames.size() + compared);
 	}
 
 	private void compareMethod(CtMethod refMethod, CtMethod implMethod, String className) throws NotFoundException {
@@ -412,11 +421,15 @@ public class APICompare extends APICompareChangeHelper {
 		for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
 			if (extra.length() > 0) {
 				extra.append(", ");
+			} else {
+				extra.append(", Extra field(s) [");
 			}
 			extra.append(i.next());
 		}
-		assertEquals(className + " number of Fields, Extra field(s) [" + extra.toString() + "]", expectedFields,
-				implNames.size() + compared);
+		if (extra.length() > 0) {
+			extra.append("]");
+		}
+		assertEquals(className + " number of Fields" + extra.toString(), expectedFields, implNames.size() + compared);
 	}
 
 	private void compareField(CtField refField, CtField implField, String className, CtClass refClass, CtClass implClass)
