@@ -67,5 +67,7 @@ public class SignatureExport {
 
 		ExportClasses.export(argsp.getProperty("dst"), im.getClasses(), argsp.getProperty("classVersion"));
 
+		System.out.println("Exported " + im.getClasses().size() + " classes");
+
 	}
 }

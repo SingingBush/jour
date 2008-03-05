@@ -93,6 +93,10 @@ public class SignatureImport {
 		return this.classes;
 	}
 
+	public List getClassNames() {
+		return this.classNames;
+	}
+
 	public void setStubException(String property) {
 		// TODO Auto-generated method stub
 	}
@@ -132,11 +136,13 @@ public class SignatureImport {
 					CtClass c = loadInterface(node);
 					if (this.filter.isAPIClass(c)) {
 						this.classes.add(c);
+						classNames.add(c.getName());
 					}
 				} else if ("class".equals(node.getNodeName())) {
-					CtClass c = loadClass(node);
-					if (this.filter.isAPIClass(c)) {
-						this.classes.add(c);
+					CtClass i = loadClass(node);
+					if (this.filter.isAPIClass(i)) {
+						this.classes.add(i);
+						classNames.add(i.getName());
 					}
 				} else if (node.hasChildNodes()) {
 					throw new ConfigException("Invalid XML node " + node.getNodeName());
@@ -166,8 +172,6 @@ public class SignatureImport {
 		loadHierarchy(klass, node);
 		loadMethods(klass, node);
 		loadFields(klass, node);
-
-		classNames.add(klass.getName());
 		return klass;
 	}
 
@@ -181,8 +185,6 @@ public class SignatureImport {
 		loadConstructors(klass, node);
 		loadMethods(klass, node);
 		loadFields(klass, node);
-
-		classNames.add(klass.getName());
 		return klass;
 	}
 
@@ -292,10 +294,6 @@ public class SignatureImport {
 			klass = classPool.makeInterface(classname);
 		}
 		return klass;
-	}
-
-	public List getClassNames() {
-		return this.classNames;
 	}
 
 	private void loadHierarchy(CtClass klass, Node node) {

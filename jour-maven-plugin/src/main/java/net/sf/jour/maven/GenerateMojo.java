@@ -116,6 +116,7 @@ public class GenerateMojo extends AbstractMojo {
 		Log log = getLog();
 		MavenLogAppender.startPluginLog(this);
 		log.info("use signature: " + signature);
+		log.debug("packages: " + packages + " level:" + level);
 
 		SignatureImport im = new SignatureImport(useSystemClassPath, null);
 
@@ -126,7 +127,12 @@ public class GenerateMojo extends AbstractMojo {
 
 		im.load(signature.getAbsolutePath(), apiFilter);
 
-		ExportClasses.export(output.getAbsolutePath(), im.getClasses(), classVersion);
+		log.debug("loaded " + im.getClassNames().size() + " classe(s)");
+
+		log.debug("output: " + output.getAbsolutePath());
+
+		int count = ExportClasses.export(output.getAbsolutePath(), im.getClasses(), classVersion);
+		log.info("Created " + count + " classe(s)");
 	}
 
 }

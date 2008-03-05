@@ -53,8 +53,16 @@ public class ExportClasses {
 		javaVersion.put("1.6", new int[] { 50, 0 });
 	}
 
-	public static void export(String directoryName, List classes, String classVersion) {
-		FileUtil.deleteDir(new File(directoryName), false);
+	public static int export(String directoryName, List classes, String classVersion) {
+		File dir = new File(directoryName);
+		if (!dir.exists()) {
+			if (!dir.mkdirs()) {
+				throw new RuntimeException("Can't create directory " + directoryName);
+			}
+		} else {
+			FileUtil.deleteDir(new File(directoryName), false);
+		}
+		int count = 0;
 		for (Iterator iterator = classes.iterator(); iterator.hasNext();) {
 			CtClass klass = (CtClass) iterator.next();
 			try {
@@ -69,11 +77,14 @@ public class ExportClasses {
 				}
 
 				klass.writeFile(directoryName);
+				count++;
+
 			} catch (CannotCompileException e) {
 				throw new RuntimeException(e);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
 		}
+		return count;
 	}
 }

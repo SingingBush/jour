@@ -58,13 +58,13 @@ public class APIFilter {
 	}
 
 	public APIFilter(String level) throws IllegalArgumentException {
-		this.level = getAPILevel(level);
+		this(getAPILevel(level));
 	}
 
 	public APIFilter(String level, String packages) throws IllegalArgumentException {
-		this.level = getAPILevel(level);
-		packageSet = new HashSet();
-		if (packages != null) {
+		this(level);
+		if ((packages != null) && (packages.length() > 0)) {
+			packageSet = new HashSet();
 			StringTokenizer st = new StringTokenizer(packages, ";");
 			if (st.hasMoreTokens()) {
 				while (st.hasMoreTokens()) {
