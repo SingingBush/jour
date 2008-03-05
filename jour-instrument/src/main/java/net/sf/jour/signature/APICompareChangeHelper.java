@@ -28,65 +28,74 @@ import java.util.Vector;
 
 /**
  * @author vlads
- *
+ * 
  */
 class APICompareChangeHelper {
 
-    List changes;
+	List changes;
 
-    APICompareChangeHelper() {
-        changes = new Vector();
-    }
+	APICompareChangeHelper() {
+		changes = new Vector();
+	}
 
-    public void fail(String message) {
-        changes.add(message);
-    }
+	public void fail(String message) {
+		changes.add(message);
+	}
 
-    public void assertTrue(String message, boolean condition) {
-        if (!condition) {
-            fail(message);
-        }
-    }
+	public boolean assertTrue(String message, boolean condition) {
+		if (!condition) {
+			fail(message);
+			return false;
+		} else {
+			return true;
+		}
+	}
 
-    public void assertFalse(String message, boolean condition) {
-        if (condition) {
-            fail(message);
-        }
-    }
-    
-    public void assertNull(String message, Object object) {
-        assertTrue(message, object == null);
-    }
-    
-    public void assertNotNull(String message, Object object) {
-        assertTrue(message, object != null);
-    }
-    
-    public void assertEquals(String message, int expected, int actual) {
-        assertEquals(message, new Integer(expected), new Integer(actual));
-    }
-    
-    public void assertEquals(String message, boolean expected, boolean actual) {
-        assertEquals(message, new Boolean(expected), new Boolean(actual));
-    }
+	public boolean assertFalse(String message, boolean condition) {
+		if (condition) {
+			fail(message);
+			return false;
+		} else {
+			return true;
+		}
+	}
 
-    public void assertEquals(String message, Object expected, Object actual) {
-        if (expected == null && actual == null)
-            return;
-        if (expected != null && expected.equals(actual))
-            return;
-        failNotEquals(message, expected, actual);
-    }
-    
-    private void failNotEquals(String message, Object expected, Object actual) {
-        fail(format(message, expected, actual));
-    }
+	public boolean assertNull(String message, Object object) {
+		return assertTrue(message, object == null);
+	}
 
-    String format(String message, Object expected, Object actual) {
-        String formatted = "";
-        if (message != null) {
-            formatted = message + " ";
-        }
-        return formatted + "expected:<" + expected + "> but was:<" + actual + ">";
-    }
+	public boolean assertNotNull(String message, Object object) {
+		return assertTrue(message, object != null);
+	}
+
+	public boolean assertEquals(String message, int expected, int actual) {
+		return assertEquals(message, new Integer(expected), new Integer(actual));
+	}
+
+	public boolean assertEquals(String message, boolean expected, boolean actual) {
+		return assertEquals(message, new Boolean(expected), new Boolean(actual));
+	}
+
+	public boolean assertEquals(String message, Object expected, Object actual) {
+		if (expected == null && actual == null) {
+			return true;
+		}
+		if (expected != null && expected.equals(actual)) {
+			return true;
+		}
+		failNotEquals(message, expected, actual);
+		return false;
+	}
+
+	private void failNotEquals(String message, Object expected, Object actual) {
+		fail(format(message, expected, actual));
+	}
+
+	String format(String message, Object expected, Object actual) {
+		String formatted = "";
+		if (message != null) {
+			formatted = message + " ";
+		}
+		return formatted + "expected:<" + expected + "> but was:<" + actual + ">";
+	}
 }

@@ -51,9 +51,18 @@ public class APICompare extends APICompareChangeHelper {
 
 	static ThreadLocal counters = new ThreadLocal();
 
+	private List changesMissing;
+
+	private List changesExtra;
+
+	private List changesChanges;
+
 	public APICompare() {
 		filter = new APIFilter(APIFilter.PROTECTED);
 		config = new APICompareConfig();
+		changesMissing = new Vector();
+		changesExtra = new Vector();
+		changesChanges = new Vector();
 	}
 
 	public static void compare(String classpath, String signatureFileName, APICompareConfig config,
@@ -107,6 +116,7 @@ public class APICompare extends APICompareChangeHelper {
 				implClass = classPool.get(refClass.getName());
 			} catch (NotFoundException e) {
 				cmp.fail(refClass.getName() + " is missing");
+				cmp.addMissing(refClass);
 			}
 			if (implClass != null) {
 				try {
@@ -142,6 +152,30 @@ public class APICompare extends APICompareChangeHelper {
 		} else {
 			return klass.getName();
 		}
+	}
+
+	private void addMissing(Object member) {
+		changesMissing.add(member);
+	}
+
+	private void addExtra(Object member) {
+		changesExtra.add(member);
+	}
+
+	private void addChanges(Object member) {
+		changesChanges.add(member);
+	}
+
+	public Iterator getChangesMissing() {
+		return changesMissing.iterator();
+	}
+
+	public Iterator getChangesExtra() {
+		return changesExtra.iterator();
+	}
+
+	public Iterator getChangesChanges() {
+		return changesChanges.iterator();
 	}
 
 	public List compareClasses(CtClass refClass, CtClass implClass) throws NotFoundException {
@@ -266,7 +300,9 @@ public class APICompare extends APICompareChangeHelper {
 			} else {
 				extra.append(", Extra constructor(s) [");
 			}
-			extra.append(((CtConstructor) implNames.get(i.next())).getSignature());
+			CtConstructor cx = (CtConstructor) implNames.get(i.next());
+			addExtra(cx);
+			extra.append(cx.getSignature());
 		}
 		if (extra.length() > 0) {
 			extra.append("]");
@@ -306,6 +342,7 @@ public class APICompare extends APICompareChangeHelper {
 		String name = refConstructor.getSignature();
 		assertNotNull(className + " Constructor " + name + " is Missing", implConstructor);
 		if (implConstructor == null) {
+			addMissing(refConstructor);
 			return;
 		}
 		assertEquals(className + ". Constructor " + name + " modifiers", Modifier
@@ -317,6 +354,7 @@ public class APICompare extends APICompareChangeHelper {
 		String name = refMember.getName();
 		assertNotNull(className + "." + name + signature + " is Missing", implMember);
 		if (implMember == null) {
+			addMissing(refMember);
 			return;
 		}
 		assertEquals(className + "." + name + " modifiers", Modifier.toString(getModifiers(refMember)), Modifier
@@ -376,7 +414,10 @@ public class APICompare extends APICompareChangeHelper {
 			} else {
 				extra.append(", Extra method(s) [");
 			}
-			extra.append(i.next());
+			String extName = (String) i.next();
+			CtMethod mx = (CtMethod) implNames.get(extName);
+			addExtra(mx);
+			extra.append(extName);
 		}
 		if (extra.length() > 0) {
 			extra.append("]");
@@ -424,7 +465,10 @@ public class APICompare extends APICompareChangeHelper {
 			} else {
 				extra.append(", Extra field(s) [");
 			}
-			extra.append(i.next());
+			String extName = (String) i.next();
+			CtField fx = (CtField) implNames.get(extName);
+			addExtra(fx);
+			extra.append(extName);
 		}
 		if (extra.length() > 0) {
 			extra.append("]");
