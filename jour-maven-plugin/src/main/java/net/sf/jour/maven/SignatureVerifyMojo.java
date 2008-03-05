@@ -148,7 +148,7 @@ public class SignatureVerifyMojo extends AbstractMojo {
 
 		try {
 			APICompare.compare(classes.getAbsolutePath(), signature.getAbsolutePath(), config, useSystemClassPath,
-					supportingJars.toString());
+					(supportingJars.length() > 0) ? supportingJars.toString() : null);
 		} catch (ChangeDetectedException e) {
 			log.error("API compare FAILED, processed " + APICompare.getClassesCount() + " classes");
 			log.error(e.getMessage());

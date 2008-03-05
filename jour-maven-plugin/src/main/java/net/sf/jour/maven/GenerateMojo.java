@@ -21,15 +21,19 @@
 package net.sf.jour.maven;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 
 import net.sf.jour.signature.APIFilter;
 import net.sf.jour.signature.ExportClasses;
 import net.sf.jour.signature.SignatureImport;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.project.MavenProject;
 
 import com.pyx4j.log4j.MavenLogAppender;
 
@@ -108,6 +112,17 @@ public class GenerateMojo extends AbstractMojo {
 	 */
 	private String stubExceptionMessage;
 
+	/**
+	 * The Maven project reference where the plugin is currently being executed.
+	 * Used for dependency resolution during compilation. The default value is
+	 * populated from maven.
+	 * 
+	 * @parameter expression="${project}"
+	 * @readonly
+	 * @required
+	 */
+	protected MavenProject mavenProject;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -119,7 +134,21 @@ public class GenerateMojo extends AbstractMojo {
 		log.info("use signature: " + signature);
 		log.debug("packages: " + packages + " level:" + level);
 
-		SignatureImport im = new SignatureImport(useSystemClassPath, null);
+		StringBuffer supportingJars = new StringBuffer();
+
+		List dependancy = this.mavenProject.getTestArtifacts();
+		for (Iterator i = dependancy.iterator(); i.hasNext();) {
+			Artifact artifact = (Artifact) i.next();
+			File file = InstrumentationMojo.getClasspathElement(artifact, mavenProject);
+			log.debug("dependancy:" + file.toString());
+			if (supportingJars.length() < 0) {
+				supportingJars.append(File.pathSeparatorChar);
+			}
+			supportingJars.append(file.toString());
+		}
+
+		SignatureImport im = new SignatureImport(useSystemClassPath, (supportingJars.length() > 0) ? supportingJars
+				.toString() : null);
 
 		im.setStubException(stubException);
 		im.setStubExceptionMessage(stubExceptionMessage);
