@@ -20,10 +20,8 @@
  */
 package net.sf.jour;
 
-import java.io.IOException;
 import java.util.Properties;
 
-import javassist.NotFoundException;
 import net.sf.jour.signature.APICompare;
 import net.sf.jour.signature.APICompareConfig;
 import net.sf.jour.signature.APIFilter;
@@ -36,7 +34,7 @@ import net.sf.jour.util.CmdArgs;
  */
 public class SignatureVerify {
 
-	public static void main(String[] args) throws IOException, NotFoundException {
+	public static void main(String[] args) {
 		Properties argsp = CmdArgs.load(args);
 		if ((args.length < 2) || argsp.getProperty("help") != null) {
 			StringBuffer usage = new StringBuffer();

@@ -49,8 +49,6 @@ public class APICompare extends APICompareChangeHelper {
 
 	private APICompareConfig config;
 
-	Map fieldInitializerHack;
-
 	static ThreadLocal counters = new ThreadLocal();
 
 	public APICompare() {
@@ -90,11 +88,10 @@ public class APICompare extends APICompareChangeHelper {
 		// ExportClasses.export("target/test-api-classes", classes);
 
 		APICompare cmp = new APICompare();
-		cmp.fieldInitializerHack = im.fieldInitializerHack;
 		if (config != null) {
 			cmp.config = config;
+			cmp.filter = new APIFilter(config.apiLevel);
 		}
-		cmp.filter = new APIFilter(cmp.config.apiLevel);
 
 		int classesCount = 0;
 
@@ -443,8 +440,6 @@ public class APICompare extends APICompareChangeHelper {
 				refValue = refConstValue.toString();
 			} else if (refField.getType() == CtClass.booleanType) {
 				refValue = "false";
-			} else if (fieldInitializerHack != null) {
-				refValue = (String) fieldInitializerHack.get(className + "." + name);
 			}
 
 			String implValue = null;

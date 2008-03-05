@@ -26,9 +26,7 @@ package net.sf.jour.signature;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -71,7 +69,7 @@ public class SignatureImport {
 
 	private List classes = new Vector();
 
-	Map fieldInitializerHack = new HashMap();
+	private APIFilter filter;
 
 	public SignatureImport(boolean useSystemClassPath, String supportingJars) {
 		classPool = new ClassPool();
@@ -115,6 +113,11 @@ public class SignatureImport {
 		if (location == null) {
 			throw new ConfigException("File Not found " + xmlFileName);
 		}
+		if (filter == null) {
+			this.filter = APIFilter.ALL;
+		} else {
+			this.filter = filter;
+		}
 		try {
 			Document xmlDoc = ConfigFileUtil.loadDocument(location);
 			Node rootNode = ConfigFileUtil.getFirstElement(xmlDoc, ExportXML.rootNodeName);
@@ -126,9 +129,15 @@ public class SignatureImport {
 			for (int j = 0; j < classNodeList.getLength(); j++) {
 				Node node = classNodeList.item(j);
 				if ("interface".equals(node.getNodeName())) {
-					this.classes.add(loadInterface(node));
+					CtClass c = loadInterface(node);
+					if (this.filter.isAPIClass(c)) {
+						this.classes.add(c);
+					}
 				} else if ("class".equals(node.getNodeName())) {
-					this.classes.add(loadClass(node));
+					CtClass c = loadClass(node);
+					if (this.filter.isAPIClass(c)) {
+						this.classes.add(c);
+					}
 				} else if (node.hasChildNodes()) {
 					throw new ConfigException("Invalid XML node " + node.getNodeName());
 				}
@@ -187,6 +196,9 @@ public class SignatureImport {
 			klass = classPool.get(classname);
 		} catch (NotFoundException e) {
 			throw new RuntimeException(classname + " class is missing");
+		}
+		if (!this.filter.isAPIClass(klass)) {
+			return;
 		}
 		updateConstructors(klass, node);
 	}
@@ -315,7 +327,14 @@ public class SignatureImport {
 		Node[] list = ConfigFileUtil.getChildNodes(node, "constructor");
 		boolean defaultConstructorLoaded = false;
 		for (int i = 0; i < list.length; i++) {
+			int modifiers = getModifiers(list[i]);
 			CtClass[] parameters = getParameters(list[i]);
+			if (parameters.length != 0) {
+				if (!this.filter.isAPIModifier(modifiers)) {
+					continue;
+				}
+			}
+
 			CtConstructor c;
 			try {
 				c = klass.getDeclaredConstructor(parameters);
@@ -329,7 +348,7 @@ public class SignatureImport {
 				}
 			}
 			loadExceptions(c, list[i]);
-			setModifiers(c, list[i]);
+			c.setModifiers(modifiers);
 			if (parameters.length == 0) {
 				defaultConstructorLoaded = true;
 			}
@@ -362,8 +381,8 @@ public class SignatureImport {
 		}
 	}
 
-	private void setModifiers(CtBehavior m, Node node) {
-		m.setModifiers(decodeModifiers(ConfigFileUtil.getNodeAttribute(node, "modifiers")));
+	private int getModifiers(Node node) {
+		return decodeModifiers(ConfigFileUtil.getNodeAttribute(node, "modifiers"));
 	}
 
 	private int decodeModifiers(String modifiers) {
@@ -429,11 +448,15 @@ public class SignatureImport {
 	private void loadMethods(CtClass klass, Node node) {
 		Node[] list = ConfigFileUtil.getChildNodes(node, "method");
 		for (int i = 0; i < list.length; i++) {
+			int modifiers = getModifiers(list[i]);
+			if (!this.filter.isAPIModifier(modifiers)) {
+				continue;
+			}
 			String mname = ConfigFileUtil.getNodeAttribute(list[i], "name");
 			CtClass[] parameters = getParameters(list[i]);
 			CtClass returnType = createInterface(ConfigFileUtil.getNodeAttribute(list[i], "return"));
 			CtMethod method = new CtMethod(returnType, mname, parameters, klass);
-			setModifiers(method, list[i]);
+			method.setModifiers(modifiers);
 			try {
 				if ((!klass.isInterface()) && (!Modifier.isAbstract(method.getModifiers()))) {
 					method.setBody(MakeEmptyMethodInstrumentor.emptyBody(returnType));
@@ -449,12 +472,16 @@ public class SignatureImport {
 	private void loadFields(CtClass klass, Node node) {
 		Node[] list = ConfigFileUtil.getChildNodes(node, "field");
 		for (int i = 0; i < list.length; i++) {
+			int modifiers = getModifiers(list[i]);
+			if (!this.filter.isAPIModifier(modifiers)) {
+				continue;
+			}
 			String fname = ConfigFileUtil.getNodeAttribute(list[i], "name");
 			CtClass fieldType = createInterface(ConfigFileUtil.getNodeAttribute(list[i], "type"));
 			CtField field;
 			try {
 				field = new CtField(fieldType, fname, klass);
-				field.setModifiers(decodeModifiers(ConfigFileUtil.getNodeAttribute(list[i], "modifiers")));
+				field.setModifiers(modifiers);
 				CtField.Initializer initializer = null;
 				String constValue = ConfigFileUtil.getNodeAttribute(list[i], "constant-value");
 				if (constValue != null) {
@@ -478,21 +505,6 @@ public class SignatureImport {
 			return CtField.Initializer.constant(Double.valueOf(constValue).doubleValue());
 		} else if (fieldType == CtClass.booleanType) {
 			return CtField.Initializer.constant(Boolean.valueOf(constValue).booleanValue());
-			/*
-			 * } else if (fieldType == CtClass.byteType) { log.warn(name + "
-			 * byte FieldInitializer Not implemented"); // throw new
-			 * RuntimeException(name + " byte FieldInitializer Not //
-			 * implemented"); fieldInitializerHack.put(name, constValue); return
-			 * null; } else if (fieldType == CtClass.charType) { log.warn(name + "
-			 * char FieldInitializer Not implemented"); // throw new
-			 * RuntimeException(name + " char FieldInitializer Not //
-			 * implemented"); fieldInitializerHack.put(name, constValue); return
-			 * null; } else if (fieldType == CtClass.shortType) { log.warn(name + "
-			 * short FieldInitializer Not implemented"); // throw new
-			 * RuntimeException(name + " short FieldInitializer Not //
-			 * implemented"); fieldInitializerHack.put(name, constValue); return
-			 * null;
-			 */
 		} else {
 			return CtField.Initializer.constant(Integer.valueOf(constValue).intValue());
 		}

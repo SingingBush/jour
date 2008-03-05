@@ -20,6 +20,10 @@
  */
 package net.sf.jour.signature;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
+
 import javassist.CtClass;
 import javassist.CtMember;
 import javassist.Modifier;
@@ -40,9 +44,11 @@ public class APIFilter {
 
 	public static final int PRIVATE = 4;
 
+	public static final APIFilter ALL = new APIFilter(PRIVATE);
+
 	private int level;
 
-	private String packages;
+	private Set packageSet;
 
 	public APIFilter(int level) throws IllegalArgumentException {
 		this.level = level;
@@ -57,7 +63,17 @@ public class APIFilter {
 
 	public APIFilter(String level, String packages) throws IllegalArgumentException {
 		this.level = getAPILevel(level);
-		this.packages = packages;
+		packageSet = new HashSet();
+		if (packages != null) {
+			StringTokenizer st = new StringTokenizer(packages, ";");
+			if (st.hasMoreTokens()) {
+				while (st.hasMoreTokens()) {
+					packageSet.add(st.nextToken());
+				}
+			} else {
+				packageSet.add(packages);
+			}
+		}
 	}
 
 	public static int getAPILevel(String level) throws IllegalArgumentException {
@@ -89,8 +105,30 @@ public class APIFilter {
 		return true;
 	}
 
+	public boolean isSelectedPackage(String className) {
+		if (packageSet == null) {
+			return true;
+		}
+		StringBuffer packageName = new StringBuffer();
+		StringTokenizer st = new StringTokenizer(className, ".");
+		while (st.hasMoreTokens()) {
+			if (packageName.length() > 0) {
+				packageName.append(".");
+			}
+			packageName.append(st.nextToken());
+			if (packageSet.contains(packageName.toString())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public boolean isAPIClass(CtClass klass) {
-		return isAPIModifier(klass.getModifiers());
+		if (!isAPIModifier(klass.getModifiers())) {
+			return false;
+		} else {
+			return isSelectedPackage(klass.getName());
+		}
 	}
 
 	public boolean isAPIMember(CtMember member) {

@@ -42,4 +42,20 @@ public class APICompareConfig {
 	public String packages;
 
 	public int apiLevel = APIFilter.PROTECTED;
+
+	public void setCompareLevelPublic() {
+		apiLevel = APIFilter.PUBLIC;
+	}
+
+	public void setCompareLevelProtected() {
+		apiLevel = APIFilter.PROTECTED;
+	}
+
+	public void setCompareLevelPackage() {
+		apiLevel = APIFilter.PACKAGE;
+	}
+
+	public void setCompareLevelPrivate() {
+		apiLevel = APIFilter.PRIVATE;
+	}
 }
