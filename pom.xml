@@ -94,20 +94,6 @@
         <!--module>jour-runtime</module-->
     </modules>
 
-<!-- tmp for javassist 3.7.ga-->
-    <repositories>
-        <repository>
-            <id>pyx4j-internal</id>
-            <url>http://pyx4j.com/internal/maven2-internal</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
     <dependencyManagement>
         <dependencies>
 
