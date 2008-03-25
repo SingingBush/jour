@@ -8,7 +8,7 @@
 
     <groupId>net.sf.jour</groupId>
     <artifactId>jour</artifactId>
-    <version>2.0.2-SNAPSHOT</version><!--jour-version-->
+    <version>2.0.2</version><!--jour-version-->
     <name>jour</name>
     <url>http://jour.sourceforge.net/</url>
     <packaging>pom</packaging>
