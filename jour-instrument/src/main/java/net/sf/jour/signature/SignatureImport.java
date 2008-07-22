@@ -61,6 +61,9 @@ public class SignatureImport {
 
 	protected static final Logger log = Logger.getLogger();
 
+	// Since Javassist 3.8
+	static final boolean editableObject = true;
+
 	static final String OBJECT_CLASS_NAME = "java.lang.Object";
 
 	private ClassPool classPool;
@@ -197,7 +200,7 @@ public class SignatureImport {
 
 	private void updateClass(Node node) {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
-		if (OBJECT_CLASS_NAME.equals(classname)) {
+		if (!editableObject && OBJECT_CLASS_NAME.equals(classname)) {
 			return;
 		}
 		CtClass klass;
@@ -217,7 +220,7 @@ public class SignatureImport {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
 		String superclassName = ConfigFileUtil.getNodeAttribute(node, "extends");
 
-		if (OBJECT_CLASS_NAME.equals(classname)) {
+		if (!editableObject && OBJECT_CLASS_NAME.equals(classname)) {
 			return createEmptyObjectClass();
 		}
 
@@ -554,5 +557,4 @@ public class SignatureImport {
 			return CtField.Initializer.constant(Integer.valueOf(constValue).intValue());
 		}
 	}
-
 }

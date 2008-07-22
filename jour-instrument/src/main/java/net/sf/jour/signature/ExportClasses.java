@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javassist.CannotCompileException;
 import javassist.CtClass;
@@ -51,6 +52,12 @@ public class ExportClasses {
 		javaVersion.put("1.4", new int[] { 48, 0 });
 		javaVersion.put("1.5", new int[] { 49, 0 });
 		javaVersion.put("1.6", new int[] { 50, 0 });
+	}
+
+	public static int export(String directoryName, CtClass klass, String classVersion) {
+		List classes = new Vector();
+		classes.add(klass);
+		return export(directoryName, classes, classVersion);
 	}
 
 	public static int export(String directoryName, List classes, String classVersion) {

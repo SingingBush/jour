@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @version $Id$ -->
+<signature>
+	<class modifiers="public" name="java.lang.Object">
+		<constructor modifiers="public" />
+		<method modifiers="public final" name="getClass"
+			return="java.lang.Class" />
+		<method modifiers="public" name="hashCode" return="int" />
+		<method modifiers="public" name="equals" return="boolean">
+			<parameter type="java.lang.Object" />
+		</method>
+		<method modifiers="public" name="toString"
+			return="java.lang.String" />
+		<method modifiers="public final" name="notify" return="void" />
+		<method modifiers="public final" name="notifyAll" return="void" />
+		<method modifiers="public final" name="wait" return="void">
+			<exception name="java.lang.InterruptedException" />
+			<parameter type="long" />
+		</method>
+		<method modifiers="public final" name="wait" return="void">
+			<exception name="java.lang.InterruptedException" />
+			<parameter type="long" />
+			<parameter type="int" />
+		</method>
+		<method modifiers="public final" name="wait" return="void">
+			<exception name="java.lang.InterruptedException" />
+		</method>
+	</class>
+</signature>
