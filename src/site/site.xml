@@ -20,12 +20,14 @@
     <body>
 
         <!--4release-->
+        <!--
         <menu name="Ver #version#" inherit="top"/>
+        -->
 
         <!--4snapshot -->
-        <!-- menu name="Ver #build#" inherit="top">
-            <item name="Release 2.0.1" href="http://#remove#jour.sourceforge.net/"/>
-        </menu -->
+        <menu name="Ver #build#" inherit="top">
+            <item name="Release 2.0.2" href="http://#remove#jour.sourceforge.net/"/>
+        </menu>
 
         <menu name="Jour Overview">
             <item name="Introduction" href="index.html" />
@@ -41,7 +43,9 @@
             </item>
 
             <!--4release-->
-            <item name="Preview 2.0.3" href="http://snapshot-jour.pyx4j.com/"/>
+            <!--
+            <item name="Preview 2.0.4" href="http://snapshot-jour.pyx4j.com/"/>
+            -->
 
         </menu>
 
