@@ -61,8 +61,12 @@ public class SignatureImport {
 
 	protected static final Logger log = Logger.getLogger();
 
+	static final boolean createableObject = false;
+
 	// Since Javassist 3.8
 	static final boolean editableObject = true;
+
+	static final boolean editableObjectConstructor = false;
 
 	static final String OBJECT_CLASS_NAME = "java.lang.Object";
 
@@ -212,7 +216,11 @@ public class SignatureImport {
 		if (!this.filter.isAPIClass(klass)) {
 			return;
 		}
-		updateConstructors(klass, node);
+		if (!editableObjectConstructor && OBJECT_CLASS_NAME.equals(classname)) {
+			// /
+		} else {
+			updateConstructors(klass, node);
+		}
 		updateMethods(klass, node);
 	}
 
@@ -220,7 +228,7 @@ public class SignatureImport {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
 		String superclassName = ConfigFileUtil.getNodeAttribute(node, "extends");
 
-		if (!editableObject && OBJECT_CLASS_NAME.equals(classname)) {
+		if (!createableObject && OBJECT_CLASS_NAME.equals(classname)) {
 			return createEmptyObjectClass();
 		}
 

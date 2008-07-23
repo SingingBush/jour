@@ -20,6 +20,7 @@
  */
 package net.sf.jour.signature;
 
+import javassist.CtClass;
 import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
 
@@ -40,6 +41,9 @@ public class GeneratorObjectTest extends TestCase {
 			im.load("/net/sf/jour/signature/" + signatureFileName, null);
 
 			assertEquals("imported classes", 1, im.getClassNames().size());
+
+			CtClass objectClass = (CtClass) im.getClasses().get(0);
+			assertNull("Sper must be NULL", objectClass.getSuperclass());
 
 			ExportClasses.export(classpathTempDirectory, im.getClasses(), "1.1");
 
