@@ -35,7 +35,7 @@
 
     <ciManagement>
         <system>Cruisecontrol</system>
-        <url>https://pyx4j.com/cruisecontrol/</url>
+        <url>http://pyx4j.com/dashboard/tab/builds/</url>
     </ciManagement>
 
     <scm>
@@ -52,11 +52,11 @@
         </site>
         <repository>
             <id>pyx4j.com-file-release</id>
-            <url>file:///home/apache/pyx4j/maven2-release</url>
+            <url>file:///home/apache/pyx4j-repository/maven2-release</url>
         </repository>
         <snapshotRepository>
             <id>pyx4j.com-file-development</id>
-            <url>file:///home/apache/pyx4j/maven2</url>
+            <url>file:///home/apache/pyx4j-repository/maven2-snapshot</url>
         </snapshotRepository>
     </distributionManagement>
 
