@@ -181,6 +181,8 @@ public class SignatureImport {
 		CtClass klass = createInterface(node);
 		int mod = decodeModifiers(ConfigFileUtil.getNodeAttribute(node, "modifiers"));
 		mod |= Modifier.INTERFACE | Modifier.ABSTRACT;
+		// Inner interface class is static by default
+		mod = mod & ~Modifier.STATIC;
 		klass.setModifiers(mod);
 
 		loadHierarchy(klass, node);

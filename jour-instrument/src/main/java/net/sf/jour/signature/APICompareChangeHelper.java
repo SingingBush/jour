@@ -23,6 +23,7 @@
  */
 package net.sf.jour.signature;
 
+import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.Vector;
 
@@ -34,6 +35,27 @@ class APICompareChangeHelper {
 
 	List changes;
 
+	static class ModifiersValue {
+	    
+	    private final int modifiers;
+	    
+	    public ModifiersValue(int modifiers) {
+	        this.modifiers = modifiers;
+	    }
+	    
+	    public boolean equals(Object obj) {
+            if (obj instanceof ModifiersValue) {
+                return modifiers == ((ModifiersValue) obj).modifiers;
+            } else {
+                return false;
+            }
+        }
+	    
+	    public String toString() {
+	        return Modifier.toString(modifiers) + " (" + modifiers + ")";
+	    }
+	}
+	
 	APICompareChangeHelper() {
 		changes = new Vector();
 	}
