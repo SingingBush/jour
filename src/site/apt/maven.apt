@@ -12,12 +12,12 @@ Building project using maven
 
 * Development snapshot
 
-    The latest snapshot builds can be downloaded from the {{{http://www.pyx4j.com/maven2-snapshot/}http://www.pyx4j.com/maven2-snapshot}} pyx4j.com maven 2 snapshot repository.
+    The latest snapshot builds can be downloaded from the {{{http://repository.pyx4j.com/maven2-snapshot/}http://repository.pyx4j.com/maven2-snapshot}} pyx4j.com maven 2 snapshot repository.
 
 ---
         <repository>
             <id>pyx4j-web-snapshot</id>
-            <url>http://www.pyx4j.com/maven2-snapshot</url>
+            <url>http://repository.pyx4j.com/maven2-snapshot</url>
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
