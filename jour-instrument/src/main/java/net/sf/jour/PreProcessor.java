@@ -124,7 +124,7 @@ public class PreProcessor {
 		if (out == null) {
 			out = in;
 		}
-		String copy = properties.getProperty("config");
+		String copy = properties.getProperty("copy");
 		if ("all".equalsIgnoreCase(copy)) {
 			setCopyClasses(true);
 			setCopyResources(true);
