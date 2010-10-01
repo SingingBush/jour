@@ -94,26 +94,13 @@
         <!--module>jour-runtime</module-->
     </modules>
 
-    <repositories>
-        <repository>
-            <id>jboss-repository</id>
-            <url>http://repository.jboss.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
-    
     <dependencyManagement>
         <dependencies>
 
         <dependency>
-            <groupId>javassist</groupId>
+            <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.9.0.GA</version>
+            <version>3.13.0-GA</version>
         </dependency>
 
         <dependency>
