@@ -43,9 +43,8 @@ import com.pyx4j.log4j.MavenLogAppender;
  * @author vlads
  * 
  * @goal generate
- * 
  * @phase compile
- * 
+ * @requiresDependencyResolution test
  * @description Export API descriptor XML to classes
  */
 public class GenerateMojo extends AbstractMojo {
@@ -113,6 +112,13 @@ public class GenerateMojo extends AbstractMojo {
 	private String stubExceptionMessage;
 
 	/**
+	 * Dependency artifacts scope: "compile", test", "runtime" or "system";
+	 * 
+	 * @parameter expression="compile" 
+	 */
+	private String scope;
+	
+	/**
 	 * The Maven project reference where the plugin is currently being executed.
 	 * Used for dependency resolution during compilation. The default value is
 	 * populated from maven.
@@ -136,19 +142,29 @@ public class GenerateMojo extends AbstractMojo {
 
 		StringBuffer supportingJars = new StringBuffer();
 
-		List dependancy = this.mavenProject.getTestArtifacts();
+		List dependancy;
+		if (Artifact.SCOPE_COMPILE.equals(scope)) {
+		    dependancy = this.mavenProject.getCompileArtifacts();
+		} else if (Artifact.SCOPE_TEST.equals(scope)) {
+		    dependancy = this.mavenProject.getTestArtifacts();
+		} else if (Artifact.SCOPE_RUNTIME.equals(scope)) {
+            dependancy = this.mavenProject.getRuntimeArtifacts();
+		} else if (Artifact.SCOPE_SYSTEM.equals(scope)) {
+            dependancy = this.mavenProject.getSystemArtifacts();
+		} else {
+            throw new MojoExecutionException("Unsupported scope " + scope);
+        }
 		for (Iterator i = dependancy.iterator(); i.hasNext();) {
 			Artifact artifact = (Artifact) i.next();
 			File file = InstrumentationMojo.getClasspathElement(artifact, mavenProject);
 			log.debug("dependancy:" + file.toString());
-			if (supportingJars.length() < 0) {
+			if (supportingJars.length() > 0) {
 				supportingJars.append(File.pathSeparatorChar);
 			}
 			supportingJars.append(file.toString());
 		}
 
-		SignatureImport im = new SignatureImport(useSystemClassPath, (supportingJars.length() > 0) ? supportingJars
-				.toString() : null);
+		SignatureImport im = new SignatureImport(useSystemClassPath, (supportingJars.length() > 0) ? supportingJars.toString() : null);
 
 		im.setStubException(stubException);
 		im.setStubExceptionMessage(stubExceptionMessage);

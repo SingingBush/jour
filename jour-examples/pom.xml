@@ -52,7 +52,7 @@
             <plugin>
                 <groupId>net.sf.jour</groupId>
                 <artifactId>jour-maven-plugin</artifactId>
-                <version>${version}</version>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <phase>process-classes</phase>
