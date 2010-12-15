@@ -99,6 +99,18 @@ public class ChangesTest extends TestCase {
 		verify("constantValue.xml", 2);
 	}
 
+	public void testMemberWithModifiers() {
+	    verify("modifiers/memberWithModifiers.xml", 0);
+	}
+	
+	public void testMemberWithModifiersTransientMissing() {
+        verify("modifiers/memberWithModifiers-transient.xml", 1);
+    }
+	
+	public void testMemberWithModifiersVolatileMissing() {
+        verify("modifiers/memberWithModifiers-volatile.xml", 1);
+    }
+	
 	public void testPackageAPIextension() {
 		APICompareConfig config = new APICompareConfig();
 		config.apiLevel = APIFilter.PROTECTED;

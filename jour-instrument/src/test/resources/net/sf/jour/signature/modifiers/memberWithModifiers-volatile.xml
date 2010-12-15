@@ -1,0 +1,8 @@
+<!-- @version $Id$ -->
+<signature>
+  <class modifiers="public" name="uut.signature.modifiers.HasMemberWithModifiers">
+    <constructor modifiers="public"/>
+    <field modifiers="public transient" name="data" type="short"/>
+    <field modifiers="public static" name="flag" type="int"/>
+  </class>
+</signature>

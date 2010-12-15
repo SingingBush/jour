@@ -471,7 +471,7 @@ public class SignatureImport {
 		} else if (modifier.equalsIgnoreCase("final")) {
 			return Modifier.FINAL;
 		} else if (modifier.equalsIgnoreCase("volatile")) {
-			return Modifier.TRANSIENT;
+			return Modifier.VOLATILE;
 		} else if (modifier.equalsIgnoreCase("synchronized")) {
 			return Modifier.SYNCHRONIZED;
 		} else if (modifier.equalsIgnoreCase("native")) {
@@ -480,6 +480,8 @@ public class SignatureImport {
 			return Modifier.INTERFACE;
 		} else if (modifier.equalsIgnoreCase("strictfp")) {
 			return Modifier.STRICT;
+		} else if (modifier.equalsIgnoreCase("transient")) {
+            return Modifier.TRANSIENT;
 		} else {
 			throw new RuntimeException("Invalid modifier [" + modifier + "]");
 		}
