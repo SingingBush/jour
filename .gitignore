@@ -1,0 +1,14 @@
+.DS_Store
+
+# Ignore maven build output
+target/
+
+# Ignore all VS Code (Java Plugin) files
+.classpath
+.project
+.settings/
+.vscode/
+
+# Ignore Intellij IDE specific files
+.idea/
+*.iml
