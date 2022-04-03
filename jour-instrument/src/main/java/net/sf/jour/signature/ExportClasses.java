@@ -17,9 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
- * 
+ *
  * @version $Id$
- * 
+ *
  */
 package net.sf.jour.signature;
 
@@ -38,11 +38,11 @@ import net.sf.jour.util.FileUtil;
 
 /**
  * @author vlads
- * 
+ *
  */
 public class ExportClasses {
 
-	static final Map javaVersion = new HashMap();
+	static final Map<String, int[]> javaVersion = new HashMap<>();
 
 	static {
 		javaVersion.put("1.0", new int[] { 45, 3 });
@@ -63,7 +63,7 @@ public class ExportClasses {
 		javaVersion.put("15", new int[] { 59, 0 }); // Java 15 uses major version 59
 		javaVersion.put("16", new int[] { 60, 0 }); // Java 16 uses major version 60
 		javaVersion.put("17", new int[] { 61, 0 }); // Java 17 uses major version 61
-		javaVersion.put("17", new int[] { 62, 0 }); // Java 18 uses major version 62
+		javaVersion.put("18", new int[] { 62, 0 }); // Java 18 uses major version 62
 	}
 
 	public static int export(String directoryName, CtClass klass, String classVersion) {

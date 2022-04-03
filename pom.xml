@@ -131,8 +131,8 @@
 
     <properties>
         <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <buildLabel>${project.version}</buildLabel>
     </properties>
 
@@ -294,7 +294,7 @@
                 <configuration>
                     <linkXref>true</linkXref>
                     <minimumTokens>100</minimumTokens>
-                    <targetJdk>1.7</targetJdk>
+                    <targetJdk>1.8</targetJdk>
                 </configuration>
             </plugin>
             <plugin>
