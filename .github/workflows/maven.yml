@@ -1,0 +1,24 @@
+name: Maven
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: Test with Java ${{ matrix.jdk }}
+    #runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        jdk: ['7', '8', '11', '17', '18']
+        #os: [ubuntu-latest, windows-latest, macOS-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK ${{ matrix.jdk }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+
+      - name: Maven Verify
+        run: mvn verify
