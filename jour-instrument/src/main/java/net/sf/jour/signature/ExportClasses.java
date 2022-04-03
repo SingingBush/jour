@@ -42,7 +42,7 @@ import net.sf.jour.util.FileUtil;
  */
 public class ExportClasses {
 
-	static final Map javaVersion = new HashMap();
+	static final Map<String, int[]> javaVersion = new HashMap<>();
 
 	static {
 		javaVersion.put("1.0", new int[] { 45, 3 });
@@ -52,6 +52,18 @@ public class ExportClasses {
 		javaVersion.put("1.4", new int[] { 48, 0 });
 		javaVersion.put("1.5", new int[] { 49, 0 });
 		javaVersion.put("1.6", new int[] { 50, 0 });
+		javaVersion.put("1.7", new int[] { 51, 0 });
+		javaVersion.put("1.8", new int[] { 52, 0 }); // minimum supported version
+		javaVersion.put("9", new int[] { 53, 0 });
+		javaVersion.put("10", new int[] { 54, 0 });
+		javaVersion.put("11", new int[] { 55, 0 }); // Java 12 uses major version 56
+		javaVersion.put("12", new int[] { 56, 0 }); // Java 12 uses major version 56
+		javaVersion.put("13", new int[] { 57, 0 }); // Java 13 uses major version 57
+		javaVersion.put("14", new int[] { 58, 0 }); // Java 14 uses major version 58
+		javaVersion.put("15", new int[] { 59, 0 }); // Java 15 uses major version 59
+		javaVersion.put("16", new int[] { 60, 0 }); // Java 16 uses major version 60
+		javaVersion.put("17", new int[] { 61, 0 }); // Java 17 uses major version 61
+		javaVersion.put("18", new int[] { 62, 0 }); // Java 18 uses major version 62
 	}
 
 	public static int export(String directoryName, CtClass klass, String classVersion) {

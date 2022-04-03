@@ -34,11 +34,15 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import com.pyx4j.log4j.MavenLogAppender;
 
-/**
+/*
  * The jour:signatureVerify will compare API descriptor and API classes.
  * 
  * @author vlads
@@ -51,22 +55,21 @@ import com.pyx4j.log4j.MavenLogAppender;
  * 
  * @description Verification of compatibility between Java APIs
  */
+@Mojo(name = "signatureVerify",
+		defaultPhase = LifecyclePhase.TEST,
+		requiresDependencyResolution = ResolutionScope.COMPILE)
 public class SignatureVerifyMojo extends AbstractMojo {
 
 	/**
 	 * The API descriptor XML.
-	 * 
-	 * @parameter
-	 * @required
 	 */
+	@Parameter(name = "signature", readonly = true)
 	private File signature;
 
 	/**
 	 * The directory or jar containing API classes.
-	 * 
-	 * @parameter expression="${project.build.outputDirectory}"
-	 * @required
 	 */
+	@Parameter(name = "classes", defaultValue = "${project.build.outputDirectory}", readonly = true)
 	private File classes;
 
 	/**
@@ -74,32 +77,27 @@ public class SignatureVerifyMojo extends AbstractMojo {
 	 * search path usually includes the platform library, extension libraries,
 	 * and the search path specified by the <code>-classpath</code> option or
 	 * the <code>CLASSPATH</code> environment variable.
-	 * 
-	 * @parameter expression="true"
 	 */
+	@Parameter(name = "useSystemClassPath", property = "true", defaultValue = "true")
 	private boolean useSystemClassPath;
 
 	/**
 	 * Generate error if new API member with access level public or protected
 	 * has been added to class.
-	 * 
-	 * @parameter expression="true"
 	 */
+	@Parameter(name = "allowAPIextension", property = "true", defaultValue = "true")
 	private boolean allowAPIextension;
 
 	/**
-	 * Generate error if new API member throw less exception than declared in
-	 * API
-	 * 
-	 * @parameter expression="true"
+	 * Generate error if new API member throw less exception than declared in API
 	 */
+	@Parameter(name = "allowThrowsLess", property = "true", defaultValue = "true")
 	private boolean allowThrowsLess;
 
 	/**
 	 * Compare API level public|[protected]|package|private
-	 * 
-	 * @parameter expression="protected"
 	 */
+	@Parameter(name = "level", property = "protected", defaultValue = "protected")
 	private String level;
 
 	/**
@@ -107,21 +105,20 @@ public class SignatureVerifyMojo extends AbstractMojo {
 	 * 
 	 * @parameter
 	 */
+	@Parameter
 	private String packages;
 
 	/**
 	 * The Maven project reference where the plugin is currently being executed.
 	 * Used for dependency resolution during compilation. The default value is
 	 * populated from maven.
-	 * 
-	 * @parameter expression="${project}"
-	 * @readonly
-	 * @required
 	 */
+	@Parameter(defaultValue = "${project}", required = true, readonly = true)
 	protected MavenProject mavenProject;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		Log log = getLog();
+		final Log log = getLog();
+
 		MavenLogAppender.startPluginLog(this);
 		log.info("use signature: " + signature);
 
@@ -133,13 +130,15 @@ public class SignatureVerifyMojo extends AbstractMojo {
 		config.packages = packages;
 		config.apiLevel = APIFilter.getAPILevel(level);
 
-		StringBuffer supportingJars = new StringBuffer();
+		final StringBuffer supportingJars = new StringBuffer();
 
-		List dependancy = this.mavenProject.getTestArtifacts();
-		for (Iterator i = dependancy.iterator(); i.hasNext();) {
-			Artifact artifact = (Artifact) i.next();
-			File file = InstrumentationMojo.getClasspathElement(artifact, mavenProject);
+		final List dependancy = this.mavenProject.getTestArtifacts();
+		for (final Iterator i = dependancy.iterator(); i.hasNext();) {
+			final Artifact artifact = (Artifact) i.next();
+			final File file = InstrumentationMojo.getClasspathElement(artifact, mavenProject);
+
 			log.debug("dependancy:" + file.toString());
+
 			if (supportingJars.length() < 0) {
 				supportingJars.append(File.pathSeparatorChar);
 			}

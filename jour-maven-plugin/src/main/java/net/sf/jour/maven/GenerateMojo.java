@@ -33,11 +33,15 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import com.pyx4j.log4j.MavenLogAppender;
 
-/**
+/*
  * The jour:generate will create API stub classes.
  * 
  * @author vlads
@@ -47,22 +51,21 @@ import com.pyx4j.log4j.MavenLogAppender;
  * @requiresDependencyResolution test
  * @description Export API descriptor XML to classes
  */
+@Mojo(name = "generate",
+		defaultPhase = LifecyclePhase.COMPILE,
+		requiresDependencyResolution = ResolutionScope.TEST)
 public class GenerateMojo extends AbstractMojo {
 
 	/**
 	 * The directory containing project classes.
-	 * 
-	 * @parameter expression="${project.build.outputDirectory}"
-	 * @required
 	 */
+	@Parameter(name = "output", defaultValue = "${project.build.outputDirectory}", readonly = true)
 	private File output;
 
 	/**
 	 * The API descriptor XML.
-	 * 
-	 * @parameter
-	 * @required
 	 */
+	@Parameter(name = "signature", readonly = true)
 	private File signature;
 
 	/**
@@ -70,63 +73,55 @@ public class GenerateMojo extends AbstractMojo {
 	 * search path usually includes the platform library, extension libraries,
 	 * and the search path specified by the <code>-classpath</code> option or
 	 * the <code>CLASSPATH</code> environment variable.
-	 * 
-	 * @parameter expression="false"
 	 */
+	@Parameter(name = "useSystemClassPath", property = "false", defaultValue = "false")
 	private boolean useSystemClassPath;
 
 	/**
-	 * Java platform version for created classes. e.g. 1.1, 1.3, 1.4, 1.5 or 1.6
-	 * 
-	 * @parameter
+	 * Java platform version for created classes. e.g. 1.1, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8
 	 */
+	@Parameter(name = "classVersion")
 	private String classVersion;
 
 	/**
 	 * Export API level public|[protected]|package|private
 	 * 
-	 * @parameter expression="protected"
+	 * @parameter property="protected"
 	 */
+	@Parameter(name = "level", property = "protected", defaultValue = "protected")
 	private String level;
 
 	/**
 	 * Export Only selected packages
-	 * 
-	 * @parameter
 	 */
+	@Parameter(name = "packages")
 	private String packages;
 
 	/**
 	 * API stub empty method/constructor body code may just throw Exception
 	 * class name can be selected.
-	 * 
-	 * @parameter
 	 */
+	@Parameter(name = "stubException")
 	private String stubException;
 
 	/**
 	 * Exception class constructor String argument
-	 * 
-	 * @parameter
 	 */
+	@Parameter(name = "stubExceptionMessage")
 	private String stubExceptionMessage;
 
 	/**
 	 * Dependency artifacts scope: "compile", test", "runtime" or "system";
-	 * 
-	 * @parameter expression="compile" 
 	 */
+	@Parameter(name = "scope", property = "compile", defaultValue = "compile")
 	private String scope;
 	
 	/**
 	 * The Maven project reference where the plugin is currently being executed.
 	 * Used for dependency resolution during compilation. The default value is
 	 * populated from maven.
-	 * 
-	 * @parameter expression="${project}"
-	 * @readonly
-	 * @required
 	 */
+	@Parameter(defaultValue = "${project}", required = true, readonly = true)
 	protected MavenProject mavenProject;
 
 	/*
@@ -135,7 +130,7 @@ public class GenerateMojo extends AbstractMojo {
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		Log log = getLog();
+		final Log log = getLog();
 		MavenLogAppender.startPluginLog(this);
 		log.info("use signature: " + signature);
 		log.debug("packages: " + packages + " level:" + level);
@@ -154,7 +149,7 @@ public class GenerateMojo extends AbstractMojo {
 		} else {
             throw new MojoExecutionException("Unsupported scope " + scope);
         }
-		for (Iterator i = dependancy.iterator(); i.hasNext();) {
+		for (final Iterator i = dependancy.iterator(); i.hasNext();) {
 			Artifact artifact = (Artifact) i.next();
 			File file = InstrumentationMojo.getClasspathElement(artifact, mavenProject);
 			log.debug("dependancy:" + file.toString());
