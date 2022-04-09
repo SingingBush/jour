@@ -24,22 +24,24 @@ import java.io.File;
 
 import junit.framework.TestCase;
 import net.sf.jour.test.Utils;
+import org.junit.Test;
 
 /*
  * Created on Dec 2, 2004
- * 
+ *
  * Contributing Author(s):
- * 
+ *
  * Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital
  * implementation) Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital
  * implementation)
- * 
+ *
  * @author michaellif
- * 
+ *
  * @version $Revision$ ($Author$)
  */
 public class TestPreProcessor extends TestCase {
 
+    @Test
 	public void testPreProcessorDirectory() throws Exception {
 
 		File srcDir = new File(Utils.getClassResourcePath(this.getClass().getName()));
@@ -54,6 +56,7 @@ public class TestPreProcessor extends TestCase {
 		assertTrue("Nothing instrumented", pp.getCountMethods() > 0);
 	}
 
+    @Test
 	public void testPreProcessorJar() throws Exception {
 
 		File srcJar = new File(Utils.getResourceAbsolutePath("/jarPreProcessorTest.jar"));

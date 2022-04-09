@@ -17,9 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
- * 
+ *
  * @version $Id$
- * 
+ *
  */
 package net.sf.jour.signature;
 
@@ -27,10 +27,11 @@ import java.util.List;
 
 import junit.framework.TestCase;
 import net.sf.jour.test.Utils;
+import org.junit.Test;
 
 /**
  * @author vlads
- * 
+ *
  */
 public class ChangesTest extends TestCase {
 
@@ -51,66 +52,82 @@ public class ChangesTest extends TestCase {
 		assertEquals("Changes:\n" + message, ecpectedChanges, changes.size());
 	}
 
+    @Test
 	public void testNoChange() {
 		verify("base.xml", 0);
 	}
 
+    @Test
 	public void testHierarchyChange() {
 		verify("hierarchyChange.xml", 1);
 	}
 
+    @Test
 	public void testInterfaceChange() {
 		verify("interfaceChange.xml", 2);
 	}
 
+    @Test
 	public void testMethodMissing() {
 		verify("methodMissing.xml", 2);
 	}
 
+    @Test
 	public void testMethodExtra() {
 		verify("methodExtra.xml", 1);
 	}
 
+    @Test
 	public void testMethodSignature() {
 		verify("methodSignature.xml", 1);
 	}
 
+    @Test
 	public void testMethodSignatureReturn() {
 		verify("methodSignatureReturn.xml", 1);
 	}
 
+    @Test
 	public void testMethodSignatureModifiers() {
 		verify("methodSignatureModifiers.xml", 1);
 	}
 
+    @Test
 	public void testConstructorMissing() {
 		verify("constructorMissing.xml", 1);
 	}
 
+    @Test
 	public void testConstructorExtra() {
 		verify("constructorExtra.xml", 1);
 	}
 
+    @Test
 	public void testConstructorThrow() {
 		verify("constructorThrow.xml", 3);
 	}
 
+    @Test
 	public void testConstantValue() {
 		verify("constantValue.xml", 2);
 	}
 
+    @Test
 	public void testMemberWithModifiers() {
 	    verify("modifiers/memberWithModifiers.xml", 0);
 	}
-	
+
+    @Test
 	public void testMemberWithModifiersTransientMissing() {
         verify("modifiers/memberWithModifiers-transient.xml", 1);
     }
-	
+
+    @Test
 	public void testMemberWithModifiersVolatileMissing() {
         verify("modifiers/memberWithModifiers-volatile.xml", 1);
     }
-	
+
+    @Test
 	public void testPackageAPIextension() {
 		APICompareConfig config = new APICompareConfig();
 		config.apiLevel = APIFilter.PROTECTED;

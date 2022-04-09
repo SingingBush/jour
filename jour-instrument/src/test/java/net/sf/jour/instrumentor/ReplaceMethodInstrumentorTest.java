@@ -3,10 +3,12 @@ package net.sf.jour.instrumentor;
 import junit.framework.TestCase;
 import net.sf.jour.InstrumentingClassLoader;
 import net.sf.jour.test.Utils;
+import org.junit.Test;
 import uut.Monitor;
 
 public class ReplaceMethodInstrumentorTest extends TestCase {
 
+    @Test
 	public void testExceptionCatcher() throws Exception {
 
 		String testClassName = "uut.replaceMethod.Case";
@@ -16,7 +18,7 @@ public class ReplaceMethodInstrumentorTest extends TestCase {
 		InstrumentingClassLoader cl = new InstrumentingClassLoader("/replaceMethodInstrumentor.jour.xml", path, this.getClass().getClassLoader());
 
 		cl.delegateLoadingOf(Monitor.class.getName());
-		
+
 		Class caseClass = cl.loadClass(testClassName);
 
 		Runnable call = (Runnable)caseClass.newInstance();
@@ -25,7 +27,7 @@ public class ReplaceMethodInstrumentorTest extends TestCase {
 		Monitor.count = 0;
 
 		call.run();
-		
+
 		assertEquals("Monitor call count", 1, Monitor.count);
 		assertEquals("Monitor flag value", 1, Monitor.flag);
 	}

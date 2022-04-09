@@ -30,6 +30,7 @@ import java.util.Locale;
 import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
 import net.sf.jour.util.TimeUtil;
+import org.junit.Test;
 
 /**
  * TODO Add docs
@@ -44,20 +45,20 @@ import net.sf.jour.util.TimeUtil;
  * @version $Revision$ ($Author$)  $Date$
  */
 public class TimeFilterTest  extends TestCase {
-    
+
     protected static final Logger log = Logger.getLogger();
-    
+
     public static String date2text(Calendar c) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
         return dateFormat.format(c.getTime());
     }
-    
+
     public static String today() {
         Calendar now = new GregorianCalendar();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         return dateFormat.format(now.getTime());
     }
-    
+
     public static Date txt2date(String textDate) throws Exception {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
         try {
@@ -67,13 +68,13 @@ public class TimeFilterTest  extends TestCase {
             throw e;
         }
     }
-    
-	private void verify(String pattern, String text, boolean expect) throws Exception { 
+
+	private void verify(String pattern, String text, boolean expect) throws Exception {
 		log.debug("verify [" + pattern + "] [" + text + "]");
 		verify(pattern, txt2date(text).getTime(), expect);
 	}
-	
-	private void verify(String pattern, double time, boolean expect) throws Exception { 
+
+	private void verify(String pattern, double time, boolean expect) throws Exception {
 		TimeListFilter f = new TimeListFilter();
 		f.addPatterns(pattern);
 		if (TimeUtil.debug && log.isDebugEnabled()) {
@@ -83,11 +84,12 @@ public class TimeFilterTest  extends TestCase {
 		assertEquals(pattern + " for {" + TimeUtil.timeStamp2dateString(time) + "}", expect, f.match(time));
 	}
 
+    @Test
 	public void testCurentTime() throws Exception {
 	    Calendar now = new GregorianCalendar();
 	    double t1 = System.currentTimeMillis();
 	    now.add(Calendar.MINUTE, -2);
-	    StringBuffer ptr = new StringBuffer(); 
+	    StringBuffer ptr = new StringBuffer();
 	    ptr.append(date2text(now));
 	    ptr.append(" - ");
 	    now.add(Calendar.MINUTE, 2);
@@ -95,12 +97,12 @@ public class TimeFilterTest  extends TestCase {
 	    log.debug("NativeTime:" + TimeUtil.timeStamp2dateString(t1));
 	    verify(ptr.toString(), t1, true);
 	    now.add(Calendar.MINUTE, -1);
-	    
+
 	    now = new GregorianCalendar();
 	    t1 = System.currentTimeMillis();
 	    now.add(Calendar.SECOND, -2);
-	            
-	    ptr = new StringBuffer(); 
+
+	    ptr = new StringBuffer();
 	    ptr.append(date2text(now));
 	    ptr.append(" - ");
 	    now.add(Calendar.SECOND, +4);
@@ -108,19 +110,20 @@ public class TimeFilterTest  extends TestCase {
 	    log.debug("NativeTime:" + TimeUtil.timeStamp2dateString(t1));
 	    verify(ptr.toString(), t1, true);
 	}
-	
+
+    @Test
 	public void testTimePatterns() throws Exception {
 	    verify("00:00:00.000 - 24:00:00.000", System.currentTimeMillis(), true);
 	    verify("00:00:00 - 24:00:00", System.currentTimeMillis(), true);
 	    verify("00:00:00-01:00:00;01:00:00-24:00:00", System.currentTimeMillis(), true);
 	    verify("00:00:00-23:00:00;23:00:00-24:00:00", System.currentTimeMillis(), true);
-	    
+
 	    String today = today();
 	    verify("00:01:00 - 00:01:50", today + " 00:01:01", true);
 	    verify("00:01:00 - 00:01:50", today + " 00:01:51", false);
-	    
+
 	    verify("00:00:00.000 - 00:00:01.009", today + " 00:00:01", true);
-	    
+
 	    // One day
 	    //"MM-dd-yyyy",
 	    verify("12-08-2004", "2004-12-08 00:00:01", true);
@@ -128,9 +131,9 @@ public class TimeFilterTest  extends TestCase {
 	    verify("2004-12-08", "2004-12-08 23:59:59", true);
 		//"MM/dd/yyyy",
 	    verify("12/08/2004", "2004-12-08 05:00:01", true);
-	    
+
 	    verify("12-31-2004", "2004-12-08 00:00:01", false);
-	    
+
 	    verify("12-08-2004 00:00:00 - 12-08-2004 23:59:59", "2004-12-08 05:00:01", true);
 	}
 }

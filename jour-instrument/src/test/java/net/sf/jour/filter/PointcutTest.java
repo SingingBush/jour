@@ -28,6 +28,7 @@ import javassist.CtClass;
 import javassist.CtMethod;
 import junit.framework.TestCase;
 import net.sf.jour.test.Utils;
+import org.junit.Test;
 
 /**
  * Created on 03.12.2004
@@ -41,7 +42,7 @@ import net.sf.jour.test.Utils;
  * @version $Revision$ ($Author$) $Date$
  */
 public class PointcutTest extends TestCase {
-	
+
 	public void verifyMod(String patterns, int mod, boolean expect) {
 	    PointcutModifierListFiler pm = new PointcutModifierListFiler();
 	    pm.addPatterns(patterns);
@@ -50,7 +51,8 @@ public class PointcutTest extends TestCase {
 	    }
 	    assertEquals(patterns + " for:" + Modifier.toString(mod), expect, pm.match(mod));
 	}
-	
+
+    @Test
 	public void testPointcutModifierFilter() {
 	    verifyMod("", Modifier.SYNCHRONIZED, true);
 	    verifyMod("public", Modifier.PUBLIC, true);
@@ -60,32 +62,32 @@ public class PointcutTest extends TestCase {
 	    verifyMod("public;private", Modifier.PRIVATE, true);
 	    verifyMod("public;private", Modifier.PRIVATE | Modifier.STATIC, true);
 	    verifyMod("public;private", Modifier.SYNCHRONIZED | Modifier.STATIC, false);
-	    
+
 	    verifyMod("public;!private", Modifier.PRIVATE, false);
 	    verifyMod("!public;private", Modifier.PRIVATE, true);
 	    verifyMod("private", Modifier.PRIVATE | Modifier.STATIC, true);
 	    verifyMod("private;static", Modifier.PRIVATE | Modifier.STATIC, true);
-	    
+
 	    verifyMod("public,synchronized", Modifier.PUBLIC, false);
 	    verifyMod("public,synchronized", Modifier.SYNCHRONIZED, false);
 	    verifyMod("public,synchronized", Modifier.PUBLIC | Modifier.SYNCHRONIZED, true);
 	    verifyMod("public,synchronized", Modifier.PUBLIC | Modifier.SYNCHRONIZED | Modifier.STATIC, true);
 	    verifyMod("synchronized,!private", Modifier.SYNCHRONIZED | Modifier.PRIVATE, false);
-	    
+
 	    verifyMod("public,synchronized;!static", Modifier.PUBLIC | Modifier.SYNCHRONIZED, true);
 	    verifyMod("public,synchronized;!static", Modifier.PUBLIC, false);
 	    verifyMod("public,synchronized;!static", Modifier.PUBLIC | Modifier.SYNCHRONIZED | Modifier.STATIC, false);
-	    
+
 	    verifyMod("public,!final;static", Modifier.PUBLIC, true);
 	    verifyMod("public,!final;static", Modifier.STATIC, true);
 	    verifyMod("public,!final;static", Modifier.STATIC | Modifier.FINAL, true);
-	    
+
 	    verifyMod("public,static;final,synchronized", Modifier.PUBLIC | Modifier.FINAL, false);
 	    verifyMod("public,static;final,synchronized", Modifier.PUBLIC | Modifier.STATIC, true);
 	    verifyMod("public,static;final,synchronized", Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL, true);
 	    verifyMod("public,static;final,synchronized", Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL | Modifier.SYNCHRONIZED , true);
 	    verifyMod("public,static;final,synchronized", Modifier.PUBLIC | Modifier.SYNCHRONIZED , false);
-	    
+
 	    verifyMod("public,static;!final,synchronized", Modifier.PUBLIC | Modifier.FINAL, false);
 	    verifyMod("public,static;!final,synchronized", Modifier.PUBLIC | Modifier.STATIC, true);
 	    verifyMod("public,static;!final,synchronized", Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL, true);
@@ -95,34 +97,35 @@ public class PointcutTest extends TestCase {
 	    verifyMod("public,static;!final,synchronized", Modifier.FINAL | Modifier.SYNCHRONIZED, false);
 	    verifyMod("public,static;!final,synchronized", Modifier.SYNCHRONIZED, true);
 	}
-	
-	private void verify(String pattern, String methodName, boolean expect) { 
+
+	private void verify(String pattern, String methodName, boolean expect) {
 		Pointcut pc = new Pointcut(pattern);
 		assertEquals(pattern + " for:" + methodName, expect, pc.acceptMethod(methodName, new String[0], "int"));
 	}
-	
+
+    @Test
 	public void testPointcut() {
 		Pointcut pc = new Pointcut("* *(..)");
 		assertEquals("*", pc.getMethodName());
 		assertEquals("*", pc.getRetType());
 		assertTrue(pc.acceptMethod("bob", new String[0], "int"));
-		
+
 		verify("* *(..)", "bob", true);
 		verify("* !*(..)", "bob", false);
-		
+
 		verify("* bob*(..)", "bobY", true);
-		
+
 		verify("* bob(..)", "bob", true);
-		
+
 		verify("* !bob*(..)", "bobY", false);
-		
+
 		verify("* foo*(..)", "bob", false);
 
 	}
-	
+
 	private void verifyList(String patterns, String methodName, boolean expect) throws Exception {
 	    PointcutListFilter pointcuts = new PointcutListFilter();
-	    
+
 	    StringTokenizer tokenizer = new StringTokenizer(patterns, "|");
 		while (tokenizer.hasMoreTokens()) {
 			String str = tokenizer.nextToken().trim();
@@ -131,17 +134,18 @@ public class PointcutTest extends TestCase {
 	    ClassPool pool = Utils.getClassPool("uut.pointcut.PointcutCase");
 	    CtClass clazz = pool.get("uut.pointcut.PointcutCase");
 	    CtMethod method = clazz.getDeclaredMethod(methodName);
-	    
+
 	    assertEquals(patterns + " for:" + methodName, expect, pointcuts.match(method));
 	}
-	
+
+    @Test
 	public void testPointcutList() throws Exception {
 	    verifyList("* *(..)", "getFoo", true);
 	    verifyList("* *(..)|!* set*(..)", "getFoo", true);
 	    verifyList("* *(..)|!* get*(..)", "getFoo", false);
 	    verifyList("* *(..)|!* set*(..)", "doFoo", true);
 	}
-	
+
 	public void xtestPointcutRetType() throws Exception {
 	    // Test retType filter
 	    verifyList("int *(..)", "getint", true);
@@ -158,7 +162,8 @@ public class PointcutTest extends TestCase {
 	    verifyList("java.lang.String getStringArray()", "getStringArray", false);
 	    verifyList("java.lang.String[] getStringArray()", "getStringArray", true);
 	}
-	
+
+    @Test
 	public void testPointcutParamType() throws Exception {
 	    verifyList("* *(int)", "getint", false);
 	    verifyList("* *()", "getint", true);
@@ -173,24 +178,26 @@ public class PointcutTest extends TestCase {
 	    verifyList("* * ( java.* , java.* ) ", "doFoo", true);
 	    verifyList("* * ( .. ) ", "doFoo", true);
 	}
-	
+
+    @Test
 	public void testPointcutModifier() throws Exception {
 	    verifyList("public;!static;!final * *()", "getint", true);
 	    verifyList("!public;!static;!final * *()", "getint", false);
-	    
+
 	    verifyList("private * *()", "getintprivate", true);
 	    verifyList("!private * *()", "getintprivate", false);
-	    
+
 	    verifyList("!static,!final * *()", "getintprivate", false);
 	    verifyList("synchronized,private * *()", "getintprivatesyn", true);
 	    verifyList("synchronized,!private * *()", "getintprivatesyn", false);
 	    verifyList("synchronized,static,private * *()", "getintprivatesynstat", true);
 	    verifyList("synchronized;static;private * *()", "getintprivatesynstat", true);
 	    verifyList("synchronized;!static;private * *()", "getintprivatesynstat", false);
-	    
+
 	    verifyList("private * *(..)", "setint", false);
 	}
-	
+
+    @Test
 	public void testInterfacesImplements() throws Exception {
 	    verifyList("* uut.pointcut.PointcutCaseInterface->*(..)", "getFooBar", true);
 	    verifyList("* uut.pointcut.PointcutCaseInterface->get*(..)", "getFooBar", true);
@@ -198,6 +205,7 @@ public class PointcutTest extends TestCase {
 	    verifyList("* uut.pointcut.PointcutCaseInterface->get*(..)", "getFoo", false);
 	}
 
+    @Test
 	public void testClassAsFilter() throws Exception {
 	    verifyList("* uut.pointcut.PointcutCaseClassAsFilter=>*(..)", "getBar", true);
 	    verifyList("* uut.pointcut.PointcutCaseClassAsFilter=>get*(..)", "getBarList", false);

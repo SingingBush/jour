@@ -6,11 +6,13 @@ import java.util.Enumeration;
 import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
 import net.sf.jour.test.Utils;
+import org.junit.Test;
 
 public class TestJarFileInputSource extends TestCase {
 
 	protected static final Logger log = Logger.getLogger();
 
+    @Test
 	public void testRecursion() throws Exception {
 
 		String testJar = "/jarPreProcessorTest.jar";

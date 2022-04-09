@@ -23,6 +23,7 @@ package net.sf.jour.util;
 import java.util.StringTokenizer;
 
 import junit.framework.TestCase;
+import org.junit.Test;
 
 /**
  * TODO Add docs
@@ -37,7 +38,7 @@ import junit.framework.TestCase;
  * @version $Revision$ ($Author$) $Date$
  */
 public class RegExTests extends TestCase {
-	
+
 	void verify(String str, String expected, String regEx){
 		String[] ar = RegExUtil.match(str, regEx);
 		StringTokenizer st = new StringTokenizer(expected, "|");
@@ -49,14 +50,15 @@ public class RegExTests extends TestCase {
 		System.out.println();
 		assertFalse(st.hasMoreTokens()) ;
 	}
-	
+
+    @Test
 	public void testJ14() throws Exception {
 		//verify("(^[\\S]*)\\s*(\\S*)\\((\\S*)\\)\\s*$");
-		
+
 		verify("A B S", "A|B|S", "(\\S*)\\s*(\\S*)\\s*(\\S*)");
 		verify("* set* (..) ", "*|set*|..", "(\\S*)\\s*(\\S*)\\s*\\((\\S*)\\)\\s*");
 		//verify("* set*(..)", "(^[\\S]*)\\s*(\\S*)\\((\\S*)\\)\\s*$");
-		
+
 		verify("bob.bb->set*(..)", "bob|.bb|set*|..", "(\\S*)\\s*(\\.\\S*)->(\\S*)\\((\\S*)\\)");
 	}
 }

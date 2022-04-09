@@ -6,13 +6,15 @@ import net.sf.jour.instrumentor.ConfigTestInstrumentor;
 import net.sf.jour.instrumentor.Instrumentor;
 import net.sf.jour.test.Utils;
 import net.sf.jour.util.FileUtil;
+import org.junit.Test;
 
 public class TestConfig extends TestCase {
 
+    @Test
 	public void testAll() {
 		assertNotNull("this.class", FileUtil.getFile(Utils.getClassResourceName(this.getClass().getName()), this));
 		assertNotNull("Config URL", FileUtil.getFile("/configTest.jour.xml", this));
-		
+
 		Config config = new Config(FileUtil.getFile("/configTest.jour.xml", this));
 		Instrumentor[] instr = config.getAllInstrumentors();
 		assertEquals("All Instrumentors", 2, instr.length);
@@ -21,5 +23,5 @@ public class TestConfig extends TestCase {
 		PointcutListFilter pointcuts = ((ConfigTestInstrumentor)instr[0]).getPointcuts();
 		assertEquals("pointcuts", 2, pointcuts.size());
 	}
-	
+
 }

@@ -7,9 +7,11 @@ import java.util.Vector;
 import junit.framework.TestCase;
 import net.sf.jour.InstrumentingClassLoader;
 import net.sf.jour.test.Utils;
+import org.junit.Test;
 
 public class MakeEmptyMethodTest extends TestCase {
 
+    @Test
 	public void testMakeEmptyMethod() throws Exception {
 
 		String testClassName = "uut.makeempty.MakeEmptyMethodCase";

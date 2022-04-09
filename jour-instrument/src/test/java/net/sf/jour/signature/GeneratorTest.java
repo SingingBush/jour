@@ -23,15 +23,17 @@ package net.sf.jour.signature;
 import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
 import net.sf.jour.test.Utils;
+import org.junit.Test;
 
 /**
  * @author vlads
- * 
+ *
  */
 public class GeneratorTest extends TestCase {
 
 	protected static final Logger log = Logger.getLogger();
 
+    @Test
 	public void testXMLGeneration() throws Exception {
 		try {
 			final String fileName = "target/generatorTest.xml";

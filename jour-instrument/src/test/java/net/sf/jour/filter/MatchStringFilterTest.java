@@ -22,6 +22,7 @@ package net.sf.jour.filter;
 
 import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
+import org.junit.Test;
 
 /**
  * TODO Add docs
@@ -36,15 +37,15 @@ import net.sf.jour.log.Logger;
  * @version $Revision$ ($Author$) $Date$
  */
 public class MatchStringFilterTest extends TestCase {
-	
+
 	protected static final Logger log = Logger.getLogger();
-	
+
 	public static void main(String[] args) {
 		MatchStringFilterTest b = new MatchStringFilterTest();
 		b.testStringListPatterns();
 	}
-	
-	private void verify(String pattern, String text, boolean expect) { 
+
+	private void verify(String pattern, String text, boolean expect) {
 		log.debug("verify [" + pattern + "] [" + text + "]");
 		MatchStringFilter f = new MatchStringFilter(pattern);
 		if (log.isDebugEnabled()) {
@@ -54,27 +55,28 @@ public class MatchStringFilterTest extends TestCase {
 	}
 
 	private void verifyList(String pattern, String text, boolean expect) {
-		log.debug("verifyList [" + pattern + "] [" + text + "]"); 
+		log.debug("verifyList [" + pattern + "] [" + text + "]");
 		MatchStringListFilter f = new MatchStringListFilter(pattern);
 		if (log.isDebugEnabled()) {
 			f.debug();
 		}
 		assertEquals(pattern + " " + text, expect, f.match(text));
 	}
-	
+
+    @Test
 	public void testStringPatterns() {
 		verify(null, null, false);
 		verify("", "", false);
 		verify(null, "", false);
 		verify("", null, false);
-		
+
 		verify("", "bob", false);
 		verify("bob", "", false);
-		
+
 		verify("bob", "bob", true);
 		verify("bob", "bobY", false);
 		verify("bob*", "bobY", true);
-		
+
 		verify("*bar*", "bar", true);
 		verify("*bar*", "anybar", true);
 
@@ -82,37 +84,38 @@ public class MatchStringFilterTest extends TestCase {
 		verify("*bar.*", "bar.man", true);
 		verify("*bar.*", "anybar", false);
 		verify("*bar.*", "anybar.man", true);
-		
+
 		verify("bar[]", "bar", false);
 		verify("bar[]", "bar[]", true);
 		verify("*.bar[]", "any.bar[]", true);
-		
+
 		verify("*.bar.*", "bar", false);
 		verify("*.bar.*", "anybar", false);
-		
+
 		verify("foo.bar", "foo.bar", true);
 		verify("foo.bar", "any.bar", false);
 		verify("foo.bar", "foo.bar2", false);
 		verify("foo.bar", "2foo.bar", false);
-		
+
 		verify("bob.*", "bob.noe", true);
 		verify("*.noe", "bob.noe", true);
 		verify("!bob.*", "john.noe", true);
 	}
-	
+
+    @Test
 	public void testStringListPatterns() {
 		verifyList(null, null, false);
 		verifyList("", "", false);
 		verifyList(null, "", false);
 		verifyList("", null, false);
-		
+
 		verifyList("", "bob", false);
 		verifyList(";", "bob", false);
-		
+
 		verifyList("bob.*", "bob.noe", true);
 		verifyList("*.noe", "bob.noe", true);
 		verifyList("*;!bob.*", "john.noe", true);
-		
+
 		verifyList("foo.*;bar.*", "foo.bar", true);
 		verifyList("foo.*;bar.*", "bar.foo", true);
 		verifyList("*; !foo.* ; !bar.* ", "bar.foo", false);
