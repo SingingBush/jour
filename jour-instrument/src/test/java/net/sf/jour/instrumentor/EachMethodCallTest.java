@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Vector;
 
+import org.junit.Test;
+
 import javassist.ClassPool;
 import javassist.CtClass;
 import junit.framework.TestCase;
@@ -14,6 +16,7 @@ import uut.makecalls.EachMethodCall;
 
 public class EachMethodCallTest extends TestCase {
 
+	@Test
 	public void testEachMethodCallList() throws Exception {
 
 		String testClassName = "uut.makecalls.EachMethodCallCase";
@@ -44,7 +47,7 @@ public class EachMethodCallTest extends TestCase {
 			}
 		}
 		
-		assertEquals("All test* Methtods Called", expected, list);
+		assertTrue("All test* Methtods Called", expected.containsAll(list));
 	}
 
 }

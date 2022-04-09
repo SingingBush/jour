@@ -32,11 +32,15 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import com.pyx4j.log4j.MavenLogAppender;
 
-/**
+/*
  * The jour:instrument will apply instrumentation during build.
  * 
  * @author vlads
@@ -49,53 +53,45 @@ import com.pyx4j.log4j.MavenLogAppender;
  * 
  * @description Instrument
  */
+@Mojo(name = "instrument",
+		defaultPhase = LifecyclePhase.PROCESS_CLASSES,
+		requiresDependencyResolution = ResolutionScope.TEST)
 public class InstrumentationMojo extends AbstractMojo {
-
-	private Log log;
 
 	/**
 	 * Reads configuration options from the given file. File or resource name.
-	 * 
-	 * @parameter default-value="${basedir}/jour.xml"
 	 */
+	@Parameter(name = "jourConfig", defaultValue = "${basedir}/jour.xml")
 	private String jourConfig;
 
 	/**
 	 * The directory or jar containing original classes.
-	 * 
-	 * @parameter expression="${project.build.outputDirectory}"
-	 * @required
 	 */
+	@Parameter(name = "classesDirectory", defaultValue = "${project.build.outputDirectory}", readonly = true)
 	private File classesDirectory;
 
 	/**
 	 * Directory containing the generated JAR.
-	 * 
-	 * @parameter expression="${project.build.directory}"
-	 * @required
 	 */
+	@Parameter(name = "outputDirectory", defaultValue = "${project.build.directory}", readonly = true)
 	protected File outputDirectory;
 
 	/**
 	 * Output directory name relative to outputDirectory parameter.
-	 * 
-	 * @parameter expression="iclasses"
-	 * @required
 	 */
+	@Parameter(name = "output", defaultValue = "iclasses", readonly = true)
 	protected String output;
 
 	/**
 	 * Copy not instrumented classes to "output"
-	 * 
-	 * @parameter expression="false"
 	 */
+	@Parameter(name = "copyClasses", defaultValue = "false")
 	private boolean copyClasses;
 
 	/**
 	 * Copy resources to "output"
-	 * 
-	 * @parameter expression="false"
 	 */
+	@Parameter(name = "copyResources", defaultValue = "false")
 	private boolean copyResources;
 
 	/**
@@ -103,24 +99,21 @@ public class InstrumentationMojo extends AbstractMojo {
 	 * search path usually includes the platform library, extension libraries,
 	 * and the search path specified by the <code>-classpath</code> option or
 	 * the <code>CLASSPATH</code> environment variable.
-	 * 
-	 * @parameter expression="true"
 	 */
+	@Parameter(name = "useSystemClassPath", defaultValue = "true")
 	private boolean useSystemClassPath;
 
 	/**
 	 * The Maven project reference where the plugin is currently being executed.
 	 * Used for dependency resolution during compilation. The default value is
 	 * populated from maven.
-	 * 
-	 * @parameter expression="${project}"
-	 * @readonly
-	 * @required
 	 */
+	@Parameter(defaultValue = "${project}", required = true, readonly = true)
 	protected MavenProject mavenProject;
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
-		log = getLog();
+		final Log log = getLog();
+
 		MavenLogAppender.startPluginLog(this);
 		try {
 
