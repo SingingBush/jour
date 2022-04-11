@@ -7,3 +7,28 @@ Jour is designed to simplify the use of Javassist for processing multiple classe
 
 Forked from https://sourceforge.net/projects/jour/ and updated to support Java version 8 to 15.
 
+# Maven Artifacts are now available via github:
+
+```xml
+<dependency>
+    <groupId>net.sf.jour</groupId>
+    <artifactId>jour</artifactId>
+    <version>2.0.4-SNAPSHOT</version>
+</dependency>
+```
+
+```xml
+<dependency>
+    <groupId>net.sf.jour</groupId>
+    <artifactId>jour-instrument</artifactId>
+    <version>2.0.4-SNAPSHOT</version>
+</dependency>
+```
+
+```xml
+<dependency>
+    <groupId>net.sf.jour</groupId>
+    <artifactId>jour-maven-plugin</artifactId>
+    <version>2.0.4-SNAPSHOT</version>
+</dependency>
+```

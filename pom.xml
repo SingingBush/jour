@@ -10,7 +10,7 @@
     <artifactId>jour</artifactId>
     <version>2.0.4-SNAPSHOT</version><!--jour-version-->
     <name>jour</name>
-    <url>http://jour.sourceforge.net/</url>
+    <url>https://github.com/singingbush/jour</url>
     <packaging>pom</packaging>
 
     <description>Jour bytecode instrumentation library.</description>
@@ -29,19 +29,19 @@
     </licenses>
 
     <issueManagement>
-        <system>SourceForge</system>
-        <url>https://sourceforge.net/tracker/?group_id=122892</url>
+        <system>GitHub</system>
+        <url>https://github.com/singingbush/jour/issues</url>
     </issueManagement>
 
     <ciManagement>
-        <system>Cruisecontrol</system>
-        <url>http://pyx4j.com/cruisecontrol-public/</url>
+        <system>GitHub</system>
+        <url>https://github.com/singingbush/jour/actions</url>
     </ciManagement>
 
     <scm>
-        <url>http://jour.svn.sourceforge.net/viewvc/jour/</url>
-        <connection>scm:svn:https://jour.svn.sourceforge.net/svnroot/jour</connection>
-        <developerConnection>scm:svn:https://jour.svn.sourceforge.net/svnroot/jour</developerConnection>
+        <url>https://github.com/singingbush/jour/</url>
+        <connection>scm:git:git://github.com/singingbush/jour.git</connection>
+        <developerConnection>scm:git:ssh://github.com:singingbush/jour.git</developerConnection>
     </scm>
 
     <distributionManagement>
@@ -51,12 +51,14 @@
             <url>file:///home/apache/pyx4j/snapshot/jour</url>
         </site>
         <repository>
-            <id>pyx4j.com-file-release</id>
-            <url>file:///home/apache/pyx4j-repository/maven2-release</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/singingbush/jour</url>
         </repository>
         <snapshotRepository>
-            <id>pyx4j.com-file-development</id>
-            <url>file:///home/apache/pyx4j-repository/maven2-snapshot</url>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/singingbush/jour</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -91,7 +93,6 @@
         <module>jour-ant</module>
         -->
         <module>jour-examples</module>
-        <!--module>jour-runtime</module-->
     </modules>
 
     <dependencyManagement>
