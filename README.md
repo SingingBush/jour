@@ -13,7 +13,7 @@ Forked from https://sourceforge.net/projects/jour/ and updated to support Java v
 <dependency>
     <groupId>net.sf.jour</groupId>
     <artifactId>jour</artifactId>
-    <version>2.0.4-SNAPSHOT</version>
+    <version>2.1.0</version>
 </dependency>
 ```
 
@@ -21,7 +21,7 @@ Forked from https://sourceforge.net/projects/jour/ and updated to support Java v
 <dependency>
     <groupId>net.sf.jour</groupId>
     <artifactId>jour-instrument</artifactId>
-    <version>2.0.4-SNAPSHOT</version>
+    <version>2.1.0</version>
 </dependency>
 ```
 
@@ -29,6 +29,6 @@ Forked from https://sourceforge.net/projects/jour/ and updated to support Java v
 <dependency>
     <groupId>net.sf.jour</groupId>
     <artifactId>jour-maven-plugin</artifactId>
-    <version>2.0.4-SNAPSHOT</version>
+    <version>2.1.0</version>
 </dependency>
 ```
