@@ -99,7 +99,7 @@
             <dependency>
                 <groupId>org.javassist</groupId>
                 <artifactId>javassist</artifactId>
-                <version>3.23.0-GA</version>
+                <version>3.24.0-GA</version>
                 <!-- UPDATE javassist WHEN WORKING WITH JAVA 11+ -->
 <!--                <version>3.28.0-GA</version>-->
             </dependency>
