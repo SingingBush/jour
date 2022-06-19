@@ -32,11 +32,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 
-import net.sf.jour.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FileUtil {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(FileUtil.class);
 
 	public static URL getFileLocation(String resource) {
 		return getFileLocation(resource, null);

@@ -27,7 +27,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import net.sf.jour.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TODO Add docs
@@ -42,9 +43,9 @@ import net.sf.jour.log.Logger;
  * @version $Revision$ ($Author$) $Date$
  */
 public class TimeUtil {
-    
-    protected static final Logger log = Logger.getLogger();
-    
+
+    protected static final Logger log = LoggerFactory.getLogger(TimeUtil.class);
+
     public static final boolean debug = true;
 
 	public static int string2TimeSec(String str) {
@@ -56,7 +57,7 @@ public class TimeUtil {
 		int s = new Integer(str.substring(6, 8)).intValue();
 		return s + m * 60 + h * 60 * 60;
 	}
-	
+
 	public static double string2MTimeSec(String str) {
 		if (str.length() != 12) {
 			return string2TimeSec(str);
@@ -78,7 +79,7 @@ public class TimeUtil {
 
 		return nf.format(h) + ":" + nf.format(m) + ":" + nf.format(s);
 	}
-	
+
 	public static String formatDurationHHMM(double milliseconds) {
 	    double hours = milliseconds / (1000D * 60D * 60D);
         int h = (int) Math.floor(hours);
@@ -91,26 +92,26 @@ public class TimeUtil {
         nf.setMinimumIntegerDigits(2);
         return nf.format(h) + ":" + nf.format(m);
     }
-	
+
 	public static String formatDurationHHMMSS(double milliseconds) {
         return timeSec2string((long)(milliseconds / 1000D));
     }
-	
+
 	public static void trunc(Calendar calendar) {
 	    dayStart(calendar);
 	}
-	
+
 	public static void dayStart(Calendar calendar) {
 		calendar.set(Calendar.SECOND, 0);
 		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);	    
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
 	}
-	
+
 	public static void dayEnd(Calendar calendar) {
 	    dayStart(calendar);
 	    calendar.add(Calendar.DATE, 1);
 	}
-	
+
 	public static double string2TimeStamp(String str) {
 		if (str == null) {
 			return 0;
@@ -149,7 +150,7 @@ public class TimeUtil {
 	public static String timeStamp2dateString(double timeStamp) {
 	    return timeStampDateFormater.format(timeStamp2calendar(timeStamp).getTime());
 	}
-	
+
 	public static Calendar timeStamp2calendar(double timeStamp) {
 	    Calendar calendar = new GregorianCalendar();
 	    calendar.setTime(new Date(new Double(timeStamp).longValue()));
@@ -159,7 +160,7 @@ public class TimeUtil {
 	public static double calendar2timeStamp(Calendar calendar) {
 		return calendar.getTime().getTime();
 	}
-	
+
 
 	private static double detectTimeformat(String str) {
 		final String[] formats = {
@@ -177,16 +178,16 @@ public class TimeUtil {
 		    "yyyy-MM-dd",
 			"MM/dd/yyyy",
 		};
-		
+
 		boolean addOneSecond = true;
 		if (str.endsWith("24:00:00")) {
 			int idx = str.indexOf("24:00:00");
 			str = str.substring(0, idx) + "23:59:59";
-			addOneSecond = true; 
+			addOneSecond = true;
 		} else if (str.endsWith("24:00")) {
 			int idx = str.indexOf("24:00");
 			str = str.substring(0, idx) + "23:59:59";
-			addOneSecond = true; 
+			addOneSecond = true;
 		}
 
         for (int i = 0; i < formats.length; i++) {
@@ -215,18 +216,18 @@ public class TimeUtil {
 		return 0;
 	}
 
-    private static String dateRE = "((\\d\\d-\\d\\d-\\d\\d\\d\\d)|(\\d\\d\\d\\d-\\d\\d-\\d\\d)|(\\d\\d/\\d\\d/\\d\\d\\d\\d))";
-    private static String intervalOneDayPattern = "^" + dateRE  + "$";
+    private static final String dateRE = "((\\d\\d-\\d\\d-\\d\\d\\d\\d)|(\\d\\d\\d\\d-\\d\\d-\\d\\d)|(\\d\\d/\\d\\d/\\d\\d\\d\\d))";
+    private static final String intervalOneDayPattern = "^" + dateRE  + "$";
 
     //private static String tsRE = "\\d{12,}";
 	//private static String tsintervalPattern = "^(" + tsRE + ")\\s*-\\s*(" + tsRE + ")$";
-	
-	private static String secRE = "\\d\\d:\\d\\d:\\d\\d";
-	private static String intervalPattern = "^(" + secRE + ")\\s*-\\s*(" + secRE + ")$";
-	
-	private static String msecRE = "\\d\\d:\\d\\d:\\d\\d\\.\\d\\d\\d";
-	private static String intervalPattern1 = "^(" + msecRE + ")\\s*-\\s*(" + msecRE + ")$";
-	
+
+	private static final String secRE = "\\d\\d:\\d\\d:\\d\\d";
+	private static final String intervalPattern = "^(" + secRE + ")\\s*-\\s*(" + secRE + ")$";
+
+	private static final String msecRE = "\\d\\d:\\d\\d:\\d\\d\\.\\d\\d\\d";
+	private static final String intervalPattern1 = "^(" + msecRE + ")\\s*-\\s*(" + msecRE + ")$";
+
     public static double[] string2TimeInterval(String comp) {
         if (comp == null) {
             return null;
