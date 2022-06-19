@@ -24,22 +24,23 @@ import java.util.WeakHashMap;
 
 /**
  * Log4j wrapper
- * 
- * @author vlads
  *
+ * @author vlads
+ * @deprecated use slf4j Logger instead
  */
+@Deprecated // todo: once targeting min JDK 11 use @Deprecated(since = "2.1.1", forRemoval = true) or simply delete
 public class Logger {
-	
+
 	/** The fully qualified name of the Log class. */
     private static final String FQCN = Logger.class.getName();
-    
+
     private static int log4jAvalable = 0;
-    
+
     private static WeakHashMap instances = new WeakHashMap();
-    
+
     protected Logger() {
     }
-    
+
     private static int detectLog4j() {
     	try {
 			Class.forName("org.apache.log4j.Logger");
@@ -48,7 +49,7 @@ public class Logger {
 			return -1;
 		}
     }
-    
+
     /**
      * We are in java 1.4 lets save some typing.
      */
@@ -65,27 +66,27 @@ public class Logger {
         if (useName == null) {
             throw new Error("Can't find call origin");
         }
-        return getLogger(useName);    
+        return getLogger(useName);
     }
-    
+
     /**
      * Return the native Logger instance we are using.
      */
     public static Logger getLogger(String name) {
         return createLogger(name);
     }
-    
+
     private static Logger createLogger(String name) {
     	if (log4jAvalable == 0) {
     		log4jAvalable = detectLog4j();
-    	} 
+    	}
     	if (log4jAvalable > 0) {
     		return createLoggerWrapper(name);
     	} else {
     		return new Logger();
     	}
     }
-    
+
     private static Logger createLoggerWrapper(String name) {
     	org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(name);
         if (instances.containsKey(logger)) {
@@ -96,15 +97,15 @@ public class Logger {
             return log;
         }
     }
-    
+
     public static Logger getLogger(Class clazz) {
         return getLogger(clazz.getName());
     }
-    
+
     public static Logger getLog(Class clazz) {
         return getLogger(clazz.getName());
     }
-    
+
     private static class LoggerLog4j extends Logger {
 
 		private org.apache.log4j.Logger logger;
@@ -148,13 +149,13 @@ public class Logger {
 			t.printStackTrace(System.err);
 		}
 	}
-    
+
     public void warn(Object message) {
     }
-    
+
     public void info(Object message) {
     }
-    
+
     public boolean isDebugEnabled() {
    		return false;
     }
