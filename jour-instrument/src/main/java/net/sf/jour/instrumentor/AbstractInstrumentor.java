@@ -32,7 +32,8 @@ import javassist.CtMethod;
 import net.sf.jour.InterceptorException;
 import net.sf.jour.filter.Pointcut;
 import net.sf.jour.filter.PointcutListFilter;
-import net.sf.jour.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -46,12 +47,12 @@ import net.sf.jour.log.Logger;
  */
 public abstract class AbstractInstrumentor implements Instrumentor {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(AbstractInstrumentor.class);
 
 	protected PointcutListFilter pointcuts;
 
-	List createdClasses;
-	
+	private List<CtClass> createdClasses;
+
 	protected AbstractInstrumentor() {
 		log.debug("AbstractInstrumentor Created");
 	}
@@ -61,22 +62,23 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 			return InstrumentorResultsImpl.NOT_MODIFIED;
 		}
 		boolean modified = false;
-		
+
 		long countCounstructors = 0;
 
 		long countMethods = 0;
-		
-		createdClasses = new Vector();
-		
-		HashMap instrumented = new HashMap();
-		
+
+		createdClasses = new Vector<>();
+
+        // Key can be either CtMember or CtClass
+		final HashMap<Object, Object> instrumented = new HashMap<>();
+
 		//log.debug("Start instrumenting:" + clazz.getName());
-		
+
 		for (Iterator i = pointcuts.iterator(); i.hasNext();) {
 			Pointcut pointcut = (Pointcut) i.next();
 
 			if (pointcut.acceptClass(clazz)) {
-				
+
 				if (!instrumented.containsKey(clazz)) {
 					log.debug("instrumenting class:" + clazz.getName());
 					modified = instrumentClass(clazz) || modified;
@@ -89,9 +91,9 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 					if (!instrumented.containsKey(method) && pointcut.acceptMethod(method)
 					// This will check the pointcut exceptions.
 							&& pointcuts.match(method)) {
-						
+
 						log.debug("instrumenting method:" + clazz.getName() + "." + method.getName() + "(" + method.getSignature() + ")");
-						
+
 						if (instrumentMethod(clazz, method)) {
 							countMethods++;
 							modified = true;
@@ -131,7 +133,7 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 	protected void classCreated(CtClass clazz) {
 		createdClasses.add(clazz);
 	}
-	
+
 	public abstract boolean instrumentClass(CtClass clazz) throws InterceptorException;
 
 	public abstract boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException;

@@ -4,7 +4,7 @@ import java.util.Enumeration;
 
 public interface InputSource {
 
-	public Enumeration getEntries(); 
-	 
-	public void close();
+	Enumeration getEntries();
+
+	void close();
 }

@@ -34,7 +34,6 @@ import javassist.NotFoundException;
 import net.sf.jour.instrumentor.Instrumentor;
 import net.sf.jour.instrumentor.InstrumentorResults;
 import net.sf.jour.instrumentor.InstrumentorResultsImpl;
-import net.sf.jour.log.Logger;
 import net.sf.jour.processor.DirectoryInputSource;
 import net.sf.jour.processor.DirectoryOutputWriter;
 import net.sf.jour.processor.Entry;
@@ -46,24 +45,26 @@ import net.sf.jour.processor.JarFileInputSource;
 import net.sf.jour.processor.OutputWriter;
 import net.sf.jour.util.BuildVersion;
 import net.sf.jour.util.CmdArgs;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * Created on 02.10.2004
- * 
+ *
  * Contributing Author(s):
- * 
+ *
  * Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital
  * implementation) Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital
  * implementation)
- * 
+ *
  * @author michaellif
  * @version $Revision$ ($Author$) $Date: 2007-10-10 18:49:54 -0400
  *          (Wed, 10 Oct 2007) $
  */
 public class PreProcessor {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(PreProcessor.class);
 
 	public long savedClasses;
 
@@ -87,10 +88,11 @@ public class PreProcessor {
 
 	ClassPool classPool;
 
-	public static void main(String[] args) {
-		Properties argsp = CmdArgs.load(args);
+	public static void main(final String[] args) {
+        final Properties argsp = CmdArgs.load(args);
+
 		if ((args.length < 1) || argsp.getProperty("help") != null) {
-			StringBuffer usage = new StringBuffer();
+			final StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(PreProcessor.class.getName());
 			usage.append(" --config jour.xml --src classesDir|classes.jar --dst outDir\n");
 			usage.append("    (--classpath classpath) (--copy resource|classes|all) (--systempath)\n");
@@ -99,7 +101,7 @@ public class PreProcessor {
 		}
 
 		try {
-			PreProcessor pp = new PreProcessor(argsp);
+            final PreProcessor pp = new PreProcessor(argsp);
 			pp.process();
 
 			System.out.println("Processed Classes     " + pp.countClasses);
@@ -107,13 +109,13 @@ public class PreProcessor {
 			System.out.println("Altered Methods       " + pp.countMethods);
 			System.out.println("Saved Classes         " + pp.savedClasses);
 
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			e.printStackTrace();
 			throw new Error(e);
 		}
 	}
 
-	public PreProcessor(String[] args) throws NotFoundException {
+	public PreProcessor(final String[] args) throws NotFoundException {
 		this(CmdArgs.load(args));
 	}
 
@@ -136,7 +138,7 @@ public class PreProcessor {
 
 		this.useSystemClassPath = "true".equals(properties.getProperty("systempath"));
 
-		List classpath = new Vector();
+		final List<Object> classpath = new Vector<>();
 
 		Object cp = properties.get("cp");
 		if (cp != null) {
@@ -162,11 +164,11 @@ public class PreProcessor {
 		}
 	}
 
-	public PreProcessor(String configFileName, File in, File out, List classpath) {
+	public PreProcessor(String configFileName, File in, File out, List<Object> classpath) {
 		init(configFileName, in, out, classpath);
 	}
 
-	private void init(String configFileName, File in, File out, List classpath) {
+	private void init(String configFileName, File in, File out, List<Object> classpath) {
 		if ((in == null) || (!in.exists())) {
 			throw new Error("Input jar or folder expected");
 		}
@@ -183,7 +185,7 @@ public class PreProcessor {
 			this.classPool.appendClassPath(this.input.getAbsolutePath());
 
 			if (classpath != null) {
-				for (Iterator i = classpath.iterator(); i.hasNext();) {
+				for (Iterator<Object> i = classpath.iterator(); i.hasNext();) {
 					String path = (String) i.next();
 					log.debug("classPath " + path);
 					this.classPool.appendPathList(path);

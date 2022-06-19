@@ -22,13 +22,13 @@ package net.sf.jour.filter;
 
 /**
  * TODO Add docs Created on 04.12.2004
- * 
+ *
  * Contributing Author(s):
- * 
+ *
  * Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital
  * implementation) Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital
  * implementation)
- * 
+ *
  * @author vlads
  * @version $Revision$ ($Author$) $Date: 2006-11-19 16:52:09 -0500
  *          (Sun, 19 Nov 2006) $
@@ -50,7 +50,7 @@ public abstract class MatchFilter implements Filter {
      * conditional compilation set to false to allow compiler to identify and
      * eliminate unreachable code
      */
-	protected static final boolean debug = false;
+	protected static final boolean debug = false; // todo: consider making this private and adding getter
 
 	/**
      * a name use for debuging complex lists.

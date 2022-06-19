@@ -22,9 +22,9 @@ package net.sf.jour.config;
 
 public class AspectProperty {
 
-	String name;
-	
-	String value;
+	private String name;
+
+    private String value;
 
 	public String getName() {
 		return name;
@@ -41,7 +41,7 @@ public class AspectProperty {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
+
 	public String getValueElement() {
 		return value;
 	}

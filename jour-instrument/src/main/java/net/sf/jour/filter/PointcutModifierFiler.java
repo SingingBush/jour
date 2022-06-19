@@ -20,29 +20,30 @@
  */
 package net.sf.jour.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Modifier;
 import java.util.Hashtable;
 
-import net.sf.jour.log.Logger;
-
 /**
  * TODO Add docs
- * 
+ *
  * Created on 07.12.2004 Contributing Author(s):
- * 
+ *
  * Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital
  * implementation) Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital
  * implementation)
- * 
+ *
  * @author vlads
  * @version $Revision$ ($Author$) $Date: 2006-11-19 16:52:09 -0500
  *          (Sun, 19 Nov 2006) $
  */
 public class PointcutModifierFiler extends MatchFilter {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(PointcutModifierFiler.class);
 
-	private static Hashtable map = buildMap();
+	private static Hashtable<String, Integer> map = buildMap();
 
 	private int modifier;
 
@@ -52,29 +53,25 @@ public class PointcutModifierFiler extends MatchFilter {
 		}
 	}
 
-	private static void mapPut(Hashtable hmap, String str, int mod) {
-		hmap.put(str, new Integer(mod));
-	}
-
-	private static Hashtable buildMap() {
-		map = new Hashtable();
-		mapPut(map, "public", Modifier.PUBLIC);
-		mapPut(map, "protected", Modifier.PROTECTED);
-		mapPut(map, "private", Modifier.PRIVATE);
-		mapPut(map, "abstract", Modifier.ABSTRACT);
-		mapPut(map, "static", Modifier.STATIC);
-		mapPut(map, "final", Modifier.FINAL);
-		mapPut(map, "transient", Modifier.TRANSIENT);
-		mapPut(map, "volatile", Modifier.VOLATILE);
-		mapPut(map, "synchronized", Modifier.SYNCHRONIZED);
-		mapPut(map, "native", Modifier.NATIVE);
-		mapPut(map, "strictfp", Modifier.STRICT);
-		mapPut(map, "interface", Modifier.INTERFACE);
+	private static Hashtable<String, Integer> buildMap() {
+		map = new Hashtable<>();
+		map.put("public", Modifier.PUBLIC);
+		map.put("protected", Modifier.PROTECTED);
+		map.put("private", Modifier.PRIVATE);
+		map.put("abstract", Modifier.ABSTRACT);
+		map.put("static", Modifier.STATIC);
+		map.put("final", Modifier.FINAL);
+		map.put("transient", Modifier.TRANSIENT);
+		map.put("volatile", Modifier.VOLATILE);
+		map.put("synchronized", Modifier.SYNCHRONIZED);
+		map.put("native", Modifier.NATIVE);
+		map.put("strictfp", Modifier.STRICT);
+		map.put("interface", Modifier.INTERFACE);
 		return map;
 	}
 
 	public boolean setModifier(String modifier) {
-		Integer i = (Integer) map.get(modifier.trim());
+		final Integer i = map.get(modifier.trim());
 		if (i == null) {
 			log.error("Wrong modifier " + modifier);
 			return false;

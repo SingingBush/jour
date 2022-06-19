@@ -134,7 +134,7 @@ public class FileUtil {
             // ignore
         }
     }
-	
+
 	public static HashSet readTextFile(File file) {
 		HashSet list = new HashSet();
 		if (!readTextFile(file, list)) {
@@ -143,7 +143,7 @@ public class FileUtil {
 		return list;
 	}
 
-	public static boolean readTextFile(File file, HashSet list) {
+	public static boolean readTextFile(File file, HashSet<String> list) {
 		String filename = file.getName();
 		try {
 			final String directiveInclude = "#include";

@@ -5,18 +5,18 @@ import java.util.Vector;
 
 public class Aspect {
 
-	String type;
+	private String type;
 
-	String descr;
+    private String descr;
 
-	String typedef;
+    private String typedef;
 
-	List pointcut;
-	
-	List properties;
+    private List<Pointcut> pointcut;
 
-	boolean enabled;
-	
+    private List<AspectProperty> properties;
+
+    private boolean enabled;
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -33,21 +33,21 @@ public class Aspect {
 		this.descr = descr;
 	}
 
-	public List getPointcut() {
+	public List<Pointcut> getPointcut() {
 		return pointcut;
 	}
 
-	public void setPointcut(List pointcut) {
+	public void setPointcut(List<Pointcut> pointcut) {
 		this.pointcut = pointcut;
 	}
 
-	public void addPointcut(Pointcut pointcut) {
+	public void addPointcut(final Pointcut pointcut) {
 		if (this.pointcut == null) {
-			this.pointcut = new Vector();
+			this.pointcut = new Vector<>();
 		}
 		this.pointcut.add(pointcut);
 	}
-	
+
 	public String getType() {
 		return type;
 	}
@@ -64,18 +64,18 @@ public class Aspect {
 		this.typedef = typedef;
 	}
 
-	public List getProperty() {
+	public List<AspectProperty> getProperty() {
 		return properties;
 	}
 
-	public void setProperty(List properties) {
+	public void setProperty(List<AspectProperty> properties) {
 		this.properties = properties;
 	}
 
 
 	public void addProperty(AspectProperty property) {
 		if (this.properties == null) {
-			this.properties = new Vector();
+			this.properties = new Vector<>();
 		}
 		this.properties.add(property);
 	}

@@ -20,16 +20,18 @@
  */
 package net.sf.jour.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.regex.Pattern;
 
-import net.sf.jour.log.Logger;
 
 /**
  * @author michaellif
  */
 public abstract class BasicFilter extends MatchFilter {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(BasicFilter.class);
 
 	public static Pattern getGlobPattern(String globPattern) {
 		char[] gPat = globPattern.toCharArray();

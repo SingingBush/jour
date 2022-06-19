@@ -24,13 +24,13 @@ import java.util.StringTokenizer;
 
 /**
  * TODO Add docs
- * 
+ *
  * Created on 07.12.2004 Contributing Author(s):
- * 
+ *
  * Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital
  * implementation) Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital
  * implementation)
- * 
+ *
  * @author vlads
  * @version $Revision$ ($Author$) $Date: 2006-11-19 16:52:09 -0500
  *          (Sun, 19 Nov 2006) $
@@ -101,6 +101,6 @@ public class PointcutModifierListFiler extends MatchListFilter {
 	}
 
 	public boolean match(int mod) {
-		return isMatch(matchState(new Integer(mod)));
+		return isMatch(matchState(Integer.valueOf(mod)));
 	}
 }

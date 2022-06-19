@@ -17,9 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
- * 
+ *
  * @version $Id$
- * 
+ *
  */
 package net.sf.jour.signature;
 
@@ -40,20 +40,21 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
 
-import net.sf.jour.log.Logger;
 import net.sf.jour.processor.DirectoryInputSource;
 import net.sf.jour.processor.Entry;
 import net.sf.jour.processor.EntryHelper;
 import net.sf.jour.processor.InputSource;
 import net.sf.jour.processor.JarFileInputSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author vlads
- * 
+ *
  */
 public class Generator {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(Generator.class);
 
 	private boolean useSystemClassPath = false;
 
@@ -67,9 +68,9 @@ public class Generator {
 
 	private String filterLevel;
 
-	private Set packageSet = new HashSet();
+	private Set<String> packageSet = new HashSet<>();
 
-	private List classNames = new Vector();
+	private List<String> classNames = new Vector<>();
 
 	public Generator(Properties properties) {
 		this(properties.getProperty("src"), properties.getProperty("packages"), properties.getProperty("dst"),

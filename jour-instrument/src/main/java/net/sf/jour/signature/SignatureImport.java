@@ -17,9 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
- * 
+ *
  * @version $Id$
- * 
+ *
  */
 package net.sf.jour.signature;
 
@@ -44,10 +44,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import net.sf.jour.ConfigException;
 import net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor;
-import net.sf.jour.log.Logger;
 import net.sf.jour.util.ConfigFileUtil;
 import net.sf.jour.util.FileUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -55,11 +56,11 @@ import org.xml.sax.SAXException;
 
 /**
  * @author vlads
- * 
+ *
  */
 public class SignatureImport {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(SignatureImport.class);
 
 	static final boolean createableObject = false;
 
@@ -72,9 +73,9 @@ public class SignatureImport {
 
 	private ClassPool classPool;
 
-	private List classNames = new Vector();
+	private List<String> classNames = new Vector<>();
 
-	private List classes = new Vector();
+	private List<CtClass> classes = new Vector<>();
 
 	private APIFilter filter;
 
@@ -100,11 +101,11 @@ public class SignatureImport {
 		return classPool;
 	}
 
-	public List getClasses() {
+	public List<CtClass> getClasses() {
 		return this.classes;
 	}
 
-	public List getClassNames() {
+	public List<String> getClassNames() {
 		return this.classNames;
 	}
 

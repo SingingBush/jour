@@ -2,7 +2,7 @@ package net.sf.jour.config;
 
 public class Pointcut {
 
-	String expr;
+	private String expr;
 
 	public String getExpr() {
 		return expr;
@@ -11,5 +11,5 @@ public class Pointcut {
 	public void setExpr(String expr) {
 		this.expr = expr;
 	}
-	
+
 }

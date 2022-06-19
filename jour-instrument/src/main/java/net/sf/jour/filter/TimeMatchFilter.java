@@ -20,21 +20,23 @@
  */
 package net.sf.jour.filter;
 
-import net.sf.jour.log.Logger;
 import net.sf.jour.util.TimeUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TimeMatchFilter extends MatchFilter {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(TimeMatchFilter.class);
 
-	double timeFrom;
+	private double timeFrom;
 
-	double timeTo;
+    private double timeTo;
 
-	boolean enabled = true;
+    private boolean enabled = true;
 
 	TimeMatchFilter(String comp) {
-		double time[] = TimeUtil.string2TimeInterval(comp);
+		final double time[] = TimeUtil.string2TimeInterval(comp);
+
 		if (time != null) {
 			this.timeFrom = time[0];
 			this.timeTo = time[1];

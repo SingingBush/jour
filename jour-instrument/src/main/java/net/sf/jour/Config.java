@@ -24,10 +24,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -39,10 +36,11 @@ import net.sf.jour.filter.ClassFilter;
 import net.sf.jour.filter.PointcutListFilter;
 import net.sf.jour.instrumentor.Instrumentor;
 import net.sf.jour.instrumentor.InstrumentorFactory;
-import net.sf.jour.log.Logger;
 import net.sf.jour.util.ConfigFileUtil;
 import net.sf.jour.util.FileUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -53,18 +51,18 @@ import org.xml.sax.SAXException;
  */
 public class Config {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(Config.class);
 
 	public static final String DEFAULTCONFING_FILE = "jour.xml";
 
 	protected boolean isDebug;
 
 	private boolean isSetSerialVersionUID;
-	
+
 	/**
 	 * Key - ClassFilter, value - Instrumentor
 	 */
-	private HashMap instrumentors = new HashMap();
+	private final HashMap<ClassFilter, Instrumentor> instrumentors = new HashMap<>();
 
 	public Config() {
 		initialize(FileUtil.getFile(DEFAULTCONFING_FILE));
@@ -86,17 +84,23 @@ public class Config {
 		if (jour != null) {
 			isDebug = jour.isDebug();
 			isSetSerialVersionUID = jour.isSetSerialVersionUID();
-			List aspectList = jour.getAspect();
+
+			final List<Aspect> aspectList = jour.getAspect();
+
 			if (aspectList == null) {
 				return;
 			}
-			for (Iterator i = aspectList.iterator(); i.hasNext();) {
-				Aspect aspectCfg = (Aspect) i.next();
+
+			for (Iterator<Aspect> i = aspectList.iterator(); i.hasNext();) {
+				final Aspect aspectCfg = i.next();
+
 				if (aspectCfg.isEnabled()) {
-					ClassFilter filter = createFilter(aspectCfg.getTypedef());
-					PointcutListFilter pointcuts = new PointcutListFilter();
+					final ClassFilter filter = createFilter(aspectCfg.getTypedef());
+					final PointcutListFilter pointcuts = new PointcutListFilter();
 					pointcuts.readConfig(aspectCfg.getPointcut());
-					Instrumentor instr = InstrumentorFactory.createInstrumentor(aspectCfg.getType(), pointcuts);
+
+					final Instrumentor instr = InstrumentorFactory.createInstrumentor(aspectCfg.getType(), pointcuts);
+
 					if (aspectCfg.getProperty() != null) {
 						for (Iterator pi = aspectCfg.getProperty().iterator(); pi.hasNext();) {
 							AspectProperty prop = (AspectProperty) pi.next();
@@ -108,7 +112,7 @@ public class Config {
 			}
 		}
 	}
-	
+
 	private Jour parsJourXML(URL configLocation) {
 		Jour jour = new Jour();
 		try {
@@ -117,35 +121,35 @@ public class Config {
 			if (jourNode == null) {
 				throw new ConfigException("Invalid XML root");
 			}
-			
+
 			jour.setDebug(ConfigFileUtil.getNodeAttribute(jourNode, "debug", false));
 			jour.setSetSerialVersionUID(ConfigFileUtil.getNodeAttribute(jourNode, "setSerialVersionUID", false));
-			
+
 			NodeList aspectList = jourNode.getChildNodes();
 			for (int j = 0; j < aspectList.getLength(); j++) {
 	            Node aspectNode = aspectList.item(j);
 	            if (!"aspect".equals(aspectNode.getNodeName())) {
 	            	continue;
 	            }
-	            
+
 	            Aspect aspect = new Aspect();
-	            
+
 	            aspect.setDescr(ConfigFileUtil.getNodeAttribute(aspectNode, "descr"));
 	            aspect.setType(ConfigFileUtil.getNodeAttribute(aspectNode, "type"));
 	            aspect.setEnabled(ConfigFileUtil.getNodeAttribute(aspectNode, "enabled", true));
 	            aspect.setTypedef(ConfigFileUtil.getNodeValue(aspectNode, "typedef"));
-	            
+
 	            NodeList aspectChildList = aspectNode.getChildNodes();
 	            for (int k = 0; k < aspectChildList.getLength(); k++) {
 		            Node aspectChildNode = aspectChildList.item(k);
 		            String nodeName = aspectChildNode.getNodeName();
-		            
+
 		            if ("pointcut".equals(nodeName)) {
 		            	aspect.addPointcut(parsPointcut(aspectChildNode));
 		            } else if ("property".equals(nodeName)) {
 		            	aspect.addProperty(parsProperty(aspectChildNode));
 		            }
-		            
+
 	            }
 	            jour.addAspect(aspect);
 			}
@@ -158,11 +162,11 @@ public class Config {
 		}
 		return jour;
 	}
-	
+
 	private AspectProperty parsProperty(Node node) {
 		AspectProperty p = new AspectProperty();
 		p.setName(ConfigFileUtil.getNodeAttribute(node, "name"));
-		
+
 		String value = ConfigFileUtil.getNodeValue(node, "value");
 		if (value == null) {
 			value = ConfigFileUtil.getNodeAttribute(node, "value");
@@ -191,48 +195,51 @@ public class Config {
 			throw new Error("Can't set property " + name, e);
 		} catch (InvocationTargetException e) {
 			throw new Error("Can't set property " + name, e);
-		}	
+		}
 	}
 
 	public boolean isSetSerialVersionUID() {
 		return isSetSerialVersionUID;
 	}
-	
-	protected void checkUniqueAspect() throws ConfigException {
-		HashMap map = new HashMap();
-		Iterator iter = instrumentors.entrySet().iterator();
-		while (iter.hasNext()) {
-			String instrumentor = (String) iter.next();
-			map.put(instrumentor, "");
-		}
-		if (instrumentors.entrySet().size() > map.size()) {
-			throw new ConfigException("Duplicate aspects in jour.xml are not supported");
-		}
-	}
+
+//	protected void checkUniqueAspect() throws ConfigException {
+//		final HashMap<Instrumentor, String> map = new HashMap<>();
+//        final Iterator<Map.Entry<ClassFilter, Instrumentor>> iterator = instrumentors.entrySet().iterator();
+//
+//		while (iterator.hasNext()) {
+//			String instrumentor = (String) iterator.next();
+//			map.put(instrumentor, "");
+//		}
+//		if (instrumentors.entrySet().size() > map.size()) {
+//			throw new ConfigException("Duplicate aspects in jour.xml are not supported");
+//		}
+//	}
 
 	protected ClassFilter createFilter(String typedef) {
 		return new ClassFilter(typedef);
 	}
 
-	public Instrumentor[] getInstrumentors(String className) throws InterceptorException {
-		ArrayList instrList = new ArrayList();
-		Iterator filters = instrumentors.keySet().iterator();
+	public Instrumentor[] getInstrumentors(final String className) throws InterceptorException {
+		final List<Instrumentor> instrList = new ArrayList();
+		final Iterator<ClassFilter> filters = instrumentors.keySet().iterator();
+
 		while (filters.hasNext()) {
-			ClassFilter filter = (ClassFilter) filters.next();
+			final ClassFilter filter = filters.next();
 			if (filter.accept(className)) {
 				instrList.add(instrumentors.get(filter));
 			}
 		}
-		return (Instrumentor[]) instrList.toArray(new Instrumentor[0]);
+		return instrList.toArray(new Instrumentor[0]);
 	}
 
 	public Instrumentor[] getAllInstrumentors() {
-		ArrayList instrList = new ArrayList();
-		Iterator filters = instrumentors.keySet().iterator();
+        final List<Instrumentor> instrList = new ArrayList();
+        final Iterator<ClassFilter> filters = instrumentors.keySet().iterator();
+
 		while (filters.hasNext()) {
-			ClassFilter filter = (ClassFilter) filters.next();
+			final ClassFilter filter = filters.next();
 			instrList.add(instrumentors.get(filter));
 		}
-		return (Instrumentor[]) instrList.toArray(new Instrumentor[0]);
+		return instrList.toArray(new Instrumentor[0]);
 	}
 }

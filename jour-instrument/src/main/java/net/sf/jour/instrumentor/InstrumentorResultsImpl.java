@@ -1,5 +1,7 @@
 package net.sf.jour.instrumentor;
 
+import javassist.CtClass;
+
 import java.util.List;
 import java.util.Vector;
 
@@ -8,15 +10,15 @@ public class InstrumentorResultsImpl implements InstrumentorResults {
 	private boolean modified;
 
 	private long countCounstructors;
-	
+
 	private long countMethods;
 
-	private List createdClasses;
-	
+	private List<CtClass> createdClasses;
+
 	public static final InstrumentorResults NOT_MODIFIED = new InstrumentorResultsImpl();
-	
+
 	public InstrumentorResultsImpl() {
-		
+
 	}
 
 	public InstrumentorResultsImpl(long countCounstructors, long countMethods) {
@@ -25,7 +27,7 @@ public class InstrumentorResultsImpl implements InstrumentorResults {
 		this.modified = true;
 	}
 
-	public InstrumentorResultsImpl(long countCounstructors, long countMethods, List createdClasses) {
+	public InstrumentorResultsImpl(long countCounstructors, long countMethods, List<CtClass> createdClasses) {
 		this(countCounstructors, countMethods);
 		this.createdClasses = createdClasses;
 	}
@@ -36,7 +38,7 @@ public class InstrumentorResultsImpl implements InstrumentorResults {
 			this.countCounstructors = r1.getCountCounstructors() + r2.getCountCounstructors();
 			this.countMethods = r1.getCountMethods() + r2.getCountMethods();
 			if ((r1.getCreatedClasses() != null) || (r2.getCreatedClasses() != null)) {
-				this.createdClasses = new Vector();	
+				this.createdClasses = new Vector<>();
 				if ((r1.getCreatedClasses() != null)) {
 					this.createdClasses.addAll(r1.getCreatedClasses());
 				}
@@ -46,23 +48,27 @@ public class InstrumentorResultsImpl implements InstrumentorResults {
 			}
 		}
 	}
-	
+
 	/**
 	 * @return Returns true if any modification has been made to the class.
 	 */
+    @Override
 	public boolean isModified() {
 		return modified;
 	}
 
+    @Override
 	public long getCountCounstructors() {
 		return countCounstructors;
 	}
 
+    @Override
 	public long getCountMethods() {
 		return countMethods;
 	}
 
-	public List getCreatedClasses() {
+    @Override
+	public List<CtClass> getCreatedClasses() {
 		return createdClasses;
 	}
 

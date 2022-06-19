@@ -5,27 +5,27 @@ import java.util.Vector;
 
 public class Jour {
 
-	List aspect;
+	List<Aspect> aspect;
 
 	boolean isSetSerialVersionUID;
-	
+
 	boolean debug;
 
-	public List getAspect() {
+	public List<Aspect> getAspect() {
 		return aspect;
 	}
 
-	public void setAspect(List aspect) {
+	public void setAspect(List<Aspect> aspect) {
 		this.aspect = aspect;
 	}
 
 	public void addAspect(Aspect aspect) {
 		if (this.aspect == null) {
-			this.aspect = new Vector();
+			this.aspect = new Vector<>();
 		}
 		this.aspect.add(aspect);
 	}
-	
+
 	public boolean isDebug() {
 		return debug;
 	}

@@ -22,6 +22,7 @@ package net.sf.jour.instrumentor;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javassist.CannotCompileException;
 import javassist.ClassPool;
@@ -43,7 +44,7 @@ import net.sf.jour.InterceptorException;
  */
 public class ExceptionCatcherInstrumentor extends AbstractInstrumentor {
 
-    private ArrayList exceptions = new ArrayList();
+    private List<String> exceptions = new ArrayList<>();
     
     private String code;
 
@@ -56,7 +57,7 @@ public class ExceptionCatcherInstrumentor extends AbstractInstrumentor {
     public void exceptionType(String exception) {
         exceptions.add(exception);
     }
-    
+
 	public void code(String code) {
 		this.code = code;
 	}
@@ -105,5 +106,5 @@ public class ExceptionCatcherInstrumentor extends AbstractInstrumentor {
         throws InterceptorException {
 			return false;
     }
-   
+
 }

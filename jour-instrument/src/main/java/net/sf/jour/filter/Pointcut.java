@@ -25,31 +25,32 @@ import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtMethod;
 import javassist.NotFoundException;
-import net.sf.jour.log.Logger;
 import net.sf.jour.util.RegExUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author michaellif
  */
 public class Pointcut extends MatchStringFilter {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(Pointcut.class);
 
-	private static String modifierKeywords = "((final)|(static)|(native)|(synchronized)|(private)|(public)|(protected))";
+	private static final String modifierKeywords = "((final)|(static)|(native)|(synchronized)|(private)|(public)|(protected))";
 
-	private static String modifierListPattern = "(" + modifierKeywords + "(([;,]!?)" + modifierKeywords + ")*)";
+	private static final String modifierListPattern = "(" + modifierKeywords + "(([;,]!?)" + modifierKeywords + ")*)";
 
-	private static String interfaceMethodsPattern = "(\\S*)\\s*(\\S*)\\s*->\\s*(\\S*)\\s*\\((.*)\\)";
+	private static final String interfaceMethodsPattern = "(\\S*)\\s*(\\S*)\\s*->\\s*(\\S*)\\s*\\((.*)\\)";
 
-	private static String classMethodsPattern = "(\\S*)\\s*(\\S*)\\s*=>\\s*(\\S*)\\s*\\((.*)\\)";
+	private static final String classMethodsPattern = "(\\S*)\\s*(\\S*)\\s*=>\\s*(\\S*)\\s*\\((.*)\\)";
 
-	private static String methodPattern = "\\s*(\\S*)\\s*(\\S*)\\s*\\((.*)\\)";
+	private static final String methodPattern = "\\s*(\\S*)\\s*(\\S*)\\s*\\((.*)\\)";
 
 	private String retType = "";
 
-	private MatchStringListFilter retTypeFilter = new MatchStringListFilter();
+	private final MatchStringListFilter retTypeFilter = new MatchStringListFilter();
 
-	private PointcutModifierListFiler modifierListFiler = new PointcutModifierListFiler();
+	private final PointcutModifierListFiler modifierListFiler = new PointcutModifierListFiler();
 
 	private String classType = "*";
 
@@ -187,7 +188,7 @@ public class Pointcut extends MatchStringFilter {
 	}
 
 	protected boolean acceptClass(String clazz) {
-		return super.accept(getGlobPattern(classType), clazz);
+		return accept(getGlobPattern(classType), clazz);
 	}
 
 	public boolean acceptMethod(CtMethod method) {

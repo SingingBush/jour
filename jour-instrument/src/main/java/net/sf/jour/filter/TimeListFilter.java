@@ -20,13 +20,14 @@
  */
 package net.sf.jour.filter;
 
-import java.util.StringTokenizer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import net.sf.jour.log.Logger;
+import java.util.StringTokenizer;
 
 public class TimeListFilter extends MatchListFilter {
 
-	protected static final Logger log = Logger.getLogger();
+	protected static final Logger log = LoggerFactory.getLogger(TimeListFilter.class);
 
 	public TimeListFilter() {
 		emptyListMath = true;
