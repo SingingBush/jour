@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface EachMethodCall {
 
-	public void callEachMethod();
-	
-	public List getMethodsCalled();
+	void callEachMethod();
+
+	List getMethodsCalled();
 }

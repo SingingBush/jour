@@ -32,5 +32,5 @@ package uut.pointcut;
  * @version $Revision$ ($Author$)  $Date$
  */
 public interface PointcutCaseInterface {
-    public String getFooBar(int bar);
+    String getFooBar(int bar);
 }

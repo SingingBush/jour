@@ -4,9 +4,9 @@ import java.io.IOException;
 
 public interface OutputWriter {
 
-	public boolean needUpdate(Entry entry);
-	
-	public void write(Entry entry) throws IOException;
+	boolean needUpdate(Entry entry);
 
-	public void close();
+	void write(Entry entry) throws IOException;
+
+	void close();
 }

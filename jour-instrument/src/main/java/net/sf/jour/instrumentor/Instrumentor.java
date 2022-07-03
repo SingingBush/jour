@@ -39,9 +39,9 @@ public interface Instrumentor {
 	/**
 	 * @param clazz Class to instrument
 	 */
-	public InstrumentorResults instrument(CtClass clazz) throws InterceptorException;
-    
+	InstrumentorResults instrument(CtClass clazz) throws InterceptorException;
+
     void setPointcuts(PointcutListFilter pointcuts);
-   
+
 
 }

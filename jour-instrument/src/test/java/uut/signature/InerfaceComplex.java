@@ -22,18 +22,18 @@ package uut.signature;
 
 public interface InerfaceComplex {
 
-    public static final int CONST_INT = 1;
-    
-    public static final boolean CONST_BOOL = true;
-    
-    public static final String CONST_STRING = "StringVal";
-    
-    public interface InerfaceInner {
-        
+    int CONST_INT = 1;
+
+    boolean CONST_BOOL = true;
+
+    String CONST_STRING = "StringVal";
+
+    interface InerfaceInner {
+
         public int getInner();
-        
+
     }
-    
-    public int getInt();
-    
+
+    int getInt();
+
 }
