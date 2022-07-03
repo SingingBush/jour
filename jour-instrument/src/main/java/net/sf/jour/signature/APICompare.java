@@ -17,9 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
- * 
+ *
  * @version $Id$
- * 
+ *
  */
 package net.sf.jour.signature;
 
@@ -41,7 +41,7 @@ import javassist.NotFoundException;
 
 /**
  * @author vlads
- * 
+ *
  */
 public class APICompare extends APICompareChangeHelper {
 
@@ -51,34 +51,34 @@ public class APICompare extends APICompareChangeHelper {
 
     static ThreadLocal counters = new ThreadLocal();
 
-    private List changesMissing;
+    private List<Object> changesMissing; // can be CtConstructor or CtMember, or CtClass
 
-    private List changesExtra;
+    private List<CtMember> changesExtra; // can be CtConstructor, CtMethod, CtField, which are all CtMember
 
-    private List changesChanges;
+    private List<Object> changesChanges; // can be CtConstructor or CtMember, or CtClass
 
     public APICompare() {
         filter = new APIFilter(APIFilter.PROTECTED);
         config = new APICompareConfig();
-        changesMissing = new Vector();
-        changesExtra = new Vector();
-        changesChanges = new Vector();
+        changesMissing = new Vector<>();
+        changesExtra = new Vector<>();
+        changesChanges = new Vector<>();
     }
 
     public static void compare(String classpath, String signatureFileName, APICompareConfig config, boolean useSystemClassPath, String supportingJars)
             throws ChangeDetectedException {
-        List changes = listChanges(classpath, signatureFileName, config, useSystemClassPath, supportingJars);
+        final List<String> changes = listChanges(classpath, signatureFileName, config, useSystemClassPath, supportingJars);
         if (changes.size() > 0) {
             throw new ChangeDetectedException(changes);
         }
     }
 
-    public static List listChanges(String classpath, String signatureFileName, APICompareConfig config, boolean useSystemClassPath, String supportingJars) {
-        counters.set(new Long(0));
+    public static List<String> listChanges(String classpath, String signatureFileName, APICompareConfig config, boolean useSystemClassPath, String supportingJars) {
+        counters.set(Long.valueOf(0L));
         SignatureImport im = new SignatureImport(useSystemClassPath, supportingJars);
         im.load(signatureFileName);
 
-        ClassPool classPool = new ClassPool();
+        final ClassPool classPool = new ClassPool();
         try {
             classPool.appendPathList(classpath);
             if (supportingJars != null) {
@@ -91,11 +91,11 @@ public class APICompare extends APICompareChangeHelper {
             classPool.appendSystemPath();
         }
 
-        List classes = im.getClasses();
+        final List<CtClass> classes = im.getClasses();
 
         // ExportClasses.export("target/test-api-classes", classes);
 
-        APICompare cmp = new APICompare();
+        final APICompare cmp = new APICompare();
         if (config != null) {
             cmp.config = config;
             cmp.filter = new APIFilter(config.apiLevel);
@@ -103,13 +103,12 @@ public class APICompare extends APICompareChangeHelper {
 
         int classesCount = 0;
 
-        for (Iterator iterator = classes.iterator(); iterator.hasNext();) {
-            CtClass refClass = (CtClass) iterator.next();
+        for (final CtClass refClass : classes) {
             if (!cmp.filter.isAPIClass(refClass)) {
                 continue;
             }
             classesCount++;
-            counters.set(new Long(classesCount));
+            counters.set(Long.valueOf(classesCount));
             CtClass implClass = null;
             try {
                 implClass = classPool.get(refClass.getName());
@@ -133,15 +132,15 @@ public class APICompare extends APICompareChangeHelper {
     }
 
     public static void compare(CtClass refClass, CtClass implClass) throws ChangeDetectedException {
-        APICompare cmp = new APICompare();
-        List diff;
+        final APICompare cmp = new APICompare();
+
         try {
-            diff = cmp.compareClasses(refClass, implClass);
+            final List<String> diff = cmp.compareClasses(refClass, implClass);
+            if (diff.size() > 0) {
+                throw new ChangeDetectedException(diff);
+            }
         } catch (NotFoundException e) {
             throw new RuntimeException(e);
-        }
-        if (diff.size() > 0) {
-            throw new ChangeDetectedException(diff);
         }
     }
 
@@ -153,15 +152,15 @@ public class APICompare extends APICompareChangeHelper {
         }
     }
 
-    private void addMissing(Object member) {
+    private void addMissing(final Object member) {
         changesMissing.add(member);
     }
 
-    private void addExtra(Object member) {
+    private void addExtra(final CtMember member) {
         changesExtra.add(member);
     }
 
-    private void addChanges(Object member) {
+    private void addChanges(final Object member) {
         changesChanges.add(member);
     }
 
@@ -177,8 +176,7 @@ public class APICompare extends APICompareChangeHelper {
         return changesChanges.iterator();
     }
 
-    public List compareClasses(CtClass refClass, CtClass implClass) throws NotFoundException {
-
+    public List<String> compareClasses(CtClass refClass, CtClass implClass) throws NotFoundException {
         String className = refClass.getName();
 
         boolean ch = false;
@@ -233,7 +231,8 @@ public class APICompare extends APICompareChangeHelper {
     }
 
     private boolean compareInterfaces(CtClass[] refInterfaces, CtClass[] implInterfacess, String className) {
-        List implNames = new Vector();
+        final List<String> implNames = new Vector<>();
+
         for (int i = 0; i < implInterfacess.length; i++) {
             implNames.add(implInterfacess[i].getName());
         }
@@ -245,8 +244,9 @@ public class APICompare extends APICompareChangeHelper {
         return ch;
     }
 
-    private Map buildNameMap(CtMember[] members, String className) throws NotFoundException {
-        Map namesMap = new Hashtable();
+    private Map<String, CtMember> buildNameMap(CtMember[] members, String className) throws NotFoundException {
+        final Map<String, CtMember> namesMap = new Hashtable<>();
+
         for (int i = 0; i < members.length; i++) {
             if (!isAPIMember(members[i])) {
                 // System.out.println("ignore " + members[i].getName());
@@ -254,8 +254,7 @@ public class APICompare extends APICompareChangeHelper {
             }
             String name = getName4Map(members[i]);
             if (namesMap.containsKey(name)) {
-                CtMember exists = (CtMember) namesMap.get(name);
-                if (exists.getDeclaringClass().getName().equals(className)) {
+                if (namesMap.get(name).getDeclaringClass().getName().equals(className)) {
                     continue;
                 }
                 // throw new Error("duplicate member name " + name + " " +
@@ -282,7 +281,8 @@ public class APICompare extends APICompareChangeHelper {
     }
 
     private void compareConstructors(CtConstructor[] refConstructors, CtConstructor[] implConstructors, String className) throws NotFoundException {
-        Map implNames = buildNameMap(implConstructors, className);
+        final Map<String, CtMember> implNames = buildNameMap(implConstructors, className);
+
         int compared = 0;
         int expectedConstructors = 0;
         for (int i = 0; i < refConstructors.length; i++) {
@@ -301,14 +301,14 @@ public class APICompare extends APICompareChangeHelper {
         if (config.allowAPIextension) {
             return;
         }
-        StringBuffer extra = new StringBuffer();
-        for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
+        final StringBuffer extra = new StringBuffer();
+        for (final String name : implNames.keySet()) {
             if (extra.length() > 0) {
                 extra.append(", ");
             } else {
                 extra.append(", Extra constructor(s) [");
             }
-            CtConstructor cx = (CtConstructor) implNames.get(i.next());
+            final CtConstructor cx = (CtConstructor) implNames.get(name);
             addExtra(cx);
             extra.append(cx.getSignature());
         }
@@ -319,14 +319,16 @@ public class APICompare extends APICompareChangeHelper {
     }
 
     private boolean compareThrows(CtBehavior refMethod, CtBehavior implMethod, String className) throws NotFoundException {
-        List refNames = new Vector();
+        final List<String> refNames = new Vector<>();
+
         CtClass[] refExceptions = refMethod.getExceptionTypes();
         for (int i = 0; i < refExceptions.length; i++) {
             refNames.add(refExceptions[i].getName());
         }
 
         boolean ch = false;
-        List implNames = new Vector();
+        final List<String> implNames = new Vector<>();
+
         CtClass[] implExceptions = implMethod.getExceptionTypes();
         for (int i = 0; i < implExceptions.length; i++) {
             implNames.add(implExceptions[i].getName());
@@ -397,7 +399,7 @@ public class APICompare extends APICompareChangeHelper {
     }
 
     private void compareMethods(CtMethod[] refMethods, CtMethod[] implMethods, String className) throws NotFoundException {
-        Map implNames = buildNameMap(implMethods, className);
+        final Map<String, CtMember> implNames = buildNameMap(implMethods, className);
         int compared = 0;
         int expectedMethods = 0;
         for (int i = 0; i < refMethods.length; i++) {
@@ -417,13 +419,13 @@ public class APICompare extends APICompareChangeHelper {
             return;
         }
         StringBuffer extra = new StringBuffer();
-        for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
+        for (Iterator<String> i = implNames.keySet().iterator(); i.hasNext();) {
             if (extra.length() > 0) {
                 extra.append(", ");
             } else {
                 extra.append(", Extra method(s) [");
             }
-            String extName = (String) i.next();
+            String extName = i.next();
             CtMethod mx = (CtMethod) implNames.get(extName);
             addExtra(mx);
             extra.append(extName);
@@ -448,11 +450,12 @@ public class APICompare extends APICompareChangeHelper {
     }
 
     private void compareFields(CtField[] refFields, CtField[] implFields, String className, CtClass refClass, CtClass implClass) throws NotFoundException {
-        Map implNames = buildNameMap(implFields, className);
+        final Map<String, CtMember> implNames = buildNameMap(implFields, className);
         int compared = 0;
         int expectedFields = 0;
+
         for (int i = 0; i < refFields.length; i++) {
-            String name = getName4Map(refFields[i]);
+            final String name = getName4Map(refFields[i]);
             if (!isAPIMember(refFields[i])) {
                 implNames.remove(name);
                 continue;
@@ -469,7 +472,7 @@ public class APICompare extends APICompareChangeHelper {
             return;
         }
         StringBuffer extra = new StringBuffer();
-        for (Iterator i = implNames.keySet().iterator(); i.hasNext();) {
+        for (Iterator<String> i = implNames.keySet().iterator(); i.hasNext();) {
             if (extra.length() > 0) {
                 extra.append(", ");
             } else {

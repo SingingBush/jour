@@ -36,7 +36,7 @@ public class Logger {
 
     private static int log4jAvalable = 0;
 
-    private static WeakHashMap instances = new WeakHashMap();
+    private static WeakHashMap<org.apache.log4j.Logger, Logger> instances = new WeakHashMap<>();
 
     protected Logger() {
     }
@@ -88,11 +88,12 @@ public class Logger {
     }
 
     private static Logger createLoggerWrapper(String name) {
-    	org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(name);
+    	final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(name);
+
         if (instances.containsKey(logger)) {
-            return (Logger)instances.get(logger);
+            return instances.get(logger);
         } else {
-            Logger log = new LoggerLog4j(logger);
+            final Logger log = new LoggerLog4j(logger);
             instances.put(logger, log);
             return log;
         }

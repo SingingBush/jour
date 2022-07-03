@@ -26,7 +26,6 @@ package net.sf.jour.signature;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -42,7 +41,7 @@ import net.sf.jour.util.FileUtil;
  */
 public class ExportClasses {
 
-	static final Map<String, int[]> javaVersion = new HashMap<>();
+	private static final Map<String, int[]> javaVersion = new HashMap<>();
 
 	static {
 		javaVersion.put("1.0", new int[] { 45, 3 });
@@ -67,13 +66,20 @@ public class ExportClasses {
 	}
 
 	public static int export(String directoryName, CtClass klass, String classVersion) {
-		List classes = new Vector();
+		final List<CtClass> classes = new Vector<>();
 		classes.add(klass);
 		return export(directoryName, classes, classVersion);
 	}
 
-	public static int export(String directoryName, List classes, String classVersion) {
-		File dir = new File(directoryName);
+    /**
+     *
+     * @param directoryName the directory path to output the files to. Must not end with a separator
+     * @param classes list of classes, see: {@link CtClass}
+     * @param classVersion the JDK version. eg: 1.8
+     * @return the amount of classes exported
+     */
+	public static int export(final String directoryName, final List<CtClass> classes, final String classVersion) {
+		final File dir = new File(directoryName);
 		if (!dir.exists()) {
 			if (!dir.mkdirs()) {
 				throw new RuntimeException("Can't create directory " + directoryName);
@@ -82,28 +88,25 @@ public class ExportClasses {
 			FileUtil.deleteDir(new File(directoryName), false);
 		}
 		int count = 0;
-		for (Iterator iterator = classes.iterator(); iterator.hasNext();) {
-			CtClass klass = (CtClass) iterator.next();
-			try {
-				if (classVersion != null) {
-					int[] majorMinor = (int[]) javaVersion.get(classVersion);
-					if (majorMinor == null) {
-						throw new RuntimeException("Unknown classVersion " + classVersion);
-					}
-					ClassFile cf = klass.getClassFile();
-					cf.setMajorVersion(majorMinor[0]);
-					cf.setMinorVersion(majorMinor[1]);
-				}
+        for (final CtClass klass : classes) {
+            try {
+                if (classVersion != null) {
+                    int[] majorMinor = javaVersion.get(classVersion);
+                    if (majorMinor == null || majorMinor.length < 2) {
+                        throw new RuntimeException("Unknown classVersion " + classVersion);
+                    }
+                    ClassFile cf = klass.getClassFile();
+                    cf.setMajorVersion(majorMinor[0]);
+                    cf.setMinorVersion(majorMinor[1]);
+                }
 
-				klass.writeFile(directoryName);
-				count++;
+                klass.writeFile(directoryName);
+                count++;
 
-			} catch (CannotCompileException e) {
-				throw new RuntimeException(e);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
+            } catch (CannotCompileException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
 		return count;
 	}
 }

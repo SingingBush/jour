@@ -17,9 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
- * 
+ *
  * @version $Id$
- * 
+ *
  */
 package net.sf.jour.signature;
 
@@ -29,20 +29,20 @@ import java.util.Vector;
 
 /**
  * @author vlads
- * 
+ *
  */
 class APICompareChangeHelper {
 
-	List changes;
+	List<String> changes;
 
 	static class ModifiersValue {
-	    
+
 	    private final int modifiers;
-	    
+
 	    public ModifiersValue(int modifiers) {
 	        this.modifiers = modifiers;
 	    }
-	    
+
 	    public boolean equals(Object obj) {
             if (obj instanceof ModifiersValue) {
                 return modifiers == ((ModifiersValue) obj).modifiers;
@@ -50,14 +50,14 @@ class APICompareChangeHelper {
                 return false;
             }
         }
-	    
+
 	    public String toString() {
 	        return Modifier.toString(modifiers) + " (" + modifiers + ")";
 	    }
 	}
 	
 	APICompareChangeHelper() {
-		changes = new Vector();
+		changes = new Vector<>();
 	}
 
 	public void fail(String message) {

@@ -88,7 +88,7 @@ public class PreProcessor {
 
 	ClassPool classPool;
 
-	public static void main(final String[] args) {
+    public static void main(final String[] args) {
         final Properties argsp = CmdArgs.load(args);
 
 		if ((args.length < 1) || argsp.getProperty("help") != null) {
@@ -120,49 +120,75 @@ public class PreProcessor {
 	}
 
 	public PreProcessor(Properties properties) throws NotFoundException {
-		String configFileName = properties.getProperty("config");
-		String out = properties.getProperty("dst");
-		String in = properties.getProperty("src");
-		if (out == null) {
-			out = in;
-		}
-		String copy = properties.getProperty("copy");
-		if ("all".equalsIgnoreCase(copy)) {
-			setCopyClasses(true);
-			setCopyResources(true);
-		} else if ("classes".equalsIgnoreCase(copy)) {
-			setCopyClasses(true);
-		} else if ("resources".equalsIgnoreCase(copy)) {
-			setCopyResources(true);
-		}
-
-		this.useSystemClassPath = "true".equals(properties.getProperty("systempath"));
-
-		final List<Object> classpath = new Vector<>();
-
-		Object cp = properties.get("cp");
-		if (cp != null) {
-			if (cp instanceof List) {
-				classpath.addAll((List) cp);
-			} else {
-				classpath.add(cp);
-			}
-		}
-		cp = properties.get("classpath");
-		if (cp != null) {
-			if (cp instanceof List) {
-				classpath.addAll((List) cp);
-			} else {
-				classpath.add(cp);
-			}
-		}
-
-		try {
-			init(configFileName, new File(in).getCanonicalFile(), new File(out).getCanonicalFile(), classpath);
-		} catch (IOException e) {
-			throw new Error("Can't configure input/output path", e);
-		}
+        this(properties.getProperty("config"),
+            properties.getProperty("src"),
+            properties.getProperty("dst", properties.getProperty("src")),
+            properties.getProperty("copy"), // Should be one of all|classes|resources
+            "true".equalsIgnoreCase(properties.getProperty("systempath")),
+            properties.get("cp"),
+            properties.get("classpath")
+        );
 	}
+
+    /*
+     *
+     * @param configFileName
+     * @param in
+     * @param out
+     * @param copy
+     * @param useSystemClassPath
+     * @param cp
+     * @param classpathProperty
+     * @since 2.1.1
+     */
+    public PreProcessor(final String configFileName,
+                        final String in,
+                        final String out,
+                        final String copy,
+                        final boolean useSystemClassPath,
+                        Object cp,
+                        Object classpathProperty) {
+
+        if(copy != null && !copy.isEmpty()) {
+            if ("all".equalsIgnoreCase(copy)) {
+                setCopyClasses(true);
+                setCopyResources(true);
+            } else if ("classes".equalsIgnoreCase(copy)) {
+                setCopyClasses(true);
+            } else if ("resources".equalsIgnoreCase(copy)) {
+                setCopyResources(true);
+            } else {
+                log.warn(String.format("The 'copy' arg had unrecognised value: %s", copy));
+            }
+        }
+
+        this.useSystemClassPath = useSystemClassPath;
+
+        final List<Object> classpath = new Vector<>();
+
+        //Object cp = properties.get("cp");
+        if (cp != null) {
+            if (cp instanceof List) {
+                classpath.addAll((List) cp);
+            } else {
+                classpath.add(cp);
+            }
+        }
+        cp = classpathProperty;
+        if (cp != null) {
+            if (cp instanceof List) {
+                classpath.addAll((List) cp);
+            } else {
+                classpath.add(cp);
+            }
+        }
+
+        try {
+            init(configFileName, new File(in).getCanonicalFile(), new File(out).getCanonicalFile(), classpath);
+        } catch (IOException e) {
+            throw new Error("Can't configure input/output path", e);
+        }
+    }
 
 	public PreProcessor(String configFileName, File in, File out, List<Object> classpath) {
 		init(configFileName, in, out, classpath);
