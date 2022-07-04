@@ -36,8 +36,7 @@ import net.sf.jour.InterceptorException;
  * @author vlads
  * @version $Revision$ ($Author$) $Date$
  */
-public class MethodExecutionTimeInstrumentor extends AbstractInstrumentor implements
-        InstrumentorConsts {
+public class MethodExecutionTimeInstrumentor extends AbstractInstrumentor implements InstrumentorConsts {
 
 	public boolean instrumentClass(CtClass clazz) throws InterceptorException {
 		return false;
@@ -55,41 +54,42 @@ public class MethodExecutionTimeInstrumentor extends AbstractInstrumentor implem
 
     private static void addTiming(CtClass clazz, CtMethod method) throws InterceptorException {
         try {
-        String mname = method.getName();
-        //  rename old method to synthetic name, then duplicate the
-        //  method with original name for use as interceptor
-        String nname = "jour$"+ mname + "$impl";
-        method.setName(nname);
-        CtMethod mnew = CtNewMethod.copy(method, mname, clazz, null);
+            final String originalMethodName = method.getName();
+            //  rename old method to synthetic name, then duplicate the
+            //  method with original name for use as interceptor
+            final String nname = "jour$"+ originalMethodName + "$impl";
+            method.setName(nname);
+            final CtMethod mnew = CtNewMethod.copy(method, originalMethodName, clazz, null);
 
-        //  start the body text generation by saving the start time
-        //  to a local variable, then call the timed method; the
-        //  actual code generated needs to depend on whether the
-        //  timed method returns a value
-        String type = method.getReturnType().getName();
-        StringBuffer body = new StringBuffer();
-        body.append("{\nlong start = System.currentTimeMillis();\n");
-        if (!"void".equals(type)) {
-            body.append(type + " result = ");
-        }
-        body.append(nname + "($$);\n");
+            //  start the body text generation by saving the start time
+            //  to a local variable, then call the timed method; the
+            //  actual code generated needs to depend on whether the
+            //  timed method returns a value
+            final String type = method.getReturnType().getName();
 
-        //  finish body text generation with call to print the timing
-        //  information, and return saved value (if not void)
-        //body.append("net.sf.jour.rt.agent.Elog.logEvent(new net.sf.jour.rt.agent.MethodExecutionTimeEvent(\"" + mname + "\", System.currentTimeMillis()-start));\n");
-        body.append("System.out.println(\"" + mname + "\" + System.currentTimeMillis()-start));\n");
-        if (!"void".equals(type)) {
-            body.append("return result;\n");
-        }
-        body.append("}");
+            final StringBuffer body = new StringBuffer();
+            body.append("{\nlong start = System.currentTimeMillis();\n");
+            if (!"void".equals(type)) {
+                body.append(type + " result = ");
+            }
+            body.append(nname + "($$);\n");
 
-        //  replace the body of the interceptor method with generated
-        //  code block and add it to class
-        mnew.setBody(body.toString());
-        clazz.addMethod(mnew);
+            //  finish body text generation with call to print the timing
+            //  information, and return saved value (if not void)
+            //body.append("net.sf.jour.rt.agent.Elog.logEvent(new net.sf.jour.rt.agent.MethodExecutionTimeEvent(\"" + mname + "\", System.currentTimeMillis()-start));\n");
+            body.append("System.out.println(\"" + originalMethodName + "\" + (System.currentTimeMillis() - start));\n");
+            if (!"void".equals(type)) {
+                body.append("return result;\n");
+            }
+            body.append("}");
+
+            //  replace the body of the interceptor method with generated
+            //  code block and add it to class
+            mnew.setBody(body.toString());
+            clazz.addMethod(mnew);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new InterceptorException("Failed to add timing to method " + method.getName());
+            throw new InterceptorException("Failed to add timing to method " + method.getName(), e);
         }
     }
 }
