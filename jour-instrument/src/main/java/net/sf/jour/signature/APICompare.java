@@ -164,14 +164,17 @@ public class APICompare extends APICompareChangeHelper {
         changesChanges.add(member);
     }
 
+    @Deprecated
     public Iterator getChangesMissing() {
         return changesMissing.iterator();
     }
 
+    @Deprecated
     public Iterator getChangesExtra() {
         return changesExtra.iterator();
     }
 
+    @Deprecated
     public Iterator getChangesChanges() {
         return changesChanges.iterator();
     }

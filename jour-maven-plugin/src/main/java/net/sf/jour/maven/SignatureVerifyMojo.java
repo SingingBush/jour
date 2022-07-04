@@ -44,15 +44,15 @@ import com.pyx4j.log4j.MavenLogAppender;
 
 /*
  * The jour:signatureVerify will compare API descriptor and API classes.
- * 
+ *
  * @author vlads
- * 
+ *
  * @goal signatureVerify
- * 
+ *
  * @phase test
- * 
+ *
  * @requiresDependencyResolution compile
- * 
+ *
  * @description Verification of compatibility between Java APIs
  */
 @Mojo(name = "signatureVerify",
@@ -102,7 +102,7 @@ public class SignatureVerifyMojo extends AbstractMojo {
 
 	/**
 	 * Compare Only selected packages
-	 * 
+	 *
 	 * @parameter
 	 */
 	@Parameter
@@ -132,18 +132,18 @@ public class SignatureVerifyMojo extends AbstractMojo {
 
 		final StringBuffer supportingJars = new StringBuffer();
 
-		final List dependancy = this.mavenProject.getTestArtifacts();
-		for (final Iterator i = dependancy.iterator(); i.hasNext();) {
-			final Artifact artifact = (Artifact) i.next();
-			final File file = InstrumentationMojo.getClasspathElement(artifact, mavenProject);
+		final List<Artifact> dependencies = this.mavenProject.getTestArtifacts();
 
-			log.debug("dependancy:" + file.toString());
+        for (final Artifact artifact : dependencies) {
+            final File file = InstrumentationMojo.getClasspathElement(artifact, mavenProject);
 
-			if (supportingJars.length() < 0) {
-				supportingJars.append(File.pathSeparatorChar);
-			}
-			supportingJars.append(file.toString());
-		}
+            log.debug("dependency:" + file.toString());
+
+            if (supportingJars.length() < 0) {
+                supportingJars.append(File.pathSeparatorChar);
+            }
+            supportingJars.append(file.toString());
+        }
 
 		try {
 			APICompare.compare(classes.getAbsolutePath(), signature.getAbsolutePath(), config, useSystemClassPath,

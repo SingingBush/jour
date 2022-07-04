@@ -55,7 +55,7 @@ class APICompareChangeHelper {
 	        return Modifier.toString(modifiers) + " (" + modifiers + ")";
 	    }
 	}
-	
+
 	APICompareChangeHelper() {
 		changes = new Vector<>();
 	}
