@@ -45,13 +45,43 @@ import net.sf.jour.InterceptorException;
 public class ExceptionCatcherInstrumentor extends AbstractInstrumentor {
 
     private List<String> exceptions = new ArrayList<>();
-    
+
     private String code;
 
     /**
      * Creates a new ExceptionCatcherInstrumentor object.
      */
     public ExceptionCatcherInstrumentor() {
+    }
+
+    /**
+     * Convenience for defining source code used for catch block which would otherwise be defined using setter
+     * @param exceptionType the typeof exception that needs to be caught
+     * @param code the source code that will be used for catch block
+     * @since 2.1.1
+     */
+    public ExceptionCatcherInstrumentor(final String exceptionType, final String code) {
+        exceptions.add(exceptionType);
+        this.code = code;
+    }
+
+    /**
+     * Convenience for defining source code used for catch block which would otherwise be defined using setter
+     * @param exceptionType the typeof exception that needs to be caught
+     * @param code the source code that will be used for catch block
+     * @since 2.1.1
+     */
+    public ExceptionCatcherInstrumentor(Class<? extends Throwable> exceptionType, String code) {
+        exceptions.add(exceptionType.getName());
+        this.code = code;
+    }
+
+    /**
+     * @param exception the exception type that needs to be caught
+     * @since 2.1.1
+     */
+    public void exceptionType(Class<? extends Throwable> exception) {
+        exceptions.add(exception.getName());
     }
 
     public void exceptionType(String exception) {
@@ -62,49 +92,44 @@ public class ExceptionCatcherInstrumentor extends AbstractInstrumentor {
 		this.code = code;
 	}
 
+    @Override
     public boolean instrumentClass(CtClass clazz) throws InterceptorException {
     	return false;
     }
 
-    public boolean instrumentMethod(CtClass clazz, CtMethod method)
-        throws InterceptorException {
+    @Override
+    public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
         if (method.isEmpty()) {
             return false;
         }
 
         try {
         	boolean modified = false;
-            for (Iterator iter = exceptions.iterator(); iter.hasNext();) {
-                String exception = (String) iter.next();
+            for (final String exception : exceptions) {
                 addCatch(clazz, method, exception);
-				modified = true;
+                modified = true;
             }
 			return modified;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new InterceptorException("Failed to add catch to method " +
-                method + " of class " + clazz);
+            throw new InterceptorException("Failed to add catch to method " + method + " of class " + clazz);
         }
     }
 
-    private void addCatch(CtClass clazz, CtMethod method, String exception)
-        throws NotFoundException, CannotCompileException {
-        String mname = method.getName();
-        CtClass etype = ClassPool.getDefault().get(exception);
-        StringBuffer codeBuffer = new StringBuffer();
-        if (this.code == null) {
-        	codeBuffer.append("{ System.out.println(\"Exception ").append(exception).append(" at ");
-        	codeBuffer.append(clazz.getName()).append(".").append(mname).append("\");");
-        	codeBuffer.append(" throw $e; }");
-        } else {
-        	codeBuffer.append(this.code);
-        }
-        method.addCatch(codeBuffer.toString(), etype);
+    private void addCatch(final CtClass clazz, final CtMethod method, final String exception) throws NotFoundException, CannotCompileException {
+        final String mname = method.getName();
+        final CtClass etype = ClassPool.getDefault().get(exception);
+
+        final String sourceCode = this.code == null?
+            "{ System.out.println(\"Exception " + exception + " at " + clazz.getName() + "." + mname + "\"); throw $e; }" :
+            this.code;
+
+        method.addCatch(sourceCode, etype);
     }
 
-    public boolean instrumentConstructor(CtClass clazz, CtConstructor constructor)
-        throws InterceptorException {
-			return false;
+    @Override
+    public boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException {
+        return false;
     }
 
 }
