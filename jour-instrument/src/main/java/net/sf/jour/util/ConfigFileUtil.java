@@ -125,7 +125,7 @@ public class ConfigFileUtil extends FileUtil {
         if (node == null) {
             return null;
         }
-        List ret = new Vector();
+        List<Node> ret = new Vector<>();
         NodeList children =  node.getChildNodes();  
         for (int j = 0, cnt = children.getLength(); j < cnt; j++) {
             Node child = children.item(j);

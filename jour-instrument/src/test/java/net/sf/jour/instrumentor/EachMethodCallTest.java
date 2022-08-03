@@ -37,7 +37,7 @@ public class EachMethodCallTest extends TestCase {
 		EachMethodCall call = (EachMethodCall)caseClass.newInstance();
 		call.callEachMethod();
 		List list = call.getMethodsCalled();
-		List expected = new Vector();
+		List<String> expected = new Vector<>();
 
 		Method[] mts = call.getClass().getDeclaredMethods();
 		for (int i = 0; i < mts.length; i++) {

@@ -121,9 +121,10 @@ public class InstrumentationMojo extends AbstractMojo {
 
 			File out = new File(outputDirectory, output);
 
-			List classpath = new Vector();
+			List<Object> classpath = new Vector<>();
 
-			List dependancy = this.mavenProject.getTestArtifacts();
+			List<Artifact> dependancy = this.mavenProject.getTestArtifacts();
+
 			for (Iterator i = dependancy.iterator(); i.hasNext();) {
 				Artifact artifact = (Artifact) i.next();
 				File file = getClasspathElement(artifact, mavenProject);

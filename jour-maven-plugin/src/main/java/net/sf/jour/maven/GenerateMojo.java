@@ -137,7 +137,7 @@ public class GenerateMojo extends AbstractMojo {
 
 		StringBuffer supportingJars = new StringBuffer();
 
-		List dependancy;
+		List<Artifact> dependancy;
 		if (Artifact.SCOPE_COMPILE.equals(scope)) {
 		    dependancy = this.mavenProject.getCompileArtifacts();
 		} else if (Artifact.SCOPE_TEST.equals(scope)) {

@@ -27,7 +27,7 @@ public class CallEachMethodInstrumentor extends AbstractInstrumentor {
 
 	public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
 		Iterator methods = Arrays.asList(clazz.getDeclaredMethods()).iterator();
-		List testMethods = new Vector();
+		List<CtMethod> testMethods = new Vector<>();
 		while (methods.hasNext()) {
 			CtMethod testMethod = (CtMethod) methods.next();
 			if (pointcut.acceptMethod(testMethod)) {

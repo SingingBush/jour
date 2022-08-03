@@ -5,10 +5,10 @@ import java.util.Vector;
 
 public class EachMethodCallCase implements EachMethodCall {
 
-	List methodsCalled;
+	List<String> methodsCalled;
 	
 	public EachMethodCallCase() {
-		methodsCalled = new Vector();
+		methodsCalled = new Vector<>();
 	}
 	
 	public void callEachMethod() {

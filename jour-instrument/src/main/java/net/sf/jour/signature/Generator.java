@@ -140,7 +140,7 @@ public class Generator {
 			classPool.appendSystemPath();
 		}
 
-		List classes = new Vector();
+		List<CtClass> classes = new Vector<>();
 
 		int countEntry = 0;
 
@@ -187,7 +187,7 @@ public class Generator {
 
 	public void process(ClassPool classPool, List processClassNames) throws IOException, NotFoundException {
 		APIFilter filter = new APIFilter(filterLevel);
-		List classes = new Vector();
+		List<CtClass> classes = new Vector<>();
 		for (Iterator iterator = processClassNames.iterator(); iterator.hasNext();) {
 			String className = (String) iterator.next();
 			CtClass klass = classPool.get(className);
