@@ -20,9 +20,10 @@
  */
 package net.sf.jour.filter;
 
-import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * TODO Add docs
@@ -36,7 +37,7 @@ import org.junit.Test;
  * @author vlads
  * @version $Revision$ ($Author$) $Date$
  */
-public class MatchStringFilterTest extends TestCase {
+public class MatchStringFilterTest {
 
 	protected static final Logger log = Logger.getLogger();
 

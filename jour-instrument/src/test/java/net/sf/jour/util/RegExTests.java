@@ -21,9 +21,10 @@
 package net.sf.jour.util;
 
 import java.util.StringTokenizer;
-
-import junit.framework.TestCase;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * TODO Add docs
@@ -37,7 +38,7 @@ import org.junit.Test;
  * @author vlads
  * @version $Revision$ ($Author$) $Date$
  */
-public class RegExTests extends TestCase {
+public class RegExTests {
 
 	void verify(String str, String expected, String regEx){
 		String[] ar = RegExUtil.match(str, regEx);

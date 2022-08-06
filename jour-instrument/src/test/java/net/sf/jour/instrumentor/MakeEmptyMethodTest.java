@@ -4,12 +4,13 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Vector;
 
-import junit.framework.TestCase;
 import net.sf.jour.InstrumentingClassLoader;
 import net.sf.jour.test.Utils;
 import org.junit.Test;
 
-public class MakeEmptyMethodTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+
+public class MakeEmptyMethodTest {
 
     @Test
 	public void testMakeEmptyMethod() throws Exception {

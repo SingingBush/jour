@@ -21,10 +21,10 @@
 package net.sf.jour;
 
 import java.io.File;
-
-import junit.framework.TestCase;
 import net.sf.jour.test.Utils;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /*
  * Created on Dec 2, 2004
@@ -39,7 +39,7 @@ import org.junit.Test;
  *
  * @version $Revision$ ($Author$)
  */
-public class TestPreProcessor extends TestCase {
+public class TestPreProcessor {
 
     @Test
 	public void testPreProcessorDirectory() throws Exception {

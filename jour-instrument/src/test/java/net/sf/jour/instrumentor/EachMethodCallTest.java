@@ -8,13 +8,14 @@ import org.junit.Test;
 
 import javassist.ClassPool;
 import javassist.CtClass;
-import junit.framework.TestCase;
 import net.sf.jour.Config;
 import net.sf.jour.Interceptor;
 import net.sf.jour.test.Utils;
 import uut.makecalls.EachMethodCall;
 
-public class EachMethodCallTest extends TestCase {
+import static org.junit.Assert.assertTrue;
+
+public class EachMethodCallTest {
 
 	@Test
 	public void testEachMethodCallList() throws Exception {

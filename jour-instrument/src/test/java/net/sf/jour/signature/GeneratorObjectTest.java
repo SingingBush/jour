@@ -21,15 +21,18 @@
 package net.sf.jour.signature;
 
 import javassist.CtClass;
-import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 /**
  * @author vlads
  *
  */
-public class GeneratorObjectTest extends TestCase {
+public class GeneratorObjectTest {
 
 	protected static final Logger log = Logger.getLogger();
 

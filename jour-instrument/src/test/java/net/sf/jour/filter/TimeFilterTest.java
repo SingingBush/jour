@@ -27,10 +27,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
 import net.sf.jour.util.TimeUtil;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * TODO Add docs
@@ -44,7 +45,7 @@ import org.junit.Test;
  * @author vlads
  * @version $Revision$ ($Author$)  $Date$
  */
-public class TimeFilterTest  extends TestCase {
+public class TimeFilterTest  {
 
     protected static final Logger log = Logger.getLogger();
 

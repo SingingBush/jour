@@ -25,15 +25,16 @@ package net.sf.jour.signature;
 
 import java.util.List;
 
-import junit.framework.TestCase;
 import net.sf.jour.test.Utils;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author vlads
  *
  */
-public class ChangesTest extends TestCase {
+public class ChangesTest {
 
 	private void verify(String signatureFileName, int ecpectedChanges) {
 		APICompareConfig config = new APICompareConfig();

@@ -1,9 +1,10 @@
 package net.sf.jour.examples;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
-public class ExtensiveDebugTest extends TestCase {
+import static org.junit.Assert.assertNull;
+
+public class ExtensiveDebugTest {
 
     @Test
 	public void testDebugRemoved() {

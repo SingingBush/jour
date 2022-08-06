@@ -1,6 +1,5 @@
 package net.sf.jour;
 
-import junit.framework.TestCase;
 import net.sf.jour.filter.PointcutListFilter;
 import net.sf.jour.instrumentor.ConfigTestInstrumentor;
 import net.sf.jour.instrumentor.Instrumentor;
@@ -8,7 +7,10 @@ import net.sf.jour.test.Utils;
 import net.sf.jour.util.FileUtil;
 import org.junit.Test;
 
-public class TestConfig extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+public class TestConfig {
 
     @Test
 	public void testAll() {

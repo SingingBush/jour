@@ -3,12 +3,14 @@ package net.sf.jour.processor;
 import java.io.File;
 import java.util.Enumeration;
 
-import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
 import net.sf.jour.test.Utils;
 import org.junit.Test;
 
-public class TestDirectoryInputSource extends TestCase {
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+public class TestDirectoryInputSource {
 
 	protected static final Logger log = Logger.getLogger();
 

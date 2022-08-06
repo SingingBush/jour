@@ -26,9 +26,11 @@ import java.util.StringTokenizer;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
-import junit.framework.TestCase;
 import net.sf.jour.test.Utils;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created on 03.12.2004
@@ -41,7 +43,7 @@ import org.junit.Test;
  * @author vlads
  * @version $Revision$ ($Author$) $Date$
  */
-public class PointcutTest extends TestCase {
+public class PointcutTest {
 
 	public void verifyMod(String patterns, int mod, boolean expect) {
 	    PointcutModifierListFiler pm = new PointcutModifierListFiler();

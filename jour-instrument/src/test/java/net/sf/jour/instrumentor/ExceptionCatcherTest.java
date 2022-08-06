@@ -1,12 +1,15 @@
 package net.sf.jour.instrumentor;
 
-import junit.framework.TestCase;
 import net.sf.jour.InstrumentingClassLoader;
 import net.sf.jour.test.Utils;
 import org.junit.Test;
 import uut.Monitor;
 
-public class ExceptionCatcherTest extends TestCase {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+public class ExceptionCatcherTest {
 
     @Test
 	public void testExceptionCatcher() throws Exception {

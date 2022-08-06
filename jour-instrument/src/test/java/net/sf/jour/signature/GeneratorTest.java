@@ -20,16 +20,19 @@
  */
 package net.sf.jour.signature;
 
-import junit.framework.TestCase;
 import net.sf.jour.log.Logger;
 import net.sf.jour.test.Utils;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * @author vlads
  *
  */
-public class GeneratorTest extends TestCase {
+public class GeneratorTest {
 
 	protected static final Logger log = Logger.getLogger();
 
