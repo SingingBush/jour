@@ -29,9 +29,9 @@ import java.util.Locale;
 
 import net.sf.jour.log.Logger;
 import net.sf.jour.util.TimeUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * TODO Add docs
@@ -82,7 +82,7 @@ public class TimeFilterTest  {
 			log.debug("for " + (long)time);
 			f.debug();
 		}
-		assertEquals(pattern + " for {" + TimeUtil.timeStamp2dateString(time) + "}", expect, f.match(time));
+		assertEquals(expect, f.match(time), pattern + " for {" + TimeUtil.timeStamp2dateString(time) + "}");
 	}
 
     @Test

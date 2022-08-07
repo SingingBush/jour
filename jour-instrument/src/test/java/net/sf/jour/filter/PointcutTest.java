@@ -27,10 +27,10 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
 import net.sf.jour.test.Utils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created on 03.12.2004
@@ -51,7 +51,7 @@ public class PointcutTest {
 	    if (MatchFilter.debug) {
 	        pm.debug();
 	    }
-	    assertEquals(patterns + " for:" + Modifier.toString(mod), expect, pm.match(mod));
+	    assertEquals(expect, pm.match(mod), patterns + " for:" + Modifier.toString(mod));
 	}
 
     @Test
@@ -102,7 +102,7 @@ public class PointcutTest {
 
 	private void verify(String pattern, String methodName, boolean expect) {
 		Pointcut pc = new Pointcut(pattern);
-		assertEquals(pattern + " for:" + methodName, expect, pc.acceptMethod(methodName, new String[0], "int"));
+		assertEquals(expect, pc.acceptMethod(methodName, new String[0], "int"), pattern + " for:" + methodName);
 	}
 
     @Test
@@ -137,7 +137,7 @@ public class PointcutTest {
 	    CtClass clazz = pool.get("uut.pointcut.PointcutCase");
 	    CtMethod method = clazz.getDeclaredMethod(methodName);
 
-	    assertEquals(patterns + " for:" + methodName, expect, pointcuts.match(method));
+	    assertEquals(expect, pointcuts.match(method), patterns + " for:" + methodName);
 	}
 
     @Test

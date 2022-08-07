@@ -26,9 +26,9 @@ package net.sf.jour.signature;
 import java.util.List;
 
 import net.sf.jour.test.Utils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author vlads
@@ -51,7 +51,7 @@ public class ChangesTest {
 		if (message.length() > 0) {
 			message += "\n";
 		}
-		assertEquals("Changes:\n" + message, ecpectedChanges, changes.size());
+		assertEquals(ecpectedChanges, changes.size(), "Changes:\n" + message);
 	}
 
     @Test

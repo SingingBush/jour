@@ -2,10 +2,10 @@ package net.sf.jour.instrumentor;
 
 import net.sf.jour.InstrumentingClassLoader;
 import net.sf.jour.test.Utils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import uut.Monitor;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReplaceMethodInstrumentorTest {
 
@@ -28,8 +28,8 @@ public class ReplaceMethodInstrumentorTest {
 
 		call.run();
 
-		assertEquals("Monitor call count", 1, Monitor.count);
-		assertEquals("Monitor flag value", 1, Monitor.flag);
+		assertEquals(1, Monitor.count, "Monitor call count");
+		assertEquals(1, Monitor.flag, "Monitor flag value");
 	}
 
 }

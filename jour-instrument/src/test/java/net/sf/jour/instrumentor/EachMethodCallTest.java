@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Vector;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -13,7 +13,7 @@ import net.sf.jour.Interceptor;
 import net.sf.jour.test.Utils;
 import uut.makecalls.EachMethodCall;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EachMethodCallTest {
 
@@ -31,7 +31,7 @@ public class EachMethodCallTest {
 
         final InstrumentorResults rc = interceptor.getInstrumentorResults();
 
-		assertTrue("Modified", rc.isModified());
+		assertTrue(rc.isModified());
 
         final Class<?> caseClass = cc.toClass();
 
@@ -48,7 +48,7 @@ public class EachMethodCallTest {
 			}
 		}
 
-		assertTrue("All test* Methtods Called", expected.containsAll(list));
+		assertTrue(expected.containsAll(list), "All test* Methtods Called");
 	}
 
 }

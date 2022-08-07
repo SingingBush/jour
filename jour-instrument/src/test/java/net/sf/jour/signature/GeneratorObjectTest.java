@@ -22,11 +22,11 @@ package net.sf.jour.signature;
 
 import javassist.CtClass;
 import net.sf.jour.log.Logger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author vlads
@@ -42,17 +42,17 @@ public class GeneratorObjectTest {
 			final String signatureFileName = "object-signature.xml";
 			final String classpathTempDirectory = "target/test-object-signature-classes";
 
-			SignatureImport im = new SignatureImport(false, null);
+            final SignatureImport im = new SignatureImport(false, null);
 			im.load("/net/sf/jour/signature/" + signatureFileName, null);
 
-			assertEquals("imported classes", 1, im.getClassNames().size());
+			assertEquals(1, im.getClassNames().size(), "imported classes");
 
-			CtClass objectClass = (CtClass) im.getClasses().get(0);
-			assertNull("Sper must be NULL", objectClass.getSuperclass());
+            final CtClass objectClass = im.getClasses().get(0);
+			assertNull(objectClass.getSuperclass(), "Sper must be NULL");
 
 			ExportClasses.export(classpathTempDirectory, im.getClasses(), "1.1");
 
-		} catch (Throwable e) {
+		} catch (final Throwable e) {
 			log.error("test error", e);
 			fail(e.getMessage());
 		}

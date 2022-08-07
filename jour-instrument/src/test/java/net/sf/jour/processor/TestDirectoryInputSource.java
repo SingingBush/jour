@@ -5,10 +5,10 @@ import java.util.Enumeration;
 
 import net.sf.jour.log.Logger;
 import net.sf.jour.test.Utils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestDirectoryInputSource {
 
@@ -38,7 +38,7 @@ public class TestDirectoryInputSource {
 				resourceFound = true;
 			}
 		}
-		assertTrue("Resource not found in recursion", resourceFound);
+		assertTrue(resourceFound, "Resource not found in recursion");
 	}
 
 }

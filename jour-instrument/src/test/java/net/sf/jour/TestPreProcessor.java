@@ -22,9 +22,9 @@ package net.sf.jour;
 
 import java.io.File;
 import net.sf.jour.test.Utils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /*
  * Created on Dec 2, 2004
@@ -53,7 +53,7 @@ public class TestPreProcessor {
 				"--dst", dstDir.getAbsolutePath(), "--systempath" });
 		pp.process();
 
-		assertTrue("Nothing instrumented", pp.getCountMethods() > 0);
+		assertTrue(pp.getCountMethods() > 0, "Nothing instrumented");
 	}
 
     @Test
@@ -69,6 +69,6 @@ public class TestPreProcessor {
 				"--systempath" });
 		pp.process();
 
-		assertTrue("Nothing instrumented", pp.getCountMethods() > 0);
+		assertTrue(pp.getCountMethods() > 0, "Nothing instrumented");
 	}
 }

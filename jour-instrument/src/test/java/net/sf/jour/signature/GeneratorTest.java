@@ -22,11 +22,11 @@ package net.sf.jour.signature;
 
 import net.sf.jour.log.Logger;
 import net.sf.jour.test.Utils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * @author vlads
@@ -49,12 +49,12 @@ public class GeneratorTest {
 			g.setUseSystemClassPath(true);
 			g.process();
 
-			assertTrue("exported classes", g.getClassNames().size() > 0);
+			assertTrue(g.getClassNames().size() > 0, "exported classes");
 
 			final SignatureImport im = new SignatureImport(true, null);
 			im.load(fileName);
 
-			assertEquals("imported classes", g.getClassNames().size(), im.getClassNames().size());
+			assertEquals(g.getClassNames().size(), im.getClassNames().size(), "imported classes");
 
             final APICompareConfig compareConfig = new APICompareConfig();
 			compareConfig.apiLevel = APIFilter.PACKAGE;

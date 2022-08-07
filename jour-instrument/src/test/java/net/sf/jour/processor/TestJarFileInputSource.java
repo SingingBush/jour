@@ -4,10 +4,10 @@ import java.io.File;
 import java.util.Enumeration;
 import net.sf.jour.log.Logger;
 import net.sf.jour.test.Utils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestJarFileInputSource {
 
@@ -38,6 +38,6 @@ public class TestJarFileInputSource {
 		} finally {
 			inputSource.close();
 		}
-		assertTrue("Resource not found in recursion", resourceFound);
+		assertTrue(resourceFound, "Resource not found in recursion");
 	}
 }

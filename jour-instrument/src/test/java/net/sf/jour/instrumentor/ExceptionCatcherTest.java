@@ -2,29 +2,28 @@ package net.sf.jour.instrumentor;
 
 import net.sf.jour.InstrumentingClassLoader;
 import net.sf.jour.test.Utils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import uut.Monitor;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ExceptionCatcherTest {
 
+    private static final String TEST_CLASSNAME = "uut.exceptionCatcher.ThrowExceptionsCase";
+
     @Test
 	public void testExceptionCatcher() throws Exception {
+        final String[] path = new String[] { Utils.getClassResourcePath(TEST_CLASSNAME) };
 
-		String testClassName = "uut.exceptionCatcher.ThrowExceptionsCase";
-
-		String[] path = new String[] { Utils.getClassResourcePath(testClassName) };
-
-		InstrumentingClassLoader cl = new InstrumentingClassLoader("/exceptionCatcher.jour.xml", path, this.getClass().getClassLoader());
+        final InstrumentingClassLoader cl = new InstrumentingClassLoader("/exceptionCatcher.jour.xml", path, this.getClass().getClassLoader());
 
 		cl.delegateLoadingOf(Monitor.class.getName());
 
-		Class caseClass = cl.loadClass(testClassName);
+        final Class<?> caseClass = cl.loadClass(TEST_CLASSNAME);
 
-		Runnable call = (Runnable)caseClass.getDeclaredConstructor().newInstance();
+		final Runnable call = (Runnable)caseClass.getDeclaredConstructor().newInstance();
 
 		Monitor.caught = null;
 		Monitor.flag = 0;
@@ -34,19 +33,19 @@ public class ExceptionCatcherTest {
 			call.run();
             fail("Error should be thrown by application under tests");
 		} catch (IllegalArgumentException e) {
-			assertEquals("Caught Exception message (no monitor)", "Monitor disabled", e.getMessage());
+			assertEquals("Monitor disabled", e.getMessage(), "Caught Exception message (no monitor)");
 		}
-		assertEquals("Monitor call count", 1, Monitor.count);
+		assertEquals(1, Monitor.count, "Monitor call count");
 
 		Monitor.flag = 1;
 		Monitor.caught = null;
 		call.run();
 
-		assertEquals("Monitor call count", 2, Monitor.count);
+		assertEquals(2, Monitor.count, "Monitor call count");
 
-		assertNotNull("Caught Exception", Monitor.caught);
+		assertNotNull(Monitor.caught, "Caught Exception");
 
-		assertEquals("Caught Exception message", "thrown by Method1", Monitor.caught.getMessage());
+		assertEquals("thrown by Method1", Monitor.caught.getMessage());
 	}
 
 }

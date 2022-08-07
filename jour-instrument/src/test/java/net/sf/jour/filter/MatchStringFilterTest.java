@@ -21,9 +21,9 @@
 package net.sf.jour.filter;
 
 import net.sf.jour.log.Logger;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * TODO Add docs
@@ -52,7 +52,7 @@ public class MatchStringFilterTest {
 		if (log.isDebugEnabled()) {
 			f.debug();
 		}
-		assertEquals(pattern + " " + text, expect, f.match(text));
+		assertEquals(expect, f.match(text), pattern + " " + text);
 	}
 
 	private void verifyList(String pattern, String text, boolean expect) {
@@ -61,7 +61,7 @@ public class MatchStringFilterTest {
 		if (log.isDebugEnabled()) {
 			f.debug();
 		}
-		assertEquals(pattern + " " + text, expect, f.match(text));
+		assertEquals(expect, f.match(text), pattern + " " + text);
 	}
 
     @Test

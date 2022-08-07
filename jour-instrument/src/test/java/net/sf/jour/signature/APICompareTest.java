@@ -3,12 +3,12 @@ package net.sf.jour.signature;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class APICompareTest {
 
@@ -18,7 +18,7 @@ public class APICompareTest {
     private CtClass implTwo;
     private CtClass implThree;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         apiCompare = new APICompare();
 
@@ -67,16 +67,18 @@ public class APICompareTest {
         assertTrue(true);
     }
 
-    @Test(expected = ChangeDetectedException.class)
-    public void testApiCompareStaticCompareOneToThree() throws ChangeDetectedException {
-        APICompare.compare(implOne, implThree);
-        fail();
+    @Test
+    public void testApiCompareStaticCompareOneToThree() {
+        assertThrows(ChangeDetectedException.class, () -> {
+            APICompare.compare(implOne, implThree);
+        });
     }
 
-    @Test(expected = ChangeDetectedException.class)
-    public void testApiCompareStaticCompareThreeToOne() throws ChangeDetectedException {
-        APICompare.compare(implThree, implOne);
-        fail();
+    @Test
+    public void testApiCompareStaticCompareThreeToOne() {
+        assertThrows(ChangeDetectedException.class, () -> {
+            APICompare.compare(implThree, implOne);
+        });
     }
 
 
