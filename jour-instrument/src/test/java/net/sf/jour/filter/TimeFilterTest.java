@@ -27,7 +27,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import net.sf.jour.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import net.sf.jour.util.TimeUtil;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class TimeFilterTest  {
 
-    protected static final Logger log = Logger.getLogger();
+    private static final Logger log = LoggerFactory.getLogger(TimeFilterTest.class);
 
     public static String date2text(Calendar c) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);

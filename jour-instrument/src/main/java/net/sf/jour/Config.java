@@ -51,7 +51,7 @@ import org.xml.sax.SAXException;
  */
 public class Config {
 
-	protected static final Logger log = LoggerFactory.getLogger(Config.class);
+	private static final Logger log = LoggerFactory.getLogger(Config.class);
 
 	public static final String DEFAULTCONFING_FILE = "jour.xml";
 

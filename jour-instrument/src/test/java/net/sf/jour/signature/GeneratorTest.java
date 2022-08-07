@@ -20,7 +20,8 @@
  */
 package net.sf.jour.signature;
 
-import net.sf.jour.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import net.sf.jour.test.Utils;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public class GeneratorTest {
 
-	protected static final Logger log = Logger.getLogger();
+	private static final Logger log = LoggerFactory.getLogger(GeneratorTest.class);
 
     @Test
 	public void testXMLGeneration() throws Exception {

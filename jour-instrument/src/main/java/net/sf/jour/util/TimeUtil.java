@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TimeUtil {
 
-    protected static final Logger log = LoggerFactory.getLogger(TimeUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(TimeUtil.class);
 
     public static final boolean debug = true;
 

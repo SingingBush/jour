@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 
 public class FileUtil {
 
-	protected static final Logger log = LoggerFactory.getLogger(FileUtil.class);
+	private static final Logger log = LoggerFactory.getLogger(FileUtil.class);
 
 	public static URL getFileLocation(String resource) {
 		return getFileLocation(resource, null);

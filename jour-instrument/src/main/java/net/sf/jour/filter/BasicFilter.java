@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  */
 public abstract class BasicFilter extends MatchFilter {
 
-	protected static final Logger log = LoggerFactory.getLogger(BasicFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(BasicFilter.class);
 
 	public static Pattern getGlobPattern(String globPattern) {
 		char[] gPat = globPattern.toCharArray();

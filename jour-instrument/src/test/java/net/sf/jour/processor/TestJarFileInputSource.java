@@ -2,7 +2,8 @@ package net.sf.jour.processor;
 
 import java.io.File;
 import java.util.Enumeration;
-import net.sf.jour.log.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import net.sf.jour.test.Utils;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class TestJarFileInputSource {
 
-	protected static final Logger log = Logger.getLogger();
+	private static final Logger log = LoggerFactory.getLogger(TestJarFileInputSource.class);
 
     @Test
 	public void testRecursion() throws Exception {

@@ -27,7 +27,7 @@ import java.util.StringTokenizer;
 
 public class TimeListFilter extends MatchListFilter {
 
-	protected static final Logger log = LoggerFactory.getLogger(TimeListFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(TimeListFilter.class);
 
 	public TimeListFilter() {
 		emptyListMath = true;

@@ -55,13 +55,14 @@ import org.xml.sax.SAXException;
 
 public class ConfigFileUtil extends FileUtil {
 
-	protected static final Logger log = LoggerFactory.getLogger(ConfigFileUtil.class);
+	private static final Logger log = LoggerFactory.getLogger(ConfigFileUtil.class);
 
 	public static Document loadDocument(InputStream stream) throws ParserConfigurationException, SAXException, IOException {
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setIgnoringComments(true);
         factory.setValidating(false);
-        DocumentBuilder builder = factory.newDocumentBuilder();
+
+        final DocumentBuilder builder = factory.newDocumentBuilder();
         builder.setErrorHandler(null);
         return builder.parse(stream);
 	}
@@ -81,23 +82,24 @@ public class ConfigFileUtil extends FileUtil {
     }
 
     public static InputStream loadFile(String fileName) {
-        URL location = FileUtil.getFile(fileName);
+        final URL location = FileUtil.getFile(fileName);
+
         if (location != null) {
             try {
-                FileUtil.log.info("Using config file " + location);
+                log.info("Using config file " + location);
                 return location.openStream();
             } catch (Exception e) {
-                FileUtil.log.error("Error reading " + fileName, e);
+                log.error("Error reading " + fileName, e);
                 return null;
             }
         } else {
-            FileUtil.log.error("Config file not found: " + fileName);
+            log.error("Config file not found: " + fileName);
             return null;
         }
     }
 
     public static Node getFirstElement(Document doc, String tagname) {
-        NodeList list = doc.getElementsByTagName(tagname);
+        final NodeList list = doc.getElementsByTagName(tagname);
         if (list.getLength() == 0) {
             return null;
         }
@@ -108,11 +110,11 @@ public class ConfigFileUtil extends FileUtil {
         if (node == null) {
             return null;
         }
-        NodeList children =  node.getChildNodes();
+        final NodeList children =  node.getChildNodes();
         for (int j = 0, cnt = children.getLength(); j < cnt; j++) {
-            Node child = children.item(j);
+            final Node child = children.item(j);
             if (child != null) {
-                String nodeName = child.getNodeName();
+                final String nodeName = child.getNodeName();
                 if (nodeName != null && nodeName.equals(tagName)) {
                     return child;
                 }
@@ -125,12 +127,13 @@ public class ConfigFileUtil extends FileUtil {
         if (node == null) {
             return null;
         }
-        List<Node> ret = new Vector<>();
-        NodeList children =  node.getChildNodes();  
+        final List<Node> ret = new Vector<>();
+        final NodeList children =  node.getChildNodes();
+
         for (int j = 0, cnt = children.getLength(); j < cnt; j++) {
-            Node child = children.item(j);
+            final Node child = children.item(j);
             if (child != null) {
-                String nodeName = child.getNodeName();
+                final String nodeName = child.getNodeName();
                 if (nodeName != null && nodeName.equals(tagName)) {
                     ret.add(child);
                 }
@@ -143,15 +146,15 @@ public class ConfigFileUtil extends FileUtil {
         if (node == null) {
             return null;
         }
-        NodeList children =  node.getChildNodes();
+        final NodeList children =  node.getChildNodes();
         for (int j = 0, cnt = children.getLength(); j < cnt; j++) {
-            Node child = children.item(j);
+            final Node child = children.item(j);
             if (child != null) {
-                String nodeName = child.getNodeName();
+                final String nodeName = child.getNodeName();
                 if (nodeName != null && nodeName.equals(tagName)) {
-                    Node firstChild = child.getFirstChild();
+                    final Node firstChild = child.getFirstChild();
                     if (firstChild != null) {
-                        String nodeValue = firstChild.getNodeValue();
+                        final String nodeValue = firstChild.getNodeValue();
                         if (nodeValue != null) {
                             return nodeValue;
                         }
@@ -163,11 +166,11 @@ public class ConfigFileUtil extends FileUtil {
     }
 
     public static String getNodeAttribute(Node node, String tagName) {
-    	NamedNodeMap nodeAttrs = node.getAttributes();
+        final NamedNodeMap nodeAttrs = node.getAttributes();
     	if (nodeAttrs == null) {
     		return null;
     	}
-    	Node value = nodeAttrs.getNamedItem(tagName);
+        final Node value = nodeAttrs.getNamedItem(tagName);
     	if (value != null) {
     		return value.getNodeValue();
     	} else {

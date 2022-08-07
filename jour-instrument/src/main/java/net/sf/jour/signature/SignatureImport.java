@@ -60,7 +60,7 @@ import org.xml.sax.SAXException;
  */
 public class SignatureImport {
 
-	protected static final Logger log = LoggerFactory.getLogger(SignatureImport.class);
+	private static final Logger log = LoggerFactory.getLogger(SignatureImport.class);
 
 	static final boolean createableObject = false;
 

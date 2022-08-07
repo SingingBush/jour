@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Pointcut extends MatchStringFilter {
 
-	protected static final Logger log = LoggerFactory.getLogger(Pointcut.class);
+	private static final Logger log = LoggerFactory.getLogger(Pointcut.class);
 
 	private static final String modifierKeywords = "((final)|(static)|(native)|(synchronized)|(private)|(public)|(protected))";
 

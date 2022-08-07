@@ -41,7 +41,7 @@ import java.util.Hashtable;
  */
 public class PointcutModifierFiler extends MatchFilter {
 
-	protected static final Logger log = LoggerFactory.getLogger(PointcutModifierFiler.class);
+	private static final Logger log = LoggerFactory.getLogger(PointcutModifierFiler.class);
 
 	private static Hashtable<String, Integer> map = buildMap();
 

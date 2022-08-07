@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Generator {
 
-	protected static final Logger log = LoggerFactory.getLogger(Generator.class);
+	private static final Logger log = LoggerFactory.getLogger(Generator.class);
 
 	private boolean useSystemClassPath = false;
 

@@ -7,7 +7,7 @@ import javassist.CtNewMethod;
 import net.sf.jour.InterceptorException;
 import net.sf.jour.util.StringUtil;
 
-public class ReplaceMethodInstrumentor  extends AbstractInstrumentor {
+public class ReplaceMethodInstrumentor extends AbstractInstrumentor {
 
 	private String code;
 

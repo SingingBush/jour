@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 public class TimeMatchFilter extends MatchFilter {
 
-	protected static final Logger log = LoggerFactory.getLogger(TimeMatchFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(TimeMatchFilter.class);
 
 	private double timeFrom;
 

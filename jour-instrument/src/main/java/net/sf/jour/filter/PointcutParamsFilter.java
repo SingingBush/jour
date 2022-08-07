@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PointcutParamsFilter extends MatchStringListFilter {
 
-	protected static final Logger log = LoggerFactory.getLogger(PointcutParamsFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(PointcutParamsFilter.class);
 
 	boolean matchAny = false;
 

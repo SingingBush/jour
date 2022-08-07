@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public class PointcutListFilter extends MatchListFilter {
 
-	protected static final Logger log = LoggerFactory.getLogger(PointcutListFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(PointcutListFilter.class);
 
 	public boolean readContext(Object o) {
 		if (o instanceof net.sf.jour.config.Pointcut) {

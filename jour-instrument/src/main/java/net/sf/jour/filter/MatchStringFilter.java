@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
  */
 public class MatchStringFilter extends BasicFilter {
 
-	protected static final Logger log = LoggerFactory.getLogger(MatchStringFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(MatchStringFilter.class);
 
 	String pattern;
 

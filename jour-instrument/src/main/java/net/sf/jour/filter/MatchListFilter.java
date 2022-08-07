@@ -42,7 +42,7 @@ import java.util.Vector;
  */
 public class MatchListFilter extends BasicFilter {
 
-	protected static final Logger log = LoggerFactory.getLogger(MatchListFilter.class);
+	private static final Logger log = LoggerFactory.getLogger(MatchListFilter.class);
 
 	private List<MatchFilter> include;
 
