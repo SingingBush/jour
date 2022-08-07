@@ -14,6 +14,7 @@ public class JarFileInputSource implements InputSource<JarFileEntry> {
 		jarFile = new JarFile(file);
 	}
 
+    @Override
 	public void close() {
 		try {
 			jarFile.close();
@@ -21,7 +22,7 @@ public class JarFileInputSource implements InputSource<JarFileEntry> {
 		}
 	}
 
-
+    @Override
 	public Enumeration<JarFileEntry> getEntries() {
 		return new JarEnumeration();
 	}
@@ -34,10 +35,12 @@ public class JarFileInputSource implements InputSource<JarFileEntry> {
 			jarEnum = jarFile.entries();
 		}
 
+        @Override
 		public boolean hasMoreElements() {
 			return jarEnum.hasMoreElements();
 		}
 
+        @Override
 		public JarFileEntry nextElement() {
 			return new JarFileEntry(jarFile, jarEnum.nextElement());
 		}

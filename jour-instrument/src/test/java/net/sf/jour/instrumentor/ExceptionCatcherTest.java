@@ -24,7 +24,7 @@ public class ExceptionCatcherTest {
 
 		Class caseClass = cl.loadClass(testClassName);
 
-		Runnable call = (Runnable)caseClass.newInstance();
+		Runnable call = (Runnable)caseClass.getDeclaredConstructor().newInstance();
 
 		Monitor.caught = null;
 		Monitor.flag = 0;

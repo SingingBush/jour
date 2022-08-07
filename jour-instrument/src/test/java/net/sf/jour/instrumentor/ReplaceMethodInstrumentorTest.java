@@ -9,20 +9,19 @@ import static org.junit.Assert.assertEquals;
 
 public class ReplaceMethodInstrumentorTest {
 
+    private static final String TEST_CLASSNAME = "uut.replaceMethod.Case";
+
     @Test
 	public void testExceptionCatcher() throws Exception {
+        final String[] path = new String[] { Utils.getClassResourcePath(TEST_CLASSNAME) };
 
-		String testClassName = "uut.replaceMethod.Case";
-
-		String[] path = new String[] { Utils.getClassResourcePath(testClassName) };
-
-		InstrumentingClassLoader cl = new InstrumentingClassLoader("/replaceMethodInstrumentor.jour.xml", path, this.getClass().getClassLoader());
+        final InstrumentingClassLoader cl = new InstrumentingClassLoader("/replaceMethodInstrumentor.jour.xml", path, this.getClass().getClassLoader());
 
 		cl.delegateLoadingOf(Monitor.class.getName());
 
-		Class caseClass = cl.loadClass(testClassName);
+        final Class<?> caseClass = cl.loadClass(TEST_CLASSNAME);
 
-		Runnable call = (Runnable)caseClass.newInstance();
+        final Runnable call = (Runnable)caseClass.getDeclaredConstructor().newInstance();
 
 		Monitor.flag = 0;
 		Monitor.count = 0;

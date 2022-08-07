@@ -23,7 +23,7 @@ public class MakeEmptyMethodTest {
 
 		Class caseClass = cl.loadClass(testClassName);
 
-		Object call = caseClass.newInstance();
+		Object call = caseClass.getDeclaredConstructor().newInstance();
 
 		Method method = caseClass.getMethod("getMethodsCalled", null);
 		List called = (List) method.invoke(call, null);

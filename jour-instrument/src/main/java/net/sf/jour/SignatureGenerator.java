@@ -29,23 +29,25 @@ import net.sf.jour.util.CmdArgs;
 
 /**
  * @author vlads
- * 
+ *
  */
 public class SignatureGenerator {
 
 	public static void main(String[] args) throws IOException, NotFoundException {
-		Properties argsp = CmdArgs.load(args);
+		final Properties argsp = CmdArgs.load(args);
+
 		if ((args.length < 1) || argsp.getProperty("help") != null) {
-			StringBuffer usage = new StringBuffer();
+			final StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(SignatureGenerator.class.getName());
-			usage
-					.append(" --src classesDir|classes.jar (--systempath) (--jars jar1.jar;jar2.jar) (--dst api-signature.xml)\n");
+			usage.append(" --src classesDir|classes.jar (--systempath) (--jars jar1.jar;jar2.jar) (--dst api-signature.xml)\n");
 			usage.append("  (--packages com.api;com.ext) (--level public|protected*|package|private)\n");
 			System.out.println(usage);
 			return;
 		}
-		Generator g = new Generator(argsp);
+
+		final Generator g = new Generator(argsp);
 		g.process();
+
 		System.out.println("Signature file " + g.getReportFile() + " created for " + g.getClassNames().size()
 				+ " classe(s)");
 	}

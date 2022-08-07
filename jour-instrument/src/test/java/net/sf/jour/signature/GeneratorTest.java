@@ -45,28 +45,29 @@ public class GeneratorTest {
 
 			String classpath = Utils.getClassResourcePath(this.getClass().getName());
 
-			Generator g = new Generator(classpath, testPackages, fileName, "package");
+			final Generator g = new Generator(classpath, testPackages, fileName, "package");
 			g.setUseSystemClassPath(true);
 			g.process();
+
 			assertTrue("exported classes", g.getClassNames().size() > 0);
 
-			SignatureImport im = new SignatureImport(true, null);
+			final SignatureImport im = new SignatureImport(true, null);
 			im.load(fileName);
 
 			assertEquals("imported classes", g.getClassNames().size(), im.getClassNames().size());
 
-			APICompareConfig compareConfig = new APICompareConfig();
+            final APICompareConfig compareConfig = new APICompareConfig();
 			compareConfig.apiLevel = APIFilter.PACKAGE;
 
 			APICompare.compare(classpath, fileName, compareConfig, true, null);
 
 			ExportClasses.export(classpathTempDirectory, im.getClasses(), "1.1");
 
-			Generator g2 = new Generator(null, null, "target/generatorTestImported.xml", "package");
+            final Generator g2 = new Generator(null, null, "target/generatorTestImported.xml", "package");
 			g2.setUseSystemClassPath(true);
 			g2.process(im.getClassPool(), im.getClassNames());
 
-			Generator g3 = new Generator(classpathTempDirectory, null, "target/generatorTestImportedClasses.xml",
+            final Generator g3 = new Generator(classpathTempDirectory, null, "target/generatorTestImportedClasses.xml",
 					"package");
 			g3.setUseSystemClassPath(true);
 			g3.process();

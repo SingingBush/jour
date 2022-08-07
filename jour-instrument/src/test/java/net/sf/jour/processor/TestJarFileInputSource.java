@@ -25,8 +25,8 @@ public class TestJarFileInputSource {
 		boolean resourceFound = false;
 
 		try {
-			for (Enumeration en = inputSource.getEntries(); en.hasMoreElements();) {
-				Entry e = (Entry) en.nextElement();
+			for (Enumeration<? extends Entry> en = inputSource.getEntries(); en.hasMoreElements();) {
+				final Entry e = en.nextElement();
 				log.debug(e.getName());
 				if (e.getName().equals(resource)) {
 					if (resourceFound) {

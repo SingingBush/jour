@@ -39,10 +39,10 @@ public class InstrumentorFactory {
 			throws InterceptorException {
 		Instrumentor instr = null;
 		if (instrumentor == null) {
-			throw new InterceptorException("Instrumentor is NULL");			
+			throw new InterceptorException("Instrumentor is NULL");
 		}
 		try {
-			instr = (Instrumentor) Class.forName(instrumentor).newInstance();
+			instr = (Instrumentor) Class.forName(instrumentor).getDeclaredConstructor().newInstance();
 		} catch (Exception e) {
 			throw new InterceptorException("Failed to instantiate " + instrumentor + "instrumentor.", e);
 		}

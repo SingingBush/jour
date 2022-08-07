@@ -7,39 +7,42 @@ import java.util.NoSuchElementException;
 
 public class DirectoryInputSource implements InputSource<FileEntry> {
 
-	private File dir;
+	private final File dir;
 
-	private String baseName;
+	private final String baseName;
 
 	public DirectoryInputSource(File dir) throws IOException {
 		this.dir = dir;
-		baseName = dir.getCanonicalPath();
+		this.baseName = dir.getCanonicalPath();
 	}
 
+    @Override
 	public Enumeration<FileEntry> getEntries() {
 		return new DirectoryEnumeration(dir);
 	}
 
 	private class DirectoryEnumeration implements Enumeration<FileEntry> {
 
-        private File[] files;
+        private final File[] files;
 
         private int processing;
 
         private Enumeration<FileEntry> child = null;
 
 		DirectoryEnumeration(File dir) {
-			files = dir.listFiles();
+			this.files = dir.listFiles();
 			if (files == null) {
 				throw new Error(dir.getAbsolutePath() + " path does not denote a directory");
 			}
 			processing = 0;
 		}
 
+        @Override
 		public boolean hasMoreElements() {
 			return ((child != null) && (child.hasMoreElements())) || (processing < files.length);
 		}
 
+        @Override
 		public FileEntry nextElement() {
 			if (child != null) {
 				try {
@@ -60,6 +63,7 @@ public class DirectoryInputSource implements InputSource<FileEntry> {
 
 	}
 
+    @Override
 	public void close() {
 
 	}

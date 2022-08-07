@@ -17,30 +17,31 @@ import static org.junit.Assert.assertTrue;
 
 public class EachMethodCallTest {
 
+    private static final String TEST_CLASSNAME = "uut.makecalls.EachMethodCallCase";
+
 	@Test
 	public void testEachMethodCallList() throws Exception {
-		String testClassName = "uut.makecalls.EachMethodCallCase";
+        final Config config = new Config("/callEachMethod.jour.xml");
 
-		Config config = new Config("/callEachMethod.jour.xml");
+        final ClassPool pool = Utils.getClassPool(TEST_CLASSNAME);
 
-		ClassPool pool = Utils.getClassPool(testClassName);
+        final Instrumentor[] instrumentors = config.getInstrumentors(TEST_CLASSNAME);
+        final Interceptor interceptor = new Interceptor(config, pool, TEST_CLASSNAME, instrumentors);
+        final CtClass cc = interceptor.instrument();
 
-		Instrumentor[] instrumentors = config.getInstrumentors(testClassName);
-		Interceptor interceptor = new Interceptor(config, pool, testClassName, instrumentors);
-		CtClass cc = interceptor.instrument();
-
-		InstrumentorResults rc = interceptor.getInstrumentorResults();
+        final InstrumentorResults rc = interceptor.getInstrumentorResults();
 
 		assertTrue("Modified", rc.isModified());
 
-		Class caseClass = cc.toClass();
+        final Class<?> caseClass = cc.toClass();
 
-		EachMethodCall call = (EachMethodCall)caseClass.newInstance();
+        final EachMethodCall call = (EachMethodCall)caseClass.getDeclaredConstructor().newInstance();
 		call.callEachMethod();
-		List list = call.getMethodsCalled();
-		List<String> expected = new Vector<>();
+        final List list = call.getMethodsCalled();
+        final List<String> expected = new Vector<>();
 
-		Method[] mts = call.getClass().getDeclaredMethods();
+        final Method[] mts = call.getClass().getDeclaredMethods();
+
 		for (int i = 0; i < mts.length; i++) {
 			if (mts[i].getName().startsWith("test")) {
 				expected.add(mts[i].getName());

@@ -175,20 +175,22 @@ public class Generator {
 
 	}
 
-	private static class ClassSortComparator implements Comparator {
+	private static class ClassSortComparator implements Comparator<CtClass> {
 
-		public int compare(Object arg0, Object arg1) {
-			return ((CtClass) (arg0)).getName().compareTo(((CtClass) (arg1)).getName());
+        @Override
+		public int compare(CtClass arg0, CtClass arg1) {
+			return (arg0).getName().compareTo(arg1.getName());
 		}
 
 	}
 
-	public void process(ClassPool classPool, List processClassNames) throws IOException, NotFoundException {
-		APIFilter filter = new APIFilter(filterLevel);
-		List<CtClass> classes = new Vector<>();
-		for (Iterator iterator = processClassNames.iterator(); iterator.hasNext();) {
-			String className = (String) iterator.next();
-			CtClass klass = classPool.get(className);
+	public void process(final ClassPool classPool, final List<String> processClassNames) throws IOException, NotFoundException {
+        final APIFilter filter = new APIFilter(filterLevel);
+        final List<CtClass> classes = new Vector<>();
+
+		for (Iterator<String> iterator = processClassNames.iterator(); iterator.hasNext();) {
+            final String className = iterator.next();
+            final CtClass klass = classPool.get(className);
 			if (filter.isAPIClass(klass)) {
 				classes.add(klass);
 				classNames.add(className);
@@ -197,7 +199,7 @@ public class Generator {
 		ExportXML.export(reportFile, classes, filter);
 	}
 
-	public List getClassNames() {
+	public List<String> getClassNames() {
 		return this.classNames;
 	}
 

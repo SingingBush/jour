@@ -2,9 +2,9 @@ package uut.makecalls;
 
 import java.util.List;
 
-public interface EachMethodCall {
+public interface EachMethodCall<T> {
 
 	void callEachMethod();
 
-	List getMethodsCalled();
+	List<T> getMethodsCalled();
 }
