@@ -2,9 +2,9 @@ package net.sf.jour.processor;
 
 import java.util.Enumeration;
 
-public interface InputSource {
+public interface InputSource<T extends Entry> {
 
-	Enumeration getEntries();
+	Enumeration<T> getEntries();
 
 	void close();
 }

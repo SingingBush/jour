@@ -124,12 +124,9 @@ public class Generator {
 
 		File input = new File(sources).getCanonicalFile();
 
-		InputSource inputSource;
-		if (input.isDirectory()) {
-			inputSource = new DirectoryInputSource(input);
-		} else {
-			inputSource = new JarFileInputSource(input);
-		}
+        final InputSource<? extends Entry> inputSource = input.isDirectory() ?
+            new DirectoryInputSource(input) :
+            new JarFileInputSource(input);
 
 		ClassPool classPool = new ClassPool();
 		classPool.appendPathList(input.getAbsolutePath());
@@ -148,8 +145,9 @@ public class Generator {
 
 		try {
 
-			for (Enumeration en = inputSource.getEntries(); en.hasMoreElements();) {
-				Entry entry = (Entry) en.nextElement();
+			for (Enumeration<? extends Entry> en = inputSource.getEntries(); en.hasMoreElements();) {
+				final Entry entry = en.nextElement();
+
 				if (!entry.isClass()) {
 					continue;
 				}

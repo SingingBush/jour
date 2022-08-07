@@ -239,21 +239,20 @@ public class PreProcessor {
 			throw new ConfigException("jar output not supported yet");
 		}
 
-		InputSource inputSource;
-		if (input.isDirectory()) {
-			inputSource = new DirectoryInputSource(input);
-		} else {
-			inputSource = new JarFileInputSource(input);
-		}
+		final InputSource<? extends Entry> inputSource = input.isDirectory() ?
+            new DirectoryInputSource(input) :
+            new JarFileInputSource(input);
 
 		int countEntry = 0;
 		int countResources = 0;
 		int countNIClasses = 0;
 		try {
 
-			for (Enumeration en = inputSource.getEntries(); en.hasMoreElements();) {
-				Entry e = (Entry) en.nextElement();
+			for (Enumeration<? extends Entry> en = inputSource.getEntries(); en.hasMoreElements();) {
+				final Entry e = en.nextElement();
+
 				log.debug(e.getName());
+
 				if (outputWriter.needUpdate(e)) {
 					if (!e.isClass()) {
 						if (isCopyResources()) {

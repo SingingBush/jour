@@ -15,17 +15,12 @@ public class TestJarFileInputSource {
 
     @Test
 	public void testRecursion() throws Exception {
-
-		String testJar = "/jarPreProcessorTest.jar";
-
-		File jar = new File(Utils.getResourceAbsolutePath(testJar));
+		final File jar = new File(Utils.getResourceAbsolutePath("/jarPreProcessorTest.jar"));
 		log.debug(jar.getAbsolutePath());
 
-		String resourceName = "uut.makeempty.MakeEmptyMethodCase";
+		String resource = "uut.makeempty.MakeEmptyMethodCase".replace('.', '/') + ".class";
 
-		String resource = resourceName.replace('.', '/') + ".class";
-
-		InputSource inputSource = new JarFileInputSource(jar);
+		InputSource<? extends Entry> inputSource = new JarFileInputSource(jar);
 
 		boolean resourceFound = false;
 

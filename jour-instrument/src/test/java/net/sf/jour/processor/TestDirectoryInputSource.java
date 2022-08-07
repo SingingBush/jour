@@ -23,12 +23,13 @@ public class TestDirectoryInputSource {
 
 		String resource =  resourceName.replace('.', '/') + ".class";
 
-		InputSource inputSource = new DirectoryInputSource(dir);
+		InputSource<? extends Entry> inputSource = new DirectoryInputSource(dir);
 
 		boolean resourceFound = false;
 
-		for (Enumeration en = inputSource.getEntries(); en.hasMoreElements();) {
-			Entry e = (Entry) en.nextElement();
+		for (Enumeration<? extends Entry> en = inputSource.getEntries(); en.hasMoreElements();) {
+			final Entry e = en.nextElement();
+
 			log.debug(e.getName());
 			if (e.getName().equals(resource)) {
 				if (resourceFound) {

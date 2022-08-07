@@ -6,14 +6,14 @@ import java.util.Enumeration;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-public class JarFileInputSource implements InputSource {
+public class JarFileInputSource implements InputSource<JarFileEntry> {
 
 	JarFile jarFile;
-	
+
 	public JarFileInputSource(File file) throws IOException {
 		jarFile = new JarFile(file);
 	}
-	
+
 	public void close() {
 		try {
 			jarFile.close();
@@ -21,27 +21,26 @@ public class JarFileInputSource implements InputSource {
 		}
 	}
 
-	
-	public Enumeration getEntries() {
+
+	public Enumeration<JarFileEntry> getEntries() {
 		return new JarEnumeration();
 	}
 
-	private class JarEnumeration implements Enumeration {
+	private class JarEnumeration implements Enumeration<JarFileEntry> {
 
-		Enumeration jarEnum;
-		
+		private final Enumeration<JarEntry> jarEnum;
+
 		JarEnumeration() {
 			jarEnum = jarFile.entries();
 		}
-		
+
 		public boolean hasMoreElements() {
 			return jarEnum.hasMoreElements();
 		}
 
-		public Object nextElement() {
-			JarEntry jarEntry = (JarEntry)jarEnum.nextElement();
-			return new JarFileEntry(jarFile, jarEntry);
+		public JarFileEntry nextElement() {
+			return new JarFileEntry(jarFile, jarEnum.nextElement());
 		}
-		
+
 	}
 }

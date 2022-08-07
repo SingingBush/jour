@@ -5,29 +5,29 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
-public class DirectoryInputSource implements InputSource {
+public class DirectoryInputSource implements InputSource<FileEntry> {
 
 	private File dir;
 
 	private String baseName;
-	
+
 	public DirectoryInputSource(File dir) throws IOException {
 		this.dir = dir;
 		baseName = dir.getCanonicalPath();
 	}
 
-	public Enumeration getEntries() {
+	public Enumeration<FileEntry> getEntries() {
 		return new DirectoryEnumeration(dir);
 	}
-	
-	private class DirectoryEnumeration implements Enumeration {
 
-		File[] files;
-		
-		int processing;
+	private class DirectoryEnumeration implements Enumeration<FileEntry> {
 
-		Enumeration child = null;
-		
+        private File[] files;
+
+        private int processing;
+
+        private Enumeration<FileEntry> child = null;
+
 		DirectoryEnumeration(File dir) {
 			files = dir.listFiles();
 			if (files == null) {
@@ -40,7 +40,7 @@ public class DirectoryInputSource implements InputSource {
 			return ((child != null) && (child.hasMoreElements())) || (processing < files.length);
 		}
 
-		public Object nextElement() {
+		public FileEntry nextElement() {
 			if (child != null) {
 				try {
 					return child.nextElement();
@@ -61,7 +61,7 @@ public class DirectoryInputSource implements InputSource {
 	}
 
 	public void close() {
-		
+
 	}
 
 }
