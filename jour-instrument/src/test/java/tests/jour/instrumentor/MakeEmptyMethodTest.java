@@ -1,11 +1,11 @@
-package net.sf.jour.instrumentor;
+package tests.jour.instrumentor;
 
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Vector;
 
 import net.sf.jour.InstrumentingClassLoader;
-import net.sf.jour.test.Utils;
+import tests.jour.test.Utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

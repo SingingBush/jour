@@ -1,9 +1,10 @@
-package net.sf.jour;
+package tests.jour;
 
+import net.sf.jour.Config;
 import net.sf.jour.filter.PointcutListFilter;
-import net.sf.jour.instrumentor.ConfigTestInstrumentor;
 import net.sf.jour.instrumentor.Instrumentor;
-import net.sf.jour.test.Utils;
+import tests.jour.instrumentor.ConfigTestInstrumentor;
+import tests.jour.test.Utils;
 import net.sf.jour.util.FileUtil;
 import org.junit.jupiter.api.Test;
 

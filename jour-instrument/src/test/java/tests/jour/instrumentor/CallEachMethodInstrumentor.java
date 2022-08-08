@@ -1,4 +1,4 @@
-package net.sf.jour.instrumentor;
+package tests.jour.instrumentor;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -11,12 +11,13 @@ import javassist.CtConstructor;
 import javassist.CtMethod;
 import net.sf.jour.InterceptorException;
 import net.sf.jour.filter.Pointcut;
+import net.sf.jour.instrumentor.AbstractInstrumentor;
 
 public class CallEachMethodInstrumentor extends AbstractInstrumentor {
 
 	Pointcut pointcut = new Pointcut("* test*()");
-	
-	
+
+
 	public boolean instrumentClass(CtClass clazz) throws InterceptorException {
 		return false;
 	}

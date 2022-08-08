@@ -18,8 +18,10 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
-package net.sf.jour.filter;
+package tests.jour.filter;
 
+import net.sf.jour.filter.MatchStringFilter;
+import net.sf.jour.filter.MatchStringListFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.junit.jupiter.api.Test;

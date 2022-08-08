@@ -1,11 +1,14 @@
-package net.sf.jour.processor;
+package tests.jour.processor;
 
 import java.io.File;
 import java.util.Enumeration;
 
+import net.sf.jour.processor.DirectoryInputSource;
+import net.sf.jour.processor.Entry;
+import net.sf.jour.processor.InputSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import net.sf.jour.test.Utils;
+import tests.jour.test.Utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

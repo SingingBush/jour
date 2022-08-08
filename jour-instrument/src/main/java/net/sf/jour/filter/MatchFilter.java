@@ -50,7 +50,7 @@ public abstract class MatchFilter implements Filter {
      * conditional compilation set to false to allow compiler to identify and
      * eliminate unreachable code
      */
-	protected static final boolean debug = false; // todo: consider making this private and adding getter
+    public static final boolean debug = false;
 
 	/**
      * a name use for debuging complex lists.

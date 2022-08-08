@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <jour xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="jour.xsd" debug="false">
-	<aspect descr="a descr 1" type="net.sf.jour.instrumentor.ConfigTestInstrumentor" enabled="true">
+	<aspect descr="a descr 1" type="tests.jour.instrumentor.ConfigTestInstrumentor" enabled="true">
 		<typedef>typedef1</typedef>
 		<pointcut expr="* pointcut11()"/>
 		<pointcut expr="* pointcut12()"/>
 	</aspect>
-	<aspect descr="a descr 2" type="net.sf.jour.instrumentor.ConfigTestInstrumentor" enabled="true">
+	<aspect descr="a descr 2" type="tests.jour.instrumentor.ConfigTestInstrumentor" enabled="true">
 		<typedef>typedef2</typedef>
 		<pointcut expr="* pointcut21()"/>
 		<pointcut expr="* pointcut22()"/>

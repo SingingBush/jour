@@ -1,8 +1,10 @@
-package net.sf.jour.signature;
+package tests.jour.signature;
 
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
+import net.sf.jour.signature.APICompare;
+import net.sf.jour.signature.ChangeDetectedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

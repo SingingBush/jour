@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <jour xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="jour.xsd" debug="false">
-	<aspect descr="CallEachMethod" type="net.sf.jour.instrumentor.CallEachMethodInstrumentor" enabled="true">
+	<aspect descr="CallEachMethod" type="tests.jour.instrumentor.CallEachMethodInstrumentor" enabled="true">
 		<typedef>uut.makecalls.*Case</typedef>
 		<pointcut expr="* uut.makecalls.EachMethodCall->callEachMethod()"/>
 	</aspect>

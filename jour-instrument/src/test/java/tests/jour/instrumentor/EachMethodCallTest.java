@@ -1,4 +1,4 @@
-package net.sf.jour.instrumentor;
+package tests.jour.instrumentor;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -10,7 +10,9 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import net.sf.jour.Config;
 import net.sf.jour.Interceptor;
-import net.sf.jour.test.Utils;
+import net.sf.jour.instrumentor.Instrumentor;
+import net.sf.jour.instrumentor.InstrumentorResults;
+import tests.jour.test.Utils;
 import uut.makecalls.EachMethodCall;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

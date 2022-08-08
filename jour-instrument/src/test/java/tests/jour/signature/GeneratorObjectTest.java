@@ -18,9 +18,11 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
-package net.sf.jour.signature;
+package tests.jour.signature;
 
 import javassist.CtClass;
+import net.sf.jour.signature.ExportClasses;
+import net.sf.jour.signature.SignatureImport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.junit.jupiter.api.Test;

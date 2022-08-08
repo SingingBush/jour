@@ -18,9 +18,11 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
-package net.sf.jour.util;
+package tests.jour.util;
 
 import java.util.StringTokenizer;
+
+import net.sf.jour.util.RegExUtil;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

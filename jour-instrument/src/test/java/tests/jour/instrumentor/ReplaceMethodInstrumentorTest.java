@@ -1,7 +1,7 @@
-package net.sf.jour.instrumentor;
+package tests.jour.instrumentor;
 
 import net.sf.jour.InstrumentingClassLoader;
-import net.sf.jour.test.Utils;
+import tests.jour.test.Utils;
 import org.junit.jupiter.api.Test;
 import uut.Monitor;
 

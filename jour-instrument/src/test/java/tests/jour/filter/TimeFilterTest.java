@@ -18,7 +18,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
-package net.sf.jour.filter;
+package tests.jour.filter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import net.sf.jour.filter.TimeListFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import net.sf.jour.util.TimeUtil;

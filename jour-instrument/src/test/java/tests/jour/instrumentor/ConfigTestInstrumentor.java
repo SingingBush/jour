@@ -1,13 +1,14 @@
-package net.sf.jour.instrumentor;
+package tests.jour.instrumentor;
 
 import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtMethod;
 import net.sf.jour.InterceptorException;
 import net.sf.jour.filter.PointcutListFilter;
+import net.sf.jour.instrumentor.AbstractInstrumentor;
 
 public class ConfigTestInstrumentor extends AbstractInstrumentor {
-	
+
 	public boolean instrumentClass(CtClass clazz) throws InterceptorException {
 		return false;
 	}
@@ -19,7 +20,7 @@ public class ConfigTestInstrumentor extends AbstractInstrumentor {
 	public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
 		return true;
 	}
-	
+
 	public PointcutListFilter getPointcuts() {
 		return this.pointcuts;
 	}

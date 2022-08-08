@@ -18,7 +18,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
-package net.sf.jour.filter;
+package tests.jour.filter;
 
 import java.lang.reflect.Modifier;
 import java.util.StringTokenizer;
@@ -26,7 +26,11 @@ import java.util.StringTokenizer;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtMethod;
-import net.sf.jour.test.Utils;
+import net.sf.jour.filter.MatchFilter;
+import net.sf.jour.filter.Pointcut;
+import net.sf.jour.filter.PointcutListFilter;
+import net.sf.jour.filter.PointcutModifierListFiler;
+import tests.jour.test.Utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,7 +50,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class PointcutTest {
 
 	public void verifyMod(String patterns, int mod, boolean expect) {
-	    PointcutModifierListFiler pm = new PointcutModifierListFiler();
+	    final PointcutModifierListFiler pm = new PointcutModifierListFiler();
 	    pm.addPatterns(patterns);
 	    if (MatchFilter.debug) {
 	        pm.debug();
@@ -101,13 +105,13 @@ public class PointcutTest {
 	}
 
 	private void verify(String pattern, String methodName, boolean expect) {
-		Pointcut pc = new Pointcut(pattern);
+		final Pointcut pc = new Pointcut(pattern);
 		assertEquals(expect, pc.acceptMethod(methodName, new String[0], "int"), pattern + " for:" + methodName);
 	}
 
     @Test
 	public void testPointcut() {
-		Pointcut pc = new Pointcut("* *(..)");
+        final Pointcut pc = new Pointcut("* *(..)");
 		assertEquals("*", pc.getMethodName());
 		assertEquals("*", pc.getRetType());
 		assertTrue(pc.acceptMethod("bob", new String[0], "int"));
@@ -126,7 +130,7 @@ public class PointcutTest {
 	}
 
 	private void verifyList(String patterns, String methodName, boolean expect) throws Exception {
-	    PointcutListFilter pointcuts = new PointcutListFilter();
+	    final PointcutListFilter pointcuts = new PointcutListFilter();
 
 	    StringTokenizer tokenizer = new StringTokenizer(patterns, "|");
 		while (tokenizer.hasMoreTokens()) {

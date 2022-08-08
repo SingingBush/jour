@@ -18,10 +18,12 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
-package net.sf.jour;
+package tests.jour;
 
 import java.io.File;
-import net.sf.jour.test.Utils;
+
+import net.sf.jour.PreProcessor;
+import tests.jour.test.Utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;

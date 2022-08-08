@@ -226,7 +226,7 @@ public class Pointcut extends MatchStringFilter {
 		}
 	}
 
-	boolean acceptMethod(String method, String[] params, String retType) {
+    public boolean acceptMethod(String method, String[] params, String retType) {
 		// was TODO to add check for retType and params
 		// return super.accept(getGlobPattern(methodName), method);
 		return super.match(method) && retTypeFilter.match(retType) && paramsFilter.match(params);

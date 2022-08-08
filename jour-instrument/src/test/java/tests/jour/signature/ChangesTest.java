@@ -21,11 +21,15 @@
  * @version $Id$
  *
  */
-package net.sf.jour.signature;
+package tests.jour.signature;
 
 import java.util.List;
 
-import net.sf.jour.test.Utils;
+import net.sf.jour.signature.APICompare;
+import net.sf.jour.signature.APICompareConfig;
+import net.sf.jour.signature.APIFilter;
+import net.sf.jour.signature.ChangeDetectedException;
+import tests.jour.test.Utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

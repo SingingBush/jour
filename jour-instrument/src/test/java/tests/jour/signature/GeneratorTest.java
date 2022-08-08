@@ -18,11 +18,17 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
  */
-package net.sf.jour.signature;
+package tests.jour.signature;
 
+import net.sf.jour.signature.APICompare;
+import net.sf.jour.signature.APICompareConfig;
+import net.sf.jour.signature.APIFilter;
+import net.sf.jour.signature.ExportClasses;
+import net.sf.jour.signature.Generator;
+import net.sf.jour.signature.SignatureImport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import net.sf.jour.test.Utils;
+import tests.jour.test.Utils;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
