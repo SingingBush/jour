@@ -23,6 +23,8 @@ package net.sf.jour;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.*;
 
@@ -75,9 +77,29 @@ public class Config {
 		initialize(FileUtil.getFile(configFileName));
 	}
 
-	public Config(URL configLocation) {
+    /**
+     * @param configLocation A valid URI to the location of a jour config xml file
+     * @since 2.1.1
+     */
+    public Config(final URI configLocation) {
+        initialize(configLocation);
+    }
+
+    /**
+     * @param configLocation A valid URL to the location of a jour config xml file
+     */
+	public Config(final URL configLocation) {
 		initialize(configLocation);
 	}
+
+    protected void initialize(URI configLocation) {
+        try {
+            initialize(configLocation.toURL());
+        } catch (MalformedURLException e) {
+            log.error(String.format("Invalid URI for jour xml config: %s", configLocation), e);
+            throw new RuntimeException(e);
+        }
+    }
 
 	protected void initialize(URL configLocation) {
 		Jour jour = parsJourXML(configLocation);
@@ -91,33 +113,30 @@ public class Config {
 				return;
 			}
 
-			for (Iterator<Aspect> i = aspectList.iterator(); i.hasNext();) {
-				final Aspect aspectCfg = i.next();
+            for (final Aspect aspectCfg : aspectList) {
+                if (aspectCfg.isEnabled()) {
+                    final ClassFilter filter = createFilter(aspectCfg.getTypedef());
+                    final PointcutListFilter pointcuts = new PointcutListFilter();
+                    pointcuts.readConfig(aspectCfg.getPointcut());
 
-				if (aspectCfg.isEnabled()) {
-					final ClassFilter filter = createFilter(aspectCfg.getTypedef());
-					final PointcutListFilter pointcuts = new PointcutListFilter();
-					pointcuts.readConfig(aspectCfg.getPointcut());
+                    final Instrumentor instr = InstrumentorFactory.createInstrumentor(aspectCfg.getType(), pointcuts);
 
-					final Instrumentor instr = InstrumentorFactory.createInstrumentor(aspectCfg.getType(), pointcuts);
-
-					if (aspectCfg.getProperty() != null) {
-						for (Iterator pi = aspectCfg.getProperty().iterator(); pi.hasNext();) {
-							AspectProperty prop = (AspectProperty) pi.next();
-							setInstrumentorProperty(instr, prop.getName(), prop.getValue());
-						}
-					}
-					instrumentors.put(filter, instr);
-				}
-			}
+                    if (aspectCfg.getProperty() != null) {
+                        for (AspectProperty prop : aspectCfg.getProperty()) {
+                            setInstrumentorProperty(instr, prop.getName(), prop.getValue());
+                        }
+                    }
+                    instrumentors.put(filter, instr);
+                }
+            }
 		}
 	}
 
 	private Jour parsJourXML(URL configLocation) {
 		Jour jour = new Jour();
 		try {
-			Document xmlDoc = ConfigFileUtil.loadDocument(configLocation);
-			Node jourNode = ConfigFileUtil.getFirstElement(xmlDoc, "jour");
+			final Document xmlDoc = ConfigFileUtil.loadDocument(configLocation);
+            final Node jourNode = ConfigFileUtil.getFirstElement(xmlDoc, "jour");
 			if (jourNode == null) {
 				throw new ConfigException("Invalid XML root");
 			}
@@ -125,7 +144,7 @@ public class Config {
 			jour.setDebug(ConfigFileUtil.getNodeAttribute(jourNode, "debug", false));
 			jour.setSetSerialVersionUID(ConfigFileUtil.getNodeAttribute(jourNode, "setSerialVersionUID", false));
 
-			NodeList aspectList = jourNode.getChildNodes();
+            final NodeList aspectList = jourNode.getChildNodes();
 			for (int j = 0; j < aspectList.getLength(); j++) {
 	            Node aspectNode = aspectList.item(j);
 	            if (!"aspect".equals(aspectNode.getNodeName())) {
