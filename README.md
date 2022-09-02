@@ -5,7 +5,7 @@ Jour
 
 Jour is designed to simplify the use of Javassist for processing multiple classes. In short Jour is simple Aspect Oriented Programming AOP framework on top of Javassist.
 
-Forked from https://sourceforge.net/projects/jour/ and updated to support Java version 8 to 15.
+Forked from https://sourceforge.net/projects/jour/ and updated to support Java version 8 to 18.
 
 # Maven Artifacts are now available via github:
 

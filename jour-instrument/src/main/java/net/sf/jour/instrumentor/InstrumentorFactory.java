@@ -35,20 +35,17 @@ import net.sf.jour.filter.PointcutListFilter;
  */
 public class InstrumentorFactory {
 
-	public static Instrumentor createInstrumentor(String instrumentor, PointcutListFilter pointcuts)
-			throws InterceptorException {
-		Instrumentor instr = null;
+	public static Instrumentor createInstrumentor(final String instrumentor, final PointcutListFilter pointcuts) throws InterceptorException {
 		if (instrumentor == null) {
 			throw new InterceptorException("Instrumentor is NULL");
 		}
+
 		try {
-			instr = (Instrumentor) Class.forName(instrumentor).getDeclaredConstructor().newInstance();
-		} catch (Exception e) {
-			throw new InterceptorException("Failed to instantiate " + instrumentor + "instrumentor.", e);
+            final Instrumentor instr = (Instrumentor) Class.forName(instrumentor).newInstance();
+            instr.setPointcuts(pointcuts);
+            return instr;
+		} catch (final Exception e) {
+			throw new InterceptorException("Failed to instantiate " + instrumentor + " instrumentor.", e);
 		}
-
-		instr.setPointcuts(pointcuts);
-
-		return instr;
 	}
 }
