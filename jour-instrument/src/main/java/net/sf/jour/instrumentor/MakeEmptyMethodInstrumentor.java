@@ -17,9 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
- * 
+ *
  * @version $Id$
- * 
+ *
  */
 package net.sf.jour.instrumentor;
 
@@ -31,15 +31,18 @@ import javassist.NotFoundException;
 import net.sf.jour.InterceptorException;
 
 public class MakeEmptyMethodInstrumentor extends AbstractInstrumentor {
-	
+
+    @Override
 	public boolean instrumentClass(CtClass clazz) throws InterceptorException {
 		return false;
 	}
 
+    @Override
 	public boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException {
 		return false;
 	}
 
+    @Override
 	public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
         // replace the body of the intercepted method with generated code block
 		try {
@@ -51,7 +54,7 @@ public class MakeEmptyMethodInstrumentor extends AbstractInstrumentor {
 		}
 		return true;
 	}
-	
+
 	public static String emptyBody(CtClass returnType) {
         StringBuffer body = new StringBuffer();
         body.append("{");

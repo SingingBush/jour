@@ -3,6 +3,28 @@ package net.sf.jour.config;
 import java.util.List;
 import java.util.Vector;
 
+/**
+ * This class represents the aspect that would be defined in a jour.xml file.
+ *
+ * For example
+ *
+ * <pre>
+ *     <aspect descr="MakeEmptyMethod" type="net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor" enabled="true">
+ *         <typedef>net.sf.jour.examples.*</typedef>
+ *         <pointcut expr="* debug(..)"/>
+ *     </aspect>
+ * </pre>
+ *
+ * or
+ *
+ * <pre>
+ *     <aspect descr="ReplaceMethod" type="net.sf.jour.instrumentor.ReplaceMethodInstrumentor" enabled="true">
+ *         <typedef>net.sf.jour.examples.*</typedef>
+ *         <pointcut expr="* replaceMe(..)"/>
+ *         <property name="code" value="return true;"/>
+ *     </aspect>
+ * </pre>
+ */
 public class Aspect {
 
 	private String type;

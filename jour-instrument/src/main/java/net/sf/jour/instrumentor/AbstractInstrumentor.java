@@ -57,6 +57,7 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 		log.debug("AbstractInstrumentor Created");
 	}
 
+    @Override
 	public InstrumentorResults instrument(CtClass clazz) throws InterceptorException {
 		if (clazz.isInterface()) {
 			return InstrumentorResultsImpl.NOT_MODIFIED;
@@ -126,6 +127,7 @@ public abstract class AbstractInstrumentor implements Instrumentor {
 		}
 	}
 
+    @Override
 	public void setPointcuts(PointcutListFilter pointcuts) {
 		this.pointcuts = pointcuts;
 	}

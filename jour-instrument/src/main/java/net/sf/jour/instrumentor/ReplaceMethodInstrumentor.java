@@ -36,14 +36,17 @@ public class ReplaceMethodInstrumentor extends AbstractInstrumentor {
 		this.oldMethodSufix = oldMethodSufix;
 	}
 
+    @Override
 	public boolean instrumentClass(CtClass clazz) throws InterceptorException {
 		return false;
 	}
 
+    @Override
 	public boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException {
 		return false;
 	}
 
+    @Override
 	public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
 		try {
             final String mname = method.getName();
@@ -57,7 +60,7 @@ public class ReplaceMethodInstrumentor extends AbstractInstrumentor {
 			// replace the body of the interceptor method with generated
 			// code block and add it to class
             if(code == null) {
-                log.warn("No replacement source code provided. %s method will be replaced by empty implementation");
+                log.warn("No replacement source code provided. '{}' method will be replaced by empty implementation", mname);
 
                 final CtClass returnType = method.getReturnType();
 
@@ -66,7 +69,7 @@ public class ReplaceMethodInstrumentor extends AbstractInstrumentor {
                 } else {
                     if(returnType.isPrimitive()) {
                         log.warn("Return type is primitive so cannot return null (default behaviour for no provided source).");
-                        throw new InterceptorException("Cannot replace method body " + method.getName() + " without replacement source being provided");
+                        throw new InterceptorException("Cannot replace method body " + mname + " without replacement source being provided");
                     }
 
                     // todo: handle Optional<> when min Java version increased. Default to return Optional.empty();

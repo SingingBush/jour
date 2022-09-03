@@ -32,3 +32,25 @@ Forked from https://sourceforge.net/projects/jour/ and updated to support Java v
     <version>2.1.1-SNAPSHOT</version>
 </dependency>
 ```
+
+# Documentation
+
+In general the way to use jour is to define a _jour.xml_ file with aspects which define how your code can be instrumented either using your own implementation of _net.sf.jour.instrumentor.Instrumentor_, or by using one of the included implementations:
+
+ - net.sf.jour.instrumentor.MethodExecutionTimeInstrumentor
+ - net.sf.jour.instrumentor.ExceptionCatcherInstrumentor
+ - net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor
+ - net.sf.jour.instrumentor.ReplaceMethodInstrumentor
+
+For example:
+
+```xml
+<jour>
+    <aspect type="net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor">
+        <typedef>com.example.*</typedef>
+        <pointcut expr="* debug*(..)"/>
+    </aspect>
+</jour>
+```
+
+For more information about how to use jour-instrument please see: [http://jour.sourceforge.net/instrumentation.html](http://jour.sourceforge.net/instrumentation.html)

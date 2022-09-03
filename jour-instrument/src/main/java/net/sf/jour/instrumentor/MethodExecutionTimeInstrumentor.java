@@ -38,17 +38,19 @@ import net.sf.jour.InterceptorException;
  */
 public class MethodExecutionTimeInstrumentor extends AbstractInstrumentor implements InstrumentorConsts {
 
+    @Override
 	public boolean instrumentClass(CtClass clazz) throws InterceptorException {
 		return false;
     }
 
+    @Override
     public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
         addTiming(clazz, method);
 		return true;
     }
 
-    public boolean instrumentConstructor(CtClass clazz, CtConstructor constructor)
-            throws InterceptorException {
+    @Override
+    public boolean instrumentConstructor(CtClass clazz, CtConstructor constructor) throws InterceptorException {
          return false;
     }
 
