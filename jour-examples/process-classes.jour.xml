@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <jour xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="jour.xsd" debug="false">
+
     <aspect descr="MakeEmptyMethod" type="net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor" enabled="true">
         <typedef>net.sf.jour.examples.*</typedef>
         <pointcut expr="* debug(..)"/>
+    </aspect>
+
+    <aspect type="net.sf.jour.instrumentor.ReplaceMethodInstrumentor">
+        <typedef>net.sf.jour.examples.*</typedef>
+        <pointcut expr="boolean replace*(..)"/>
+        <property name="code" value="return true;"/>
+    </aspect>
+
+    <aspect type="net.sf.jour.instrumentor.ReplaceMethodInstrumentor">
+        <typedef>net.sf.jour.examples.*</typedef>
+        <pointcut expr="java.lang.String replace*(..)"/>
+        <property name="code">
+            <value><![CDATA[
+                {
+                return "it works!";
+                }
+            ]]></value>
+        </property>
+    </aspect>
+
+    <aspect descr="MakeTimedMethod" type="net.sf.jour.instrumentor.MethodExecutionTimeInstrumentor">
+        <typedef>net.sf.jour.examples.*</typedef>
+        <pointcut expr="* timed(..)"/>
     </aspect>
 </jour>
