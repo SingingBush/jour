@@ -50,6 +50,18 @@ For example:
         <typedef>com.example.*</typedef>
         <pointcut expr="* debug*(..)"/>
     </aspect>
+    
+    <aspect type="net.sf.jour.instrumentor.ReplaceMethodInstrumentor">
+        <typedef>com.example.*</typedef>
+        <pointcut expr="java.lang.String replaceMe(..)"/>
+        <property name="code">
+            <value><![CDATA[
+                {
+                return "replacement implementation";
+                }
+            ]]></value>
+        </property>
+    </aspect>
 </jour>
 ```
 
