@@ -21,7 +21,6 @@
 package net.sf.jour.maven;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 
 import net.sf.jour.signature.APIFilter;
@@ -43,9 +42,9 @@ import com.pyx4j.log4j.MavenLogAppender;
 
 /*
  * The jour:generate will create API stub classes.
- * 
+ *
  * @author vlads
- * 
+ *
  * @goal generate
  * @phase compile
  * @requiresDependencyResolution test
@@ -78,15 +77,13 @@ public class GenerateMojo extends AbstractMojo {
 	private boolean useSystemClassPath;
 
 	/**
-	 * Java platform version for created classes. e.g. 1.1, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8
+	 * Java platform version for created classes. e.g. 1.1, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 9, 10, 11, 12, 13, 14, etc
 	 */
 	@Parameter(name = "classVersion")
 	private String classVersion;
 
 	/**
 	 * Export API level public|[protected]|package|private
-	 * 
-	 * @parameter property="protected"
 	 */
 	@Parameter(name = "level", property = "protected", defaultValue = "protected")
 	private String level;
@@ -115,7 +112,7 @@ public class GenerateMojo extends AbstractMojo {
 	 */
 	@Parameter(name = "scope", property = "compile", defaultValue = "compile")
 	private String scope;
-	
+
 	/**
 	 * The Maven project reference where the plugin is currently being executed.
 	 * Used for dependency resolution during compilation. The default value is
@@ -126,7 +123,7 @@ public class GenerateMojo extends AbstractMojo {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	public void execute() throws MojoExecutionException, MojoFailureException {
@@ -135,38 +132,36 @@ public class GenerateMojo extends AbstractMojo {
 		log.info("use signature: " + signature);
 		log.debug("packages: " + packages + " level:" + level);
 
-		StringBuffer supportingJars = new StringBuffer();
-
-		List<Artifact> dependancy;
+		List<Artifact> dependencies;
 		if (Artifact.SCOPE_COMPILE.equals(scope)) {
-		    dependancy = this.mavenProject.getCompileArtifacts();
+		    dependencies = this.mavenProject.getCompileArtifacts();
 		} else if (Artifact.SCOPE_TEST.equals(scope)) {
-		    dependancy = this.mavenProject.getTestArtifacts();
+		    dependencies = this.mavenProject.getTestArtifacts();
 		} else if (Artifact.SCOPE_RUNTIME.equals(scope)) {
-            dependancy = this.mavenProject.getRuntimeArtifacts();
+            dependencies = this.mavenProject.getRuntimeArtifacts();
 		} else if (Artifact.SCOPE_SYSTEM.equals(scope)) {
-            dependancy = this.mavenProject.getSystemArtifacts();
+            dependencies = this.mavenProject.getSystemArtifacts();
 		} else {
             throw new MojoExecutionException("Unsupported scope " + scope);
         }
-		for (final Iterator i = dependancy.iterator(); i.hasNext();) {
-			Artifact artifact = (Artifact) i.next();
+
+        final StringBuilder supportingJars = new StringBuilder();
+
+		for (final Artifact artifact : dependencies) {
 			File file = InstrumentationMojo.getClasspathElement(artifact, mavenProject);
-			log.debug("dependancy:" + file.toString());
+			log.debug("dependency: " + file.toString());
 			if (supportingJars.length() > 0) {
 				supportingJars.append(File.pathSeparatorChar);
 			}
 			supportingJars.append(file.toString());
 		}
 
-		SignatureImport im = new SignatureImport(useSystemClassPath, (supportingJars.length() > 0) ? supportingJars.toString() : null);
+		final SignatureImport im = new SignatureImport(useSystemClassPath, (supportingJars.length() > 0) ? supportingJars.toString() : null);
 
 		im.setStubException(stubException);
 		im.setStubExceptionMessage(stubExceptionMessage);
 
-		APIFilter apiFilter = new APIFilter(level, packages);
-
-		im.load(signature.getAbsolutePath(), apiFilter);
+		im.load(signature.getAbsolutePath(), new APIFilter(level, packages));
 
 		log.debug("loaded " + im.getClassNames().size() + " classe(s)");
 

@@ -63,6 +63,8 @@ public class ExportClasses {
 		javaVersion.put("16", new int[] { 60, 0 }); // Java 16 uses major version 60
 		javaVersion.put("17", new int[] { 61, 0 }); // Java 17 uses major version 61
 		javaVersion.put("18", new int[] { 62, 0 }); // Java 18 uses major version 62
+        javaVersion.put("19", new int[] { 63, 0 }); // Java 19 uses major version 63
+        javaVersion.put("20", new int[] { 64, 0 }); // Java 20 uses major version 64
 	}
 
 	public static int export(String directoryName, CtClass klass, String classVersion) {
@@ -75,7 +77,7 @@ public class ExportClasses {
      *
      * @param directoryName the directory path to output the files to. Must not end with a separator
      * @param classes list of classes, see: {@link CtClass}
-     * @param classVersion the JDK version. eg: 1.8
+     * @param classVersion the JDK version. eg: 1.8, 11, or 17
      * @return the amount of classes exported
      */
 	public static int export(final String directoryName, final List<CtClass> classes, final String classVersion) {
