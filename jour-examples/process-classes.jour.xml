@@ -2,18 +2,19 @@
 <jour xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="jour.xsd" debug="false">
 
     <aspect descr="MakeEmptyMethod" type="net.sf.jour.instrumentor.MakeEmptyMethodInstrumentor" enabled="true">
-        <typedef>net.sf.jour.examples.*</typedef>
+        <typedef>net.sf.jour.examples.Extensive*</typedef>
         <pointcut expr="* debug(..)"/>
     </aspect>
 
     <aspect type="net.sf.jour.instrumentor.ReplaceMethodInstrumentor">
-        <typedef>net.sf.jour.examples.*</typedef>
+        <typedef>net.sf.jour.examples.Extensive*</typedef>
         <pointcut expr="boolean replace*(..)"/>
         <property name="code" value="return true;"/>
+        <property name="oldMethodSufix" value="Original"/>
     </aspect>
 
     <aspect type="net.sf.jour.instrumentor.ReplaceMethodInstrumentor">
-        <typedef>net.sf.jour.examples.*</typedef>
+        <typedef>net.sf.jour.examples.Extensive*</typedef>
         <pointcut expr="java.lang.String replace*(..)"/>
         <property name="code">
             <value><![CDATA[
@@ -25,7 +26,12 @@
     </aspect>
 
     <aspect descr="MakeTimedMethod" type="net.sf.jour.instrumentor.MethodExecutionTimeInstrumentor">
-        <typedef>net.sf.jour.examples.*</typedef>
+        <typedef>net.sf.jour.examples.Extensive*</typedef>
         <pointcut expr="* timed(..)"/>
+    </aspect>
+
+    <aspect descr="MakeProtected" type="net.sf.jour.instrumentor.MakeProtectedMethodInstrumentor" enabled="true">
+        <typedef>net.sf.jour.examples.MakeProtected</typedef>
+        <pointcut expr="* method*(..)"/>
     </aspect>
 </jour>

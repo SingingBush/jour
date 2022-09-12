@@ -20,7 +20,8 @@ public class MakeProtectedMethodInstrumentor extends AbstractInstrumentor {
 
     @Override
 	public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
-        // replace the body of the intercepted method with generated code block
+        log.debug("instrumenting method {}::{}", clazz, method.getName());
+
 		int mod = method.getModifiers();
 		if (Modifier.isPublic(mod)) {
 			method.setModifiers(Modifier.setProtected(mod));

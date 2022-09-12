@@ -54,7 +54,7 @@ public class SignatureExport {
 			usage.append("\t (--systempath)\n");
 			usage.append("\t (--jars jar1.jar;jar2.jar)\n");
 			usage.append("\t (--level public|[protected]|package|private)\n");
-			usage.append("\t (--classVersion 1.3|1.4|1.5|1.6|1.7|1.8|9|10|11|12|13|14|15|16|17|18)\n");
+			usage.append("\t (--classVersion 1.3|1.4|1.5|1.6|1.7|1.8|9|10|11|12|13|14|15|16|17|18|19|20)\n");
 			usage.append("\t (--stubException <ExceptionClassName>)\n");
 			usage.append("\t (--stubExceptionMessage <ExceptionMessage>)\n");
 

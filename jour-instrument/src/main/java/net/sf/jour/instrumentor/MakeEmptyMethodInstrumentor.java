@@ -44,15 +44,14 @@ public class MakeEmptyMethodInstrumentor extends AbstractInstrumentor {
 
     @Override
 	public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
+        log.debug("instrumenting method {}::{}", clazz, method.getName());
         // replace the body of the intercepted method with generated code block
 		try {
 			method.setBody(emptyBody(method.getReturnType()));
-		} catch (CannotCompileException e) {
-			throw new InterceptorException("Failed to MakeEmptyMethod " + method.getName(), e);
-		} catch (NotFoundException e) {
+		} catch (CannotCompileException | NotFoundException e) {
 			throw new InterceptorException("Failed to MakeEmptyMethod " + method.getName(), e);
 		}
-		return true;
+        return true;
 	}
 
 	public static String emptyBody(CtClass returnType) {
