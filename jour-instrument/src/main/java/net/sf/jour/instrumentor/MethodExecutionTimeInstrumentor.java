@@ -30,8 +30,8 @@ import net.sf.jour.InterceptorException;
  *
  * Contributing Author(s):
  *
- *   Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital implementation)
- *   Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital implementation)
+ *   Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Initial implementation)
+ *   Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Initial implementation)
  *
  * @author vlads
  * @version $Revision$ ($Author$) $Date$
@@ -55,13 +55,18 @@ public class MethodExecutionTimeInstrumentor extends AbstractInstrumentor implem
     }
 
     private static void addTiming(CtClass clazz, CtMethod method) throws InterceptorException {
+        final String originalMethodName = method.getName();
+        final String syntheticName = "jour$" + originalMethodName + "$impl";
+
         try {
-            final String originalMethodName = method.getName();
             //  rename old method to synthetic name, then duplicate the
             //  method with original name for use as interceptor
-            final String nname = "jour$"+ originalMethodName + "$impl";
-            method.setName(nname);
+            method.setName(syntheticName);
+
             final CtMethod mnew = CtNewMethod.copy(method, originalMethodName, clazz, null);
+
+            // now make the original method private
+            //method.setModifiers(Modifier.PRIVATE);
 
             //  start the body text generation by saving the start time
             //  to a local variable, then call the timed method; the
@@ -74,7 +79,7 @@ public class MethodExecutionTimeInstrumentor extends AbstractInstrumentor implem
             if (!"void".equals(type)) {
                 body.append(type + " result = ");
             }
-            body.append(nname + "($$);\n");
+            body.append(syntheticName + "($$);\n");
 
             //  finish body text generation with call to print the timing
             //  information, and return saved value (if not void)

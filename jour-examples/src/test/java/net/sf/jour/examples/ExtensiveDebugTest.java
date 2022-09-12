@@ -19,7 +19,7 @@ public class ExtensiveDebugTest {
         final ExtensiveDebug ed = new ExtensiveDebug();
 
         assertTrue(ed.replaceMe(), "Should have been replaced with \"return true;\"");
-        assertFalse(ed.replaceMe$orig(), "The original method should exist with \"$orig\" post-fix");
+        assertFalse(ed.replaceMeOriginal(), "The original method should exist with \"Original\" post-fix");
 
         assertEquals("it works!", ed.replaceThis(), "The result was originally \"original text\"");
         assertEquals("original text", ed.replaceThis$orig());

@@ -10,6 +10,7 @@
         <typedef>net.sf.jour.examples.*</typedef>
         <pointcut expr="boolean replace*(..)"/>
         <property name="code" value="return true;"/>
+        <property name="oldMethodSufix" value="Original"/>
     </aspect>
 
     <aspect type="net.sf.jour.instrumentor.ReplaceMethodInstrumentor">
