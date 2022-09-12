@@ -24,6 +24,7 @@ import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtMethod;
 import javassist.CtNewMethod;
+import javassist.NotFoundException;
 import net.sf.jour.InterceptorException;
 
 /**
@@ -45,6 +46,8 @@ public class MethodExecutionTimeInstrumentor extends AbstractInstrumentor implem
 
     @Override
     public boolean instrumentMethod(CtClass clazz, CtMethod method) throws InterceptorException {
+        log.debug("instrumenting method {}::{}", clazz, method.getName());
+
         addTiming(clazz, method);
 		return true;
     }
