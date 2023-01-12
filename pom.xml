@@ -148,7 +148,7 @@
         <maven.compiler.testSource>1.8</maven.compiler.testSource>
         <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
 
-        <junit.version>5.9.0</junit.version>
+        <junit.version>5.9.1</junit.version>
         <slf4j.version>2.0.6</slf4j.version>
         <buildLabel>${project.version}</buildLabel>
     </properties>
@@ -209,7 +209,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>3.3.0</version>
                 <configuration>
                     <archive>
                         <manifestEntries>
@@ -326,7 +326,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.18.0</version>
+                <version>3.19.0</version>
                 <configuration>
                     <linkXref>true</linkXref>
                     <minimumTokens>100</minimumTokens>
