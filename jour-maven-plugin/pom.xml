@@ -19,7 +19,7 @@
     <packaging>maven-plugin</packaging>
 
     <properties>
-        <maven-platform.version>3.8.6</maven-platform.version>
+        <maven-platform.version>3.8.7</maven-platform.version>
     </properties>
 
     <dependencies>
