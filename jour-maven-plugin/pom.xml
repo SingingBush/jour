@@ -19,7 +19,7 @@
     <packaging>maven-plugin</packaging>
 
     <properties>
-        <maven-platform.version>3.8.6</maven-platform.version>
+        <maven-platform.version>3.8.7</maven-platform.version>
     </properties>
 
     <dependencies>
@@ -143,7 +143,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.2.2</version>
                 <reportSets>
                    <reportSet>
                       <reports>
