@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<project
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://maven.apache.org/POM/4.0.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <!-- @version $Revision$ ($Author$) $Date$ -->
     <modelVersion>4.0.0</modelVersion>
 
@@ -19,7 +18,8 @@
     <packaging>maven-plugin</packaging>
 
     <properties>
-        <maven-platform.version>3.8.7</maven-platform.version>
+        <maven-platform.version>3.9.0</maven-platform.version>
+        <maven-plugin.version>3.8.1</maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.6.4</version>
+            <version>3.8.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -128,7 +128,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>${maven-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
@@ -138,7 +138,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>${maven-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
