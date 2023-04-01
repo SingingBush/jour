@@ -42,15 +42,15 @@ import com.pyx4j.log4j.MavenLogAppender;
 
 /*
  * The jour:instrument will apply instrumentation during build.
- * 
+ *
  * @author vlads
- * 
+ *
  * @goal instrument
- * 
+ *
  * @phase process-classes
- * 
+ *
  * @requiresDependencyResolution test
- * 
+ *
  * @description Instrument
  */
 @Mojo(name = "instrument",
