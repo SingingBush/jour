@@ -62,13 +62,13 @@ public class InstrumentationMojo extends AbstractMojo {
 	 * Reads configuration options from the given file. File or resource name.
 	 */
 	@Parameter(name = "jourConfig", defaultValue = "${basedir}/jour.xml")
-	private String jourConfig;
+    protected String jourConfig;
 
 	/**
 	 * The directory or jar containing original classes.
 	 */
 	@Parameter(name = "classesDirectory", defaultValue = "${project.build.outputDirectory}", readonly = true)
-	private File classesDirectory;
+	protected File classesDirectory;
 
 	/**
 	 * Directory containing the generated JAR.
@@ -116,24 +116,23 @@ public class InstrumentationMojo extends AbstractMojo {
 
 		MavenLogAppender.startPluginLog(this);
 		try {
-
 			log.info("jourConfig: " + jourConfig);
 
-			File out = new File(outputDirectory, output);
+            final File out = new File(outputDirectory, output);
 
-			List<Object> classpath = new Vector<>();
+            final List<Object> classpath = new Vector<>();
 
-			List<Artifact> dependancy = this.mavenProject.getTestArtifacts();
+            final List<Artifact> testArtifacts = this.mavenProject.getTestArtifacts();
 
-			for (Iterator i = dependancy.iterator(); i.hasNext();) {
-				Artifact artifact = (Artifact) i.next();
-				File file = getClasspathElement(artifact, mavenProject);
-				log.debug("dependancy:" + file.toString());
-				classpath.add(file.toString());
-			}
+            if (testArtifacts != null) {
+                for (final Artifact artifact : testArtifacts) {
+                    final File file = getClasspathElement(artifact, mavenProject);
+                    log.debug("dependency:" + file.toString());
+                    classpath.add(file.toString());
+                }
+            }
 
-			PreProcessor pp = new PreProcessor(jourConfig, classesDirectory, out, classpath);
-
+			final PreProcessor pp = new PreProcessor(jourConfig, classesDirectory, out, classpath);
 			pp.setUseSystemClassPath(useSystemClassPath);
 			pp.setCopyClasses(copyClasses);
 			pp.setCopyResources(copyResources);
