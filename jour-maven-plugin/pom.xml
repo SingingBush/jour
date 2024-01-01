@@ -18,8 +18,8 @@
     <packaging>maven-plugin</packaging>
 
     <properties>
-        <maven-platform.version>3.9.0</maven-platform.version>
-        <maven-plugin.version>3.8.2</maven-plugin.version>
+        <maven-platform.version>3.9.6</maven-platform.version>
+        <maven-plugin.version>3.10.2</maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.8.2</version>
+            <version>3.10.2</version>
             <scope>provided</scope>
         </dependency>
 
