@@ -147,6 +147,12 @@
         <maven.compiler.testSource>1.8</maven.compiler.testSource>
         <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
 
+        <!-- Sonar config -->
+        <sonar.organization>singingbush</sonar.organization>
+        <sonar.projectKey>jour</sonar.projectKey>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.exclusions>jour-ant/**,src/test/**</sonar.exclusions>
+
         <junit.version>5.10.2</junit.version>
         <slf4j.version>2.0.12</slf4j.version>
         <buildLabel>${project.version}</buildLabel>
