@@ -2,6 +2,7 @@ Jour
 ====
 
 [![Maven](https://github.com/SingingBush/jour/actions/workflows/maven.yml/badge.svg)](https://github.com/SingingBush/jour/actions/workflows/maven.yml)
+[![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=jour&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jour)
 
 Jour is designed to simplify the use of Javassist for processing multiple classes. In short Jour is simple Aspect Oriented Programming AOP framework on top of Javassist.
 
