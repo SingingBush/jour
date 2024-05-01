@@ -19,7 +19,7 @@
 
     <properties>
         <maven-platform.version>3.9.6</maven-platform.version>
-        <maven-plugin.version>3.11.0</maven-plugin.version>
+        <maven-plugin.version>3.12.0</maven-plugin.version>
     </properties>
 
     <dependencies>
