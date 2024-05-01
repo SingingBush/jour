@@ -154,7 +154,7 @@
         <sonar.exclusions>jour-ant/**,src/test/**</sonar.exclusions>
 
         <junit.version>5.10.2</junit.version>
-        <slf4j.version>2.0.12</slf4j.version>
+        <slf4j.version>2.0.13</slf4j.version>
         <buildLabel>${project.version}</buildLabel>
     </properties>
 
