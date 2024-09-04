@@ -82,7 +82,7 @@ jobs:
 
     ## todo: use same artifacts from the build job
     ## Automatic Analysis is turned off on sonarcloud.io
-    - name: Maven JaCoCo report & Sonar
+    - name: Sonar
       run: mvn -B install org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=jour
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
@@ -105,7 +105,8 @@ jobs:
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
       - name: Maven Deploy
-        run: mvn deploy -DskipTests=true
+        # note that the '-Dmaven.resolver.transport=wagon' is to workaround mvn 3.9.0 (see: https://issues.apache.org/jira/browse/MNG-7719)
+        run: mvn deploy -DskipTests=true -Dmaven.resolver.transport=wagon
         env:
           MAVEN_USERNAME: ${{ github.repository_owner }}
           MAVEN_PASSWORD: ${{ secrets.GITHUB_TOKEN  }}
