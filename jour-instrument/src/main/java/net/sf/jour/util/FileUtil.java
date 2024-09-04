@@ -125,11 +125,11 @@ public class FileUtil {
 	}
 
 	public static boolean readTextFile(File file, HashSet<String> list) {
-		String filename = file.getName();
-		try {
+		final String filename = file.getName();
+
+		try (BufferedReader in = new BufferedReader(new FileReader(file))) {
 			final String directiveInclude = "#include";
 
-			BufferedReader in = new BufferedReader(new FileReader(file));
 			while (true) {
 				String l = in.readLine();
 				if (l == null)
@@ -150,13 +150,12 @@ public class FileUtil {
 					list.add(l);
 				}
 			}
-			in.close();
 
 		} catch (Exception e) {
 			log.error("Read error " + filename, e);
 			return false;
 		}
-		log.debug("Read list of " + list.size() + " classes in " + filename);
+        log.debug("Read list of {} classes in {}", list.size(), filename);
 		return true;
 	}
 

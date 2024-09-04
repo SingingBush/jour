@@ -137,23 +137,22 @@ public class TimeUtil {
 		return detectTimeformat(str);
 	}
 
-	static String timeStampFormat = "0000000000000.000";
-	static DecimalFormat timeStampFormater = new DecimalFormat(timeStampFormat);
+    private static final String TIMESTAMP_FORMAT = "0000000000000.000";
+    private static final DecimalFormat TIMESTAMP_FORMATER = new DecimalFormat(TIMESTAMP_FORMAT);
 
 	public static String timeStamp2string(double timeStamp) {
-		return timeStampFormater.format(timeStamp);
+		return TIMESTAMP_FORMATER.format(timeStamp);
 	}
 
-	static String timeStampDateFormat = "yyyy-MM-dd HH:mm:ss.SSS";
-	static SimpleDateFormat timeStampDateFormater = new SimpleDateFormat(timeStampDateFormat);
+	private static final String TIMESTAMP_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 
 	public static String timeStamp2dateString(double timeStamp) {
-	    return timeStampDateFormater.format(timeStamp2calendar(timeStamp).getTime());
+	    return new SimpleDateFormat(TIMESTAMP_DATE_FORMAT).format(timeStamp2calendar(timeStamp).getTime());
 	}
 
 	public static Calendar timeStamp2calendar(double timeStamp) {
 	    Calendar calendar = new GregorianCalendar();
-	    calendar.setTime(new Date(Double.valueOf(timeStamp).longValue()));
+	    calendar.setTime(new Date((long) timeStamp));
 		return calendar;
 	}
 
