@@ -1,6 +1,17 @@
 name: Maven
 
-on: [push, pull_request]
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+      - main
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -24,6 +35,58 @@ jobs:
 
       - name: Maven Verify
         run: mvn verify
+
+# todo: setup aggregated Jacoco
+#      # Only doing on one job
+#      - name: Add coverage to PR
+#        id: jacoco-report
+#        if: ${{ matrix.jdk == '17' }}
+#        uses: madrapps/jacoco-report@1.7.0
+#        with:
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+#          min-coverage-overall: 80
+
+  analysis:
+    name: Static Analysis
+    needs: build
+    continue-on-error: false
+    if: ${{ needs.build.result == 'success' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # for actions/checkout to fetch code
+      pull-requests: write # for attached results to PR
+      checks: write
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}  # to check out the actual pull request commit, not the merge commit
+        fetch-depth: 0  # a full history is required for pull request analysis
+
+    ## latest Sonar requires Java 17 or higher
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: 17
+        cache: maven
+
+    - name: Setup Cache for SonarCloud packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.sonar/cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+
+    ## todo: use same artifacts from the build job
+    ## Automatic Analysis is turned off on sonarcloud.io
+    - name: Maven JaCoCo report & Sonar
+      run: mvn -B install org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=jour
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deploy:
     name: Deploy Artifact
