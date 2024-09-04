@@ -59,6 +59,7 @@ public class ConfigFileUtil extends FileUtil {
 
 	public static Document loadDocument(InputStream stream) throws ParserConfigurationException, SAXException, IOException {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setExpandEntityReferences(false);
         factory.setIgnoringComments(true);
         factory.setValidating(false);
 

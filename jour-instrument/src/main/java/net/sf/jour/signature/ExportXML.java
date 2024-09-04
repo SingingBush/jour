@@ -66,7 +66,10 @@ public class ExportXML {
 
 		DocumentBuilder builder;
 		try {
-			builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setExpandEntityReferences(false);
+
+            builder = factory.newDocumentBuilder();
 		} catch (ParserConfigurationException | FactoryConfigurationError e) {
 			throw new RuntimeException(e);
 		}
