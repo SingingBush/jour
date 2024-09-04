@@ -34,6 +34,7 @@ import javassist.CtMethod;
 import javassist.Modifier;
 import javassist.NotFoundException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
@@ -68,6 +69,8 @@ public class ExportXML {
 		try {
             final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setExpandEntityReferences(false);
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
             builder = factory.newDocumentBuilder();
 		} catch (ParserConfigurationException | FactoryConfigurationError e) {
@@ -92,7 +95,10 @@ public class ExportXML {
 
 	private void serializeXML(String reportFile) {
 		try(final OutputStream out = Files.newOutputStream(Paths.get(reportFile))) {
-			final Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            final TransformerFactory factory = TransformerFactory.newInstance();
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+
+			final Transformer transformer = factory.newTransformer();
 
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
