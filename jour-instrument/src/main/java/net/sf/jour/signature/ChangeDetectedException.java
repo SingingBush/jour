@@ -17,9 +17,9 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
- * 
+ *
  * @version $Id$
- * 
+ *
  */
 package net.sf.jour.signature;
 
@@ -37,17 +37,16 @@ public class ChangeDetectedException extends Exception {
     public ChangeDetectedException(String message) {
         super(message);
     }
-    
-    ChangeDetectedException(List changed) {
+
+    ChangeDetectedException(List<String> changed) {
         this(chageList(changed));
     }
-    
-    public static String chageList(List changed) {
-        StringBuffer b = new StringBuffer();
-        for (Iterator iterator = changed.iterator(); iterator.hasNext();) {
-            String v = (String) iterator.next();
+
+    public static String chageList(List<String> changed) {
+        final StringBuffer b = new StringBuffer();
+        for (String v : changed) {
             if (b.length() > 0) {
-                b.append("\n");    
+                b.append("\n");
             }
             b.append(v);
         }

@@ -31,10 +31,10 @@ import java.util.regex.Pattern;
 public class RegExUtil {
 
     public static String[] match(String input, String regExp) {
-		Vector resultList = new Vector();
+		final Vector<String> resultList = new Vector<>();
 
-		Pattern pattern = Pattern.compile(regExp);
-		Matcher matcher = pattern.matcher(input);
+		final Pattern pattern = Pattern.compile(regExp);
+		final Matcher matcher = pattern.matcher(input);
 
 		if (matcher.matches()) {
 			int groupCount = matcher.groupCount();
@@ -43,9 +43,9 @@ public class RegExUtil {
 			}
 		}
 
-		return (String[]) resultList.toArray(new String[0]);
+		return resultList.toArray(new String[0]);
 	}
-    
+
 //	public static String[] match(String input, String regExp) {
 //		Vector resultList = new Vector();
 //		org.apache.regexp.RE regex = new org.apache.regexp.RE(regExp);
@@ -68,7 +68,7 @@ public class RegExUtil {
 			return null;
 		}
     }
-    
+
 //    public static String getParen(String input, String regExp) {
 //    	org.apache.regexp.RE regex = new org.apache.regexp.RE(regExp);
 //		if (regex.match(input)) {

@@ -27,6 +27,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -169,14 +170,10 @@ public class SignatureImport {
 					updateClass(node);
 				}
 			}
-		} catch (ParserConfigurationException e) {
-			throw new ConfigException("Error parsing XML", e);
-		} catch (SAXException e) {
-			throw new ConfigException("Error parsing XML", e);
-		} catch (IOException e) {
+		} catch (ParserConfigurationException | IOException | SAXException e) {
 			throw new ConfigException("Error parsing XML", e);
 		}
-	}
+    }
 
 	private CtClass loadInterface(Node node) {
 		CtClass klass = createInterface(node);
@@ -220,7 +217,7 @@ public class SignatureImport {
 			return;
 		}
 		if (!editableObjectConstructor && OBJECT_CLASS_NAME.equals(classname)) {
-			// /
+			// NO-OP
 		} else {
 			updateConstructors(klass, node);
 		}
@@ -270,27 +267,23 @@ public class SignatureImport {
 				klass.removeConstructor(init);
 			}
 			CtMethod[] methods = klass.getDeclaredMethods();
-			for (int i = 0; i < methods.length; i++) {
-				klass.removeMethod(methods[i]);
-			}
+            for (CtMethod method : methods) {
+                klass.removeMethod(method);
+            }
 			CtField[] fields = klass.getFields();
-			for (int i = 0; i < fields.length; i++) {
-				klass.removeField(fields[i]);
-			}
+            for (CtField field : fields) {
+                klass.removeField(field);
+            }
 		} catch (NotFoundException e) {
 			throw new RuntimeException("Can't create class java.lang.Object", e);
 		}
 		try {
 			classPool.makeClass(new ByteArrayInputStream(klass.toBytecode()));
 			return classPool.get(OBJECT_CLASS_NAME);
-		} catch (IOException e) {
-			throw new RuntimeException("Can't create class java.lang.Object", e);
-		} catch (NotFoundException e) {
-			throw new RuntimeException("Can't create class java.lang.Object", e);
-		} catch (CannotCompileException e) {
+		} catch (IOException | NotFoundException | CannotCompileException e) {
 			throw new RuntimeException("Can't create class java.lang.Object", e);
 		}
-	}
+    }
 
 	private CtClass createInterface(Node node) {
 		String classname = ConfigFileUtil.getNodeAttribute(node, "name");
@@ -346,33 +339,33 @@ public class SignatureImport {
 	private void loadConstructors(CtClass klass, Node node) {
 		Node[] list = ConfigFileUtil.getChildNodes(node, "constructor");
 		boolean defaultConstructorLoaded = false;
-		for (int i = 0; i < list.length; i++) {
-			int modifiers = getModifiers(list[i]);
-			CtClass[] parameters = getParameters(list[i]);
-			if (parameters.length != 0) {
-				if (!this.filter.isAPIModifier(modifiers)) {
-					continue;
-				}
-			}
+        for (final Node value : list) {
+            int modifiers = getModifiers(value);
+            CtClass[] parameters = getParameters(value);
+            if (parameters.length != 0) {
+                if (!this.filter.isAPIModifier(modifiers)) {
+                    continue;
+                }
+            }
 
-			CtConstructor c;
-			try {
-				c = klass.getDeclaredConstructor(parameters);
-			} catch (NotFoundException e) {
-				c = new CtConstructor(parameters, klass);
-				// for setBody see updateConstructors
-				try {
-					klass.addConstructor(c);
-				} catch (CannotCompileException e2) {
-					throw new RuntimeException(klass.getName(), e2);
-				}
-			}
-			loadExceptions(c, list[i]);
-			c.setModifiers(modifiers);
-			if (parameters.length == 0) {
-				defaultConstructorLoaded = true;
-			}
-		}
+            CtConstructor c;
+            try {
+                c = klass.getDeclaredConstructor(parameters);
+            } catch (NotFoundException e) {
+                c = new CtConstructor(parameters, klass);
+                // for setBody see updateConstructors
+                try {
+                    klass.addConstructor(c);
+                } catch (CannotCompileException e2) {
+                    throw new RuntimeException(klass.getName(), e2);
+                }
+            }
+            loadExceptions(c, value);
+            c.setModifiers(modifiers);
+            if (parameters.length == 0) {
+                defaultConstructorLoaded = true;
+            }
+        }
 		if (!defaultConstructorLoaded) {
 			CtConstructor defaultConstructor;
 			try {
@@ -392,13 +385,13 @@ public class SignatureImport {
 
 	private void updateConstructors(CtClass klass, Node node) {
 		CtConstructor[] constructors = klass.getDeclaredConstructors();
-		for (int i = 0; i < constructors.length; i++) {
-			try {
-				constructors[i].setBody(emptyBodyCode(CtClass.voidType));
-			} catch (CannotCompileException ce) {
-				throw new RuntimeException(klass.getName(), ce);
-			}
-		}
+        for (final CtConstructor constructor : constructors) {
+            try {
+                constructor.setBody(emptyBodyCode(CtClass.voidType));
+            } catch (CannotCompileException ce) {
+                throw new RuntimeException(klass.getName(), ce);
+            }
+        }
 	}
 
 	private void updateMethods(CtClass klass, Node node) {
@@ -406,18 +399,15 @@ public class SignatureImport {
 			return;
 		}
 		CtMethod[] methods = klass.getDeclaredMethods();
-		for (int i = 0; i < methods.length; i++) {
-			CtMethod method = methods[i];
-			if (!Modifier.isAbstract(method.getModifiers())) {
-				try {
-					method.setBody(emptyBodyCode(method.getReturnType()));
-				} catch (CannotCompileException e) {
-					throw new RuntimeException(klass.getName() + "." + method.getName(), e);
-				} catch (NotFoundException e) {
-					throw new RuntimeException(klass.getName() + "." + method.getName(), e);
-				}
-			}
-		}
+        for (final CtMethod method : methods) {
+            if (!Modifier.isAbstract(method.getModifiers())) {
+                try {
+                    method.setBody(emptyBodyCode(method.getReturnType()));
+                } catch (CannotCompileException | NotFoundException e) {
+                    throw new RuntimeException(klass.getName() + "." + method.getName(), e);
+                }
+            }
+        }
 	}
 
 	private String emptyBodyCode(CtClass returnType) {
@@ -506,68 +496,71 @@ public class SignatureImport {
 
 	private void loadMethods(CtClass klass, Node node) {
 		Node[] list = ConfigFileUtil.getChildNodes(node, "method");
-		for (int i = 0; i < list.length; i++) {
-			int modifiers = getModifiers(list[i]);
-			if (!this.filter.isAPIModifier(modifiers)) {
-				continue;
-			}
-			String mname = ConfigFileUtil.getNodeAttribute(list[i], "name");
-			CtClass[] parameters = getParameters(list[i]);
-			CtClass returnType = createInterface(ConfigFileUtil.getNodeAttribute(list[i], "return"));
-			CtMethod method = new CtMethod(returnType, mname, parameters, klass);
-			method.setModifiers(modifiers);
-			try {
-				// See updateMethods second pass
-				// if ((!klass.isInterface()) &&
-				// (!Modifier.isAbstract(method.getModifiers()))) {
-				// method.setBody(emptyBodyCode(returnType));
-				// }
-				loadExceptions(method, list[i]);
-				klass.addMethod(method);
-			} catch (CannotCompileException e) {
-				throw new RuntimeException(klass.getName(), e);
-			}
-		}
+        for (final Node value : list) {
+            int modifiers = getModifiers(value);
+            if (!this.filter.isAPIModifier(modifiers)) {
+                continue;
+            }
+            String mname = ConfigFileUtil.getNodeAttribute(value, "name");
+            CtClass[] parameters = getParameters(value);
+            CtClass returnType = createInterface(ConfigFileUtil.getNodeAttribute(value, "return"));
+            CtMethod method = new CtMethod(returnType, mname, parameters, klass);
+            method.setModifiers(modifiers);
+            try {
+                // See updateMethods second pass
+                // if ((!klass.isInterface()) &&
+                // (!Modifier.isAbstract(method.getModifiers()))) {
+                // method.setBody(emptyBodyCode(returnType));
+                // }
+                loadExceptions(method, value);
+                klass.addMethod(method);
+            } catch (CannotCompileException e) {
+                throw new RuntimeException(klass.getName(), e);
+            }
+        }
 	}
 
 	private void loadFields(CtClass klass, Node node) {
 		Node[] list = ConfigFileUtil.getChildNodes(node, "field");
-		for (int i = 0; i < list.length; i++) {
-			int modifiers = getModifiers(list[i]);
-			if (!this.filter.isAPIModifier(modifiers)) {
-				continue;
-			}
-			String fname = ConfigFileUtil.getNodeAttribute(list[i], "name");
-			CtClass fieldType = createInterface(ConfigFileUtil.getNodeAttribute(list[i], "type"));
-			CtField field;
-			try {
-				field = new CtField(fieldType, fname, klass);
-				field.setModifiers(modifiers);
-				CtField.Initializer initializer = null;
-				String constValue = ConfigFileUtil.getNodeAttribute(list[i], "constant-value");
-				if (constValue != null) {
-					initializer = createFieldInitializer(fieldType, constValue, klass.getName() + "." + fname);
-				}
-				klass.addField(field, initializer);
-			} catch (CannotCompileException e) {
-				throw new RuntimeException(klass.getName() + " filed " + fname, e);
-			}
-		}
+        for (Node value : list) {
+            int modifiers = getModifiers(value);
+            if (!this.filter.isAPIModifier(modifiers)) {
+                continue;
+            }
+            final String fname = ConfigFileUtil.getNodeAttribute(value, "name");
+
+            final CtClass fieldType = Objects.requireNonNull(
+                createInterface(ConfigFileUtil.getNodeAttribute(value, "type"))
+            );
+
+            try {
+                final CtField field = new CtField(fieldType, fname, klass);
+                field.setModifiers(modifiers);
+                CtField.Initializer initializer = null;
+                final String constValue = ConfigFileUtil.getNodeAttribute(value, "constant-value");
+                if (constValue != null) {
+                    initializer = createFieldInitializer(fieldType, constValue, klass.getName() + "." + fname);
+                }
+                klass.addField(field, initializer);
+            } catch (CannotCompileException e) {
+                throw new RuntimeException(klass.getName() + " filed " + fname, e);
+            }
+        }
 	}
 
 	private CtField.Initializer createFieldInitializer(CtClass fieldType, String constValue, String name) {
 		if (APIFilter.javaLangString.equals(fieldType.getName())) {
 			return CtField.Initializer.constant(constValue);
 		} else if (fieldType == CtClass.longType) {
-			return CtField.Initializer.constant(Long.valueOf(constValue).longValue());
+			return CtField.Initializer.constant(Long.parseLong(constValue));
 		} else if (fieldType == CtClass.floatType) {
-			return CtField.Initializer.constant(Float.valueOf(constValue).floatValue());
+			return CtField.Initializer.constant(Float.parseFloat(constValue));
 		} else if (fieldType == CtClass.doubleType) {
-			return CtField.Initializer.constant(Double.valueOf(constValue).doubleValue());
+			return CtField.Initializer.constant(Double.parseDouble(constValue));
 		} else if (fieldType == CtClass.booleanType) {
-			return CtField.Initializer.constant(Boolean.valueOf(constValue).booleanValue());
+			return CtField.Initializer.constant(Boolean.parseBoolean(constValue));
 		} else {
-			return CtField.Initializer.constant(Integer.valueOf(constValue).intValue());
+			return CtField.Initializer.constant(Integer.parseInt(constValue));
 		}
 	}
 }

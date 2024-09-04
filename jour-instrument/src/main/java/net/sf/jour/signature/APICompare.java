@@ -49,7 +49,7 @@ public class APICompare extends APICompareChangeHelper {
 
     private APICompareConfig config;
 
-    static ThreadLocal counters = new ThreadLocal();
+    static ThreadLocal<Long> counters = new ThreadLocal<>();
 
     private List<Object> changesMissing; // can be CtConstructor or CtMember, or CtClass
 
@@ -74,7 +74,7 @@ public class APICompare extends APICompareChangeHelper {
     }
 
     public static List<String> listChanges(String classpath, String signatureFileName, APICompareConfig config, boolean useSystemClassPath, String supportingJars) {
-        counters.set(Long.valueOf(0L));
+        counters.set(0L);
         SignatureImport im = new SignatureImport(useSystemClassPath, supportingJars);
         im.load(signatureFileName);
 
@@ -108,7 +108,7 @@ public class APICompare extends APICompareChangeHelper {
                 continue;
             }
             classesCount++;
-            counters.set(Long.valueOf(classesCount));
+            counters.set((long) classesCount);
             CtClass implClass = null;
             try {
                 implClass = classPool.get(refClass.getName());
@@ -128,7 +128,7 @@ public class APICompare extends APICompareChangeHelper {
     }
 
     public static long getClassesCount() {
-        return ((Long) counters.get()).longValue();
+        return counters.get();
     }
 
     public static void compare(CtClass refClass, CtClass implClass) throws ChangeDetectedException {

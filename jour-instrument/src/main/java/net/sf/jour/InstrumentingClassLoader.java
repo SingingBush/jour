@@ -19,12 +19,12 @@ public class InstrumentingClassLoader extends Loader {
 		super();
 		init(configFileName, path);
 	}
-	
+
 	public InstrumentingClassLoader(String configFileName, String[] path, ClassLoader parent) {
 		super(parent, null);
 		init(configFileName, path);
 	}
-	
+
 	private void init(String configFileName, String[] path) {
 		config = new Config(configFileName);
 		translator = new InstrumentingTranslator(config);
@@ -34,11 +34,9 @@ public class InstrumentingClassLoader extends Loader {
 				pool.appendClassPath(path[i]);
 			}
 			super.addTranslator(pool, translator);
-		} catch (NotFoundException e) {
-			throw new Error(e);
-		} catch (CannotCompileException e) {
+		} catch (NotFoundException | CannotCompileException e) {
 			throw new Error(e);
 		}
-	}
+    }
 
 }

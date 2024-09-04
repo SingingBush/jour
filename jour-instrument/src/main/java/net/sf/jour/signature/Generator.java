@@ -62,15 +62,15 @@ public class Generator {
 
 	private String sources;
 
-	private String packages;
+	private final String packages;
 
 	private String reportFile;
 
 	private String filterLevel;
 
-	private Set<String> packageSet = new HashSet<>();
+	private final Set<String> packageSet = new HashSet<>();
 
-	private List<String> classNames = new Vector<>();
+	private final List<String> classNames = new Vector<>();
 
 	public Generator(Properties properties) {
 		this(properties.getProperty("src"), properties.getProperty("packages"), properties.getProperty("dst"),

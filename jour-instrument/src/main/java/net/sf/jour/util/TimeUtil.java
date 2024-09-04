@@ -52,9 +52,9 @@ public class TimeUtil {
 		if (str.length() != 8) {
 			return -1;
 		}
-		int h = new Integer(str.substring(0, 2)).intValue();
-		int m = new Integer(str.substring(3, 5)).intValue();
-		int s = new Integer(str.substring(6, 8)).intValue();
+		int h = Integer.parseInt(str.substring(0, 2));
+		int m = Integer.parseInt(str.substring(3, 5));
+		int s = Integer.parseInt(str.substring(6, 8));
 		return s + m * 60 + h * 60 * 60;
 	}
 
@@ -62,10 +62,10 @@ public class TimeUtil {
 		if (str.length() != 12) {
 			return string2TimeSec(str);
 		}
-		int h = new Integer(str.substring(0, 2)).intValue();
-		int m = new Integer(str.substring(3, 5)).intValue();
-		int s = new Integer(str.substring(6, 8)).intValue();
-		double ms = new Integer(str.substring(9, 12)).intValue();
+		int h = Integer.parseInt(str.substring(0, 2));
+		int m = Integer.parseInt(str.substring(3, 5));
+		int s = Integer.parseInt(str.substring(6, 8));
+		double ms = Integer.parseInt(str.substring(9, 12));
 		return s + m * 60 + h * 60 * 60 + (ms / 1000.0);
 	}
 
@@ -126,7 +126,7 @@ public class TimeUtil {
 			return calendar.getTime().getTime() + (s - sec);
 		}
 		try {
-            sec = Double.valueOf(str).doubleValue();
+            sec = Double.parseDouble(str);
             if (debug) {
                 log.debug(str + "->" + timeStamp2dateString(sec));
             }
@@ -153,7 +153,7 @@ public class TimeUtil {
 
 	public static Calendar timeStamp2calendar(double timeStamp) {
 	    Calendar calendar = new GregorianCalendar();
-	    calendar.setTime(new Date(new Double(timeStamp).longValue()));
+	    calendar.setTime(new Date(Double.valueOf(timeStamp).longValue()));
 		return calendar;
 	}
 
@@ -190,22 +190,22 @@ public class TimeUtil {
 			addOneSecond = true;
 		}
 
-        for (int i = 0; i < formats.length; i++) {
+        for (final String format : formats) {
             try {
-                SimpleDateFormat aFormat = new SimpleDateFormat(formats[i]);
+                SimpleDateFormat aFormat = new SimpleDateFormat(format);
                 Date dateObj = aFormat.parse(str);
                 if (!str.equals(aFormat.format(dateObj))) {
                     continue;
                 }
                 if (debug) {
                     log.debug("date  :" + str);
-                    log.debug("format:" + formats[i] + " " + aFormat.format(dateObj));
+                    log.debug("format:" + format + " " + aFormat.format(dateObj));
                 }
                 if (addOneSecond) {
                     Calendar calendar = new GregorianCalendar();
                     calendar.setTime(dateObj);
-        			calendar.add(Calendar.SECOND, 1);
-        			return calendar.getTime().getTime();
+                    calendar.add(Calendar.SECOND, 1);
+                    return calendar.getTime().getTime();
                 }
                 return dateObj.getTime();
             } catch (Exception ignore) {

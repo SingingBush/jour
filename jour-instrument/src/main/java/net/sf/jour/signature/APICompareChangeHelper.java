@@ -25,6 +25,7 @@ package net.sf.jour.signature;
 
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.Objects;
 import java.util.Vector;
 
 /**
@@ -43,15 +44,20 @@ class APICompareChangeHelper {
 	        this.modifiers = modifiers;
 	    }
 
-	    public boolean equals(Object obj) {
-            if (obj instanceof ModifiersValue) {
-                return modifiers == ((ModifiersValue) obj).modifiers;
-            } else {
-                return false;
-            }
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof ModifiersValue)) return false;
+            return modifiers == ((ModifiersValue) obj).modifiers;
         }
 
-	    public String toString() {
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(modifiers);
+        }
+
+        @Override
+        public String toString() {
 	        return Modifier.toString(modifiers) + " (" + modifiers + ")";
 	    }
 	}
@@ -91,11 +97,11 @@ class APICompareChangeHelper {
 	}
 
 	public boolean assertEquals(String message, int expected, int actual) {
-		return assertEquals(message, new Integer(expected), new Integer(actual));
+		return assertEquals(message, Integer.valueOf(expected), Integer.valueOf(actual));
 	}
 
 	public boolean assertEquals(String message, boolean expected, boolean actual) {
-		return assertEquals(message, new Boolean(expected), new Boolean(actual));
+		return assertEquals(message, Boolean.valueOf(expected), Boolean.valueOf(actual));
 	}
 
 	public boolean assertEquals(String message, Object expected, Object actual) {

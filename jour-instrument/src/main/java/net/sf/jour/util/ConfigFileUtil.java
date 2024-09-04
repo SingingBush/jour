@@ -68,16 +68,10 @@ public class ConfigFileUtil extends FileUtil {
 	}
 
     public static Document loadDocument(URL location) throws ParserConfigurationException, SAXException, IOException {
-    	InputStream configStream = null;
-    	try {
-    		try {
-    			configStream = location.openStream();
-            } catch (IOException e) {
-            	throw new Error("resource not found " + location);
-    		}
+    	try(final InputStream configStream = location.openStream()) {
     		return loadDocument(configStream);
-		} finally {
-			FileUtil.closeQuietly(configStream);
+		} catch (IOException e) {
+            throw new Error("resource not found " + location);
         }
     }
 
@@ -183,6 +177,6 @@ public class ConfigFileUtil extends FileUtil {
     	if (value == null) {
     		return defaultValue;
     	}
-    	return Boolean.valueOf(value).booleanValue();
+    	return Boolean.parseBoolean(value);
     }
 }

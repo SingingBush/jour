@@ -30,14 +30,14 @@ import net.sf.jour.instrumentor.InstrumentorResults;
 import net.sf.jour.instrumentor.InstrumentorResultsImpl;
 
 /**
- * 
+ *
  * Created on 02.10.2004
- * 
+ *
  * Contributing Author(s):
- * 
- * Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital implementation) 
+ *
+ * Misha Lifschitz <mishalifschitz at users.sourceforge.net> (Inital implementation)
  * Vlad Skarzhevskyy <vlads at users.sourceforge.net> (Inital implementation)
- * 
+ *
  * @author michaellif
  * @version $Revision$ ($Author$) $Date$
  */
@@ -49,13 +49,13 @@ public class Interceptor {
 
 	Instrumentor[] instrumentors;
 
-	private Config config;
+	private final Config config;
 
 	/**
 	 * Flag any modification to class.
 	 */
 	private InstrumentorResults results;
-	
+
 	/**
 	 * Creates a new Interceptor object.
 	 */
@@ -68,7 +68,7 @@ public class Interceptor {
 		this.className = className;
 		this.instrumentors = instrumentors;
 		this.config = config;
-		this.results = InstrumentorResultsImpl.NOT_MODIFIED; 
+		this.results = InstrumentorResultsImpl.NOT_MODIFIED;
 	}
 
 	public byte[] instrument(byte[] bytes) throws InterceptorException {

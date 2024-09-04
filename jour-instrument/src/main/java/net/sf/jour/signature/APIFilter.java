@@ -30,7 +30,7 @@ import javassist.Modifier;
 
 /**
  * @author vlads
- * 
+ *
  */
 public class APIFilter {
 
@@ -109,7 +109,7 @@ public class APIFilter {
 		if (packageSet == null) {
 			return true;
 		}
-		StringBuffer packageName = new StringBuffer();
+		final StringBuilder packageName = new StringBuilder();
 		StringTokenizer st = new StringTokenizer(className, ".");
 		while (st.hasMoreTokens()) {
 			if (packageName.length() > 0) {

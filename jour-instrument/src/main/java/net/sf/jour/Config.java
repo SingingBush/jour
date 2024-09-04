@@ -172,14 +172,10 @@ public class Config {
 	            }
 	            jour.addAspect(aspect);
 			}
-		} catch (ParserConfigurationException e) {
-			throw new ConfigException("Error parsing XML", e);
-		} catch (SAXException e) {
-			throw new ConfigException("Error parsing XML", e);
-		} catch (IOException e) {
+		} catch (ParserConfigurationException | IOException | SAXException e) {
 			throw new ConfigException("Error parsing XML", e);
 		}
-		return jour;
+        return jour;
 	}
 
 	private AspectProperty parsProperty(Node node) {
@@ -208,14 +204,10 @@ public class Config {
 		try {
 			Method method = instrumentor.getClass().getMethod(name, new Class[] {String.class});
 			method.invoke(instrumentor, new Object[] {value});
-		} catch (NoSuchMethodException e) {
-			throw new Error("Can't set property " + name, e);
-		} catch (IllegalAccessException e) {
-			throw new Error("Can't set property " + name, e);
-		} catch (InvocationTargetException e) {
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
 			throw new Error("Can't set property " + name, e);
 		}
-	}
+    }
 
 	public boolean isSetSerialVersionUID() {
 		return isSetSerialVersionUID;
@@ -239,7 +231,7 @@ public class Config {
 	}
 
 	public Instrumentor[] getInstrumentors(final String className) throws InterceptorException {
-		final List<Instrumentor> instrList = new ArrayList();
+		final List<Instrumentor> instrList = new ArrayList<>();
 		final Iterator<ClassFilter> filters = instrumentors.keySet().iterator();
 
 		while (filters.hasNext()) {
@@ -252,7 +244,7 @@ public class Config {
 	}
 
 	public Instrumentor[] getAllInstrumentors() {
-        final List<Instrumentor> instrList = new ArrayList();
+        final List<Instrumentor> instrList = new ArrayList<>();
         final Iterator<ClassFilter> filters = instrumentors.keySet().iterator();
 
 		while (filters.hasNext()) {

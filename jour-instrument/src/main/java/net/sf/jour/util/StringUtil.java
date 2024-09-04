@@ -43,9 +43,8 @@ public class StringUtil {
 	 * @param replacement the String to replace with
 	 * @return the text with any replacements processed
 	 */
-	public static String replaceAll(String str, String replace, String replacement)
-	{
-		StringBuffer sb = new StringBuffer(str);
+	public static String replaceAll(String str, String replace, String replacement) {
+		final StringBuffer sb = new StringBuffer(str);
 		int firstOccurrence = str.indexOf(replace);
 
 		while (firstOccurrence != -1)
@@ -59,17 +58,17 @@ public class StringUtil {
 
     public String[] stringToArray(String str, String delim) {
         StringTokenizer paramStrokenizer = new StringTokenizer(str, delim);
-    
+
         String[] retVal = new String[paramStrokenizer.countTokens()];
         int i = 0;
-    
+
         while (paramStrokenizer.hasMoreTokens()) {
             retVal[i++] = paramStrokenizer.nextToken();
         }
-    
+
         return retVal;
     }
-    
+
     public static String percent(double duration, double durationTotal) {
 		if (durationTotal == 0.0) {
 			return "n/a";
@@ -77,8 +76,8 @@ public class StringUtil {
 		final DecimalFormat format = new DecimalFormat("##0");
 		format.setMinimumIntegerDigits(1);
 		format.setMaximumFractionDigits(0);
-				
-		int prc = (new Double(Math.floor(100 * duration/durationTotal))).intValue();
+
+		int prc = (Double.valueOf(Math.floor(100 * duration/durationTotal))).intValue();
 		return format.format(prc);
 	}
 }

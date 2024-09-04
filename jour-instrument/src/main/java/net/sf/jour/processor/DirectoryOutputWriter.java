@@ -8,23 +8,25 @@ import java.io.OutputStream;
 
 public class DirectoryOutputWriter implements OutputWriter {
 
-	private File dir;
+	private final File dir;
 
 	public DirectoryOutputWriter(File dir) {
 		this.dir = dir;
 	}
 
+	@Override
 	public boolean needUpdate(Entry entry) {
 		// TODO
 		return true;
 	}
 
+	@Override
 	public void write(Entry entry) throws IOException {
 		// if (entry.getOrigin() == entry) {
 		// return;
 		// }
 		String name = entry.getName().replace('/', File.separatorChar);
-		File file = new File(dir.getAbsolutePath() + File.separatorChar + name);
+		File file = new File(this.dir.getAbsolutePath() + File.separatorChar + name);
 		File dir = file.getParentFile();
 		if (!dir.exists()) {
 			dir.mkdirs();
@@ -34,28 +36,20 @@ public class DirectoryOutputWriter implements OutputWriter {
 			return;
 		}
 
-		OutputStream out = null;
-		InputStream in = null;
-		try {
-			out = new FileOutputStream(file);
-			in = entry.getInputStream();
-
-			byte[] b = new byte[256];
+		try (
+			final OutputStream out = new FileOutputStream(file);
+			final InputStream in = entry.getInputStream()
+		) {
+			final byte[] b = new byte[256];
 			int cnt;
 			while ((cnt = in.read(b)) != -1) {
 				out.write(b, 0, cnt);
 			}
 			file.setLastModified(entry.getTime());
-		} finally {
-			if (in != null) {
-				in.close();
-			}
-			if (out != null) {
-				out.close();
-			}
 		}
 	}
 
+	@Override
 	public void close() {
 
 	}

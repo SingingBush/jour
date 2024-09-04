@@ -211,11 +211,11 @@ public class PreProcessor {
 			this.classPool.appendClassPath(this.input.getAbsolutePath());
 
 			if (classpath != null) {
-				for (Iterator<Object> i = classpath.iterator(); i.hasNext();) {
-					String path = (String) i.next();
-					log.debug("classPath " + path);
-					this.classPool.appendPathList(path);
-				}
+                for (Object o : classpath) {
+                    String path = (String) o;
+                    log.debug("classPath " + path);
+                    this.classPool.appendPathList(path);
+                }
 			}
 		} catch (NotFoundException e) {
 			log.error("Can't setup class path", e);

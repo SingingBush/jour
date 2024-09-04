@@ -30,14 +30,14 @@ import net.sf.jour.util.CmdArgs;
 
 /**
  * @author vlads
- * 
+ *
  */
 public class SignatureVerify {
 
 	public static void main(String[] args) {
-		Properties argsp = CmdArgs.load(args);
+		final Properties argsp = CmdArgs.load(args);
 		if ((args.length < 2) || argsp.getProperty("help") != null) {
-			StringBuffer usage = new StringBuffer();
+			final StringBuffer usage = new StringBuffer();
 			usage.append("Usage:\n java ").append(SignatureVerify.class.getName());
 			usage.append(" --src classesDir|classes.jar --signature api-signature.xml\n");
 			usage.append("\t (--packages org.api2;org.api2)\n");

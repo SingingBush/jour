@@ -23,14 +23,12 @@ package net.sf.jour.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,12 +100,13 @@ public class FileUtil {
 
 	public static boolean deleteDir(File dir, boolean delSelf) {
 		if (dir.isDirectory()) {
-			String[] children = dir.list();
-			for (int i = 0; i < children.length; i++) {
-				boolean success = deleteDir(new File(dir, children[i]), true);
-				if (!success)
-					return false;
-			}
+			final String[] children = Objects.requireNonNull(dir.list());
+            for (String child : children) {
+                boolean success = deleteDir(new File(dir, child), true);
+                if (!success) {
+                    return false;
+                }
+            }
 		}
 		if (delSelf) {
 			return dir.delete();
@@ -116,28 +115,9 @@ public class FileUtil {
 		}
 	}
 
-	public static void closeQuietly(InputStream input) {
-        try {
-            if (input != null) {
-                input.close();
-            }
-        } catch (IOException ioe) {
-            // ignore
-        }
-    }
-
-	public static void closeQuietly(OutputStream out) {
-        try {
-            if (out != null) {
-                out.close();
-            }
-        } catch (IOException ioe) {
-            // ignore
-        }
-    }
-
-	public static HashSet readTextFile(File file) {
-		HashSet list = new HashSet();
+    // Nullable
+	public static HashSet<String> readTextFile(File file) {
+		final HashSet<String> list = new HashSet<>();
 		if (!readTextFile(file, list)) {
 			return null;
 		}
@@ -215,14 +195,13 @@ public class FileUtil {
 		}
 	}
 
-	public static class FileListByNameComparator implements Comparator {
+	public static class FileListByNameComparator implements Comparator<File> {
 
 		public FileListByNameComparator() {
 		}
 
-		public int compare(Object o1, Object o2) {
-			File f1 = (File) o1;
-			File f2 = (File) o2;
+        @Override
+        public int compare(File f1, File f2) {
 			// keep folders at the top of the list
 			if (f1.isDirectory() && !f2.isDirectory()) {
 				return -1;
@@ -232,6 +211,6 @@ public class FileUtil {
 
 			return f1.getName().compareTo(f2.getName());
 		}
-	}
+    }
 
 }

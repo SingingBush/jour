@@ -6,12 +6,12 @@ import java.util.Vector;
 
 public abstract class CmdArgs {
 
-	/** 
+	/**
 	 * This is usage examples:
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Properties argsp = CmdArgs.load(args);
+		final Properties argsp = CmdArgs.load(args);
 		if (argsp.getProperty("help") != null) {
 			//help();
 			System.exit(0);
