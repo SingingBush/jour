@@ -153,7 +153,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.exclusions>jour-ant/**,jour-examples/**,src/test/**</sonar.exclusions>
 
-        <junit.version>5.11.3</junit.version>
+        <junit.version>5.11.4</junit.version>
         <slf4j.version>2.0.16</slf4j.version>
         <buildLabel>${project.version}</buildLabel>
     </properties>
