@@ -387,7 +387,7 @@
                 <!-- TODO list -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>taglist-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.1</version>
             </plugin>
             <!--
             <plugin>
