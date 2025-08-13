@@ -18,7 +18,7 @@
     <packaging>maven-plugin</packaging>
 
     <properties>
-        <maven-platform.version>3.9.9</maven-platform.version>
+        <maven-platform.version>3.9.11</maven-platform.version>
         <maven-plugin.version>3.15.1</maven-plugin.version>
     </properties>
 
