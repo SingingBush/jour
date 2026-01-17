@@ -153,7 +153,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.exclusions>jour-ant/**,jour-examples/**,src/test/**</sonar.exclusions>
 
-        <junit.version>5.14.0</junit.version>
+        <junit.version>5.14.2</junit.version>
         <slf4j.version>2.0.17</slf4j.version>
         <buildLabel>${project.version}</buildLabel>
     </properties>
@@ -252,7 +252,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>site-process-version</id>
@@ -356,7 +356,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.27.0</version>
+                <version>3.28.0</version>
                 <configuration>
                     <linkXref>true</linkXref>
                     <minimumTokens>100</minimumTokens>
